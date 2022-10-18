@@ -8,7 +8,6 @@ export const useMyRecorder = (id) => {
   const [recordingStatus, setRecordingStatus] = useState('save');
   const [recorder, setRecorder] = useState(null);
   const [audioData, setAudioData] = useState(null);
-  const [chunks, setChunks] = useState([]);
   const [track, setTrack] = useState('');
   const { user } = useAuth();
 

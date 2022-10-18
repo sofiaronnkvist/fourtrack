@@ -12,15 +12,9 @@ export default function Navbar() {
       {!user ? (
         <div>
           {' '}
-          <Link href='/'>
-            <a>Home</a>
-          </Link>
-          <Link href='/login'>
-            <a>Login</a>
-          </Link>
-          <Link href='/signup'>
-            <a>Signup</a>
-          </Link>
+          <Link href='/'>Home </Link>
+          <Link href='/login'>Login </Link>
+          <Link href='/signup'>Signup </Link>
         </div>
       ) : (
         <div>

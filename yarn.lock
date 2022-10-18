@@ -244,7 +244,7 @@
   "resolved" "https://registry.npmjs.org/@firebase/app-types/-/app-types-0.8.0.tgz"
   "version" "0.8.0"
 
-"@firebase/app@0.8.2", "@firebase/app@0.x":
+"@firebase/app@^0.8.2", "@firebase/app@0.8.2", "@firebase/app@0.x":
   "integrity" "sha512-ByNDCe8h9O/szO3XVTrS484MtqBOKriVaNCQC7Y7KgZSaiA0OOWmIY5vwi63mBTYetqMNN5VGiG/6ZSmGIZyoQ=="
   "resolved" "https://registry.npmjs.org/@firebase/app/-/app-0.8.2.tgz"
   "version" "0.8.2"
@@ -521,7 +521,7 @@
   "resolved" "https://registry.npmjs.org/@firebase/storage-types/-/storage-types-0.6.0.tgz"
   "version" "0.6.0"
 
-"@firebase/storage@0.9.12":
+"@firebase/storage@^0.9.12", "@firebase/storage@0.9.12":
   "integrity" "sha512-XIAmje0ufvRrxrUU/9tvGCuUIy7WSJf3XM8Y8OV9EW2Dg1w4f8IpraLiUdlirdtFM0UAnO2kDQHoiVQYhRrADQ=="
   "resolved" "https://registry.npmjs.org/@firebase/storage/-/storage-0.9.12.tgz"
   "version" "0.9.12"

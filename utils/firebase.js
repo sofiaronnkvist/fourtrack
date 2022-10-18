@@ -12,7 +12,15 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_appId,
 };
 
-const app = initializeApp(firebaseConfig);
+function createFirebaseApp(config) {
+  try {
+    return getApp();
+  } catch {
+    return initializeApp(config);
+  }
+}
+
+const app = createFirebaseApp(firebaseConfig);
 
 const storage = getStorage(app);
 

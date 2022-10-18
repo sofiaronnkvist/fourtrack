@@ -15,8 +15,12 @@ export default function Navbar() {
           <Link href='/'>
             <a>Home</a>
           </Link>
-          <a href='/login'>Login</a>
-          <a href='/signup'>Signup</a>{' '}
+          <Link href='/login'>
+            <a>Login</a>
+          </Link>
+          <Link href='/signup'>
+            <a>Signup</a>
+          </Link>
         </div>
       ) : (
         <div>

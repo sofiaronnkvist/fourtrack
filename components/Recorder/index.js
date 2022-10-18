@@ -68,22 +68,7 @@ export const useMyRecorder = (id) => {
         );
       }
 
-      // let f = new File([e.data], 'test.wav', { lastModified: new Date().getTime(), type: e.data.type });
-
-      // const sendAudioFile = (file) => {
-      //   const formData = new FormData();
-      //   formData.append('audio-file', file);
-      //   return fetch('audioUpload', {
-      //     method: 'POST',
-      //     body: formData,
-      //   });
-      // };
-      // sendAudioFile(e.data);
     };
-
-    // recorder.ondataavailable = function (e) {
-    //   chunks.push(e.data);
-    // };
 
     recorder.addEventListener('dataavailable', handleData);
     return () => recorder.removeEventListener('dataavailable', handleData);

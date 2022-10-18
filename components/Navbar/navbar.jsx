@@ -18,7 +18,7 @@ export default function Navbar() {
         </div>
       ) : (
         <div>
-          <a href='/dashboard'>Dashboard</a>
+          <Link href='/dashboard'>Dashboard </Link>
           <button
             onClick={() => {
               logout();

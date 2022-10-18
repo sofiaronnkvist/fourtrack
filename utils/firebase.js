@@ -1,5 +1,7 @@
-import { initializeApp } from 'firebase/app';
+import { FirebaseError, initializeApp } from 'firebase/app';
 import { getStorage } from 'firebase/storage';
+import { getAuth } from 'firebase/auth'
+
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_apiKey,
@@ -10,8 +12,19 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_appId,
 };
 
-const app = initializeApp(firebaseConfig);
+function createFirebaseApp(config) {
+  try {
+    return getApp();
+  } catch {
+    return initializeApp(config);
+  }
+}
+
+const app = createFirebaseApp(firebaseConfig);
 
 const storage = getStorage(app);
 
-export { storage, app };
+const auth = getAuth()
+
+
+export { storage, app, auth };

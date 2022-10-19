@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../../utils/firebase';
+import { useAuth } from '../../context/AuthContext';
 
 export const useMyRecorder = (id) => {
   const [audioURL, setAudioURL] = useState('');
   const [recordingStatus, setRecordingStatus] = useState('save');
   const [recorder, setRecorder] = useState(null);
   const [audioData, setAudioData] = useState(null);
-  const [chunks, setChunks] = useState([]);
   const [track, setTrack] = useState('');
+  const { user } = useAuth();
 
   useEffect(() => {
     // Lazily obtain recorder first time we're recording.
@@ -41,11 +42,11 @@ export const useMyRecorder = (id) => {
       // console.log(e.data);
       setAudioURL(URL.createObjectURL(blob));
       // sessionStorage.setItem(`audioUrl${id}`, URL.createObjectURL(e.data));
-      uploadFiles(blob);
+      uploadFiles(blob, user.uid);
 
-      function uploadFiles(file) {
+      function uploadFiles(file, userId) {
         if (!file) return;
-        const sotrageRef = ref(storage, `files/${id}/test`);
+        const sotrageRef = ref(storage, `files/${userId}/${id}/test`);
         console.log(sotrageRef);
         const uploadTask = uploadBytesResumable(sotrageRef, file);
         console.log(uploadTask);
@@ -67,7 +68,6 @@ export const useMyRecorder = (id) => {
           }
         );
       }
-
     };
 
     recorder.addEventListener('dataavailable', handleData);

@@ -1,8 +1,10 @@
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 
 const Signup = () => {
-  const { user, signup } = useAuth();
+  const router = useRouter();
+  const { user, signup, signUpWithGoogle } = useAuth();
   console.log(user);
   const [data, setData] = useState({
     email: '',
@@ -15,12 +17,21 @@ const Signup = () => {
     try {
       await signup(data.email, data.password);
       router.push('/dashboard');
-
     } catch (err) {
       console.log(err);
     }
-
     console.log(data);
+  };
+
+  const handleGoogleSignIn = async (e) => {
+    e.preventDefault();
+
+    try {
+      await signUpWithGoogle();
+      router.push('/dashboard');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -61,6 +72,7 @@ const Signup = () => {
         ></input>
         <button type='submit'>Create user</button>
       </form>
+      <button onClick={handleGoogleSignIn}>Sign up with Google</button>
     </div>
   );
 };

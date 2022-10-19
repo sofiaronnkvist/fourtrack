@@ -45,7 +45,7 @@ const Login = () => {
           type='email'
           placeholder='Enter email'
         ></input>
-       <label>password</label>
+        <label>password</label>
         <input
           onChange={(e) =>
             setData({
@@ -60,7 +60,6 @@ const Login = () => {
         ></input>
         <button type='submit'>Log in</button>
       </form>
-
       {/* <Form onSubmit={handleLogin}>
         <Form.Group controlId='formBasicEmail'>
           <Form.Label>Email address</Form.Label>

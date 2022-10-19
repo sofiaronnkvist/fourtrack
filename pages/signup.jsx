@@ -24,8 +24,7 @@ const Signup = () => {
   };
 
   const handleGoogleSignIn = async (e) => {
-    e.preventDefault();
-
+    // e.preventDefault();
     try {
       await signUpWithGoogle();
       router.push('/dashboard');

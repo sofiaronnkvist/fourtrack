@@ -5,8 +5,9 @@ import {
   signInWithEmailAndPassword,
   signInWithRedirect,
   signOut,
+  GoogleAuthProvider,
 } from 'firebase/auth';
-import { auth, googleAuthProvider } from '../utils/firebase';
+import { auth } from '../utils/firebase';
 
 const AuthContext = createContext({});
 
@@ -38,6 +39,8 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const signUpWithGoogle = async () => {
+    const googleAuthProvider = new GoogleAuthProvider();
+
     try {
       await signInWithRedirect(auth, googleAuthProvider);
     } catch (error) {

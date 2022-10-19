@@ -25,6 +25,4 @@ const storage = getStorage(app);
 
 const auth = getAuth();
 
-const googleAuthProvider = new GoogleAuthProvider();
-
-export { storage, app, auth, googleAuthProvider };
+export { storage, app, auth };

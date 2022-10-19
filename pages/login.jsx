@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
   const router = useRouter();
-  const { user, login } = useAuth();
+  const { user, login, signUpWithGoogle } = useAuth();
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -13,13 +13,20 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    //console.log(user);
     try {
       await login(data.email, data.password);
       router.push('/dashboard');
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await signUpWithGoogle();
+      router.push('/dashboard');
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -60,6 +67,7 @@ const Login = () => {
         ></input>
         <button type='submit'>Log in</button>
       </form>
+      <button onClick={handleGoogleSignIn}>Sign in with Google</button>
       {/* <Form onSubmit={handleLogin}>
         <Form.Group controlId='formBasicEmail'>
           <Form.Label>Email address</Form.Label>

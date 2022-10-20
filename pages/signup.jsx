@@ -1,22 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { firestore } from '../utils/firebase';
-import { collection, addDoc } from 'firebase/firestore';
-
-const registerWithEmailAndPassword = async (res) => {
-  try {
-    const user = res.user;
-    await addDoc(collection(firestore, 'users'), {
-      uid: user.uid,
-      authProvider: 'local',
-      email: user.email,
-    });
-  } catch (err) {
-    console.error(err);
-    alert(err.message);
-  }
-};
 
 const Signup = () => {
   const router = useRouter();
@@ -31,8 +15,7 @@ const Signup = () => {
     e.preventDefault();
 
     try {
-      const res = await signup(data.email, data.password);
-      await registerWithEmailAndPassword(res, data.email);
+      await signup(data.email, data.password);
       router.push('/dashboard');
     } catch (err) {
       console.log(err);

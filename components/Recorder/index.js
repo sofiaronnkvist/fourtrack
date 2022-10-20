@@ -47,9 +47,9 @@ export const useMyRecorder = (id) => {
       function uploadFiles(file, userId) {
         if (!file) return;
         const sotrageRef = ref(storage, `files/${userId}/${id}/test`);
-        console.log(sotrageRef);
+        // console.log(sotrageRef);
         const uploadTask = uploadBytesResumable(sotrageRef, file);
-        console.log(uploadTask);
+        // console.log(uploadTask);
 
         uploadTask.on(
           'state_changed',
@@ -62,7 +62,7 @@ export const useMyRecorder = (id) => {
           (error) => console.log(error),
           () => {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-              console.log('File available at', downloadURL);
+              // console.log('File available at', downloadURL);
               setTrack(downloadURL);
             });
           }

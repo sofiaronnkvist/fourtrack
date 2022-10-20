@@ -5,9 +5,9 @@ import {
   signInWithEmailAndPassword,
   signInWithRedirect,
   signOut,
-  GoogleAuthProvider,
 } from 'firebase/auth';
-import { auth } from '../utils/firebase';
+import { query, getDocs, collection, where, addDoc } from 'firebase/firestore';
+import { auth, googleAuthProvider, firestore } from '../utils/firebase';
 
 const AuthContext = createContext({});
 
@@ -23,7 +23,6 @@ export const AuthContextProvider = ({ children }) => {
         setUser({
           uid: user.uid,
           email: user.email,
-          displayName: user.displayName,
         });
       } else {
         setUser(null);
@@ -39,10 +38,22 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const signUpWithGoogle = async () => {
-    const googleAuthProvider = new GoogleAuthProvider();
-
     try {
-      await signInWithRedirect(auth, googleAuthProvider);
+      const res = await signInWithRedirect(auth, googleAuthProvider);
+      const user = res.user;
+      const q = query(
+        collection(firestore, 'users'),
+        where('uid', '==', user.uid)
+      );
+      const docs = await getDocs(q);
+      if (docs.docs.length === 0) {
+        await addDoc(collection(firestore, 'users'), {
+          uid: user.uid,
+          name: user.displayName,
+          authProvider: 'google',
+          email: user.email,
+        });
+      }
     } catch (error) {
       console.log(error);
     }

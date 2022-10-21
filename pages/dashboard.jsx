@@ -2,23 +2,15 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Recorder from '../components/Recorder/Recorder';
 import { useAuth } from '../context/AuthContext';
 import { getFileFromStorage } from '../utils/getFileFromStorage';
-import ReactHowler from 'react-howler';
-import ReactAudioPlayer from 'react-audio-player';
+
 
 const Dashboard = () => {
   const { user } = useAuth();
   const [testArray, setTestArray] = useState([]);
-  const [playing, setPlaying] = useState(false);
-  const [preload, setPreload] = useState(false);
-  const [audio, setAudio] = useState('example.mp3');
 
   useEffect(() => {
     getFileFromStorage(user.uid).then((res) => setTestArray(res));
   }, []);
-
-  const play = () => {
-    setPlaying(true);
-  };
 
   const player1 = new Audio(testArray[0]);
   const player2 = new Audio(testArray[1]);

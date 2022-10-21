@@ -49,7 +49,8 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const signup = (email, password) => {
-    return registerWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email, password);
+    // return registerWithEmailAndPassword(auth, email, password);
   };
 
   const signUpWithGoogle = async () => {

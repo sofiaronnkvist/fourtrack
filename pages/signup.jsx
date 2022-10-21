@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { collection, addDoc } from 'firebase/firestore';
+import { firestore } from '../utils/firebase';
 
 const Signup = () => {
   const router = useRouter();
@@ -15,7 +17,18 @@ const Signup = () => {
     e.preventDefault();
 
     try {
-      await signup(data.email, data.password);
+      const res = await signup(data.email, data.password);
+      if (res) {
+        const usersCollectionRef = collection(firestore, 'users');
+        const newUser = res.user;
+        console.log('Does this happend', newUser);
+        await addDoc(collection(firestore, usersCollectionRef), {
+          uid: newUser.uid,
+          authProvider: 'local',
+          email: newUser.email,
+        });
+        console.log('And this');
+      }
       router.push('/dashboard');
     } catch (err) {
       console.log(err);

@@ -3,16 +3,6 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import dynamic from 'next/dynamic';
 
-import { collection, getDocs } from 'firebase/firestore';
-import { firestore } from '../utils/firebase';
-
-const addUser = async () => {
-  const querySnapshot = await getDocs(collection(firestore, 'users'));
-  querySnapshot.forEach((doc) => {
-    console.log(`${doc.id} => ${doc.data()}`);
-  });
-};
-
 // Rendering component on client not server
 const Recorder = dynamic(() => import('../components/Recorder/Recorder'), {
   ssr: false,
@@ -35,7 +25,6 @@ export default function Home() {
           Get started by editing{' '}
           <code className={styles.code}>pages/index.js</code>
         </p>
-        <button onClick={addUser}>Click here to add user</button>
       </main>
 
       <footer className={styles.footer}>

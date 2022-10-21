@@ -34,7 +34,7 @@ export default function Recorder({ id }) {
     <div>
       <div>
         <Button handleCklick={stop} text='Stop'></Button>
-        <Button handleCklick={start} text='Start'></Button>
+        <Button handleCklick={start} text='Record'></Button>
       </div>
       <div>
         <audio id={id} controls src={track}></audio>

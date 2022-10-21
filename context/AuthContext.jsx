@@ -5,9 +5,9 @@ import {
   signInWithEmailAndPassword,
   signInWithRedirect,
   signOut,
-  GoogleAuthProvider,
 } from 'firebase/auth';
-import { auth } from '../utils/firebase';
+import { query, getDocs, collection, where, addDoc } from 'firebase/firestore';
+import { auth, googleAuthProvider, firestore } from '../utils/firebase';
 
 const AuthContext = createContext({});
 
@@ -23,7 +23,6 @@ export const AuthContextProvider = ({ children }) => {
         setUser({
           uid: user.uid,
           email: user.email,
-          displayName: user.displayName,
         });
       } else {
         setUser(null);
@@ -34,15 +33,42 @@ export const AuthContextProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
+  const registerWithEmailAndPassword = async (auth, email, password) => {
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      const user = res.user;
+      await addDoc(collection(firestore, "users"), {
+        uid: user.uid,
+        authProvider: "local",
+        email: user.email,
+      });
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    }
+  };
+
   const signup = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+    return registerWithEmailAndPassword(auth, email, password);
   };
 
   const signUpWithGoogle = async () => {
-    const googleAuthProvider = new GoogleAuthProvider();
-
     try {
-      await signInWithRedirect(auth, googleAuthProvider);
+      const res = await signInWithRedirect(auth, googleAuthProvider);
+      const user = res.user;
+      const q = query(
+        collection(firestore, 'users'),
+        where('uid', '==', user.uid)
+      );
+      const docs = await getDocs(q);
+      if (docs.docs.length === 0) {
+        await addDoc(collection(firestore, 'users'), {
+          uid: user.uid,
+          name: user.displayName,
+          authProvider: 'google',
+          email: user.email,
+        });
+      }
     } catch (error) {
       console.log(error);
     }

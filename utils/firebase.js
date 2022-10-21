@@ -1,6 +1,7 @@
 import { FirebaseError, initializeApp } from 'firebase/app';
 import { getStorage } from 'firebase/storage';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+import {getFirestore} from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_APIKEY,
@@ -23,6 +24,10 @@ const app = createFirebaseApp(firebaseConfig);
 
 const storage = getStorage(app);
 
+const firestore = getFirestore(app);
+
 const auth = getAuth();
 
-export { storage, app, auth };
+const googleAuthProvider = new GoogleAuthProvider();
+
+export { storage, app, auth, googleAuthProvider, firestore };

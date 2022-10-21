@@ -28,7 +28,6 @@ const Dashboard = () => {
     <div>
       <p>This route is protected</p>
       <p> Well hello {user.email}!</p>
-      <audio src={testArray[0]}></audio>
 
       <button onClick={() => player1.play()}>Play</button>
       <button onClick={() => player1.pause()}>Stop</button>

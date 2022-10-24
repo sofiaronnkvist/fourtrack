@@ -109,13 +109,13 @@ const Dashboard = () => {
       <h3>Recorders</h3>
       <form>
         <label htmlFor=''>track 1</label>
-        <input onChange={handleChange} type='checkbox' value='1'></input>
+        <input onChange={handleChange} type='radio' value='1' name='playId'></input>
         <label htmlFor=''>track 2</label>
-        <input onChange={handleChange} type='checkbox' value='2'></input>
+        <input onChange={handleChange} type='radio' value='2' name='playId'></input>
         <label htmlFor=''>track 3</label>
-        <input onChange={handleChange} type='checkbox' value='3'></input>
+        <input onChange={handleChange} type='radio' value='3' name='playId'></input>
         <label htmlFor=''>track 4</label>
-        <input onChange={handleChange} type='checkbox' value='4'></input>
+        <input onChange={handleChange} type='radio' value='4' name='playId'></input>
       </form>
       <Recorder id={1} ref={ref1}></Recorder>
       <Recorder id={2} ref={ref2}></Recorder>

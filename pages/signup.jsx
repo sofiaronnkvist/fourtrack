@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { collection, addDoc } from 'firebase/firestore';
+import { firestore } from '../utils/firebase';
 
 const Signup = () => {
   const router = useRouter();

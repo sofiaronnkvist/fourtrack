@@ -1,4 +1,4 @@
-export default function Button({handleCklick, text}) {
-    return <button onClick={handleCklick}>{text}</button>;
+export default function Button({handleclick, text}) {
+    return <button onClick={handleclick}>{text}</button>;
   }
   

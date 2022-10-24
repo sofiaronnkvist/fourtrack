@@ -3,14 +3,20 @@ import Recorder from '../components/Recorder/Recorder';
 import { useAuth } from '../context/AuthContext';
 import { getFileFromStorage } from '../utils/getFileFromStorage';
 
-
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../utils/firebase';
+import Project from '../components/Project/Project';
 
 const readUsers = async () => {
   const querySnapshot = await getDocs(collection(firestore, 'users'));
   querySnapshot.forEach((doc) => {
     console.log('Look here at the users', `${doc.id} => ${doc.data()}`);
+  });
+};
+const readProjects = async () => {
+  const querySnapshot = await getDocs(collection(firestore, 'projects'));
+  querySnapshot.forEach((doc) => {
+    console.log('Look here at the projects', `${doc.id} => ${doc.data()}`);
   });
 };
 
@@ -19,9 +25,9 @@ const Dashboard = () => {
   const [testArray, setTestArray] = useState([]);
   const [playId, setPlayId] = useState();
 
-  useEffect(() => {
-    getFileFromStorage(user.uid).then((res) => setTestArray(res));
-  }, []);
+  // useEffect(() => {
+  //   getFileFromStorage(user.uid).then((res) => setTestArray(res));
+  // }, []);
 
   const player1 = new Audio(testArray[0]);
   const player2 = new Audio(testArray[1]);
@@ -89,7 +95,9 @@ const Dashboard = () => {
       <Recorder id={2}></Recorder>
       <Recorder id={3}></Recorder>
       <Recorder id={4}></Recorder>
+      <Project user={user} />
       <button onClick={readUsers}>Click here to see users</button>
+      <button onClick={readProjects}>Click here to see projects</button>
     </div>
   );
 };

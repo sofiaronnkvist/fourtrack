@@ -1,17 +1,24 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { collection, addDoc } from 'firebase/firestore';
-import { firestore } from '../utils/firebase';
 
 const Signup = () => {
   const router = useRouter();
-  const { user, signup, signUpWithGoogle } = useAuth();
+  const { user, signup, signUpWithGoogle, createUserGoogle } = useAuth();
   console.log(user);
   const [data, setData] = useState({
     email: '',
     password: '',
   });
+
+  //TODO: This pushes two users to collection, needs fixing.
+  useEffect(() => {
+    if (user) {
+      console.log('User!!');
+      createUserGoogle(user);
+      router.push('/dashboard');
+    }
+  }, []);
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -26,8 +33,12 @@ const Signup = () => {
   };
 
   const handleGoogleSignIn = async () => {
+    console.log('tryin');
+
     try {
+      console.log('tryin');
       await signUpWithGoogle();
+
       router.push('/dashboard');
     } catch (error) {
       console.log(error);

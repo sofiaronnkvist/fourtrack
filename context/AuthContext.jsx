@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   signInWithRedirect,
   signOut,
+  getRedirectResult,
 } from 'firebase/auth';
 import { query, getDocs, collection, where, addDoc } from 'firebase/firestore';
 import { auth, googleAuthProvider, firestore } from '../utils/firebase';
@@ -54,22 +55,31 @@ export const AuthContextProvider = ({ children }) => {
 
   const signUpWithGoogle = async () => {
     try {
-      const res = await signInWithRedirect(auth, googleAuthProvider);
-      const usersCollectionRef = collection(firestore, 'users');
-      const user = res.user;
-      const q = query(usersCollectionRef, where('uid', '==', user.uid));
-      const docs = await getDocs(q);
-      if (docs.docs.length === 0) {
-        await addDoc(usersCollectionRef, {
-          uid: user.uid,
-          name: user.displayName,
+      await signInWithRedirect(auth, googleAuthProvider);
+      await getRedirectResult(auth).then((res) => {
+        console.log(`res ; ${res}`);
+        const usersCollectionRef = collection(firestore, 'users');
+        const newUser = res.user;
+        console.log(newUser);
+        addDoc(usersCollectionRef, {
+          uid: newUser.uid,
           authProvider: 'google',
-          email: user.email,
+          email: newUser.email,
         });
-      }
+      });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
+  };
+
+  const createUserGoogle = async (user) => {
+    const usersCollectionRef = collection(firestore, 'users');
+    const newUser = user;
+    await addDoc(usersCollectionRef, {
+      uid: newUser.uid,
+      authProvider: 'google',
+      email: newUser.email,
+    });
   };
 
   const login = (email, password) => {
@@ -83,7 +93,14 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, login, signup, logout, signUpWithGoogle }}
+      value={{
+        user,
+        login,
+        signup,
+        logout,
+        signUpWithGoogle,
+        createUserGoogle,
+      }}
     >
       {loading ? null : children}
     </AuthContext.Provider>

@@ -36,34 +36,31 @@ export const AuthContextProvider = ({ children }) => {
   const registerWithEmailAndPassword = async (auth, email, password) => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
-      const user = res.user;
-      await addDoc(collection(firestore, "users"), {
-        uid: user.uid,
-        authProvider: "local",
-        email: user.email,
+      const usersCollectionRef = collection(firestore, 'users');
+      const newUser = res.user;
+      await addDoc(usersCollectionRef, {
+        uid: newUser.uid,
+        authProvider: 'local',
+        email: newUser.email,
       });
-    } catch (err) {
-      console.error(err);
-      alert(err.message);
+    } catch (error) {
+      console.error(error);
     }
   };
 
   const signup = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-    // return registerWithEmailAndPassword(auth, email, password);
+    return registerWithEmailAndPassword(auth, email, password);
   };
 
   const signUpWithGoogle = async () => {
     try {
       const res = await signInWithRedirect(auth, googleAuthProvider);
+      const usersCollectionRef = collection(firestore, 'users');
       const user = res.user;
-      const q = query(
-        collection(firestore, 'users'),
-        where('uid', '==', user.uid)
-      );
+      const q = query(usersCollectionRef, where('uid', '==', user.uid));
       const docs = await getDocs(q);
       if (docs.docs.length === 0) {
-        await addDoc(collection(firestore, 'users'), {
+        await addDoc(usersCollectionRef, {
           uid: user.uid,
           name: user.displayName,
           authProvider: 'google',

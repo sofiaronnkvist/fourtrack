@@ -17,18 +17,7 @@ const Signup = () => {
     e.preventDefault();
 
     try {
-      const res = await signup(data.email, data.password);
-      if (res) {
-        const usersCollectionRef = collection(firestore, 'users');
-        const newUser = res.user;
-        console.log('Does this happend', newUser);
-        await addDoc(collection(firestore, usersCollectionRef), {
-          uid: newUser.uid,
-          authProvider: 'local',
-          email: newUser.email,
-        });
-        console.log('And this');
-      }
+      await signup(data.email, data.password);
       router.push('/dashboard');
     } catch (err) {
       console.log(err);

@@ -3,11 +3,6 @@ import Button from '../Button/Button';
 import { forwardRef, useImperativeHandle } from 'react';
 
 const Recorder = (props, ref) => {
-  // Code to load component in client. To be added to index.js or where the component is used.
-  // const Recorder = dynamic(() => import('./components/ownRecorder'), {
-  //     ssr: false,
-  //   });
-
   const {
     // audioURL,
     // audioData, // you can use this for send audio to server
@@ -18,9 +13,6 @@ const Recorder = (props, ref) => {
     saveRecordedAudio,
     startRecording,
   } = useMyRecorder(props.id);
-
-  // useEffect(() => {}, []);
-  // ref.current = start;
 
   const stop = () => {
     console.log('Stoppad');

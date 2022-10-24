@@ -1,11 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Recorder from '../components/Recorder/Recorder';
 import { useAuth } from '../context/AuthContext';
 import { getFileFromStorage } from '../utils/getFileFromStorage';
-
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../utils/firebase';
-import { ref } from '@firebase/storage';
 
 const readUsers = async () => {
   const querySnapshot = await getDocs(collection(firestore, 'users'));
@@ -58,33 +56,40 @@ const Dashboard = () => {
   };
 
   const handleChange = (event) => {
-    console.log(`event.target: ${event.target.value}`);
     if (playId == event.target.value) {
-      console.log(`in if: ${playId}`);
-
       setPlayId('');
     } else {
       setPlayId(event.target.value);
-      console.log(`in else: ${playId}`);
     }
   };
-  console.log(`outside play Id: ${playId}`);
 
   const record = (recId) => {
     if (recId == 1) {
       console.log('recId 1');
+      player2.play()
+      player3.play()
+      player4.play()
       ref1.current.start1();
     }
     if (recId == 2) {
       console.log('recId 2');
+      player1.play()
+      player3.play()
+      player4.play()
       ref2.current.start2();
     }
     if (recId == 3) {
       console.log('recId 3');
+      player1.play()
+      player2.play()
+      player4.play()
       ref3.current.start3();
     }
     if (recId == 4) {
       console.log('recId 4');
+      player1.play()
+      player2.play()
+      player3.play()
       ref4.current.start4();
     }
   };

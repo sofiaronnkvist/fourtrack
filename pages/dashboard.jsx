@@ -45,14 +45,12 @@ const Dashboard = () => {
   const handleChange = (event) => {
     console.log(`event.target: ${event.target.value}`);
     if (playId == event.target.value) {
-      console.log('in if');
       setPlayId('');
-      return;
+    } else {
+      setPlayId(event.target.value);
     }
-    setPlayId(event.target.value);
-    console.log(`play id after if: ${playId}`);
   };
-  console.log(`PlayId outside func: ${playId}`);
+
   return (
     <div>
       <p>This route is protected</p>
@@ -73,6 +71,8 @@ const Dashboard = () => {
       <form>
         <input onChange={handleChange} type='checkbox' value='1'></input>
         <input onChange={handleChange} type='checkbox' value='2'></input>
+        <input onChange={handleChange} type='checkbox' value='3'></input>
+        <input onChange={handleChange} type='checkbox' value='4'></input>
       </form>
       <Recorder id={1}></Recorder>
       <Recorder id={2}></Recorder>

@@ -3,6 +3,17 @@ import Recorder from '../components/Recorder/Recorder';
 import { useAuth } from '../context/AuthContext';
 import { getFileFromStorage } from '../utils/getFileFromStorage';
 
+
+import { collection, getDocs } from 'firebase/firestore';
+import { firestore } from '../utils/firebase';
+
+const readUsers = async () => {
+  const querySnapshot = await getDocs(collection(firestore, 'users'));
+  querySnapshot.forEach((doc) => {
+    console.log('Look here at the users', `${doc.id} => ${doc.data()}`);
+  });
+};
+
 const Dashboard = () => {
   const { user } = useAuth();
   const [testArray, setTestArray] = useState([]);
@@ -78,6 +89,7 @@ const Dashboard = () => {
       <Recorder id={2}></Recorder>
       <Recorder id={3}></Recorder>
       <Recorder id={4}></Recorder>
+      <button onClick={readUsers}>Click here to see users</button>
     </div>
   );
 };

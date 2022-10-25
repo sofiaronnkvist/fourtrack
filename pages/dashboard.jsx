@@ -3,7 +3,7 @@ import Recorder from '../components/Recorder/Recorder';
 import { useAuth } from '../context/AuthContext';
 import { getFileFromStorage } from '../utils/getFileFromStorage';
 
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { firestore } from '../utils/firebase';
 import Project from '../components/Project/Project';
 
@@ -14,39 +14,33 @@ const readUsers = async () => {
   });
 };
 
-const getProjects = async (data, func) => {
-  const querySnapshot = await getDocs(collection(firestore, 'projects'));
-  let projectsArray = [];
-  querySnapshot.forEach((doc) => {
-    let jsonDoc = postToJSON(doc);
-    projectsArray.push(jsonDoc);
-  });
-  func(projectsArray);
-  return data;
-};
-
-export function postToJSON(document) {
-  const data = document.data();
-  return {
-    ...data,
-  };
-}
-
 const Dashboard = () => {
   const { user } = useAuth();
   const [testArray, setTestArray] = useState([]);
   const [playId, setPlayId] = useState();
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState();
   let ref1 = useRef(null);
   let ref2 = useRef(null);
   let ref3 = useRef(null);
   let ref4 = useRef(null);
 
-  getProjects(projects, setProjects);
+  const getProjects = () => {
+    const ref = collection(firestore, 'projects');
+    const projectsQuery = query(ref, where('uid', '==', user.uid));
+    getDocs(projectsQuery).then((data) => {
+      setProjects(
+        data.docs.map((item) => {
+          return { ...item.data(), id: item.id };
+        })
+      );
+    });
+  };
 
-  //TODO: Fix the infinite loop of projects...
+  useEffect(() => {
+    getProjects();
+  });
+
   // console.log(projects);
-
   // useEffect(() => {
   //   getFileFromStorage(user.uid).then((res) => setTestArray(res));
   // }, []);
@@ -126,9 +120,9 @@ const Dashboard = () => {
       <p> Well hello {user.email}!</p>
       <ul>
         {projects &&
-          projects.map((project) => (
-            <li key={project.title}>{project.title}</li>
-          ))}
+          projects.map((project) => {
+            return <li key={project.title}>{project.title}</li>;
+          })}
       </ul>
       <button onClick={() => player1.play()}>Play</button>
       <button onClick={() => player1.pause()}>Stop</button>

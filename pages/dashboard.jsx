@@ -18,7 +18,7 @@ const Dashboard = () => {
   const { user } = useAuth();
   const [trackArray, setTrackArray] = useState([]);
   const [playId, setPlayId] = useState();
-  const [projects, setProjects] = useState();
+  const [projects, setProjects] = useState([]);
   const [childTrack, setChildTrack] = useState(1);
   let ref1 = useRef(null);
   let ref2 = useRef(null);
@@ -36,10 +36,11 @@ const Dashboard = () => {
       );
     });
   };
-
-  useEffect(() => {
-    getProjects();
-  });
+  // TODO: Can this be put in a getServerSideProps instead?
+  // useEffect(() => {
+  //   const thedata = getProjects();
+  //   console.log('HÄÄÄÄR', thedata);
+  // });
 
   useEffect(() => {
     getFileFromStorage(user.uid).then((res) => setTrackArray(res));

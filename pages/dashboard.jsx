@@ -13,21 +13,39 @@ const readUsers = async () => {
     console.log('Look here at the users', `${doc.id} => ${doc.data()}`);
   });
 };
-const readProjects = async () => {
+
+const getProjects = async (data, func) => {
   const querySnapshot = await getDocs(collection(firestore, 'projects'));
+  let projectsArray = [];
   querySnapshot.forEach((doc) => {
-    console.log('Look here at the projects', `${doc.id} => ${doc.data()}`);
+    let jsonDoc = postToJSON(doc);
+    projectsArray.push(jsonDoc);
   });
+  func(projectsArray);
+  return data;
 };
+
+export function postToJSON(document) {
+  const data = document.data();
+  return {
+    ...data,
+  };
+}
 
 const Dashboard = () => {
   const { user } = useAuth();
   const [testArray, setTestArray] = useState([]);
   const [playId, setPlayId] = useState();
+  const [projects, setProjects] = useState([]);
   let ref1 = useRef(null);
   let ref2 = useRef(null);
   let ref3 = useRef(null);
   let ref4 = useRef(null);
+
+  getProjects(projects, setProjects);
+
+  //TODO: Fix the infinite loop of projects...
+  // console.log(projects);
 
   // useEffect(() => {
   //   getFileFromStorage(user.uid).then((res) => setTestArray(res));
@@ -74,30 +92,30 @@ const Dashboard = () => {
   const record = (recId) => {
     if (recId == 1) {
       console.log('recId 1');
-      player2.play()
-      player3.play()
-      player4.play()
+      player2.play();
+      player3.play();
+      player4.play();
       ref1.current.start1();
     }
     if (recId == 2) {
       console.log('recId 2');
-      player1.play()
-      player3.play()
-      player4.play()
+      player1.play();
+      player3.play();
+      player4.play();
       ref2.current.start2();
     }
     if (recId == 3) {
       console.log('recId 3');
-      player1.play()
-      player2.play()
-      player4.play()
+      player1.play();
+      player2.play();
+      player4.play();
       ref3.current.start3();
     }
     if (recId == 4) {
       console.log('recId 4');
-      player1.play()
-      player2.play()
-      player3.play()
+      player1.play();
+      player2.play();
+      player3.play();
       ref4.current.start4();
     }
   };
@@ -106,7 +124,12 @@ const Dashboard = () => {
     <div>
       <p>This route is protected</p>
       <p> Well hello {user.email}!</p>
-
+      <ul>
+        {projects &&
+          projects.map((project) => (
+            <li key={project.title}>{project.title}</li>
+          ))}
+      </ul>
       <button onClick={() => player1.play()}>Play</button>
       <button onClick={() => player1.pause()}>Stop</button>
       <button onClick={() => player2.play()}>Play2</button>
@@ -122,13 +145,33 @@ const Dashboard = () => {
       <h3>Recorders</h3>
       <form>
         <label htmlFor=''>track 1</label>
-        <input onChange={handleChange} type='radio' value='1' name='playId'></input>
+        <input
+          onChange={handleChange}
+          type='radio'
+          value='1'
+          name='playId'
+        ></input>
         <label htmlFor=''>track 2</label>
-        <input onChange={handleChange} type='radio' value='2' name='playId'></input>
+        <input
+          onChange={handleChange}
+          type='radio'
+          value='2'
+          name='playId'
+        ></input>
         <label htmlFor=''>track 3</label>
-        <input onChange={handleChange} type='radio' value='3' name='playId'></input>
+        <input
+          onChange={handleChange}
+          type='radio'
+          value='3'
+          name='playId'
+        ></input>
         <label htmlFor=''>track 4</label>
-        <input onChange={handleChange} type='radio' value='4' name='playId'></input>
+        <input
+          onChange={handleChange}
+          type='radio'
+          value='4'
+          name='playId'
+        ></input>
       </form>
       <Recorder id={1} ref={ref1}></Recorder>
       <Recorder id={2} ref={ref2}></Recorder>
@@ -136,7 +179,7 @@ const Dashboard = () => {
       <Recorder id={4} ref={ref4}></Recorder>
       <Project user={user} />
       <button onClick={readUsers}>Click here to see users</button>
-      <button onClick={readProjects}>Click here to see projects</button>
+      {/* <button onClick={readProjects}>Click here to see projects</button> */}
     </div>
   );
 };

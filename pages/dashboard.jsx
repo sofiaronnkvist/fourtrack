@@ -24,7 +24,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     getFileFromStorage(user.uid).then((res) => setTrackArray(res));
-    console.log(childTrack);
   }, [childTrack, user.uid]);
 
   const player1 = new Audio(trackArray[0]);
@@ -141,7 +140,6 @@ const Dashboard = () => {
       player4.pause();
     }
   };
-  // console.log(`childTrack: ${childTrack}`);
 
   return (
     <div>

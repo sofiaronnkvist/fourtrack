@@ -8,20 +8,16 @@ const Recorder = (props, ref) => {
     // audioData, // you can use this for send audio to server
     timer,
     track,
-    // recordingStatus,
-    // cancleRecording,
     saveRecordedAudio,
     startRecording,
   } = useMyRecorder(props.id);
 
-  const stop = () => {
-    console.log('Stoppad');
-    saveRecordedAudio();
-  };
+  // props.changeTrack(track);
 
-  const hello = () => {
-    console.log('hello');
-  };
+  // const stop = () => {
+  //   saveRecordedAudio();
+  // };
+
   useImperativeHandle(ref, () => ({
     start1() {
       startRecording();
@@ -35,6 +31,18 @@ const Recorder = (props, ref) => {
     start4() {
       startRecording();
     },
+    stop1() {
+      saveRecordedAudio();
+    },
+    stop2() {
+      saveRecordedAudio();
+    },
+    stop3() {
+      saveRecordedAudio();
+    },
+    stop4() {
+      saveRecordedAudio();
+    },
   }));
   // const start = () => {
   //   console.log('Startad');
@@ -43,17 +51,18 @@ const Recorder = (props, ref) => {
   //   }, 0);
 
   // };
-
+  // console.log(audioURL);
   return (
     <div>
       <div>
-        <Button handleclick={stop} text='Stop'></Button>
+        {/* <Button handleclick={stop} text='Stop'></Button> */}
         {/* <Button handleclick={start} text='Record'></Button> */}
+        {/* <button onClick={() => props.setChildTrack(audioURL)}>setTrack</button> */}
       </div>
       <div>
+        <span>{timer}</span>
         <audio id={props.id} controls src={track}></audio>
       </div>
-      <h1>{timer}</h1>
     </div>
   );
 };

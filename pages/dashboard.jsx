@@ -16,9 +16,10 @@ const readUsers = async () => {
 
 const Dashboard = () => {
   const { user } = useAuth();
-  const [testArray, setTestArray] = useState([]);
+  const [trackArray, setTrackArray] = useState([]);
   const [playId, setPlayId] = useState();
   const [projects, setProjects] = useState();
+  const [childTrack, setChildTrack] = useState(1);
   let ref1 = useRef(null);
   let ref2 = useRef(null);
   let ref3 = useRef(null);
@@ -40,15 +41,14 @@ const Dashboard = () => {
     getProjects();
   });
 
-  // console.log(projects);
-  // useEffect(() => {
-  //   getFileFromStorage(user.uid).then((res) => setTestArray(res));
-  // }, []);
+  useEffect(() => {
+    getFileFromStorage(user.uid).then((res) => setTrackArray(res));
+  }, [childTrack, user.uid]);
 
-  const player1 = new Audio(testArray[0]);
-  const player2 = new Audio(testArray[1]);
-  const player3 = new Audio(testArray[2]);
-  const player4 = new Audio(testArray[3]);
+  const player1 = new Audio(trackArray[0]);
+  const player2 = new Audio(trackArray[1]);
+  const player3 = new Audio(trackArray[2]);
+  const player4 = new Audio(trackArray[3]);
 
   const playAll = () => {
     player1.play();
@@ -72,6 +72,11 @@ const Dashboard = () => {
     if (id == 4) {
       player4.play();
       return;
+    } else {
+      player1.play();
+      player2.play();
+      player3.play();
+      player4.play();
     }
   };
 
@@ -114,6 +119,47 @@ const Dashboard = () => {
     }
   };
 
+  const stop = (recId) => {
+    console.log(`in stop(), recId: ${recId}`);
+    if (recId == 1) {
+      console.log('stop recId 1');
+      player2.pause();
+      player3.pause();
+      player4.pause();
+      ref1.current.stop1();
+      setChildTrack((prev) => prev + 1);
+    }
+    if (recId == 2) {
+      console.log('recId 2');
+      player1.pause();
+      player3.pause();
+      player4.pause();
+      ref2.current.stop2();
+      setChildTrack((prev) => prev + 1);
+    }
+    if (recId == 3) {
+      console.log('recId 3');
+      player1.pause();
+      player2.pause();
+      player4.pause();
+      ref3.current.stop3();
+      setChildTrack((prev) => prev + 1);
+    }
+    if (recId == 4) {
+      console.log('recId 4');
+      player1.pause();
+      player2.pause();
+      player3.pause();
+      ref4.current.stop4();
+      setChildTrack((prev) => prev + 1);
+    } else {
+      player1.pause();
+      player2.pause();
+      player3.pause();
+      player4.pause();
+    }
+  };
+
   return (
     <div>
       <p>This route is protected</p>
@@ -124,17 +170,10 @@ const Dashboard = () => {
             return <li key={project.title}>{project.title}</li>;
           })}
       </ul>
-      <button onClick={() => player1.play()}>Play</button>
-      <button onClick={() => player1.pause()}>Stop</button>
-      <button onClick={() => player2.play()}>Play2</button>
-      <button onClick={() => player2.pause()}>Stop2</button>
-      <button onClick={() => player3.play()}>Play3</button>
-      <button onClick={() => player3.pause()}>Stop3</button>
-      <button onClick={() => player4.play()}>Play4</button>
-      <button onClick={() => player4.pause()}>Stop4</button>
-      <button onClick={() => playAll()}>play all</button>
-      <button onClick={() => playChecked(playId)}>play checked</button>
-      <button onClick={() => record(playId)}>Record</button>
+
+      <button onClick={() => stop(playId)}>STOP</button>
+      <button onClick={() => playChecked(playId)}>PLAY</button>
+      <button onClick={() => record(playId)}>REC</button>
 
       <h3>Recorders</h3>
       <form>
@@ -173,7 +212,6 @@ const Dashboard = () => {
       <Recorder id={4} ref={ref4}></Recorder>
       <Project user={user} />
       <button onClick={readUsers}>Click here to see users</button>
-      {/* <button onClick={readProjects}>Click here to see projects</button> */}
     </div>
   );
 };

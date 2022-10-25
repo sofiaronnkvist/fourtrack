@@ -16,6 +16,7 @@ const Dashboard = () => {
   const { user } = useAuth();
   const [trackArray, setTrackArray] = useState([]);
   const [playId, setPlayId] = useState();
+  const [childTrack, setChildTrack] = useState(1);
   let ref1 = useRef(null);
   let ref2 = useRef(null);
   let ref3 = useRef(null);
@@ -23,7 +24,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     getFileFromStorage(user.uid).then((res) => setTrackArray(res));
-  }, []);
+  }, [childTrack, user.uid]);
 
   const player1 = new Audio(trackArray[0]);
   const player2 = new Audio(trackArray[1]);
@@ -107,6 +108,7 @@ const Dashboard = () => {
       player3.pause();
       player4.pause();
       ref1.current.stop1();
+      setChildTrack((prev) => prev + 1);
     }
     if (recId == 2) {
       console.log('recId 2');
@@ -114,6 +116,7 @@ const Dashboard = () => {
       player3.pause();
       player4.pause();
       ref2.current.stop2();
+      setChildTrack((prev) => prev + 1);
     }
     if (recId == 3) {
       console.log('recId 3');
@@ -121,6 +124,7 @@ const Dashboard = () => {
       player2.pause();
       player4.pause();
       ref3.current.stop3();
+      setChildTrack((prev) => prev + 1);
     }
     if (recId == 4) {
       console.log('recId 4');
@@ -128,6 +132,7 @@ const Dashboard = () => {
       player2.pause();
       player3.pause();
       ref4.current.stop4();
+      setChildTrack((prev) => prev + 1);
     } else {
       player1.pause();
       player2.pause();

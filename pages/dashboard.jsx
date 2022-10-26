@@ -62,12 +62,6 @@ const Dashboard = () => {
   const player3 = new Audio(trackArray[2]);
   const player4 = new Audio(trackArray[3]);
 
-  // const playAll = () => {
-  //   player1.play();
-  //   player2.play();
-  //   player3.play();
-  //   player4.play();
-  // };
   const playChecked = (id) => {
     if (id == 1) {
       player1.play();
@@ -92,7 +86,6 @@ const Dashboard = () => {
       player3.play();
       player4.play();
       SetIsPlaying(true);
-
     }
   };
 
@@ -145,7 +138,6 @@ const Dashboard = () => {
       ref1.current.stop1();
       setChildTrack((prev) => prev + 1);
       setChildTrack(false);
-
       window.location.reload(false);
     }
     if (recId == 2) {
@@ -206,6 +198,24 @@ const Dashboard = () => {
         <AudioVisualizer
           ref={waveRef}
           src={trackArray[1]}
+          playingTest={isPlaying}
+        ></AudioVisualizer>
+      ) : (
+        <div></div>
+      )}
+      {trackArray[2] ? (
+        <AudioVisualizer
+          ref={waveRef}
+          src={trackArray[2]}
+          playingTest={isPlaying}
+        ></AudioVisualizer>
+      ) : (
+        <div></div>
+      )}
+      {trackArray[3] ? (
+        <AudioVisualizer
+          ref={waveRef}
+          src={trackArray[3]}
           playingTest={isPlaying}
         ></AudioVisualizer>
       ) : (

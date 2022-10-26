@@ -20,8 +20,8 @@ const AudioVisualizer = (props, ref) => {
     const waveSurfer = WaveSurfer.create({
       container: containerRef.current,
       responsive: true,
-      barWidth: 4,
-      barHeight: 1,
+      barWidth: 2,
+      barHeight: 0.5,
       cursorWidth: 0,
       progressColor: 'yellow',
     });

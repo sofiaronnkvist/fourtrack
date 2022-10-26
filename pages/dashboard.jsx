@@ -52,12 +52,12 @@ const Dashboard = () => {
   const player3 = new Audio(trackArray[2]);
   const player4 = new Audio(trackArray[3]);
 
-  const playAll = () => {
-    player1.play();
-    player2.play();
-    player3.play();
-    player4.play();
-  };
+  // const playAll = () => {
+  //   player1.play();
+  //   player2.play();
+  //   player3.play();
+  //   player4.play();
+  // };
   const playChecked = (id) => {
     if (id == 1) {
       player1.play();
@@ -130,6 +130,7 @@ const Dashboard = () => {
       player4.pause();
       ref1.current.stop1();
       setChildTrack((prev) => prev + 1);
+      window.location.reload(false);
     }
     if (recId == 2) {
       console.log('recId 2');
@@ -138,6 +139,7 @@ const Dashboard = () => {
       player4.pause();
       ref2.current.stop2();
       setChildTrack((prev) => prev + 1);
+      window.location.reload(false);
     }
     if (recId == 3) {
       console.log('recId 3');
@@ -146,6 +148,7 @@ const Dashboard = () => {
       player4.pause();
       ref3.current.stop3();
       setChildTrack((prev) => prev + 1);
+      window.location.reload(false);
     }
     if (recId == 4) {
       console.log('recId 4');
@@ -154,6 +157,7 @@ const Dashboard = () => {
       player3.pause();
       ref4.current.stop4();
       setChildTrack((prev) => prev + 1);
+      window.location.reload(false);
     } else {
       player1.pause();
       player2.pause();

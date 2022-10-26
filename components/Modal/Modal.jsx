@@ -64,6 +64,30 @@ const StyledTitle = styled.h1`
   font-family: Arial, Helvetica, sans-serif;
 `;
 
+const PrivacyText = styled.p`
+  color: grey;
+  font-size: 12;
+  font-family: Arial, Helvetica, sans-serif;
+`;
+
+const LoginTexts = styled.p`
+  color: black;
+  font-size: 16;
+  font-family: Arial, Helvetica, sans-serif;
+`;
+
+const CreateAccountTexts = styled.p`
+  color: black;
+  font-size: 16;
+  font-family: Arial, Helvetica, sans-serif;
+`;
+
+const ForgotPassword = styled.p`
+  color: blue;
+  font-size: 16;
+  font-family: Arial, Helvetica, sans-serif;
+`;
+
 function Content({ children, ...props }) {
   return (
     <DialogPrimitive.Portal>
@@ -176,6 +200,19 @@ export default function Modal(props) {
           ></input>
           <button type='submit'>{props.buttonTitle}</button>
         </form>
+        {checkForm() ? (
+          <>
+            <ForgotPassword>I forgot my password</ForgotPassword>
+            <CreateAccountTexts>
+              No account? Create an account
+            </CreateAccountTexts>
+          </>
+        ) : (
+          <LoginTexts>Already have an account? Log in</LoginTexts>
+        )}
+        <PrivacyText>
+          By clicking create account I agree to Fortracks awesome privacy policy
+        </PrivacyText>
         <DialogClose asChild>
           <CloseButton>X</CloseButton>
         </DialogClose>

@@ -2,8 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import Recorder from '../components/Recorder/Recorder';
 import { useAuth } from '../context/AuthContext';
 import { getFileFromStorage } from '../utils/getFileFromStorage';
-import { collection, getDocs } from 'firebase/firestore';
+
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { firestore } from '../utils/firebase';
+import Project from '../components/Project/Project';
 
 const readUsers = async () => {
   const querySnapshot = await getDocs(collection(firestore, 'users'));
@@ -16,16 +18,34 @@ const Dashboard = () => {
   const { user } = useAuth();
   const [trackArray, setTrackArray] = useState([]);
   const [playId, setPlayId] = useState();
+  const [projects, setProjects] = useState([]);
   const [childTrack, setChildTrack] = useState(1);
   let ref1 = useRef(null);
   let ref2 = useRef(null);
   let ref3 = useRef(null);
   let ref4 = useRef(null);
 
+  const getProjects = () => {
+    const ref = collection(firestore, 'projects');
+    const projectsQuery = query(ref, where('uid', '==', user.uid));
+    getDocs(projectsQuery).then((data) => {
+      setProjects(
+        data.docs.map((item) => {
+          return { ...item.data(), id: item.id };
+        })
+      );
+    });
+  };
+  
+  // TODO: Can this be put in a getServerSideProps instead?
+  useEffect(() => {
+    const thedata = getProjects();
+    console.log('HÄÄÄÄR', thedata);
+  }, []);
+
   useEffect(() => {
     getFileFromStorage(user.uid).then((res) => setTrackArray(res));
-    // console.log(trackArray);
-  }, [childTrack, user.uid]);
+  }, [childTrack]);
 
   const player1 = new Audio(trackArray[0]);
   const player2 = new Audio(trackArray[1]);
@@ -150,6 +170,12 @@ const Dashboard = () => {
     <div>
       <p>This route is protected</p>
       <p> Well hello {user.email}!</p>
+      <ul>
+        {projects &&
+          projects.map((project) => {
+            return <li key={project.title}>{project.title}</li>;
+          })}
+      </ul>
 
       <button onClick={() => stop(playId)}>STOP</button>
       <button onClick={() => playChecked(playId)}>PLAY</button>
@@ -190,6 +216,7 @@ const Dashboard = () => {
       <Recorder id={2} ref={ref2}></Recorder>
       <Recorder id={3} ref={ref3}></Recorder>
       <Recorder id={4} ref={ref4}></Recorder>
+      <Project user={user} />
       <button onClick={readUsers}>Click here to see users</button>
     </div>
   );

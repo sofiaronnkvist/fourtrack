@@ -36,15 +36,16 @@ const Dashboard = () => {
       );
     });
   };
+  
   // TODO: Can this be put in a getServerSideProps instead?
-  // useEffect(() => {
-  //   const thedata = getProjects();
-  //   console.log('HÄÄÄÄR', thedata);
-  // });
+  useEffect(() => {
+    const thedata = getProjects();
+    console.log('HÄÄÄÄR', thedata);
+  }, []);
 
   useEffect(() => {
     getFileFromStorage(user.uid).then((res) => setTrackArray(res));
-  }, [childTrack, user.uid]);
+  }, [childTrack]);
 
   const player1 = new Audio(trackArray[0]);
   const player2 = new Audio(trackArray[1]);

@@ -1,6 +1,6 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../context/AuthContext';
 
@@ -64,12 +64,6 @@ const StyledTitle = styled.h1`
   font-family: Arial, Helvetica, sans-serif;
 `;
 
-const StyledDescription = styled.p`
-  color: black;
-  font-size: 16;
-  font-family: Arial, Helvetica, sans-serif;
-`;
-
 function Content({ children, ...props }) {
   return (
     <DialogPrimitive.Portal>
@@ -83,17 +77,25 @@ export const Dialog = DialogPrimitive.Root;
 export const DialogTrigger = DialogPrimitive.Trigger;
 export const DialogContent = Content;
 export const DialogTitle = StyledTitle;
-export const DialogDescription = StyledDescription;
 export const DialogClose = DialogPrimitive.Close;
 
-export default function Modal() {
+export default function Modal(props) {
   const [open, setOpen] = React.useState(false);
   const router = useRouter();
-  const { user, login, signUpWithGoogle } = useAuth();
+  const { user, login, signUpWithGoogle, signup, createUserGoogle } = useAuth();
   const [data, setData] = useState({
     email: '',
     password: '',
   });
+
+  //TODO: This pushes two users to collection, needs fixing.
+  useEffect(() => {
+    if (user) {
+      console.log('User!!');
+      createUserGoogle(user);
+      router.push('/dashboard');
+    }
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -105,6 +107,18 @@ export default function Modal() {
     }
   };
 
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
+    try {
+      await signup(data.email, data.password);
+      router.push('/dashboard');
+    } catch (err) {
+      console.log(err);
+    }
+    console.log(data);
+  };
+
   const handleGoogleSignIn = async () => {
     try {
       await signUpWithGoogle();
@@ -114,18 +128,26 @@ export default function Modal() {
     }
   };
 
+  const checkForm = () => {
+    if (props.buttonTitle == 'Login') {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <NavButton>Login</NavButton>
+        <NavButton>{props.buttonTitle}</NavButton>
       </DialogTrigger>
       <DialogContent>
-        <DialogTitle>Login</DialogTitle>
+        <DialogTitle>{props.buttonTitle}</DialogTitle>
         <GoogleButton onClick={handleGoogleSignIn}>
           Continue with Google
         </GoogleButton>
         <Divider>or</Divider>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={checkForm() ? handleLogin : handleSignup}>
           <label>email</label>
           <input
             onChange={(e) =>
@@ -152,9 +174,8 @@ export default function Modal() {
             type='password'
             placeholder='Enter password'
           ></input>
-          <button type='submit'>Log in</button>
+          <button type='submit'>{props.buttonTitle}</button>
         </form>
-        <DialogDescription>Det här är en modal</DialogDescription>
         <DialogClose asChild>
           <CloseButton>X</CloseButton>
         </DialogClose>

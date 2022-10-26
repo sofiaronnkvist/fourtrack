@@ -27,7 +27,8 @@ export default function Home() {
           Get started by editing{' '}
           <code className={styles.code}>pages/index.js</code>
         </p>
-        <Modal />
+        <Modal buttonTitle='Login'/>
+        <Modal buttonTitle='Create account' />
       </main>
 
       <footer className={styles.footer}>

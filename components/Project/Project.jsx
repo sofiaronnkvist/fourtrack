@@ -25,7 +25,6 @@ const readProjects = async () => {
 
 export default function Project({ user }) {
   const [project, setProject] = useState({ title: '' });
-  //   console.log('THIS OBJECT', user, project);
 
   return (
     <div>

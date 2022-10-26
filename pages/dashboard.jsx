@@ -138,6 +138,8 @@ const Dashboard = () => {
       ref1.current.stop1();
       setChildTrack((prev) => prev + 1);
       setChildTrack(false);
+      //NOT WORKING
+      // waveRef.current.playPauseWave();
       window.location.reload(false);
     }
     if (recId == 2) {
@@ -171,6 +173,7 @@ const Dashboard = () => {
       player2.pause();
       player3.pause();
       player4.pause();
+      SetIsPlaying(false);
     }
   };
 

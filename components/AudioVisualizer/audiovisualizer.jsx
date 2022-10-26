@@ -35,13 +35,13 @@ const AudioVisualizer = (props, ref) => {
     };
   }, []);
 
-  const pauseWave = () => {
-    waveSurferRef.current.pause();
-  };
+  //   const pauseWave = () => {
+  //     waveSurferRef.current.playPause();
+  //   };
 
-  const playWave = () => {
-    waveSurferRef.current.play();
-  };
+  //   const playWave = () => {
+  //     waveSurferRef.current.playPause()();
+  //   };
 
   useImperativeHandle(ref, () => ({
     playPauseWave() {
@@ -51,12 +51,13 @@ const AudioVisualizer = (props, ref) => {
       console.log('plaaaayyyyy');
     },
   }));
-  console.log(`playing in comp: ${props.playingTest}`);
+  //   console.log(`playing in comp: ${props.playingTest}`);
   if (props.playingTest) {
     waveSurferRef.current.play();
   }
+
   //   if (!props.playingTest) {
-  //     waveSurferRef.current.playPause();
+  //     pauseWave();
   //   }
   //   props.playingTest
   //     ? waveSurferRef.current.play()

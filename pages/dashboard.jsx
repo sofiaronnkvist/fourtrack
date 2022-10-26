@@ -2,10 +2,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import Recorder from '../components/Recorder/Recorder';
 import { useAuth } from '../context/AuthContext';
 import { getFileFromStorage } from '../utils/getFileFromStorage';
-
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { firestore } from '../utils/firebase';
 import Project from '../components/Project/Project';
+// import AudioVisualizer from '../components/AudioVisualizer/audiovisualizer';
+import dynamic from 'next/dynamic';
+
+const AudioVisualizer = dynamic(
+  () => import('../components/AudioVisualizer/audiovisualizer'),
+  {
+    ssr: false,
+  }
+);
 
 const readUsers = async () => {
   const querySnapshot = await getDocs(collection(firestore, 'users'));
@@ -24,6 +32,9 @@ const Dashboard = () => {
   let ref2 = useRef(null);
   let ref3 = useRef(null);
   let ref4 = useRef(null);
+  let waveRef = useRef(null);
+
+  // const [test, setTest] = useState('');
 
   const getProjects = () => {
     const ref = collection(firestore, 'projects');
@@ -36,11 +47,10 @@ const Dashboard = () => {
       );
     });
   };
-  
+
   // TODO: Can this be put in a getServerSideProps instead?
   useEffect(() => {
     const thedata = getProjects();
-    console.log('HÄÄÄÄR', thedata);
   }, []);
 
   useEffect(() => {
@@ -61,6 +71,8 @@ const Dashboard = () => {
   const playChecked = (id) => {
     if (id == 1) {
       player1.play();
+      waveRef.current.playPauseWave2();
+      // waveRef.current.playPauseWave2()
       return;
     }
     if (id == 2) {
@@ -177,6 +189,12 @@ const Dashboard = () => {
           })}
       </ul>
 
+      {trackArray[0] ? (
+        <AudioVisualizer ref={waveRef} src={trackArray[0]}></AudioVisualizer>
+      ) : (
+        <div></div>
+      )}
+      {/* <AudioVisualizer src={trackArray[0]}></AudioVisualizer> */}
       <button onClick={() => stop(playId)}>STOP</button>
       <button onClick={() => playChecked(playId)}>PLAY</button>
       <button onClick={() => record(playId)}>REC</button>

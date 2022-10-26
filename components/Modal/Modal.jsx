@@ -70,13 +70,13 @@ const PrivacyText = styled.p`
   font-family: Arial, Helvetica, sans-serif;
 `;
 
-const LoginTexts = styled.p`
+const LoginTexts = styled.button`
   color: black;
   font-size: 16;
   font-family: Arial, Helvetica, sans-serif;
 `;
 
-const CreateAccountTexts = styled.p`
+const CreateAccountTexts = styled.button`
   color: black;
   font-size: 16;
   font-family: Arial, Helvetica, sans-serif;
@@ -111,6 +111,7 @@ export default function Modal(props) {
     email: '',
     password: '',
   });
+  const [buttonTitle, setButtonTitle] = useState(props.buttonTitle);
 
   //TODO: This pushes two users to collection, needs fixing.
   useEffect(() => {
@@ -152,21 +153,33 @@ export default function Modal(props) {
     }
   };
 
+  // const buttonTitle = props.buttonTitle;
+
   const checkForm = () => {
-    if (props.buttonTitle == 'Login') {
+    if (buttonTitle == 'Login') {
       return true;
-    } else {
-      return false;
+    }
+  };
+
+  const changeForm = () => {
+    if (buttonTitle == 'Login') {
+      setButtonTitle('Create account');
+      console.log(buttonTitle);
+      checkForm();
+    } else if (buttonTitle == 'Create account') {
+      setButtonTitle('Login');
+      console.log(buttonTitle);
+      checkForm();
     }
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <NavButton>{props.buttonTitle}</NavButton>
+        <NavButton>{buttonTitle}</NavButton>
       </DialogTrigger>
       <DialogContent>
-        <DialogTitle>{props.buttonTitle}</DialogTitle>
+        <DialogTitle>{buttonTitle}</DialogTitle>
         <GoogleButton onClick={handleGoogleSignIn}>
           Continue with Google
         </GoogleButton>
@@ -198,17 +211,19 @@ export default function Modal(props) {
             type='password'
             placeholder='Enter password'
           ></input>
-          <button type='submit'>{props.buttonTitle}</button>
+          <button type='submit'>{buttonTitle}</button>
         </form>
         {checkForm() ? (
           <>
             <ForgotPassword>I forgot my password</ForgotPassword>
-            <CreateAccountTexts>
+            <CreateAccountTexts onClick={changeForm}>
               No account? Create an account
             </CreateAccountTexts>
           </>
         ) : (
-          <LoginTexts>Already have an account? Log in</LoginTexts>
+          <LoginTexts onClick={changeForm}>
+            Already have an account? Log in
+          </LoginTexts>
         )}
         <PrivacyText>
           By clicking create account I agree to Fortracks awesome privacy policy

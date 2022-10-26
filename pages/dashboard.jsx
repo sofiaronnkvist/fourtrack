@@ -66,6 +66,7 @@ const Dashboard = () => {
     if (id == 1) {
       player1.play();
       setChildTrack(true);
+      SetIsPlaying(true)
       // waveRef.current.playPauseWave2();
       return;
     }
@@ -190,7 +191,6 @@ const Dashboard = () => {
 
       {trackArray[0] ? (
         <AudioVisualizer
-          ref={waveRef}
           src={trackArray[0]}
           playingTest={isPlaying}
         ></AudioVisualizer>
@@ -199,7 +199,6 @@ const Dashboard = () => {
       )}
       {trackArray[1] ? (
         <AudioVisualizer
-          ref={waveRef}
           src={trackArray[1]}
           playingTest={isPlaying}
         ></AudioVisualizer>
@@ -208,7 +207,6 @@ const Dashboard = () => {
       )}
       {trackArray[2] ? (
         <AudioVisualizer
-          ref={waveRef}
           src={trackArray[2]}
           playingTest={isPlaying}
         ></AudioVisualizer>
@@ -217,7 +215,6 @@ const Dashboard = () => {
       )}
       {trackArray[3] ? (
         <AudioVisualizer
-          ref={waveRef}
           src={trackArray[3]}
           playingTest={isPlaying}
         ></AudioVisualizer>

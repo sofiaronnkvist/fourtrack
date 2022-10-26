@@ -9,7 +9,7 @@ import WaveSurfer from 'wavesurfer.js';
 import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa';
 import styled from 'styled-components';
 
-const AudioVisualizer = (props, ref) => {
+const AudioVisualizer = (props) => {
   const containerRef = useRef();
   const waveSurferRef = useRef({
     isPlaying: () => false,
@@ -21,9 +21,12 @@ const AudioVisualizer = (props, ref) => {
       container: containerRef.current,
       responsive: true,
       barWidth: 2,
-      barHeight: 0.5,
-      cursorWidth: 0,
-      progressColor: 'yellow',
+      barHeight: 1,
+      cursorWidth: 1,
+      progressColor: 'hotpink',
+      waveColor: "white",
+      backgroundColor: 'grey',
+      height: 50
     });
     waveSurfer.load(props.src);
     waveSurfer.on('ready', () => {
@@ -35,58 +38,61 @@ const AudioVisualizer = (props, ref) => {
     };
   }, []);
 
-  //   const pauseWave = () => {
-  //     waveSurferRef.current.playPause();
-  //   };
+  useEffect(() => {
+    if (props.playingTest) {
+      console.log('true');
+    } else {
+      console.log('false');
+    }
+  }, [props.playingTest]);
 
-  //   const playWave = () => {
-  //     waveSurferRef.current.playPause()();
-  //   };
+  const pauseWave = () => {
+    waveSurferRef.current.playPause();
+  };
 
-  useImperativeHandle(ref, () => ({
-    playPauseWave() {
-      waveSurferRef.current.playPause();
-    },
-    playPauseWave2() {
-      console.log('plaaaayyyyy');
-    },
-  }));
-  //   console.log(`playing in comp: ${props.playingTest}`);
-  if (props.playingTest) {
-    waveSurferRef.current.play();
-  }
+  const playWave = () => {
+    waveSurferRef.current.playPause();
+  };
 
-  //   if (!props.playingTest) {
-  //     pauseWave();
-  //   }
-  //   props.playingTest
-  //     ? waveSurferRef.current.play()
-  //     : waveSurferRef.current.playPause();
+  const playorpause = () => {
+    waveSurferRef.current.playPause();
+  };
+
+  console.log(`isPlaying in audio: ${props.playingTest}`);
+
+  //   useImperativeHandle(ref, () => ({
+  //     playPauseWave() {
+  //       waveSurferRef.current.playPause();
+  //     },
+  //     playPauseWave2() {
+  //       console.log('plaaaayyyyy');
+  //     },
+  //   }));
+
+
   return (
     <div>
       <button
         onClick={() => {
           //   toggleIsPlaying(waveSurferRef.current.isPlaying());
-          playWave();
+          playorpause();
         }}
         type='button'
       >
         play
-        {/* {isPlaying ? <FaPauseCircle size='3em' /> : <FaPlayCircle size='3em' />} */}
       </button>
       <button
         onClick={() => {
           //   toggleIsPlaying(waveSurferRef.current.isPlaying());
-          pauseWave();
+          playorpause();
         }}
         type='button'
       >
         pause
-        {/* {isPlaying ? <FaPauseCircle size='3em' /> : <FaPlayCircle size='3em' />} */}
       </button>
       <div ref={containerRef} />
     </div>
   );
 };
 
-export default forwardRef(AudioVisualizer);
+export default AudioVisualizer;

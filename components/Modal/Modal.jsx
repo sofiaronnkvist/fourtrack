@@ -1,74 +1,77 @@
-import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
 
-const Modal = ({ show, onClose, children, title }) => {
-  const [isBrowser, setIsBrowser] = useState(false);
+const dialogContent = DialogPrimitive.Content;
+const dialogOverlay = DialogPrimitive.Overlay;
 
-  useEffect(() => {
-    setIsBrowser(true);
-  }, []);
-
-  const handleCloseClick = (e) => {
-    e.preventDefault();
-    onClose();
-  };
-
-  const modalContent = show ? (
-    <StyledModalOverlay>
-      <StyledModal>
-        <StyledModalHeader>
-          <a href='#' onClick={handleCloseClick}>
-            x
-          </a>
-        </StyledModalHeader>
-        {title && <StyledModalTitle>{title}</StyledModalTitle>}
-        <StyledModalBody>{children}</StyledModalBody>
-      </StyledModal>
-    </StyledModalOverlay>
-  ) : null;
-
-  if (isBrowser) {
-    return ReactDOM.createPortal(
-      modalContent,
-      document.getElementById('modal-root')
-    );
-  } else {
-    return null;
-  }
-};
-
-const StyledModalBody = styled.div`
-  padding-top: 10px;
+const StyledContent = styled(dialogContent)`
+  background-color: white;
+  border-radius: 6;
+  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+    hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 450px;
+  max-height: 85vh;
+  padding: 25;
 `;
 
-const StyledModalHeader = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  font-size: 25px;
+const StyledOverlay = styled(dialogOverlay)`
+  backdrop-filter: blur(10px);
+  position: fixed;
+  inset: 0;
 `;
 
-const StyledModal = styled.div`
-  background: white;
-  width: 500px;
-  height: 600px;
-  border-radius: 15px;
-  padding: 15px;
-`;
-const StyledModalOverlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
-`;
-
-const StyledModalTitle = styled.h1`
+const Button = styled.button`
   color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
 `;
 
-export default Modal;
+const StyledTitle = styled.h1`
+  color: black;
+  font-size: 20;
+  font-family: Arial, Helvetica, sans-serif;
+`;
+
+const StyledDescription = styled.p`
+  color: black;
+  font-size: 16;
+  font-family: Arial, Helvetica, sans-serif;
+`;
+
+function Content({ children, ...props }) {
+  return (
+    <DialogPrimitive.Portal>
+      <StyledOverlay />
+      <StyledContent {...props}>{children}</StyledContent>
+    </DialogPrimitive.Portal>
+  );
+}
+
+export const Dialog = DialogPrimitive.Root;
+export const DialogTrigger = DialogPrimitive.Trigger;
+export const DialogContent = Content;
+export const DialogTitle = StyledTitle;
+export const DialogDescription = StyledDescription;
+export const DialogClose = DialogPrimitive.Close;
+
+export default function Modal() {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Login</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogTitle>Login</DialogTitle>
+        <DialogDescription>Det här är en modal</DialogDescription>
+        <DialogClose asChild>
+          <Button>X</Button>
+        </DialogClose>
+      </DialogContent>
+    </Dialog>
+  );
+}

@@ -28,13 +28,13 @@ const Dashboard = () => {
   const [playId, setPlayId] = useState();
   const [projects, setProjects] = useState([]);
   const [childTrack, setChildTrack] = useState(1);
+  const [isPlaying, SetIsPlaying] = useState(false);
+
   let ref1 = useRef(null);
   let ref2 = useRef(null);
   let ref3 = useRef(null);
   let ref4 = useRef(null);
   let waveRef = useRef(null);
-
-  // const [test, setTest] = useState('');
 
   const getProjects = () => {
     const ref = collection(firestore, 'projects');
@@ -71,8 +71,8 @@ const Dashboard = () => {
   const playChecked = (id) => {
     if (id == 1) {
       player1.play();
-      waveRef.current.playPauseWave2();
-      // waveRef.current.playPauseWave2()
+      setChildTrack(true);
+      // waveRef.current.playPauseWave2();
       return;
     }
     if (id == 2) {
@@ -91,6 +91,8 @@ const Dashboard = () => {
       player2.play();
       player3.play();
       player4.play();
+      SetIsPlaying(true);
+
     }
   };
 
@@ -142,6 +144,8 @@ const Dashboard = () => {
       player4.pause();
       ref1.current.stop1();
       setChildTrack((prev) => prev + 1);
+      setChildTrack(false);
+
       window.location.reload(false);
     }
     if (recId == 2) {
@@ -190,11 +194,23 @@ const Dashboard = () => {
       </ul>
 
       {trackArray[0] ? (
-        <AudioVisualizer ref={waveRef} src={trackArray[0]}></AudioVisualizer>
+        <AudioVisualizer
+          ref={waveRef}
+          src={trackArray[0]}
+          playingTest={isPlaying}
+        ></AudioVisualizer>
       ) : (
         <div></div>
       )}
-      {/* <AudioVisualizer src={trackArray[0]}></AudioVisualizer> */}
+      {trackArray[1] ? (
+        <AudioVisualizer
+          ref={waveRef}
+          src={trackArray[1]}
+          playingTest={isPlaying}
+        ></AudioVisualizer>
+      ) : (
+        <div></div>
+      )}
       <button onClick={() => stop(playId)}>STOP</button>
       <button onClick={() => playChecked(playId)}>PLAY</button>
       <button onClick={() => record(playId)}>REC</button>

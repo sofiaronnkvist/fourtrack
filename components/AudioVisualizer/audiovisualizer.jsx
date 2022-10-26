@@ -35,8 +35,12 @@ const AudioVisualizer = (props, ref) => {
     };
   }, []);
 
-  const playPauseWave = () => {
-    waveSurferRef.current.playPause();
+  const pauseWave = () => {
+    waveSurferRef.current.pause();
+  };
+
+  const playWave = () => {
+    waveSurferRef.current.play();
   };
 
   useImperativeHandle(ref, () => ({
@@ -47,16 +51,36 @@ const AudioVisualizer = (props, ref) => {
       console.log('plaaaayyyyy');
     },
   }));
+  console.log(`playing in comp: ${props.playingTest}`);
+  if (props.playingTest) {
+    waveSurferRef.current.play();
+  }
+  //   if (!props.playingTest) {
+  //     waveSurferRef.current.playPause();
+  //   }
+  //   props.playingTest
+  //     ? waveSurferRef.current.play()
+  //     : waveSurferRef.current.playPause();
   return (
     <div>
       <button
         onClick={() => {
           //   toggleIsPlaying(waveSurferRef.current.isPlaying());
-          playPauseWave();
+          playWave();
         }}
         type='button'
       >
-        Button
+        play
+        {/* {isPlaying ? <FaPauseCircle size='3em' /> : <FaPlayCircle size='3em' />} */}
+      </button>
+      <button
+        onClick={() => {
+          //   toggleIsPlaying(waveSurferRef.current.isPlaying());
+          pauseWave();
+        }}
+        type='button'
+      >
+        pause
         {/* {isPlaying ? <FaPauseCircle size='3em' /> : <FaPlayCircle size='3em' />} */}
       </button>
       <div ref={containerRef} />

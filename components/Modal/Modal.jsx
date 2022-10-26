@@ -104,7 +104,7 @@ export const DialogTitle = StyledTitle;
 export const DialogClose = DialogPrimitive.Close;
 
 export default function Modal(props) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const router = useRouter();
   const { user, login, signUpWithGoogle, signup, createUserGoogle } = useAuth();
   const [data, setData] = useState({
@@ -153,8 +153,6 @@ export default function Modal(props) {
     }
   };
 
-  // const buttonTitle = props.buttonTitle;
-
   const checkForm = () => {
     if (buttonTitle == 'Login') {
       return true;
@@ -171,6 +169,11 @@ export default function Modal(props) {
       console.log(buttonTitle);
       checkForm();
     }
+  };
+
+  //Make this better
+  const returnButtonValue = () => {
+    window.location.reload(false);
   };
 
   return (
@@ -229,7 +232,7 @@ export default function Modal(props) {
           By clicking create account I agree to Fortracks awesome privacy policy
         </PrivacyText>
         <DialogClose asChild>
-          <CloseButton>X</CloseButton>
+          <CloseButton onClick={returnButtonValue}>X</CloseButton>
         </DialogClose>
       </DialogContent>
     </Dialog>

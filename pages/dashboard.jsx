@@ -7,6 +7,7 @@ import { firestore } from '../utils/firebase';
 import Project from '../components/Project/Project';
 // import AudioVisualizer from '../components/AudioVisualizer/audiovisualizer';
 import dynamic from 'next/dynamic';
+import styled from 'styled-components';
 
 const AudioVisualizer = dynamic(
   () => import('../components/AudioVisualizer/audiovisualizer'),
@@ -187,57 +188,71 @@ const Dashboard = () => {
   return (
     <div>
       <p>This route is protected</p>
-      <p> Well hello {user.email}!</p>
+      <h1> Well hello {user.email}!</h1>
+
+      <h3>Recorders</h3>
+      <Form>
+        <Label htmlFor=''>
+          <input
+            checked={playId === '1'}
+            onChange={handleChange}
+            type='checkbox'
+            value='1'
+            name='playId'
+          ></input>{' '}
+          <RecorderBlock color='lightsalmon'>Track One</RecorderBlock>
+          <Recorder id={1} ref={ref1}></Recorder>
+        </Label>
+        <Label htmlFor=''>
+          <input
+            checked={playId === '2'}
+            onChange={handleChange}
+            type='checkbox'
+            value='2'
+            name='playId'
+          ></input>
+          <RecorderBlock color='lightyellow'>Track Two</RecorderBlock>
+
+          <Recorder id={2} ref={ref2}></Recorder>
+        </Label>
+        <Label htmlFor=''>
+          <input
+            checked={playId === '3'}
+            onChange={handleChange}
+            type='checkbox'
+            value='3'
+            name='playId'
+          ></input>
+          <RecorderBlock color='lightcoral'>Track Three</RecorderBlock>
+
+          <Recorder id={3} ref={ref3}></Recorder>
+        </Label>
+        <Label htmlFor=''>
+          <input
+            checked={playId === '4'}
+            onChange={handleChange}
+            type='checkbox'
+            value='4'
+            name='playId'
+          ></input>
+          <RecorderBlock color='aliceblue'>Track Four</RecorderBlock>
+
+          <Recorder id={4} ref={ref4}></Recorder>
+        </Label>
+      </Form>
+      <button onClick={() => stop(playId)}>STOP</button>
+      <button onClick={() => playChecked(playId)}>PLAY</button>
+      <button onClick={() => record(playId)}>REC</button>
+      <p>To play all tracks at once, uncheck all tracks and press play.</p>
+      <h4>Stuff bellow not working:</h4>
+      <Project user={user} />
+      <h3>My projects</h3>
       <ul>
         {projects &&
           projects.map((project) => {
             return <li key={project.title}>{project.title}</li>;
           })}
       </ul>
-      <button onClick={() => stop(playId)}>STOP</button>
-      <button onClick={() => playChecked(playId)}>PLAY</button>
-      <button onClick={() => record(playId)}>REC</button>
-
-      <h3>Recorders</h3>
-      <form>
-        <label htmlFor=''>track 1</label>
-        <input
-          checked={playId === '1'}
-          onChange={handleChange}
-          type='checkbox'
-          value='1'
-          name='playId'
-        ></input>
-        <label htmlFor=''>track 2</label>
-        <input
-          checked={playId === '2'}
-          onChange={handleChange}
-          type='checkbox'
-          value='2'
-          name='playId'
-        ></input>
-        <label htmlFor=''>track 3</label>
-        <input
-          checked={playId === '3'}
-          onChange={handleChange}
-          type='checkbox'
-          value='3'
-          name='playId'
-        ></input>
-        <label htmlFor=''>track 4</label>
-        <input
-          checked={playId === '4'}
-          onChange={handleChange}
-          type='checkbox'
-          value='4'
-          name='playId'
-        ></input>
-      </form>
-      <Recorder id={1} ref={ref1}></Recorder>
-      <Recorder id={2} ref={ref2}></Recorder>
-      <Recorder id={3} ref={ref3}></Recorder>
-      <Recorder id={4} ref={ref4}></Recorder>
-      <Project user={user} />
       <button onClick={readUsers}>Click here to see users</button>
       {/* <h3>The audio visulaizer not quite working</h3> */}
       {/* {trackArray[0] ? (
@@ -275,5 +290,20 @@ const Dashboard = () => {
     </div>
   );
 };
+
+const Label = styled.label`
+  color: black;
+  display: flex;
+  margin: 20px;
+`;
+const Form = styled.form`
+  margin-top: 20px;
+`;
+const RecorderBlock = styled.div`
+  height: 50px;
+  width: 515px;
+  background-color: ${(props) => props.color};
+  margin-left: 10px;
+`;
 
 export default Dashboard;

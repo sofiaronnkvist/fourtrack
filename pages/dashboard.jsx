@@ -188,13 +188,7 @@ const Dashboard = () => {
   return (
     <div>
       <p>This route is protected</p>
-      <p> Well hello {user.email}!</p>
-      <ul>
-        {projects &&
-          projects.map((project) => {
-            return <li key={project.title}>{project.title}</li>;
-          })}
-      </ul>
+      <h1> Well hello {user.email}!</h1>
 
       <h3>Recorders</h3>
       <Form>
@@ -206,7 +200,7 @@ const Dashboard = () => {
             value='1'
             name='playId'
           ></input>{' '}
-          <RecorderBlock>Track One</RecorderBlock>
+          <RecorderBlock color='lightsalmon'>Track One</RecorderBlock>
           <Recorder id={1} ref={ref1}></Recorder>
         </Label>
         <Label htmlFor=''>
@@ -217,7 +211,7 @@ const Dashboard = () => {
             value='2'
             name='playId'
           ></input>
-          <RecorderBlock>Track Two</RecorderBlock>
+          <RecorderBlock color='lightyellow'>Track Two</RecorderBlock>
 
           <Recorder id={2} ref={ref2}></Recorder>
         </Label>
@@ -229,7 +223,7 @@ const Dashboard = () => {
             value='3'
             name='playId'
           ></input>
-          <RecorderBlock>Track Three</RecorderBlock>
+          <RecorderBlock color='lightcoral'>Track Three</RecorderBlock>
 
           <Recorder id={3} ref={ref3}></Recorder>
         </Label>
@@ -241,7 +235,7 @@ const Dashboard = () => {
             value='4'
             name='playId'
           ></input>
-          <RecorderBlock>Track Four</RecorderBlock>
+          <RecorderBlock color='aliceblue'>Track Four</RecorderBlock>
 
           <Recorder id={4} ref={ref4}></Recorder>
         </Label>
@@ -249,8 +243,16 @@ const Dashboard = () => {
       <button onClick={() => stop(playId)}>STOP</button>
       <button onClick={() => playChecked(playId)}>PLAY</button>
       <button onClick={() => record(playId)}>REC</button>
-      <h4>Stuff bellow not working</h4>
+      <p>To play all tracks at once, uncheck all tracks and press play.</p>
+      <h4>Stuff bellow not working:</h4>
       <Project user={user} />
+      <h3>My projects</h3>
+      <ul>
+        {projects &&
+          projects.map((project) => {
+            return <li key={project.title}>{project.title}</li>;
+          })}
+      </ul>
       <button onClick={readUsers}>Click here to see users</button>
       {/* <h3>The audio visulaizer not quite working</h3> */}
       {/* {trackArray[0] ? (
@@ -300,7 +302,7 @@ const Form = styled.form`
 const RecorderBlock = styled.div`
   height: 50px;
   width: 515px;
-  background-color: hotpink;
+  background-color: ${(props) => props.color};
   margin-left: 10px;
 `;
 

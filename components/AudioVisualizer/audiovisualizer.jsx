@@ -61,8 +61,6 @@ const AudioVisualizer = (props) => {
     waveSurferRef.current.playPause();
   };
 
-  console.log(`isPlaying in audio: ${props.playingTest}`);
-
   //   useImperativeHandle(ref, () => ({
   //     playPauseWave() {
   //       waveSurferRef.current.playPause();

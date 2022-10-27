@@ -65,7 +65,6 @@ const Dashboard = () => {
   const playChecked = (id) => {
     if (id == 1) {
       player1.play();
-      setChildTrack(true);
       // SetIsPlaying(true);
       // waveRef.current.playPauseWave2();
       return;
@@ -74,14 +73,18 @@ const Dashboard = () => {
       // SetIsPlaying(true);
       return;
     } else if (id == 3) {
+      console.log('playing 3');
       player3.play();
       // SetIsPlaying(true);
       return;
     } else if (id == 4) {
+      console.log('playing 4');
+
       player4.play();
       // SetIsPlaying(true);
       return;
     } else {
+      console.log('playing all');
       player1.play();
       player2.play();
       player3.play();
@@ -91,6 +94,7 @@ const Dashboard = () => {
   };
 
   const handleChange = (event) => {
+    console.log(event.target.value);
     if (playId == event.target.value) {
       setPlayId('');
     } else {
@@ -137,7 +141,7 @@ const Dashboard = () => {
       player4.pause();
       ref1.current.stop1();
       setChildTrack((prev) => prev + 1);
-      SetIsPlaying(false);
+      // SetIsPlaying(false);
       //NOT WORKING
       // waveRef.current.playPauseWave();
       window.location.reload(false);
@@ -148,7 +152,7 @@ const Dashboard = () => {
       player4.pause();
       ref2.current.stop2();
       setChildTrack((prev) => prev + 1);
-      SetIsPlaying(false);
+      // SetIsPlaying(false);
       window.location.reload(false);
       return;
     } else if (recId == 3) {
@@ -157,7 +161,7 @@ const Dashboard = () => {
       player4.pause();
       ref3.current.stop3();
       setChildTrack((prev) => prev + 1);
-      SetIsPlaying(false);
+      // SetIsPlaying(false);
       window.location.reload(false);
       return;
     } else if (recId == 4) {
@@ -167,15 +171,16 @@ const Dashboard = () => {
       player3.pause();
       ref4.current.stop4();
       setChildTrack((prev) => prev + 1);
-      SetIsPlaying(false);
+      // SetIsPlaying(false);
       window.location.reload(false);
       return;
     } else {
+      console.log('stop all');
       player1.pause();
       player2.pause();
       player3.pause();
       player4.pause();
-      SetIsPlaying(false);
+      // SetIsPlaying(false);
     }
   };
 
@@ -197,29 +202,33 @@ const Dashboard = () => {
       <form>
         <label htmlFor=''>track 1</label>
         <input
+          checked={playId === '1'}
           onChange={handleChange}
-          type='radio'
+          type='checkbox'
           value='1'
           name='playId'
         ></input>
         <label htmlFor=''>track 2</label>
         <input
+          checked={playId === '2'}
           onChange={handleChange}
-          type='radio'
+          type='checkbox'
           value='2'
           name='playId'
         ></input>
         <label htmlFor=''>track 3</label>
         <input
+          checked={playId === '3'}
           onChange={handleChange}
-          type='radio'
+          type='checkbox'
           value='3'
           name='playId'
         ></input>
         <label htmlFor=''>track 4</label>
         <input
+          checked={playId === '4'}
           onChange={handleChange}
-          type='radio'
+          type='checkbox'
           value='4'
           name='playId'
         ></input>
@@ -230,12 +239,11 @@ const Dashboard = () => {
       <Recorder id={4} ref={ref4}></Recorder>
       <Project user={user} />
       <button onClick={readUsers}>Click here to see users</button>
-      <h3>The audio visulaizer not quite working</h3>
-
-      {trackArray[0] ? (
+      {/* <h3>The audio visulaizer not quite working</h3> */}
+      {/* {trackArray[0] ? (
         <AudioVisualizer
           src={trackArray[0]}
-          playingTest={isPlaying}
+          // playingTest={isPlaying}
         ></AudioVisualizer>
       ) : (
         <div></div>
@@ -243,7 +251,7 @@ const Dashboard = () => {
       {trackArray[1] ? (
         <AudioVisualizer
           src={trackArray[1]}
-          playingTest={isPlaying}
+          // playingTest={isPlaying}
         ></AudioVisualizer>
       ) : (
         <div></div>
@@ -251,7 +259,7 @@ const Dashboard = () => {
       {trackArray[2] ? (
         <AudioVisualizer
           src={trackArray[2]}
-          playingTest={isPlaying}
+          // playingTest={isPlaying}
         ></AudioVisualizer>
       ) : (
         <div></div>
@@ -259,11 +267,11 @@ const Dashboard = () => {
       {trackArray[3] ? (
         <AudioVisualizer
           src={trackArray[3]}
-          playingTest={isPlaying}
+          // playingTest={isPlaying}
         ></AudioVisualizer>
       ) : (
         <div></div>
-      )}
+      )} */}
     </div>
   );
 };

@@ -1,74 +1,240 @@
-import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useAuth } from '../../context/AuthContext';
 
-const Modal = ({ show, onClose, children, title }) => {
-  const [isBrowser, setIsBrowser] = useState(false);
+const dialogContent = DialogPrimitive.Content;
+const dialogOverlay = DialogPrimitive.Overlay;
 
+const StyledContent = styled(dialogContent)`
+  background-color: white;
+  border-radius: 6;
+  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+    hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 450px;
+  max-height: 85vh;
+  padding: 25;
+  border: 1px solid black;
+  border-radius: 7px;
+`;
+
+const StyledOverlay = styled(dialogOverlay)`
+  backdrop-filter: blur(10px);
+  position: fixed;
+  inset: 0;
+`;
+
+const NavButton = styled.button`
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+`;
+
+const GoogleButton = styled.button`
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  border: 1px solid black;
+  border-radius: 7px;
+`;
+
+const CloseButton = styled.button`
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+`;
+
+const Divider = styled.p`
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
+
+const StyledTitle = styled.h1`
+  color: black;
+  font-size: 20;
+  font-family: Arial, Helvetica, sans-serif;
+`;
+
+const PrivacyText = styled.p`
+  color: grey;
+  font-size: 12;
+  font-family: Arial, Helvetica, sans-serif;
+`;
+
+const LoginTexts = styled.button`
+  color: black;
+  font-size: 16;
+  font-family: Arial, Helvetica, sans-serif;
+`;
+
+const CreateAccountTexts = styled.button`
+  color: black;
+  font-size: 16;
+  font-family: Arial, Helvetica, sans-serif;
+`;
+
+const ForgotPassword = styled.p`
+  color: blue;
+  font-size: 16;
+  font-family: Arial, Helvetica, sans-serif;
+`;
+
+function Content({ children, ...props }) {
+  return (
+    <DialogPrimitive.Portal>
+      <StyledOverlay />
+      <StyledContent {...props}>{children}</StyledContent>
+    </DialogPrimitive.Portal>
+  );
+}
+
+export const Dialog = DialogPrimitive.Root;
+export const DialogTrigger = DialogPrimitive.Trigger;
+export const DialogContent = Content;
+export const DialogTitle = StyledTitle;
+export const DialogClose = DialogPrimitive.Close;
+
+export default function Modal(props) {
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const { user, login, signUpWithGoogle, signup, createUserGoogle } = useAuth();
+  const [data, setData] = useState({
+    email: '',
+    password: '',
+  });
+  const [buttonTitle, setButtonTitle] = useState(props.buttonTitle);
+
+  //TODO: This pushes two users to collection, needs fixing.
   useEffect(() => {
-    setIsBrowser(true);
+    if (user) {
+      console.log('User!!');
+      createUserGoogle(user);
+      router.push('/dashboard');
+    }
   }, []);
 
-  const handleCloseClick = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    onClose();
+    try {
+      await login(data.email, data.password);
+      router.push('/dashboard');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const modalContent = show ? (
-    <StyledModalOverlay>
-      <StyledModal>
-        <StyledModalHeader>
-          <a href='#' onClick={handleCloseClick}>
-            x
-          </a>
-        </StyledModalHeader>
-        {title && <StyledModalTitle>{title}</StyledModalTitle>}
-        <StyledModalBody>{children}</StyledModalBody>
-      </StyledModal>
-    </StyledModalOverlay>
-  ) : null;
+  const handleSignup = async (e) => {
+    e.preventDefault();
 
-  if (isBrowser) {
-    return ReactDOM.createPortal(
-      modalContent,
-      document.getElementById('modal-root')
-    );
-  } else {
-    return null;
-  }
-};
+    try {
+      await signup(data.email, data.password);
+      router.push('/dashboard');
+    } catch (err) {
+      console.log(err);
+    }
+    console.log(data);
+  };
 
-const StyledModalBody = styled.div`
-  padding-top: 10px;
-`;
+  const handleGoogleSignIn = async () => {
+    try {
+      await signUpWithGoogle();
+      router.push('/dashboard');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-const StyledModalHeader = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  font-size: 25px;
-`;
+  const checkForm = () => {
+    if (buttonTitle == 'Login') {
+      return true;
+    }
+  };
 
-const StyledModal = styled.div`
-  background: white;
-  width: 500px;
-  height: 600px;
-  border-radius: 15px;
-  padding: 15px;
-`;
-const StyledModalOverlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
-`;
+  const changeForm = () => {
+    if (buttonTitle == 'Login') {
+      setButtonTitle('Create account');
+      console.log(buttonTitle);
+      checkForm();
+    } else if (buttonTitle == 'Create account') {
+      setButtonTitle('Login');
+      console.log(buttonTitle);
+      checkForm();
+    }
+  };
 
-const StyledModalTitle = styled.h1`
-  color: black;
-`;
+  //Make this better
+  const returnButtonValue = () => {
+    window.location.reload(false);
+  };
 
-export default Modal;
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <NavButton>{buttonTitle}</NavButton>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogTitle>{buttonTitle}</DialogTitle>
+        <GoogleButton onClick={handleGoogleSignIn}>
+          Continue with Google
+        </GoogleButton>
+        <Divider>or</Divider>
+        <form onSubmit={checkForm() ? handleLogin : handleSignup}>
+          <label>email</label>
+          <input
+            onChange={(e) =>
+              setData({
+                ...data,
+                email: e.target.value,
+              })
+            }
+            value={data.email}
+            required
+            type='email'
+            placeholder='Enter email'
+          ></input>
+          <label>password</label>
+          <input
+            onChange={(e) =>
+              setData({
+                ...data,
+                password: e.target.value,
+              })
+            }
+            value={data.password}
+            required
+            type='password'
+            placeholder='Enter password'
+          ></input>
+          <button type='submit'>{buttonTitle}</button>
+        </form>
+        {checkForm() ? (
+          <>
+            <ForgotPassword>I forgot my password</ForgotPassword>
+            <CreateAccountTexts onClick={changeForm}>
+              No account? Create an account
+            </CreateAccountTexts>
+          </>
+        ) : (
+          <LoginTexts onClick={changeForm}>
+            Already have an account? Log in
+          </LoginTexts>
+        )}
+        <PrivacyText>
+          By clicking create account I agree to Fortracks awesome privacy policy
+        </PrivacyText>
+        <DialogClose asChild>
+          <CloseButton onClick={returnButtonValue}>X</CloseButton>
+        </DialogClose>
+      </DialogContent>
+    </Dialog>
+  );
+}

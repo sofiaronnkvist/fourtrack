@@ -11,7 +11,6 @@ const Recorder = dynamic(() => import('../components/Recorder/Recorder'), {
 });
 
 export default function Home() {
-  const [showModal, setShowModal] = useState(false);
   return (
     <div className={styles.container}>
       <Head>
@@ -28,12 +27,8 @@ export default function Home() {
           Get started by editing{' '}
           <code className={styles.code}>pages/index.js</code>
         </p>
-        <div>
-          <button onClick={() => setShowModal(true)}>Open Modal</button>
-          <Modal onClose={() => setShowModal(false)} show={showModal}>
-            Hello from the modal!
-          </Modal>
-        </div>
+        <Modal buttonTitle='Login'/>
+        <Modal buttonTitle='Create account' />
       </main>
 
       <footer className={styles.footer}>

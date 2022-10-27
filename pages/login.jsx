@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-// import { Button, Form } from 'react-bootstrap';
 import { useAuth } from '../context/AuthContext';
 
 const Login = () => {

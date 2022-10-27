@@ -113,11 +113,9 @@ export default function Modal(props) {
   });
   const [buttonTitle, setButtonTitle] = useState(props.buttonTitle);
 
-  //TODO: This pushes two users to collection, needs fixing.
+  //TODO: This looks weird.
   useEffect(() => {
     if (user) {
-      console.log('User!!');
-      createUserGoogle(user);
       router.push('/dashboard');
     }
   }, []);

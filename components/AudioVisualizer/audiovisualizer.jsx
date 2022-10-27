@@ -24,9 +24,9 @@ const AudioVisualizer = (props) => {
       barHeight: 1,
       cursorWidth: 1,
       progressColor: 'hotpink',
-      waveColor: "white",
+      waveColor: 'white',
       backgroundColor: 'grey',
-      height: 50
+      height: 50,
     });
     waveSurfer.load(props.src);
     waveSurfer.on('ready', () => {
@@ -38,13 +38,16 @@ const AudioVisualizer = (props) => {
     };
   }, []);
 
-  useEffect(() => {
-    if (props.playingTest) {
-      console.log('true');
-    } else {
-      console.log('false');
-    }
-  }, [props.playingTest]);
+//   useEffect(() => {
+//     if (props.playingTest) {
+//       console.log('true');
+//       waveSurferRef.current.playPause();
+//     }
+//     if (!props.playingTest) {
+//       console.log('true');
+//       waveSurferRef.current.playPause();
+//     }
+//   }, [props.playingTest]);
 
   const pauseWave = () => {
     waveSurferRef.current.playPause();
@@ -68,7 +71,6 @@ const AudioVisualizer = (props) => {
   //       console.log('plaaaayyyyy');
   //     },
   //   }));
-
 
   return (
     <div>

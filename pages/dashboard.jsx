@@ -29,8 +29,6 @@ const Dashboard = () => {
   const [projects, setProjects] = useState([]);
   const [childTrack, setChildTrack] = useState(1);
   const [isPlaying, SetIsPlaying] = useState(false);
-  const [isCheckedOne, SetIscheckedOne] = useState(false);
-  const [isCheckedTwo, SetIscheckedTwo] = useState(false);
 
   let ref1 = useRef(null);
   let ref2 = useRef(null);
@@ -67,7 +65,6 @@ const Dashboard = () => {
   const playChecked = (id) => {
     if (id == 1) {
       player1.play();
-      // setChildTrack(true);
       // SetIsPlaying(true);
       // waveRef.current.playPauseWave2();
       return;
@@ -242,8 +239,7 @@ const Dashboard = () => {
       <Recorder id={4} ref={ref4}></Recorder>
       <Project user={user} />
       <button onClick={readUsers}>Click here to see users</button>
-      <h3>The audio visulaizer not quite working</h3>
-
+      {/* <h3>The audio visulaizer not quite working</h3> */}
       {/* {trackArray[0] ? (
         <AudioVisualizer
           src={trackArray[0]}

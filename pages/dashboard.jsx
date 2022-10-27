@@ -2,10 +2,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import Recorder from '../components/Recorder/Recorder';
 import { useAuth } from '../context/AuthContext';
 import { getFileFromStorage } from '../utils/getFileFromStorage';
-
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { firestore } from '../utils/firebase';
 import Project from '../components/Project/Project';
+// import AudioVisualizer from '../components/AudioVisualizer/audiovisualizer';
+import dynamic from 'next/dynamic';
+
+const AudioVisualizer = dynamic(
+  () => import('../components/AudioVisualizer/audiovisualizer'),
+  {
+    ssr: false,
+  }
+);
 
 const readUsers = async () => {
   const querySnapshot = await getDocs(collection(firestore, 'users'));
@@ -20,10 +28,13 @@ const Dashboard = () => {
   const [playId, setPlayId] = useState();
   const [projects, setProjects] = useState([]);
   const [childTrack, setChildTrack] = useState(1);
+  const [isPlaying, SetIsPlaying] = useState(false);
+
   let ref1 = useRef(null);
   let ref2 = useRef(null);
   let ref3 = useRef(null);
   let ref4 = useRef(null);
+  let waveRef = useRef(null);
 
   const getProjects = () => {
     const ref = collection(firestore, 'projects');
@@ -36,11 +47,10 @@ const Dashboard = () => {
       );
     });
   };
-  
+
   // TODO: Can this be put in a getServerSideProps instead?
   useEffect(() => {
     const thedata = getProjects();
-    console.log('HÄÄÄÄR', thedata);
   }, []);
 
   useEffect(() => {
@@ -52,33 +62,31 @@ const Dashboard = () => {
   const player3 = new Audio(trackArray[2]);
   const player4 = new Audio(trackArray[3]);
 
-  // const playAll = () => {
-  //   player1.play();
-  //   player2.play();
-  //   player3.play();
-  //   player4.play();
-  // };
   const playChecked = (id) => {
     if (id == 1) {
       player1.play();
+      setChildTrack(true);
+      // SetIsPlaying(true);
+      // waveRef.current.playPauseWave2();
       return;
-    }
-    if (id == 2) {
+    } else if (id == 2) {
       player2.play();
+      // SetIsPlaying(true);
       return;
-    }
-    if (id == 3) {
+    } else if (id == 3) {
       player3.play();
+      // SetIsPlaying(true);
       return;
-    }
-    if (id == 4) {
+    } else if (id == 4) {
       player4.play();
+      // SetIsPlaying(true);
       return;
     } else {
       player1.play();
       player2.play();
       player3.play();
       player4.play();
+      SetIsPlaying(true);
     }
   };
 
@@ -97,72 +105,77 @@ const Dashboard = () => {
       player3.play();
       player4.play();
       ref1.current.start1();
-    }
-    if (recId == 2) {
+      return;
+    } else if (recId == 2) {
       console.log('recId 2');
       player1.play();
       player3.play();
       player4.play();
       ref2.current.start2();
-    }
-    if (recId == 3) {
+      return;
+    } else if (recId == 3) {
       console.log('recId 3');
       player1.play();
       player2.play();
       player4.play();
       ref3.current.start3();
-    }
-    if (recId == 4) {
+      return;
+    } else if (recId == 4) {
       console.log('recId 4');
       player1.play();
       player2.play();
       player3.play();
       ref4.current.start4();
+      return;
     }
   };
 
   const stop = (recId) => {
-    console.log(`in stop(), recId: ${recId}`);
     if (recId == 1) {
-      console.log('stop recId 1');
       player2.pause();
       player3.pause();
       player4.pause();
       ref1.current.stop1();
       setChildTrack((prev) => prev + 1);
+      SetIsPlaying(false);
+      //NOT WORKING
+      // waveRef.current.playPauseWave();
       window.location.reload(false);
-    }
-    if (recId == 2) {
-      console.log('recId 2');
+      return;
+    } else if (recId == 2) {
       player1.pause();
       player3.pause();
       player4.pause();
       ref2.current.stop2();
       setChildTrack((prev) => prev + 1);
+      SetIsPlaying(false);
       window.location.reload(false);
-    }
-    if (recId == 3) {
-      console.log('recId 3');
+      return;
+    } else if (recId == 3) {
       player1.pause();
       player2.pause();
       player4.pause();
       ref3.current.stop3();
       setChildTrack((prev) => prev + 1);
+      SetIsPlaying(false);
       window.location.reload(false);
-    }
-    if (recId == 4) {
+      return;
+    } else if (recId == 4) {
       console.log('recId 4');
       player1.pause();
       player2.pause();
       player3.pause();
       ref4.current.stop4();
       setChildTrack((prev) => prev + 1);
+      SetIsPlaying(false);
       window.location.reload(false);
+      return;
     } else {
       player1.pause();
       player2.pause();
       player3.pause();
       player4.pause();
+      SetIsPlaying(false);
     }
   };
 
@@ -176,7 +189,6 @@ const Dashboard = () => {
             return <li key={project.title}>{project.title}</li>;
           })}
       </ul>
-
       <button onClick={() => stop(playId)}>STOP</button>
       <button onClick={() => playChecked(playId)}>PLAY</button>
       <button onClick={() => record(playId)}>REC</button>
@@ -218,6 +230,40 @@ const Dashboard = () => {
       <Recorder id={4} ref={ref4}></Recorder>
       <Project user={user} />
       <button onClick={readUsers}>Click here to see users</button>
+      <h3>The audio visulaizer not quite working</h3>
+
+      {trackArray[0] ? (
+        <AudioVisualizer
+          src={trackArray[0]}
+          playingTest={isPlaying}
+        ></AudioVisualizer>
+      ) : (
+        <div></div>
+      )}
+      {trackArray[1] ? (
+        <AudioVisualizer
+          src={trackArray[1]}
+          playingTest={isPlaying}
+        ></AudioVisualizer>
+      ) : (
+        <div></div>
+      )}
+      {trackArray[2] ? (
+        <AudioVisualizer
+          src={trackArray[2]}
+          playingTest={isPlaying}
+        ></AudioVisualizer>
+      ) : (
+        <div></div>
+      )}
+      {trackArray[3] ? (
+        <AudioVisualizer
+          src={trackArray[3]}
+          playingTest={isPlaying}
+        ></AudioVisualizer>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

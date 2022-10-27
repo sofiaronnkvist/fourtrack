@@ -17,13 +17,6 @@ const AudioVisualizer = dynamic(
   }
 );
 
-const readUsers = async () => {
-  const querySnapshot = await getDocs(collection(firestore, 'users'));
-  querySnapshot.forEach((doc) => {
-    console.log('Look here at the users', `${doc.id} => ${doc.data()}`);
-  });
-};
-
 const Dashboard = () => {
   const { user } = useAuth();
   const [trackArray, setTrackArray] = useState([]);
@@ -262,7 +255,6 @@ const Dashboard = () => {
             );
           })}
       </ul>
-      <button onClick={readUsers}>Click here to see users</button>
       {/* <h3>The audio visulaizer not quite working</h3> */}
       {/* {trackArray[0] ? (
         <AudioVisualizer

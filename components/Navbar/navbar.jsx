@@ -21,8 +21,9 @@ export default function Navbar() {
         </div>
       ) : (
         <div>
-          <Image src={logo} alt='Logo' />
-          <Link href='/dashboard'>Dashboard </Link>
+          <Link href='/projects'>
+            <Image src={logo} alt='Logo' />
+          </Link>
           <button
             onClick={() => {
               logout();

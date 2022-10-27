@@ -26,17 +26,17 @@ const readUsers = async () => {
 
 const Dashboard = () => {
   const { user } = useAuth();
-  const [trackArray, setTrackArray] = useState([]);
-  const [playId, setPlayId] = useState();
+  // const [trackArray, setTrackArray] = useState([]);
+  // const [playId, setPlayId] = useState();
   const [projects, setProjects] = useState([]);
-  const [childTrack, setChildTrack] = useState(1);
-  const [isPlaying, SetIsPlaying] = useState(false);
+  // const [childTrack, setChildTrack] = useState(1);
+  // const [isPlaying, SetIsPlaying] = useState(false);
 
-  let ref1 = useRef(null);
-  let ref2 = useRef(null);
-  let ref3 = useRef(null);
-  let ref4 = useRef(null);
-  let waveRef = useRef(null);
+  // let ref1 = useRef(null);
+  // let ref2 = useRef(null);
+  // let ref3 = useRef(null);
+  // let ref4 = useRef(null);
+  // let waveRef = useRef(null);
 
   const getProjects = () => {
     const ref = collection(firestore, 'projects');
@@ -55,143 +55,143 @@ const Dashboard = () => {
     const thedata = getProjects();
   }, []);
 
-  useEffect(() => {
-    getFileFromStorage(user.uid).then((res) => setTrackArray(res));
-  }, [childTrack]);
+  // useEffect(() => {
+  //   getFileFromStorage(user.uid).then((res) => setTrackArray(res));
+  // }, [childTrack]);
 
-  const player1 = new Audio(trackArray[0]);
-  const player2 = new Audio(trackArray[1]);
-  const player3 = new Audio(trackArray[2]);
-  const player4 = new Audio(trackArray[3]);
+  // const player1 = new Audio(trackArray[0]);
+  // const player2 = new Audio(trackArray[1]);
+  // const player3 = new Audio(trackArray[2]);
+  // const player4 = new Audio(trackArray[3]);
 
-  const playChecked = (id) => {
-    if (id == 1) {
-      player1.play();
-      // SetIsPlaying(true);
-      // waveRef.current.playPauseWave2();
-      return;
-    } else if (id == 2) {
-      player2.play();
-      // SetIsPlaying(true);
-      return;
-    } else if (id == 3) {
-      console.log('playing 3');
-      player3.play();
-      // SetIsPlaying(true);
-      return;
-    } else if (id == 4) {
-      console.log('playing 4');
+  // const playChecked = (id) => {
+  //   if (id == 1) {
+  //     player1.play();
+  //     // SetIsPlaying(true);
+  //     // waveRef.current.playPauseWave2();
+  //     return;
+  //   } else if (id == 2) {
+  //     player2.play();
+  //     // SetIsPlaying(true);
+  //     return;
+  //   } else if (id == 3) {
+  //     console.log('playing 3');
+  //     player3.play();
+  //     // SetIsPlaying(true);
+  //     return;
+  //   } else if (id == 4) {
+  //     console.log('playing 4');
 
-      player4.play();
-      // SetIsPlaying(true);
-      return;
-    } else {
-      console.log('playing all');
-      player1.play();
-      player2.play();
-      player3.play();
-      player4.play();
-      SetIsPlaying(true);
-    }
-  };
+  //     player4.play();
+  //     // SetIsPlaying(true);
+  //     return;
+  //   } else {
+  //     console.log('playing all');
+  //     player1.play();
+  //     player2.play();
+  //     player3.play();
+  //     player4.play();
+  //     SetIsPlaying(true);
+  //   }
+  // };
 
-  const handleChange = (event) => {
-    console.log(event.target.value);
-    if (playId == event.target.value) {
-      setPlayId('');
-    } else {
-      setPlayId(event.target.value);
-    }
-  };
+  // const handleChange = (event) => {
+  //   console.log(event.target.value);
+  //   if (playId == event.target.value) {
+  //     setPlayId('');
+  //   } else {
+  //     setPlayId(event.target.value);
+  //   }
+  // };
 
-  const record = (recId) => {
-    if (recId == 1) {
-      console.log('recId 1');
-      player2.play();
-      player3.play();
-      player4.play();
-      ref1.current.start1();
-      return;
-    } else if (recId == 2) {
-      console.log('recId 2');
-      player1.play();
-      player3.play();
-      player4.play();
-      ref2.current.start2();
-      return;
-    } else if (recId == 3) {
-      console.log('recId 3');
-      player1.play();
-      player2.play();
-      player4.play();
-      ref3.current.start3();
-      return;
-    } else if (recId == 4) {
-      console.log('recId 4');
-      player1.play();
-      player2.play();
-      player3.play();
-      ref4.current.start4();
-      return;
-    }
-  };
+  // const record = (recId) => {
+  //   if (recId == 1) {
+  //     console.log('recId 1');
+  //     player2.play();
+  //     player3.play();
+  //     player4.play();
+  //     ref1.current.start1();
+  //     return;
+  //   } else if (recId == 2) {
+  //     console.log('recId 2');
+  //     player1.play();
+  //     player3.play();
+  //     player4.play();
+  //     ref2.current.start2();
+  //     return;
+  //   } else if (recId == 3) {
+  //     console.log('recId 3');
+  //     player1.play();
+  //     player2.play();
+  //     player4.play();
+  //     ref3.current.start3();
+  //     return;
+  //   } else if (recId == 4) {
+  //     console.log('recId 4');
+  //     player1.play();
+  //     player2.play();
+  //     player3.play();
+  //     ref4.current.start4();
+  //     return;
+  //   }
+  // };
 
-  const stop = (recId) => {
-    if (recId == 1) {
-      player2.pause();
-      player3.pause();
-      player4.pause();
-      ref1.current.stop1();
-      setChildTrack((prev) => prev + 1);
-      // SetIsPlaying(false);
-      //NOT WORKING
-      // waveRef.current.playPauseWave();
-      window.location.reload(false);
-      return;
-    } else if (recId == 2) {
-      player1.pause();
-      player3.pause();
-      player4.pause();
-      ref2.current.stop2();
-      setChildTrack((prev) => prev + 1);
-      // SetIsPlaying(false);
-      window.location.reload(false);
-      return;
-    } else if (recId == 3) {
-      player1.pause();
-      player2.pause();
-      player4.pause();
-      ref3.current.stop3();
-      setChildTrack((prev) => prev + 1);
-      // SetIsPlaying(false);
-      window.location.reload(false);
-      return;
-    } else if (recId == 4) {
-      console.log('recId 4');
-      player1.pause();
-      player2.pause();
-      player3.pause();
-      ref4.current.stop4();
-      setChildTrack((prev) => prev + 1);
-      // SetIsPlaying(false);
-      window.location.reload(false);
-      return;
-    } else {
-      console.log('stop all');
-      player1.pause();
-      player2.pause();
-      player3.pause();
-      player4.pause();
-      // SetIsPlaying(false);
-    }
-  };
+  // const stop = (recId) => {
+  //   if (recId == 1) {
+  //     player2.pause();
+  //     player3.pause();
+  //     player4.pause();
+  //     ref1.current.stop1();
+  //     setChildTrack((prev) => prev + 1);
+  //     // SetIsPlaying(false);
+  //     //NOT WORKING
+  //     // waveRef.current.playPauseWave();
+  //     window.location.reload(false);
+  //     return;
+  //   } else if (recId == 2) {
+  //     player1.pause();
+  //     player3.pause();
+  //     player4.pause();
+  //     ref2.current.stop2();
+  //     setChildTrack((prev) => prev + 1);
+  //     // SetIsPlaying(false);
+  //     window.location.reload(false);
+  //     return;
+  //   } else if (recId == 3) {
+  //     player1.pause();
+  //     player2.pause();
+  //     player4.pause();
+  //     ref3.current.stop3();
+  //     setChildTrack((prev) => prev + 1);
+  //     // SetIsPlaying(false);
+  //     window.location.reload(false);
+  //     return;
+  //   } else if (recId == 4) {
+  //     console.log('recId 4');
+  //     player1.pause();
+  //     player2.pause();
+  //     player3.pause();
+  //     ref4.current.stop4();
+  //     setChildTrack((prev) => prev + 1);
+  //     // SetIsPlaying(false);
+  //     window.location.reload(false);
+  //     return;
+  //   } else {
+  //     console.log('stop all');
+  //     player1.pause();
+  //     player2.pause();
+  //     player3.pause();
+  //     player4.pause();
+  //     // SetIsPlaying(false);
+  //   }
+  // };
 
   return (
     <div>
       <p>This route is protected</p>
       <h1> Well hello {user.email}!</h1>
 
-      <h3>Recorders</h3>
+      {/* <h3>Recorders</h3>
       <Form>
         <Label htmlFor=''>
           <input
@@ -244,7 +244,7 @@ const Dashboard = () => {
       <button onClick={() => stop(playId)}>STOP</button>
       <button onClick={() => playChecked(playId)}>PLAY</button>
       <button onClick={() => record(playId)}>REC</button>
-      <p>To play all tracks at once, uncheck all tracks and press play.</p>
+      <p>To play all tracks at once, uncheck all tracks and press play.</p> */}
       <h4>Stuff bellow not working:</h4>
       <Project user={user} />
       <h3>My projects</h3>
@@ -253,11 +253,11 @@ const Dashboard = () => {
           projects.map((project) => {
             return (
               <>
-                <li>
-                  <Link href={`/projects/${project.title}`} key={project.title}>
-                    {project.title}
-                  </Link>
-                </li>
+                <Link href={`/projects/${project.title}`} key={project.title}>
+                  {project.title}
+                </Link>
+
+                <p>project Id: {project.id}</p>
               </>
             );
           })}

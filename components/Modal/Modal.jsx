@@ -116,7 +116,7 @@ export default function Modal(props) {
   //TODO: This looks weird.
   useEffect(() => {
     if (user) {
-      router.push('/dashboard');
+      router.push('/projects');
     }
   }, []);
 
@@ -124,7 +124,7 @@ export default function Modal(props) {
     e.preventDefault();
     try {
       await login(data.email, data.password);
-      router.push('/dashboard');
+      router.push('/projects');
     } catch (err) {
       console.log(err);
     }
@@ -135,7 +135,7 @@ export default function Modal(props) {
 
     try {
       await signup(data.email, data.password);
-      router.push('/dashboard');
+      router.push('/projects');
     } catch (err) {
       console.log(err);
     }
@@ -145,7 +145,7 @@ export default function Modal(props) {
   const handleGoogleSignIn = async () => {
     try {
       await signUpWithGoogle();
-      router.push('/dashboard');
+      router.push('/projects');
     } catch (error) {
       console.log(error);
     }

@@ -8,6 +8,7 @@ import Project from '../components/Project/Project';
 // import AudioVisualizer from '../components/AudioVisualizer/audiovisualizer';
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
+import Link from 'next/link';
 
 const AudioVisualizer = dynamic(
   () => import('../components/AudioVisualizer/audiovisualizer'),
@@ -250,7 +251,15 @@ const Dashboard = () => {
       <ul>
         {projects &&
           projects.map((project) => {
-            return <li key={project.title}>{project.title}</li>;
+            return (
+              <>
+                <li>
+                  <Link href={`/projects/${project.title}`} key={project.title}>
+                    {project.title}
+                  </Link>
+                </li>
+              </>
+            );
           })}
       </ul>
       <button onClick={readUsers}>Click here to see users</button>

@@ -36,14 +36,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const registerWithEmailAndPassword = async (auth, email, password) => {
     try {
-      const res = await createUserWithEmailAndPassword(auth, email, password);
-      const usersCollectionRef = collection(firestore, 'users');
-      const newUser = res.user;
-      await addDoc(usersCollectionRef, {
-        uid: newUser.uid,
-        authProvider: 'local',
-        email: newUser.email,
-      });
+      await createUserWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.error(error);
     }
@@ -54,32 +47,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const signUpWithGoogle = async () => {
-    try {
-      await signInWithRedirect(auth, googleAuthProvider);
-      await getRedirectResult(auth).then((res) => {
-        console.log(`res ; ${res}`);
-        const usersCollectionRef = collection(firestore, 'users');
-        const newUser = res.user;
-        console.log(newUser);
-        addDoc(usersCollectionRef, {
-          uid: newUser.uid,
-          authProvider: 'google',
-          email: newUser.email,
-        });
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const createUserGoogle = async (user) => {
-    const usersCollectionRef = collection(firestore, 'users');
-    const newUser = user;
-    await addDoc(usersCollectionRef, {
-      uid: newUser.uid,
-      authProvider: 'google',
-      email: newUser.email,
-    });
+    await signInWithRedirect(auth, googleAuthProvider);
   };
 
   const login = (email, password) => {
@@ -99,7 +67,6 @@ export const AuthContextProvider = ({ children }) => {
         signup,
         logout,
         signUpWithGoogle,
-        createUserGoogle,
       }}
     >
       {loading ? null : children}

@@ -109,7 +109,7 @@ export const DialogClose = DialogPrimitive.Close;
 export default function Modal(props) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const { user, login, signUpWithGoogle, signup, createUserGoogle } = useAuth();
+  const { user, login, signUpWithGoogle, signup} = useAuth();
   const [data, setData] = useState({
     email: '',
     password: '',

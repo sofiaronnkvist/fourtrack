@@ -10,7 +10,7 @@ const Recorder = (props, ref) => {
     track,
     saveRecordedAudio,
     startRecording,
-  } = useMyRecorder(props.id);
+  } = useMyRecorder(props.id, props.projectId);
 
   // props.changeTrack(track);
 
@@ -60,7 +60,7 @@ const Recorder = (props, ref) => {
         {/* <button onClick={() => props.setChildTrack(audioURL)}>setTrack</button> */}
       </div>
       <div>
-        <audio id={props.id} src={track}></audio>
+        <audio id={props.id} src={track} projectId={props.projectId}></audio>
         <span>{timer}</span>
       </div>
     </div>

@@ -4,10 +4,9 @@ import { firestore } from '../../utils/firebase';
 import React, { useEffect, useRef, useState } from 'react';
 import Recorder from '../../components/Recorder/Recorder';
 import { getFileFromStorage } from '../../utils/getFileFromStorage';
-// import AudioVisualizer from '../components/AudioVisualizer/audiovisualizer';
-import dynamic from 'next/dynamic';
 import styled from 'styled-components';
-import Link from 'next/link';
+import  {deleteFileFromStorage}  from '../../utils/deleteFileFromStorage';
+import Button from '../../components/Button/Button';
 
 export default function Project({ res }) {
   const { user } = useAuth();
@@ -21,9 +20,10 @@ export default function Project({ res }) {
   let ref3 = useRef(null);
   let ref4 = useRef(null);
 
-  useEffect(() => {
-    getFileFromStorage(user.uid, res.id).then((res) => setTrackArray(res));
-  }, [childTrack]);
+  // useEffect(() => {
+  //   getFileFromStorage(user.uid, res.id).then((res) => setTrackArray(res));
+  //   console.log('use effect k;rs');
+  // }, [childTrack]);
 
   const player1 = new Audio(trackArray[0]);
   const player2 = new Audio(trackArray[1]);
@@ -152,6 +152,12 @@ export default function Project({ res }) {
     }
   };
 
+  const deleteTrack = (userId, projectId, trackNo, arrayIndex) => {
+    console.log('klick ok');
+    deleteFileFromStorage(userId, projectId, trackNo);
+    // setChildTrack((prev) => prev + 1);
+  };
+
   return (
     <div>
       <p>This route is protected</p>
@@ -168,8 +174,14 @@ export default function Project({ res }) {
             value='1'
             name='playId'
           ></input>{' '}
-          <RecorderBlock color='lightsalmon'>Track One</RecorderBlock>
-          <Recorder id={1} projectId={res.id} ref={ref1}></Recorder>
+          <RecorderBlock color='lightsalmon'>
+            Track One
+            <Button
+              handleclick={() => deleteTrack(user.uid, res.id, 1, 0)}
+              text={'X'}
+            ></Button>
+          </RecorderBlock>
+          <Recorder id={1} projectid={res.id} ref={ref1}></Recorder>
         </Label>
         <Label htmlFor=''>
           <input
@@ -181,7 +193,7 @@ export default function Project({ res }) {
           ></input>
           <RecorderBlock color='lightyellow'>Track Two</RecorderBlock>
 
-          <Recorder id={2} projectId={res.id} ref={ref2}></Recorder>
+          <Recorder id={2} projectid={res.id} ref={ref2}></Recorder>
         </Label>
         <Label htmlFor=''>
           <input
@@ -193,7 +205,7 @@ export default function Project({ res }) {
           ></input>
           <RecorderBlock color='lightcoral'>Track Three</RecorderBlock>
 
-          <Recorder id={3} projectId={res.id} ref={ref3}></Recorder>
+          <Recorder id={3} projectid={res.id} ref={ref3}></Recorder>
         </Label>
         <Label htmlFor=''>
           <input
@@ -205,7 +217,7 @@ export default function Project({ res }) {
           ></input>
           <RecorderBlock color='aliceblue'>Track Four</RecorderBlock>
 
-          <Recorder id={4} projectId={res.id} ref={ref4}></Recorder>
+          <Recorder id={4} projectid={res.id} ref={ref4}></Recorder>
         </Label>
       </Form>
       <button onClick={() => stop(playId)}>STOP</button>

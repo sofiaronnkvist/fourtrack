@@ -5,11 +5,6 @@ import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
 import Modal from '../components/Modal/Modal';
 
-// Rendering component on client not server
-const Recorder = dynamic(() => import('../components/Recorder/Recorder'), {
-  ssr: false,
-});
-
 export default function Home() {
   return (
     <div className={styles.container}>

@@ -38,6 +38,8 @@ const Dashboard = () => {
     <div>
       <p>This route is protected</p>
       <h1> Well hello {user.email}!</h1>
+      <h1>  {user.uid}!</h1>
+
       <Project user={user} />
       <h3>My projects</h3>
       <ul>

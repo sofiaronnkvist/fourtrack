@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import ProtectedRoute from '../components/ProtectedRoute/protectedRoute';
 import { Toaster } from 'react-hot-toast';
 
-const noAuthRequired = ['/', '/login', '/signup'];
+const noAuthRequired = ['/'];
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }) {
             background: '#363636',
             color: '#fff',
           },
-      
+
           // Default options for specific types
           success: {
             duration: 3000,

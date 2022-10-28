@@ -13,7 +13,7 @@ const readUsers = async () => {
   });
 };
 
-const Dashboard = () => {
+const Projects = () => {
   const { user } = useAuth();
   const [projects, setProjects] = useState([]);
 
@@ -36,9 +36,8 @@ const Dashboard = () => {
 
   return (
     <div>
-      <p>This route is protected</p>
       <h1> Well hello {user.email}!</h1>
-      <h1>  {user.uid}!</h1>
+      <h1> {user.uid}!</h1>
 
       <Project user={user} />
       <h3>My projects</h3>
@@ -67,4 +66,4 @@ const Label = styled.label`
   margin: 20px;
 `;
 
-export default Dashboard;
+export default Projects;

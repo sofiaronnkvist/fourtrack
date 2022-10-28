@@ -169,7 +169,7 @@ export default function Project({ res }) {
             name='playId'
           ></input>{' '}
           <RecorderBlock color='lightsalmon'>Track One</RecorderBlock>
-          <Recorder id={1} projectId={res.id} ref={ref1}></Recorder>
+          <Recorder id={1} projectid={res.id} ref={ref1}></Recorder>
         </Label>
         <Label htmlFor=''>
           <input
@@ -181,7 +181,7 @@ export default function Project({ res }) {
           ></input>
           <RecorderBlock color='lightyellow'>Track Two</RecorderBlock>
 
-          <Recorder id={2} projectId={res.id} ref={ref2}></Recorder>
+          <Recorder id={2} projectid={res.id} ref={ref2}></Recorder>
         </Label>
         <Label htmlFor=''>
           <input
@@ -193,7 +193,7 @@ export default function Project({ res }) {
           ></input>
           <RecorderBlock color='lightcoral'>Track Three</RecorderBlock>
 
-          <Recorder id={3} projectId={res.id} ref={ref3}></Recorder>
+          <Recorder id={3} projectid={res.id} ref={ref3}></Recorder>
         </Label>
         <Label htmlFor=''>
           <input
@@ -205,7 +205,7 @@ export default function Project({ res }) {
           ></input>
           <RecorderBlock color='aliceblue'>Track Four</RecorderBlock>
 
-          <Recorder id={4} projectId={res.id} ref={ref4}></Recorder>
+          <Recorder id={4} projectid={res.id} ref={ref4}></Recorder>
         </Label>
       </Form>
       <button onClick={() => stop(playId)}>STOP</button>

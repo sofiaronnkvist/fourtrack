@@ -63,6 +63,5 @@ export const getFileFromStorage = async (userId, projectId) => {
         return Promise.reject(error);
       }
     });
-
   return trackArray;
 };

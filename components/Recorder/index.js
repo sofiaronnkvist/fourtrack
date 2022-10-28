@@ -3,7 +3,7 @@ import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../../utils/firebase';
 import { useAuth } from '../../context/AuthContext';
 
-export const useMyRecorder = (id) => {
+export const useMyRecorder = (id, projectId) => {
   const [audioURL, setAudioURL] = useState('');
   const [recordingStatus, setRecordingStatus] = useState('save');
   const [recorder, setRecorder] = useState(null);
@@ -46,7 +46,7 @@ export const useMyRecorder = (id) => {
 
       function uploadFiles(file, userId) {
         if (!file) return;
-        const sotrageRef = ref(storage, `files/${userId}/${id}/test`);
+        const sotrageRef = ref(storage, `files/${userId}/${projectId}/${id}/test`);
         // console.log(sotrageRef);
         const uploadTask = uploadBytesResumable(sotrageRef, file);
         // console.log(uploadTask);

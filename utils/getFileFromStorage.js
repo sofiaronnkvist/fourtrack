@@ -1,11 +1,11 @@
 import { ref, getDownloadURL } from 'firebase/storage';
 import { storage } from './firebase';
 
-export const getFileFromStorage = async (userId) => {
+export const getFileFromStorage = async (userId, projectId) => {
   let trackArray = [];
 
   const downloadUrl = await getDownloadURL(
-    ref(storage, `files/${userId}/1/test`)
+    ref(storage, `files/${userId}/${projectId}/1/test`)
   )
     .then((url) => {
       trackArray.push(url);
@@ -20,7 +20,7 @@ export const getFileFromStorage = async (userId) => {
     });
 
   const downloadUrl2 = await getDownloadURL(
-    ref(storage, `files/${userId}/2/test`)
+    ref(storage, `files/${userId}/${projectId}/2/test`)
   )
     .then((url) => {
       trackArray.push(url);
@@ -35,7 +35,7 @@ export const getFileFromStorage = async (userId) => {
     });
 
   const downloadUrl3 = await getDownloadURL(
-    ref(storage, `files/${userId}/3/test`)
+    ref(storage, `files/${userId}/${projectId}/3/test`)
   )
     .then((url) => {
       trackArray.push(url);
@@ -50,7 +50,7 @@ export const getFileFromStorage = async (userId) => {
     });
 
   const downloadUrl4 = await getDownloadURL(
-    ref(storage, `files/${userId}/4/test`)
+    ref(storage, `files/${userId}/${projectId}/4/test`)
   )
     .then((url) => {
       trackArray.push(url);

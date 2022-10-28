@@ -3,7 +3,6 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
-import Modal from '../components/Modal/Modal';
 
 export default function Home() {
   return (
@@ -22,8 +21,6 @@ export default function Home() {
           Get started by editing{' '}
           <code className={styles.code}>pages/index.js</code>
         </p>
-        <Modal buttonTitle='Login'/>
-        <Modal buttonTitle='Create account' />
       </main>
 
       <footer className={styles.footer}>

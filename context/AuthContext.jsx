@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import {
   onAuthStateChanged,
+  onIdTokenChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithRedirect,
@@ -9,6 +10,8 @@ import {
 } from 'firebase/auth';
 import { query, getDocs, collection, where, addDoc } from 'firebase/firestore';
 import { auth, googleAuthProvider, firestore } from '../utils/firebase';
+import nookies from 'nookies';
+import { app } from '../utils/firebase';
 import toast from 'react-hot-toast';
 
 const AuthContext = createContext({});
@@ -20,14 +23,17 @@ export const AuthContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
+    const unsubscribe = onIdTokenChanged(auth, async (user) => {
+      if (!user) {
+        setUser(null);
+        nookies.set(undefined, 'token', '', { path: '/' });
+      } else {
+        const token = await user.getIdToken();
         setUser({
           uid: user.uid,
           email: user.email,
         });
-      } else {
-        setUser(null);
+        nookies.set(undefined, 'token', token, { path: '/' });
       }
       setLoading(false);
     });
@@ -35,19 +41,26 @@ export const AuthContextProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    const handle = setInterval(async () => {
+      const user = app.auth().currentUser;
+      if (user) await user.getIdToken(true);
+    }, 10 * 60 * 1000);
+
+    // clean up setInterval
+    return () => clearInterval(handle);
+  }, []);
+
+  const registerWithEmailAndPassword = async (auth, email, password) => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const signup = (email, password) => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-      })
-      .catch((error) => {
-        if (error.code === 'auth/email-already-in-use') {
-          toast('Ups, email allredy in use');
-        }
-        if (error.code === 'auth/weak-password') {
-          toast('Your password must be 6 characters or more.');
-        }
-      });
+    return registerWithEmailAndPassword(auth, email, password);
   };
 
   const signUpWithGoogle = async () => {
@@ -55,16 +68,40 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const login = (email, password) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-      })
-      .catch((error) => {
-        if (error.code === 'auth/wrong-password') {
-          toast('Sorry wrong password or email');
-        }
-      });
+    return signInWithEmailAndPassword(auth, email, password);
   };
+
+  // MAKE ERROR HANDLING WORK
+  // const signup = (email, password) => {
+  //   createUserWithEmailAndPassword(auth, email, password)
+  //     .then((userCredential) => {
+  //       // Signed in
+  //     })
+  //     .catch((error) => {
+  //       if (error.code === 'auth/email-already-in-use') {
+  //         toast('Ups, email allredy in use');
+  //       }
+  //       if (error.code === 'auth/weak-password') {
+  //         toast('Your password must be 6 characters or more.');
+  //       }
+  //     });
+  // };
+
+  // const signUpWithGoogle = async () => {
+  //   await signInWithRedirect(auth, googleAuthProvider);
+  // };
+
+  // const login = (email, password) => {
+  //   signInWithEmailAndPassword(auth, email, password)
+  //     .then((userCredential) => {
+  //       // Signed in
+  //     })
+  //     .catch((error) => {
+  //       if (error.code === 'auth/wrong-password') {
+  //         toast('Sorry wrong password or email');
+  //       }
+  //     });
+  // };
 
   const logout = async () => {
     setUser(null);

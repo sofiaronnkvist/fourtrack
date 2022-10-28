@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import {
   onAuthStateChanged,
+  onIdTokenChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithRedirect,
@@ -9,6 +10,8 @@ import {
 } from 'firebase/auth';
 import { query, getDocs, collection, where, addDoc } from 'firebase/firestore';
 import { auth, googleAuthProvider, firestore } from '../utils/firebase';
+import nookies from 'nookies';
+import { app } from '../utils/firebase';
 
 const AuthContext = createContext({});
 
@@ -19,19 +22,32 @@ export const AuthContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
+    const unsubscribe = onIdTokenChanged(auth, async (user) => {
+      if (!user) {
+        setUser(null);
+        nookies.set(undefined, 'token', '', { path: '/' });
+      } else {
+        const token = await user.getIdToken();
         setUser({
           uid: user.uid,
           email: user.email,
         });
-      } else {
-        setUser(null);
+        nookies.set(undefined, 'token', token, { path: '/' });
       }
       setLoading(false);
     });
 
     return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const handle = setInterval(async () => {
+      const user = app.auth().currentUser;
+      if (user) await user.getIdToken(true);
+    }, 10 * 60 * 1000);
+
+    // clean up setInterval
+    return () => clearInterval(handle);
   }, []);
 
   const registerWithEmailAndPassword = async (auth, email, password) => {

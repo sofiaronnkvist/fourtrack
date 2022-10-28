@@ -5,34 +5,33 @@ import { firestore } from '../utils/firebase';
 import Project from '../components/Project/Project';
 import styled from 'styled-components';
 import Link from 'next/link';
+import { verifyIdToken } from '../utils/firebaseAdmin';
+import nookies from 'nookies';
 
-const AudioVisualizer = dynamic(
-  () => import('../components/AudioVisualizer/audiovisualizer'),
-  {
-    ssr: false,
-  }
-);
+export async function getServerSideProps(ctx) {
+  const cookies = nookies.get(ctx);
+  const token = await verifyIdToken(cookies.token);
 
-const Dashboard = () => {
-  const { user } = useAuth();
-  const [projects, setProjects] = useState([]);
+  const { uid } = token;
+  let projects = [];
 
-  const getProjects = () => {
-    const ref = collection(firestore, 'projects');
-    const projectsQuery = query(ref, where('uid', '==', user.uid));
-    getDocs(projectsQuery).then((data) => {
-      setProjects(
-        data.docs.map((item) => {
-          return { ...item.data(), id: item.id };
-        })
-      );
-    });
+  const ref = collection(firestore, 'projects');
+  const projectsQuery = query(ref, where('uid', '==', uid));
+  await getDocs(projectsQuery).then((data) => {
+    projects.push(
+      data.docs.map((item) => {
+        return { ...item.data(), id: item.id };
+      })
+    );
+  });
+  return {
+    props: { projects },
   };
+}
 
-  // TODO: Can this be put in a getServerSideProps instead?
-  useEffect(() => {
-    const thedata = getProjects();
-  }, []);
+const Projects = ({ projects }) => {
+  const { user } = useAuth();
+  console.log(projects);
 
   return (
     <div>
@@ -42,11 +41,17 @@ const Dashboard = () => {
       <h3>My projects</h3>
       <ul>
         {projects &&
-          projects.map((project, key) => {
+          projects[0].map((project) => {
             return (
               <>
-                <Link href={`/projects/${project.title}`} key={project.title}>
-                  {project.title}
+                <Link
+                  href={{
+                    pathname: '/projects/[slug]',
+                    query: { slug: project.title },
+                  }}
+                  key={project.title}
+                >
+                  <a>{project.title}</a>
                 </Link>
 
                 <p>project Id: {project.id}</p>
@@ -64,4 +69,4 @@ const Label = styled.label`
   margin: 20px;
 `;
 
-export default Dashboard;
+export default Projects;

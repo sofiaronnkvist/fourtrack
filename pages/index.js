@@ -4,11 +4,6 @@ import styles from '../styles/Home.module.css';
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
 
-// Rendering component on client not server
-const Recorder = dynamic(() => import('../components/Recorder/Recorder'), {
-  ssr: false,
-});
-
 export default function Home() {
   return (
     <div className={styles.container}>

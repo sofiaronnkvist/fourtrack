@@ -51,19 +51,16 @@ export const AuthContextProvider = ({ children }) => {
     return () => clearInterval(handle);
   }, []);
 
+  const registerWithEmailAndPassword = async (auth, email, password) => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const signup = (email, password) => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-      })
-      .catch((error) => {
-        if (error.code === 'auth/email-already-in-use') {
-          toast('Ups, email allredy in use');
-        }
-        if (error.code === 'auth/weak-password') {
-          toast('Your password must be 6 characters or more.');
-        }
-      });
+    return registerWithEmailAndPassword(auth, email, password);
   };
 
   const signUpWithGoogle = async () => {
@@ -71,16 +68,40 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const login = (email, password) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-      })
-      .catch((error) => {
-        if (error.code === 'auth/wrong-password') {
-          toast('Sorry wrong password or email');
-        }
-      });
+    return signInWithEmailAndPassword(auth, email, password);
   };
+
+  // MAKE ERROR HANDLING WORK
+  // const signup = (email, password) => {
+  //   createUserWithEmailAndPassword(auth, email, password)
+  //     .then((userCredential) => {
+  //       // Signed in
+  //     })
+  //     .catch((error) => {
+  //       if (error.code === 'auth/email-already-in-use') {
+  //         toast('Ups, email allredy in use');
+  //       }
+  //       if (error.code === 'auth/weak-password') {
+  //         toast('Your password must be 6 characters or more.');
+  //       }
+  //     });
+  // };
+
+  // const signUpWithGoogle = async () => {
+  //   await signInWithRedirect(auth, googleAuthProvider);
+  // };
+
+  // const login = (email, password) => {
+  //   signInWithEmailAndPassword(auth, email, password)
+  //     .then((userCredential) => {
+  //       // Signed in
+  //     })
+  //     .catch((error) => {
+  //       if (error.code === 'auth/wrong-password') {
+  //         toast('Sorry wrong password or email');
+  //       }
+  //     });
+  // };
 
   const logout = async () => {
     setUser(null);

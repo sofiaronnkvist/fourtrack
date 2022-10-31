@@ -4,10 +4,10 @@ import { firestore } from '../../utils/firebase';
 import React, { useEffect, useRef, useState } from 'react';
 import Recorder from '../../components/Recorder/Recorder';
 import { getFileFromStorage } from '../../utils/getFileFromStorage';
-// import AudioVisualizer from '../components/AudioVisualizer/audiovisualizer';
-import dynamic from 'next/dynamic';
 import styled from 'styled-components';
-import Link from 'next/link';
+import { deleteFileFromStorage } from '../../utils/deleteFileFromStorage';
+import Button from '../../components/Button/Button';
+import { async } from '@firebase/util';
 
 export default function Project({ res }) {
   const { user } = useAuth();
@@ -22,7 +22,11 @@ export default function Project({ res }) {
   let ref4 = useRef(null);
 
   useEffect(() => {
-    getFileFromStorage(user.uid, res.id).then((res) => setTrackArray(res));
+    // Waiting for index.js to send file to FB
+    setTimeout(function () {
+      getFileFromStorage(user.uid, res.id).then((res) => setTrackArray(res));
+      // console.log('use effect k;rs');
+    }, 500);
   }, [childTrack]);
 
   const player1 = new Audio(trackArray[0]);
@@ -112,7 +116,7 @@ export default function Project({ res }) {
       // SetIsPlaying(false);
       //NOT WORKING
       // waveRef.current.playPauseWave();
-      window.location.reload(false);
+      // window.location.reload(false);
       return;
     } else if (recId == 2) {
       player1.pause();
@@ -121,7 +125,7 @@ export default function Project({ res }) {
       ref2.current.stop2();
       setChildTrack((prev) => prev + 1);
       // SetIsPlaying(false);
-      window.location.reload(false);
+      // window.location.reload(false);
       return;
     } else if (recId == 3) {
       player1.pause();
@@ -130,7 +134,7 @@ export default function Project({ res }) {
       ref3.current.stop3();
       setChildTrack((prev) => prev + 1);
       // SetIsPlaying(false);
-      window.location.reload(false);
+      // window.location.reload(false);
       return;
     } else if (recId == 4) {
       console.log('recId 4');
@@ -140,7 +144,7 @@ export default function Project({ res }) {
       ref4.current.stop4();
       setChildTrack((prev) => prev + 1);
       // SetIsPlaying(false);
-      window.location.reload(false);
+      // window.location.reload(false);
       return;
     } else {
       console.log('stop all');
@@ -150,6 +154,12 @@ export default function Project({ res }) {
       player4.pause();
       // SetIsPlaying(false);
     }
+  };
+
+  const deleteTrack = async (userId, projectId, trackNo, arrayIndex) => {
+    console.log('klick ok');
+    await deleteFileFromStorage(userId, projectId, trackNo);
+    // setChildTrack((prev) => prev + 1);
   };
 
   return (
@@ -168,7 +178,14 @@ export default function Project({ res }) {
             value='1'
             name='playId'
           ></input>{' '}
-          <RecorderBlock color='lightsalmon'>Track One</RecorderBlock>
+          <RecorderBlock color='lightsalmon'>
+            Track One
+            <Button
+              handleclick={() => deleteTrack(user.uid, res.id, 1, 0)}
+              text={'X'}
+            ></Button>
+          </RecorderBlock>
+
           <Recorder id={1} projectid={res.id} ref={ref1}></Recorder>
         </Label>
         <Label htmlFor=''>
@@ -179,7 +196,13 @@ export default function Project({ res }) {
             value='2'
             name='playId'
           ></input>
-          <RecorderBlock color='lightyellow'>Track Two</RecorderBlock>
+          <RecorderBlock color='lightyellow'>
+            Track Two
+            <Button
+              handleclick={() => deleteTrack(user.uid, res.id, 2, 1)}
+              text={'X'}
+            ></Button>
+          </RecorderBlock>
 
           <Recorder id={2} projectid={res.id} ref={ref2}></Recorder>
         </Label>
@@ -191,7 +214,13 @@ export default function Project({ res }) {
             value='3'
             name='playId'
           ></input>
-          <RecorderBlock color='lightcoral'>Track Three</RecorderBlock>
+          <RecorderBlock color='lightcoral'>
+            Track Three
+            <Button
+              handleclick={() => deleteTrack(user.uid, res.id, 3, 2)}
+              text={'X'}
+            ></Button>
+          </RecorderBlock>
 
           <Recorder id={3} projectid={res.id} ref={ref3}></Recorder>
         </Label>
@@ -203,7 +232,13 @@ export default function Project({ res }) {
             value='4'
             name='playId'
           ></input>
-          <RecorderBlock color='aliceblue'>Track Four</RecorderBlock>
+          <RecorderBlock color='aliceblue'>
+            Track Four
+            <Button
+              handleclick={() => deleteTrack(user.uid, res.id, 4, 3)}
+              text={'X'}
+            ></Button>
+          </RecorderBlock>
 
           <Recorder id={4} projectid={res.id} ref={ref4}></Recorder>
         </Label>
@@ -261,6 +296,8 @@ const Form = styled.form`
 const RecorderBlock = styled.div`
   height: 50px;
   width: 515px;
+  display: flex;
+  justify-content: space-between;
   background-color: ${(props) => props.color};
   margin-left: 10px;
 `;

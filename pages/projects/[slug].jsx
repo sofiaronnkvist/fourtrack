@@ -237,6 +237,8 @@ export default function Project({ res }) {
       setChildTrack((prev) => prev + 1);
 
       // window.location.reload(false);
+
+      //try if insted
       return;
     } else {
       console.log('stop all');
@@ -279,6 +281,7 @@ export default function Project({ res }) {
       <p>id: {res.id}</p>
 
       <h3>Recorders</h3>
+      {/* Loopa tracks och ref */}
       <Form>
         <Label htmlFor=''>
           <input

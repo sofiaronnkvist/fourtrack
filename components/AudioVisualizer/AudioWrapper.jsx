@@ -1,10 +1,7 @@
-import React, {
-  useEffect,
-  useImperativeHandle,
-  useRef,
-} from 'react';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 import styled from 'styled-components';
+import * as Slider from '@radix-ui/react-slider';
 
 const AudioWrapper = (props) => {
   const containerRef = useRef();
@@ -33,14 +30,6 @@ const AudioWrapper = (props) => {
       waveSurfer.destroy();
     };
   }, []);
-
-//   const pauseWave = () => {
-//     waveSurferRef.current.pause();
-//   };
-
-//   const playWave = () => {
-//     waveSurferRef.current.play();
-//   };
 
   useImperativeHandle(props.waveRef1, () => ({
     play() {
@@ -76,29 +65,40 @@ const AudioWrapper = (props) => {
     },
   }));
 
+  const handleChange = (event) => {
+    waveSurferRef.current.setVolume(event.target.value);
+    console.log('value is:', event.target.value);
+  };
+
   return (
-    <div>
-      {/* <button
-        onClick={() => {
-          //   toggleIsPlaying(waveSurferRef.current.isPlaying());
-          playWave();
-        }}
-        type='button'
-      >
-        play
-      </button>
-      <button
-        onClick={() => {
-          //   toggleIsPlaying(waveSurferRef.current.isPlaying());
-          pauseWave();
-        }}
-        type='button'
-      >
-        pause
-      </button> */}
-      <div ref={containerRef} />
-    </div>
+    <StyledDiv>
+      <OuterWaveDiv>
+        <div ref={containerRef} />
+      </OuterWaveDiv>
+      <form action=''>
+        <HorizentalInput
+          type='range'
+          onChange={handleChange}
+          min='0'
+          max='1'
+          step='0.1'
+        />
+      </form>
+    </StyledDiv>
   );
 };
 
 export default AudioWrapper;
+
+const StyledDiv = styled.div`
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+`;
+const OuterWaveDiv = styled.div`
+  width: 100%;
+`;
+const HorizentalInput = styled.input`
+  margin: 10px;
+  appearance: slider-vertical;
+`;

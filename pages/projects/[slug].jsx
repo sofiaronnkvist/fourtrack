@@ -208,14 +208,13 @@ export default function Project({ res }) {
       try {
         waveRef4.current.pause();
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
       setChildTrack((prev) => prev + 1);
 
       // window.location.reload(false);
       return;
     } else if (recId == 4) {
-      console.log('recId 4');
       ref4.current.stop4();
 
       try {

@@ -128,7 +128,6 @@ export default function Project({ res }) {
       // window.location.reload(false);
       return;
     } else if (recId == 4) {
-      console.log('recId 4');
       ref4.current.stop4();
       waveRef1.current ? waveRef1.current.pause() : null;
       waveRef2.current ? waveRef2.current.pause() : null;

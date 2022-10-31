@@ -5,21 +5,26 @@ import React, { useEffect, useRef, useState } from 'react';
 import Recorder from '../../components/Recorder/Recorder';
 import { getFileFromStorage } from '../../utils/getFileFromStorage';
 import styled from 'styled-components';
+import AudioVisualizer from '../../components/AudioVisualizer/audiovisualizer';
 import { deleteFileFromStorage } from '../../utils/deleteFileFromStorage';
 import Button from '../../components/Button/Button';
 import { async } from '@firebase/util';
+
 
 export default function Project({ res }) {
   const { user } = useAuth();
   const [trackArray, setTrackArray] = useState([]);
   const [playId, setPlayId] = useState();
   const [childTrack, setChildTrack] = useState(1);
-  const [isPlaying, SetIsPlaying] = useState(false);
 
   let ref1 = useRef(null);
   let ref2 = useRef(null);
   let ref3 = useRef(null);
   let ref4 = useRef(null);
+  let waveRef1 = useRef(null);
+  let waveRef2 = useRef(null);
+  let waveRef3 = useRef(null);
+  let waveRef4 = useRef(null);
 
   useEffect(() => {
     // Waiting for index.js to send file to FB
@@ -36,32 +41,41 @@ export default function Project({ res }) {
 
   const playChecked = (id) => {
     if (id == 1) {
-      player1.play();
-      // SetIsPlaying(true);
-      // waveRef.current.playPauseWave2();
+      try {
+        waveRef1.current.play();
+      } catch (error) {}
       return;
     } else if (id == 2) {
-      player2.play();
-      // SetIsPlaying(true);
+      try {
+        waveRef2.current.play();
+      } catch (error) {}
+
       return;
     } else if (id == 3) {
-      console.log('playing 3');
-      player3.play();
-      // SetIsPlaying(true);
+      try {
+        waveRef3.current.play();
+      } catch (error) {}
+
       return;
     } else if (id == 4) {
-      console.log('playing 4');
-
-      player4.play();
-      // SetIsPlaying(true);
+      try {
+        waveRef4.current.play();
+      } catch (error) {}
       return;
     } else {
       console.log('playing all');
-      player1.play();
-      player2.play();
-      player3.play();
-      player4.play();
-      SetIsPlaying(true);
+      try {
+        waveRef1.current.play();
+      } catch (error) {}
+      try {
+        waveRef2.current.play();
+      } catch (error) {}
+      try {
+        waveRef3.current.play();
+      } catch (error) {}
+      try {
+        waveRef4.current.play();
+      } catch (error) {}
     }
   };
 
@@ -77,30 +91,58 @@ export default function Project({ res }) {
   const record = (recId) => {
     if (recId == 1) {
       console.log('recId 1');
-      player2.play();
-      player3.play();
-      player4.play();
+
+      try {
+        waveRef2.current.play();
+      } catch (error) {}
+      try {
+        waveRef3.current.play();
+      } catch (error) {}
+      try {
+        waveRef4.current.play();
+      } catch (error) {}
       ref1.current.start1();
       return;
     } else if (recId == 2) {
       console.log('recId 2');
-      player1.play();
-      player3.play();
-      player4.play();
+
+      try {
+        waveRef1.current.play();
+      } catch (error) {}
+      try {
+        waveRef3.current.play();
+      } catch (error) {}
+      try {
+        waveRef4.current.play();
+      } catch (error) {}
       ref2.current.start2();
       return;
     } else if (recId == 3) {
       console.log('recId 3');
-      player1.play();
-      player2.play();
-      player4.play();
+
+      try {
+        waveRef1.current.play();
+      } catch (error) {}
+      try {
+        waveRef2.current.play();
+      } catch (error) {}
+      try {
+        waveRef4.current.play();
+      } catch (error) {}
       ref3.current.start3();
       return;
     } else if (recId == 4) {
       console.log('recId 4');
-      player1.play();
-      player2.play();
-      player3.play();
+
+      try {
+        waveRef1.current.play();
+      } catch (error) {}
+      try {
+        waveRef2.current.play();
+      } catch (error) {}
+      try {
+        waveRef3.current.play();
+      } catch (error) {}
       ref4.current.start4();
       return;
     }
@@ -108,51 +150,119 @@ export default function Project({ res }) {
 
   const stop = (recId) => {
     if (recId == 1) {
-      player2.pause();
-      player3.pause();
-      player4.pause();
       ref1.current.stop1();
+
+      try {
+        waveRef2.current.pause();
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        waveRef3.current.pause();
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        waveRef4.current.pause();
+      } catch (error) {
+        console.log(error);
+      }
       setChildTrack((prev) => prev + 1);
-      // SetIsPlaying(false);
-      //NOT WORKING
-      // waveRef.current.playPauseWave();
-      // window.location.reload(false);
+
       return;
     } else if (recId == 2) {
-      player1.pause();
-      player3.pause();
-      player4.pause();
       ref2.current.stop2();
-      setChildTrack((prev) => prev + 1);
-      // SetIsPlaying(false);
+
+      try {
+        waveRef1.current.pause();
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        waveRef3.current.pause();
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        waveRef4.current.pause();
+      } catch (error) {
+        console.log(error);
+      }
       // window.location.reload(false);
+      setChildTrack((prev) => prev + 1);
+
       return;
     } else if (recId == 3) {
-      player1.pause();
-      player2.pause();
-      player4.pause();
       ref3.current.stop3();
+
+      try {
+        waveRef1.current.pause();
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        waveRef2.current.pause();
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        waveRef4.current.pause();
+      } catch (error) {
+        console.log(error);
+      }
       setChildTrack((prev) => prev + 1);
-      // SetIsPlaying(false);
+
       // window.location.reload(false);
       return;
     } else if (recId == 4) {
       console.log('recId 4');
-      player1.pause();
-      player2.pause();
-      player3.pause();
       ref4.current.stop4();
+
+      try {
+        waveRef1.current.pause();
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        waveRef2.current.pause();
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        waveRef3.current.pause();
+      } catch (error) {
+        console.log(error);
+      }
+
       setChildTrack((prev) => prev + 1);
-      // SetIsPlaying(false);
+
       // window.location.reload(false);
       return;
     } else {
       console.log('stop all');
-      player1.pause();
-      player2.pause();
-      player3.pause();
-      player4.pause();
-      // SetIsPlaying(false);
+      try {
+        waveRef1.current.pause();
+      } catch (error) {
+        console.log(error);
+      }
+
+      try {
+        waveRef2.current.pause();
+      } catch (error) {
+        console.log(error);
+      }
+
+      try {
+        waveRef3.current.pause();
+      } catch (error) {
+        console.log(error);
+      }
+
+      try {
+        waveRef4.current.pause();
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -188,6 +298,11 @@ export default function Project({ res }) {
 
           <Recorder id={1} projectid={res.id} ref={ref1}></Recorder>
         </Label>
+        {trackArray[0] ? (
+          <AudioVisualizer src={trackArray[0]} ref={waveRef1}></AudioVisualizer>
+        ) : (
+          <div></div>
+        )}
         <Label htmlFor=''>
           <input
             checked={playId === '2'}
@@ -196,6 +311,7 @@ export default function Project({ res }) {
             value='2'
             name='playId'
           ></input>
+
           <RecorderBlock color='lightyellow'>
             Track Two
             <Button
@@ -205,7 +321,12 @@ export default function Project({ res }) {
           </RecorderBlock>
 
           <Recorder id={2} projectid={res.id} ref={ref2}></Recorder>
-        </Label>
+        </Label>{' '}
+        {trackArray[1] ? (
+          <AudioVisualizer src={trackArray[1]} ref={waveRef2}></AudioVisualizer>
+        ) : (
+          <div></div>
+        )}
         <Label htmlFor=''>
           <input
             checked={playId === '3'}
@@ -223,7 +344,12 @@ export default function Project({ res }) {
           </RecorderBlock>
 
           <Recorder id={3} projectid={res.id} ref={ref3}></Recorder>
-        </Label>
+        </Label>{' '}
+        {trackArray[2] ? (
+          <AudioVisualizer src={trackArray[2]} ref={waveRef3}></AudioVisualizer>
+        ) : (
+          <div></div>
+        )}
         <Label htmlFor=''>
           <input
             checked={playId === '4'}
@@ -232,6 +358,7 @@ export default function Project({ res }) {
             value='4'
             name='playId'
           ></input>
+
           <RecorderBlock color='aliceblue'>
             Track Four
             <Button
@@ -241,46 +368,18 @@ export default function Project({ res }) {
           </RecorderBlock>
 
           <Recorder id={4} projectid={res.id} ref={ref4}></Recorder>
-        </Label>
+        </Label>{' '}
+        {trackArray[3] ? (
+          <AudioVisualizer src={trackArray[3]} ref={waveRef4}></AudioVisualizer>
+        ) : (
+          <div></div>
+        )}
       </Form>
       <button onClick={() => stop(playId)}>STOP</button>
       <button onClick={() => playChecked(playId)}>PLAY</button>
       <button onClick={() => record(playId)}>REC</button>
       <p>To play all tracks at once, uncheck all tracks and press play.</p>
 
-      {/* <h3>The audio visulaizer not quite working</h3> */}
-      {/* {trackArray[0] ? (
-    <AudioVisualizer
-      src={trackArray[0]}
-      // playingTest={isPlaying}
-    ></AudioVisualizer>
-  ) : (
-    <div></div>
-  )}
-  {trackArray[1] ? (
-    <AudioVisualizer
-      src={trackArray[1]}
-      // playingTest={isPlaying}
-    ></AudioVisualizer>
-  ) : (
-    <div></div>
-  )}
-  {trackArray[2] ? (
-    <AudioVisualizer
-      src={trackArray[2]}
-      // playingTest={isPlaying}
-    ></AudioVisualizer>
-  ) : (
-    <div></div>
-  )}
-  {trackArray[3] ? (
-    <AudioVisualizer
-      src={trackArray[3]}
-      // playingTest={isPlaying}
-    ></AudioVisualizer>
-  ) : (
-    <div></div>
-  )} */}
     </div>
   );
 }

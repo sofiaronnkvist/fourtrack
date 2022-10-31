@@ -6,6 +6,10 @@ import Recorder from '../../components/Recorder/Recorder';
 import { getFileFromStorage } from '../../utils/getFileFromStorage';
 import styled from 'styled-components';
 import AudioVisualizer from '../../components/AudioVisualizer/audiovisualizer';
+import { deleteFileFromStorage } from '../../utils/deleteFileFromStorage';
+import Button from '../../components/Button/Button';
+import { async } from '@firebase/util';
+
 
 export default function Project({ res }) {
   const { user } = useAuth();
@@ -23,7 +27,11 @@ export default function Project({ res }) {
   let waveRef4 = useRef(null);
 
   useEffect(() => {
-    getFileFromStorage(user.uid, res.id).then((res) => setTrackArray(res));
+    // Waiting for index.js to send file to FB
+    setTimeout(function () {
+      getFileFromStorage(user.uid, res.id).then((res) => setTrackArray(res));
+      // console.log('use effect k;rs');
+    }, 500);
   }, [childTrack]);
 
   const player1 = new Audio(trackArray[0]);
@@ -203,6 +211,7 @@ export default function Project({ res }) {
         console.log(error);
       }
       setChildTrack((prev) => prev + 1);
+
       // window.location.reload(false);
       return;
     } else if (recId == 4) {
@@ -226,6 +235,7 @@ export default function Project({ res }) {
       }
 
       setChildTrack((prev) => prev + 1);
+
       // window.location.reload(false);
       return;
     } else {
@@ -256,6 +266,12 @@ export default function Project({ res }) {
     }
   };
 
+  const deleteTrack = async (userId, projectId, trackNo, arrayIndex) => {
+    console.log('klick ok');
+    await deleteFileFromStorage(userId, projectId, trackNo);
+    // setChildTrack((prev) => prev + 1);
+  };
+
   return (
     <div>
       <p>This route is protected</p>
@@ -272,7 +288,14 @@ export default function Project({ res }) {
             value='1'
             name='playId'
           ></input>{' '}
-          <RecorderBlock color='lightsalmon'>Track One</RecorderBlock>
+          <RecorderBlock color='lightsalmon'>
+            Track One
+            <Button
+              handleclick={() => deleteTrack(user.uid, res.id, 1, 0)}
+              text={'X'}
+            ></Button>
+          </RecorderBlock>
+
           <Recorder id={1} projectid={res.id} ref={ref1}></Recorder>
         </Label>
         {trackArray[0] ? (
@@ -288,7 +311,15 @@ export default function Project({ res }) {
             value='2'
             name='playId'
           ></input>
-          <RecorderBlock color='lightyellow'>Track Two</RecorderBlock>
+
+          <RecorderBlock color='lightyellow'>
+            Track Two
+            <Button
+              handleclick={() => deleteTrack(user.uid, res.id, 2, 1)}
+              text={'X'}
+            ></Button>
+          </RecorderBlock>
+
           <Recorder id={2} projectid={res.id} ref={ref2}></Recorder>
         </Label>{' '}
         {trackArray[1] ? (
@@ -304,7 +335,13 @@ export default function Project({ res }) {
             value='3'
             name='playId'
           ></input>
-          <RecorderBlock color='lightcoral'>Track Three</RecorderBlock>
+          <RecorderBlock color='lightcoral'>
+            Track Three
+            <Button
+              handleclick={() => deleteTrack(user.uid, res.id, 3, 2)}
+              text={'X'}
+            ></Button>
+          </RecorderBlock>
 
           <Recorder id={3} projectid={res.id} ref={ref3}></Recorder>
         </Label>{' '}
@@ -321,7 +358,15 @@ export default function Project({ res }) {
             value='4'
             name='playId'
           ></input>
-          <RecorderBlock color='aliceblue'>Track Four</RecorderBlock>
+
+          <RecorderBlock color='aliceblue'>
+            Track Four
+            <Button
+              handleclick={() => deleteTrack(user.uid, res.id, 4, 3)}
+              text={'X'}
+            ></Button>
+          </RecorderBlock>
+
           <Recorder id={4} projectid={res.id} ref={ref4}></Recorder>
         </Label>{' '}
         {trackArray[3] ? (
@@ -350,6 +395,8 @@ const Form = styled.form`
 const RecorderBlock = styled.div`
   height: 50px;
   width: 515px;
+  display: flex;
+  justify-content: space-between;
   background-color: ${(props) => props.color};
   margin-left: 10px;
 `;

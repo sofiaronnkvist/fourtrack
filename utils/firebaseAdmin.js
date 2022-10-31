@@ -1,5 +1,7 @@
 import * as firebaseAdmin from 'firebase-admin';
-import serviceAccount from '../secrets.json';
+const serviceAccount = JSON.parse(
+  process.env.NEXT_PUBLIC_GOOGLE_APPLICATION_CREDENTIALS
+);
 
 export const verifyIdToken = (token) => {
   if (!firebaseAdmin.apps.length) {

@@ -1,9 +1,7 @@
 import React, {
-  forwardRef,
   useEffect,
   useImperativeHandle,
   useRef,
-  useState,
 } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 import styled from 'styled-components';
@@ -13,7 +11,6 @@ const AudioWrapper = (props) => {
   const waveSurferRef = useRef({
     isPlaying: () => false,
   });
-  //   const [isPlaying, toggleIsPlaying] = useState(false);
 
   useEffect(() => {
     const waveSurfer = WaveSurfer.create({
@@ -37,28 +34,13 @@ const AudioWrapper = (props) => {
     };
   }, []);
 
-  //   useEffect(() => {
-  //     if (props.playingTest) {
-  //       console.log('true');
-  //       waveSurferRef.current.playPause();
-  //     }
-  //     if (!props.playingTest) {
-  //       console.log('true');
-  //       waveSurferRef.current.playPause();
-  //     }
-  //   }, [props.playingTest]);
+//   const pauseWave = () => {
+//     waveSurferRef.current.pause();
+//   };
 
-  const pauseWave = () => {
-    waveSurferRef.current.pause();
-  };
-
-  const playWave = () => {
-    waveSurferRef.current.play();
-  };
-
-  const playorpause = () => {
-    waveSurferRef.current.playPause();
-  };
+//   const playWave = () => {
+//     waveSurferRef.current.play();
+//   };
 
   useImperativeHandle(props.waveRef1, () => ({
     play() {
@@ -67,9 +49,6 @@ const AudioWrapper = (props) => {
     pause() {
       waveSurferRef.current.pause();
     },
-    // playPauseWave() {
-    //   waveSurferRef.current.playPause();
-    // },
   }));
 
   useImperativeHandle(props.waveRef2, () => ({
@@ -79,9 +58,6 @@ const AudioWrapper = (props) => {
     pause() {
       waveSurferRef.current.pause();
     },
-    playPauseWave() {
-      waveSurferRef.current.playPause();
-    },
   }));
   useImperativeHandle(props.waveRef3, () => ({
     play() {
@@ -90,9 +66,6 @@ const AudioWrapper = (props) => {
     pause() {
       waveSurferRef.current.pause();
     },
-    playPauseWave() {
-      waveSurferRef.current.playPause();
-    },
   }));
   useImperativeHandle(props.waveRef4, () => ({
     play() {
@@ -100,9 +73,6 @@ const AudioWrapper = (props) => {
     },
     pause() {
       waveSurferRef.current.pause();
-    },
-    playPauseWave() {
-      waveSurferRef.current.playPause();
     },
   }));
 

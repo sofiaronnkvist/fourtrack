@@ -4,7 +4,6 @@ import { firestore } from '../../utils/firebase';
 import React, { useEffect, useRef, useState } from 'react';
 import Recorder from '../../components/Recorder/Recorder';
 import { getFileFromStorage } from '../../utils/getFileFromStorage';
-// import AudioVisualizer from '../components/AudioVisualizer/audiovisualizer';
 import styled from 'styled-components';
 import AudioVisualizer from '../../components/AudioVisualizer/audiovisualizer';
 
@@ -336,7 +335,6 @@ export default function Project({ res }) {
       <button onClick={() => record(playId)}>REC</button>
       <p>To play all tracks at once, uncheck all tracks and press play.</p>
 
-      {/* <h3>The audio visulaizer not quite working</h3> */}
     </div>
   );
 }

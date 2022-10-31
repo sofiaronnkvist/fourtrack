@@ -1,7 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useAuth } from '../../context/AuthContext';
 import { useRouter } from 'next/router';
+import Modal from '../Modal/Modal';
+import logo from '../../public/logo.svg';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -11,14 +14,16 @@ export default function Navbar() {
     <div>
       {!user ? (
         <div>
-          {' '}
-          <Link href='/'>Home </Link>
-          <Link href='/login'>Login </Link>
-          <Link href='/signup'>Signup </Link>
+          <Image src={logo} alt='Logo' />
+          <Link href='/'>How it works</Link>
+          <Modal buttonTitle='Sign in' />
+          <Modal buttonTitle='Get started' />
         </div>
       ) : (
         <div>
-          <Link href='/projects'>Projects </Link>
+          <Link href='/projects'>
+            <Image src={logo} alt='Logo' />
+          </Link>
           <button
             onClick={() => {
               logout();

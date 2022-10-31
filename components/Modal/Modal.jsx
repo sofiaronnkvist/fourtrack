@@ -34,6 +34,9 @@ const NavButton = styled.button`
   color: black;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
+  border: none;
+  background-color: white;
+  cursor: pointer;
 `;
 
 const GoogleButton = styled.button`
@@ -106,7 +109,7 @@ export const DialogClose = DialogPrimitive.Close;
 export default function Modal(props) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const { user, login, signUpWithGoogle, signup, createUserGoogle } = useAuth();
+  const { user, login, signUpWithGoogle, signup} = useAuth();
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -152,18 +155,18 @@ export default function Modal(props) {
   };
 
   const checkForm = () => {
-    if (buttonTitle == 'Login') {
+    if (buttonTitle == 'Sign in') {
       return true;
     }
   };
 
   const changeForm = () => {
-    if (buttonTitle == 'Login') {
-      setButtonTitle('Create account');
+    if (buttonTitle == 'Sign in') {
+      setButtonTitle('Get started');
       console.log(buttonTitle);
       checkForm();
-    } else if (buttonTitle == 'Create account') {
-      setButtonTitle('Login');
+    } else if (buttonTitle == 'Get started') {
+      setButtonTitle('Sign in');
       console.log(buttonTitle);
       checkForm();
     }

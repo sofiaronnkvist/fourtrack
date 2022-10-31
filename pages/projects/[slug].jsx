@@ -185,6 +185,7 @@ export default function Project({ res }) {
               text={'X'}
             ></Button>
           </RecorderBlock>
+
           <Recorder id={1} projectid={res.id} ref={ref1}></Recorder>
         </Label>
         <Label htmlFor=''>

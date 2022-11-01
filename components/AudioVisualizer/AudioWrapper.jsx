@@ -136,20 +136,7 @@ const AudioWrapper = (props) => {
           </StyledTrack>
           <StyledThumb />
         </StyledSlider>
-        {/* <HorizentalInput
-          type='range'
-          onChange={handleChange}
-          min='0'
-          max='1'
-          step='0.1'
-        /> */}
       </form>
-      {/* <StyledSliderRoot defaultValue={[50]} >
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumb />
-        </StyledSliderRoot> */}
     </StyledDiv>
   );
 };

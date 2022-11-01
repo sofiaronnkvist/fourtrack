@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import { verifyIdToken } from '../utils/firebaseAdmin';
 import nookies from 'nookies';
+import ProjectCard from '../components/ProjectCard/ProjectCard';
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
@@ -44,19 +45,17 @@ const Projects = ({ projects }) => {
         {projects &&
           projects[0].map((project) => {
             return (
-              <>
-                <Link
-                  href={{
-                    pathname: '/projects/[slug]',
-                    query: { slug: project.title },
-                  }}
-                  key={project.title}
-                >
-                  <a>{project.title}</a>
-                </Link>
-
-                <p>project Id: {project.id}</p>
-              </>
+              <Link
+                href={{
+                  pathname: '/projects/[slug]',
+                  query: { slug: project.title },
+                }}
+                key={project.title}
+              >
+                <a>
+                  <ProjectCard title={project.title}></ProjectCard>
+                </a>
+              </Link>
             );
           })}
       </ul>

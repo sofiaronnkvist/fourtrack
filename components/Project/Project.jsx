@@ -1,13 +1,15 @@
 import { firestore } from '../../utils/firebase';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { collection, addDoc, getDocs, Timestamp } from 'firebase/firestore';
 import { useState } from 'react';
 
 const createProject = async (person, data) => {
   try {
     const projectsCollectionRef = collection(firestore, 'projects');
+    // const date = new Date;
     await addDoc(projectsCollectionRef, {
       uid: person.uid,
       title: data.title,
+      // createdAt: Timestamp.now(),
     });
     readProjects();
   } catch (error) {

@@ -151,7 +151,3 @@ const StyledDiv = styled.div`
 const OuterWaveDiv = styled.div`
   width: 100%;
 `;
-const HorizentalInput = styled.input`
-  margin: 10px;
-  appearance: slider-vertical;
-`;

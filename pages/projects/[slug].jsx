@@ -30,7 +30,6 @@ export default function Project({ res }) {
     // Waiting for index.js to send file to FB
     setTimeout(function () {
       getFileFromStorage(user.uid, res.id).then((res) => setTrackArray(res));
-      // console.log('use effect k;rs');
     }, 500);
   }, [childTrack]);
 
@@ -41,41 +40,23 @@ export default function Project({ res }) {
 
   const playChecked = (id) => {
     if (id == 1) {
-      try {
-        waveRef1.current.play();
-      } catch (error) {}
+      waveRef1.current ? waveRef1.current.play() : null;
       return;
     } else if (id == 2) {
-      try {
-        waveRef2.current.play();
-      } catch (error) {}
-
+      waveRef2.current ? waveRef2.current.play() : null;
       return;
     } else if (id == 3) {
-      try {
-        waveRef3.current.play();
-      } catch (error) {}
-
+      waveRef3.current ? waveRef3.current.play() : null;
       return;
     } else if (id == 4) {
-      try {
-        waveRef4.current.play();
-      } catch (error) {}
+      waveRef4.current ? waveRef4.current.play() : null;
       return;
     } else {
       console.log('playing all');
-      try {
-        waveRef1.current.play();
-      } catch (error) {}
-      try {
-        waveRef2.current.play();
-      } catch (error) {}
-      try {
-        waveRef3.current.play();
-      } catch (error) {}
-      try {
-        waveRef4.current.play();
-      } catch (error) {}
+      waveRef1.current ? waveRef1.current.play() : null;
+      waveRef2.current ? waveRef2.current.play() : null;
+      waveRef3.current ? waveRef3.current.play() : null;
+      waveRef4.current ? waveRef4.current.play() : null;
     }
   };
 
@@ -91,58 +72,30 @@ export default function Project({ res }) {
   const record = (recId) => {
     if (recId == 1) {
       console.log('recId 1');
-
-      try {
-        waveRef2.current.play();
-      } catch (error) {}
-      try {
-        waveRef3.current.play();
-      } catch (error) {}
-      try {
-        waveRef4.current.play();
-      } catch (error) {}
+      waveRef2.current ? waveRef2.current.play() : null;
+      waveRef3.current ? waveRef3.current.play() : null;
+      waveRef4.current ? waveRef4.current.play() : null;
       ref1.current.start1();
       return;
     } else if (recId == 2) {
       console.log('recId 2');
-
-      try {
-        waveRef1.current.play();
-      } catch (error) {}
-      try {
-        waveRef3.current.play();
-      } catch (error) {}
-      try {
-        waveRef4.current.play();
-      } catch (error) {}
+      waveRef1.current ? waveRef1.current.play() : null;
+      waveRef3.current ? waveRef3.current.play() : null;
+      waveRef4.current ? waveRef4.current.play() : null;
       ref2.current.start2();
       return;
     } else if (recId == 3) {
       console.log('recId 3');
-
-      try {
-        waveRef1.current.play();
-      } catch (error) {}
-      try {
-        waveRef2.current.play();
-      } catch (error) {}
-      try {
-        waveRef4.current.play();
-      } catch (error) {}
+      waveRef1.current ? waveRef1.current.play() : null;
+      waveRef2.current ? waveRef2.current.play() : null;
+      waveRef4.current ? waveRef4.current.play() : null;
       ref3.current.start3();
       return;
     } else if (recId == 4) {
       console.log('recId 4');
-
-      try {
-        waveRef1.current.play();
-      } catch (error) {}
-      try {
-        waveRef2.current.play();
-      } catch (error) {}
-      try {
-        waveRef3.current.play();
-      } catch (error) {}
+      waveRef1.current ? waveRef1.current.play() : null;
+      waveRef2.current ? waveRef2.current.play() : null;
+      waveRef3.current ? waveRef3.current.play() : null;
       ref4.current.start4();
       return;
     }
@@ -151,127 +104,50 @@ export default function Project({ res }) {
   const stop = (recId) => {
     if (recId == 1) {
       ref1.current.stop1();
-
-      try {
-        waveRef2.current.pause();
-      } catch (error) {
-        console.log(error);
-      }
-      try {
-        waveRef3.current.pause();
-      } catch (error) {
-        console.log(error);
-      }
-      try {
-        waveRef4.current.pause();
-      } catch (error) {
-        console.log(error);
-      }
+      waveRef2.current ? waveRef2.current.pause() : null;
+      waveRef3.current ? waveRef3.current.pause() : null;
+      waveRef4.current ? waveRef4.current.pause() : null;
       setChildTrack((prev) => prev + 1);
 
       return;
     } else if (recId == 2) {
       ref2.current.stop2();
-
-      try {
-        waveRef1.current.pause();
-      } catch (error) {
-        console.log(error);
-      }
-      try {
-        waveRef3.current.pause();
-      } catch (error) {
-        console.log(error);
-      }
-      try {
-        waveRef4.current.pause();
-      } catch (error) {
-        console.log(error);
-      }
+      waveRef1.current ? waveRef1.current.pause() : null;
+      waveRef3.current ? waveRef3.current.pause() : null;
+      waveRef4.current ? waveRef4.current.pause() : null;
       // window.location.reload(false);
       setChildTrack((prev) => prev + 1);
 
       return;
     } else if (recId == 3) {
       ref3.current.stop3();
-
-      try {
-        waveRef1.current.pause();
-      } catch (error) {
-        console.log(error);
-      }
-      try {
-        waveRef2.current.pause();
-      } catch (error) {
-        console.log(error);
-      }
-      try {
-        waveRef4.current.pause();
-      } catch (error) {
-        console.log(error);
-      }
+      waveRef1.current ? waveRef1.current.pause() : null;
+      waveRef2.current ? waveRef2.current.pause() : null;
+      waveRef4.current ? waveRef4.current.pause() : null;
       setChildTrack((prev) => prev + 1);
-
       // window.location.reload(false);
       return;
     } else if (recId == 4) {
-      console.log('recId 4');
       ref4.current.stop4();
-
-      try {
-        waveRef1.current.pause();
-      } catch (error) {
-        console.log(error);
-      }
-      try {
-        waveRef2.current.pause();
-      } catch (error) {
-        console.log(error);
-      }
-      try {
-        waveRef3.current.pause();
-      } catch (error) {
-        console.log(error);
-      }
-
+      waveRef1.current ? waveRef1.current.pause() : null;
+      waveRef2.current ? waveRef2.current.pause() : null;
+      waveRef3.current ? waveRef3.current.pause() : null;
       setChildTrack((prev) => prev + 1);
-
       // window.location.reload(false);
 
       //try if insted
       return;
     } else {
       console.log('stop all');
-      try {
-        waveRef1.current.pause();
-      } catch (error) {
-        console.log(error);
-      }
-
-      try {
-        waveRef2.current.pause();
-      } catch (error) {
-        console.log(error);
-      }
-
-      try {
-        waveRef3.current.pause();
-      } catch (error) {
-        console.log(error);
-      }
-
-      try {
-        waveRef4.current.pause();
-      } catch (error) {
-        console.log(error);
-      }
+      waveRef1.current ? waveRef1.current.pause() : null;
+      waveRef2.current ? waveRef2.current.pause() : null;
+      waveRef3.current ? waveRef3.current.pause() : null;
+      waveRef4.current ? waveRef4.current.pause() : null;
     }
   };
 
-  const deleteTrack = async (userId, projectId, trackNo, arrayIndex) => {
-    console.log('klick ok');
+  const deleteTrack = async (userId, projectId, trackNo) => {
     await deleteFileFromStorage(userId, projectId, trackNo);
-    // setChildTrack((prev) => prev + 1);
   };
 
   return (
@@ -294,7 +170,7 @@ export default function Project({ res }) {
           <RecorderBlock color='lightsalmon'>
             Track One
             <Button
-              handleclick={() => deleteTrack(user.uid, res.id, 1, 0)}
+              handleclick={() => deleteTrack(user.uid, res.id, 1)}
               text={'X'}
             ></Button>
           </RecorderBlock>
@@ -318,7 +194,7 @@ export default function Project({ res }) {
           <RecorderBlock color='lightyellow'>
             Track Two
             <Button
-              handleclick={() => deleteTrack(user.uid, res.id, 2, 1)}
+              handleclick={() => deleteTrack(user.uid, res.id, 2)}
               text={'X'}
             ></Button>
           </RecorderBlock>
@@ -341,7 +217,7 @@ export default function Project({ res }) {
           <RecorderBlock color='lightcoral'>
             Track Three
             <Button
-              handleclick={() => deleteTrack(user.uid, res.id, 3, 2)}
+              handleclick={() => deleteTrack(user.uid, res.id, 3)}
               text={'X'}
             ></Button>
           </RecorderBlock>
@@ -365,7 +241,7 @@ export default function Project({ res }) {
           <RecorderBlock color='aliceblue'>
             Track Four
             <Button
-              handleclick={() => deleteTrack(user.uid, res.id, 4, 3)}
+              handleclick={() => deleteTrack(user.uid, res.id, 4)}
               text={'X'}
             ></Button>
           </RecorderBlock>

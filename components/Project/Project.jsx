@@ -9,7 +9,7 @@ const createProject = async (person, data) => {
     await addDoc(projectsCollectionRef, {
       uid: person.uid,
       title: data.title,
-      // createdAt: new Date,
+      // createdAt: Timestamp.now(),
     });
     readProjects();
   } catch (error) {

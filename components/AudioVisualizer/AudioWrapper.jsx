@@ -70,10 +70,6 @@ const AudioWrapper = (props) => {
     console.log('value is:', value);
   };
 
-  // const StyledSliderRoot = styled(Slider.Root)`
-  //   backgroundcolor: black;
-  // `;
-
   const slider = SliderPrimitive.Root;
   const track = SliderPrimitive.Track;
   const range = SliderPrimitive.Range;
@@ -87,7 +83,7 @@ const AudioWrapper = (props) => {
     touch-action: none;
     width: 6px;
     height: 50px;
-    margin-left: 10px;
+    margin-left: 18px;
   `;
 
   const StyledTrack = styled(track)`
@@ -119,7 +115,7 @@ const AudioWrapper = (props) => {
   return (
     <StyledDiv>
       <OuterWaveDiv>
-        <div ref={containerRef} />
+        <WaveDiv ref={containerRef} />
       </OuterWaveDiv>
       <form action=''>
         <StyledSlider
@@ -144,10 +140,14 @@ const AudioWrapper = (props) => {
 export default AudioWrapper;
 
 const StyledDiv = styled.div`
-  margin: 10px;
+  margin: 0px 7px;
+  width: 1079px;
   display: flex;
   justify-content: space-between;
 `;
 const OuterWaveDiv = styled.div`
-  width: 100%;
+  width: 1064px;
+`;
+const WaveDiv = styled.div`
+  width: 80%%;
 `;

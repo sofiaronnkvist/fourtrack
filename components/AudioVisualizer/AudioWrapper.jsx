@@ -4,6 +4,7 @@ import WaveSurfer from 'wavesurfer.js';
 import styled from 'styled-components';
 import * as SliderPrimitive from '@radix-ui/react-slider';
 import MarkersPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.markers.min.js';
+import RegionsPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.regions.min.js';
 
 const AudioWrapper = (props) => {
   const containerRef = useRef();
@@ -36,6 +37,29 @@ const AudioWrapper = (props) => {
             },
           ],
         }),
+        RegionsPlugin.create({
+          regionsMinLength: 2,
+          regions: [
+              // {
+              //     start: 1,
+              //     end: 3,
+              //     loop: false,
+              //     color: 'hsla(400, 100%, 30%, 0.5)'
+              // },
+              {
+                  start: 1,
+                  end: 2,
+                  loop: false,
+                  color: 'rgba(255, 255, 255, 0.5)',
+                  minLength: 0.01,
+                  maxLength: 5
+              }
+          ],
+          dragSelection: {
+              slop: 1
+          }
+      })
+  
         // ({
 
         // }),

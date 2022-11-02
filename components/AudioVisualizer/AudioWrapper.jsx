@@ -1,7 +1,9 @@
 import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import WaveSurfer from 'wavesurfer.js';
+// import MarkersPlugin from "wavesurfer.js/src/plugin/markers"
 import styled from 'styled-components';
 import * as SliderPrimitive from '@radix-ui/react-slider';
+import MarkersPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.markers.min.js';
 
 const AudioWrapper = (props) => {
   const containerRef = useRef();
@@ -15,21 +17,43 @@ const AudioWrapper = (props) => {
       responsive: true,
       barWidth: 2,
       barHeight: 1,
+      barRadius: 3,
       cursorWidth: 1,
       progressColor: 'hotpink',
       waveColor: 'white',
       backgroundColor: 'grey',
       height: 50,
+      // backend: 'MediaElement',
+      plugins: [
+        MarkersPlugin.create({
+          markers: [
+            {
+              time: 0.02,
+              label: 'start',
+              color: 'hotpink',
+              draggable: true
+
+            },
+          ],
+        }),
+        // ({
+
+        // }),
+      ],
     });
     waveSurfer.load(props.src);
     waveSurfer.on('ready', () => {
       waveSurferRef.current = waveSurfer;
     });
 
+    waveSurfer.on('marker-drop', function(marker) {
+      console.log("marker drop:", marker.time);
+  });
     return () => {
       waveSurfer.destroy();
     };
   }, []);
+
 
   useImperativeHandle(props.waveRef1, () => ({
     play() {

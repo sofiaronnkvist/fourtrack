@@ -10,7 +10,7 @@ const ProjectCard = ({ title, date }) => {
       <MdDragIndicator size={'24px'}></MdDragIndicator>
       <ProjectWrapper>
         <ProjectTitle>{title}</ProjectTitle>
-        <ProjectDate>1 nov 2022</ProjectDate>
+        <ProjectDate>{date}</ProjectDate>
         <ProjectLegth>1.23</ProjectLegth>
         <ProjectLegth>113</ProjectLegth>
         <StarWrapper>

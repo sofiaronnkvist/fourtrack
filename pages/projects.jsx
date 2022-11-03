@@ -16,6 +16,7 @@ import { verifyIdToken } from '../utils/firebaseAdmin';
 import nookies from 'nookies';
 import ProjectCard from '../components/ProjectCard/ProjectCard';
 import LeftSideNavigation from '../components/LeftSideNavigation/LeftSideNavigation';
+import TopBar from '../components/TopBar/TopBar';
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
@@ -54,11 +55,10 @@ const Projects = ({ projects }) => {
     <MainWrapper>
       <LeftSideNavigation></LeftSideNavigation>
       <MainContent>
-        <h1> Well hello {user.email}!</h1>
-        <h1> {user.uid}!</h1>
+        <TopBar></TopBar>
+        <h1>All recordings</h1>
 
         <Project />
-        <h3>My projects</h3>
         <ul>
           {projects &&
             projects[0].map((project) => {
@@ -80,13 +80,15 @@ const Projects = ({ projects }) => {
               );
             })}
         </ul>
+        <p> {user.email}</p>
+        <p> {user.uid}</p>
       </MainContent>
     </MainWrapper>
   );
 };
 const MainWrapper = styled.div`
-display: grid;
-grid-template-columns: 237px auto;
+  display: grid;
+  grid-template-columns: 237px auto;
 `;
 const MainContent = styled.div``;
 

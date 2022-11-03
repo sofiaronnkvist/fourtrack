@@ -50,14 +50,14 @@ const AudioWrapper = (props) => {
                   start: 1,
                   end: 2,
                   loop: false,
-                  color: 'rgba(255, 255, 255, 0.5)',
+                  color: 'hsla(200, 50%, 70%, 0.4)',
                   minLength: 0.01,
                   maxLength: 5
               }
           ],
-          dragSelection: {
-              slop: 1
-          }
+          // dragSelection: {
+          //     slop: 1
+          // }
       })
   
         // ({

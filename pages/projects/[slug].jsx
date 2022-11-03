@@ -8,8 +8,9 @@ import styled from 'styled-components';
 import AudioVisualizer from '../../components/AudioVisualizer/audiovisualizer';
 import { deleteFileFromStorage } from '../../utils/deleteFileFromStorage';
 import Button from '../../components/Button/Button';
-import { async } from '@firebase/util';
+import DeleteButton from '../../components/Button/DeleteButton';
 
+import { async } from '@firebase/util';
 
 export default function Project({ res }) {
   const { user } = useAuth();
@@ -134,6 +135,8 @@ export default function Project({ res }) {
       waveRef3.current ? waveRef3.current.pause() : null;
       setChildTrack((prev) => prev + 1);
       // window.location.reload(false);
+
+      //try if insted
       return;
     } else {
       console.log('stop all');
@@ -155,6 +158,7 @@ export default function Project({ res }) {
       <p>id: {res.id}</p>
 
       <h3>Recorders</h3>
+      {/* Loopa tracks och ref */}
       <Form>
         <Label htmlFor=''>
           <input
@@ -164,21 +168,24 @@ export default function Project({ res }) {
             value='1'
             name='playId'
           ></input>{' '}
-          <RecorderBlock color='lightsalmon'>
-            Track One
-            <Button
+          <Container>
+            {trackArray[0] ? (
+              <AudioVisualizer
+                src={trackArray[0]}
+                ref={waveRef1}
+              ></AudioVisualizer>
+            ) : (
+              // <div></div>
+              <NoAudioVisualizationContainer></NoAudioVisualizationContainer>
+            )}
+            <DeleteButton
               handleclick={() => deleteTrack(user.uid, res.id, 1)}
               text={'X'}
-            ></Button>
-          </RecorderBlock>
-
+            ></DeleteButton>
+          </Container>
+          {/* <RecorderBlock></RecorderBlock> */}
           <Recorder id={1} projectid={res.id} ref={ref1}></Recorder>
         </Label>
-        {trackArray[0] ? (
-          <AudioVisualizer src={trackArray[0]} ref={waveRef1}></AudioVisualizer>
-        ) : (
-          <div></div>
-        )}
         <Label htmlFor=''>
           <input
             checked={playId === '2'}
@@ -187,22 +194,24 @@ export default function Project({ res }) {
             value='2'
             name='playId'
           ></input>
-
-          <RecorderBlock color='lightyellow'>
-            Track Two
-            <Button
+          <div>
+            {trackArray[1] ? (
+              <AudioVisualizer
+                src={trackArray[1]}
+                ref={waveRef2}
+              ></AudioVisualizer>
+            ) : (
+              <NoAudioVisualizationContainer></NoAudioVisualizationContainer>
+            )}
+            <DeleteButton
               handleclick={() => deleteTrack(user.uid, res.id, 2)}
               text={'X'}
-            ></Button>
-          </RecorderBlock>
+            ></DeleteButton>
+          </div>
+          {/* <RecorderBlock></RecorderBlock> */}
 
           <Recorder id={2} projectid={res.id} ref={ref2}></Recorder>
         </Label>{' '}
-        {trackArray[1] ? (
-          <AudioVisualizer src={trackArray[1]} ref={waveRef2}></AudioVisualizer>
-        ) : (
-          <div></div>
-        )}
         <Label htmlFor=''>
           <input
             checked={playId === '3'}
@@ -211,21 +220,23 @@ export default function Project({ res }) {
             value='3'
             name='playId'
           ></input>
-          <RecorderBlock color='lightcoral'>
-            Track Three
-            <Button
+          <div>
+            {trackArray[2] ? (
+              <AudioVisualizer
+                src={trackArray[2]}
+                ref={waveRef3}
+              ></AudioVisualizer>
+            ) : (
+              <NoAudioVisualizationContainer></NoAudioVisualizationContainer>
+            )}
+            <DeleteButton
               handleclick={() => deleteTrack(user.uid, res.id, 3)}
               text={'X'}
-            ></Button>
-          </RecorderBlock>
-
+            ></DeleteButton>
+          </div>
+          {/* <RecorderBlock></RecorderBlock> */}
           <Recorder id={3} projectid={res.id} ref={ref3}></Recorder>
         </Label>{' '}
-        {trackArray[2] ? (
-          <AudioVisualizer src={trackArray[2]} ref={waveRef3}></AudioVisualizer>
-        ) : (
-          <div></div>
-        )}
         <Label htmlFor=''>
           <input
             checked={playId === '4'}
@@ -234,47 +245,67 @@ export default function Project({ res }) {
             value='4'
             name='playId'
           ></input>
-
-          <RecorderBlock color='aliceblue'>
-            Track Four
-            <Button
+          <div>
+            {trackArray[3] ? (
+              <AudioVisualizer
+                src={trackArray[3]}
+                ref={waveRef4}
+              ></AudioVisualizer>
+            ) : (
+              <NoAudioVisualizationContainer></NoAudioVisualizationContainer>
+            )}
+            <DeleteButton
               handleclick={() => deleteTrack(user.uid, res.id, 4)}
               text={'X'}
-            ></Button>
-          </RecorderBlock>
+            ></DeleteButton>
+          </div>
+          {/* <RecorderBlock></RecorderBlock> */}
 
           <Recorder id={4} projectid={res.id} ref={ref4}></Recorder>
         </Label>{' '}
-        {trackArray[3] ? (
-          <AudioVisualizer src={trackArray[3]} ref={waveRef4}></AudioVisualizer>
-        ) : (
-          <div></div>
-        )}
       </Form>
       <button onClick={() => stop(playId)}>STOP</button>
       <button onClick={() => playChecked(playId)}>PLAY</button>
       <button onClick={() => record(playId)}>REC</button>
       <p>To play all tracks at once, uncheck all tracks and press play.</p>
-
     </div>
   );
 }
 
 const Label = styled.label`
-  color: black;
-  display: flex;
-  margin: 20px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 2% 95% 3%;
+  align-items: center;
+  margin-bottom: 10px;
+
 `;
 const Form = styled.form`
   margin-top: 20px;
+  margin-bottom: 20px;
+
+  
 `;
 const RecorderBlock = styled.div`
+  position: absolute;
+  top: 27%;
   height: 50px;
-  width: 515px;
+  width: 97%;
   display: flex;
   justify-content: space-between;
   background-color: ${(props) => props.color};
   margin-left: 10px;
+`;
+const NoAudioVisualizationContainer = styled.div`
+  height: 49px;
+  width: 1055px;
+  margin-left: 7px;
+  background-color: grey;
+  margin-top: 0px;
+`;
+const Container = styled.div`
+  width: 1064px;
+
 `;
 
 export async function getServerSideProps(ctx) {

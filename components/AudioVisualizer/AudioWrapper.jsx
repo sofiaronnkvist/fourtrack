@@ -1,10 +1,7 @@
-import React, {
-  useEffect,
-  useImperativeHandle,
-  useRef,
-} from 'react';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 import styled from 'styled-components';
+import * as SliderPrimitive from '@radix-ui/react-slider';
 
 const AudioWrapper = (props) => {
   const containerRef = useRef();
@@ -33,14 +30,6 @@ const AudioWrapper = (props) => {
       waveSurfer.destroy();
     };
   }, []);
-
-//   const pauseWave = () => {
-//     waveSurferRef.current.pause();
-//   };
-
-//   const playWave = () => {
-//     waveSurferRef.current.play();
-//   };
 
   useImperativeHandle(props.waveRef1, () => ({
     play() {
@@ -76,29 +65,89 @@ const AudioWrapper = (props) => {
     },
   }));
 
+  const handleChange = (value) => {
+    waveSurferRef.current.setVolume(value);
+    console.log('value is:', value);
+  };
+
+  const slider = SliderPrimitive.Root;
+  const track = SliderPrimitive.Track;
+  const range = SliderPrimitive.Range;
+  const thumb = SliderPrimitive.Thumb;
+
+  const StyledSlider = styled(slider)`
+    position: relative;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    touch-action: none;
+    width: 6px;
+    height: 50px;
+    margin-left: 18px;
+  `;
+
+  const StyledTrack = styled(track)`
+    background-color: black;
+    position: relative;
+    flex-grow: 1;
+    border-radius: 9999px;
+    width: 10px;
+    height: 50px;
+  `;
+
+  const StyledRange = styled(range)`
+    position: absolute;
+    background-color: red;
+    border-radius: 9999px;
+    width: 100%;
+  `;
+
+  const StyledThumb = styled(thumb)`
+    all: unset;
+    display: block;
+    width: 4px;
+    height: 4px;
+    background-color: lightgray;
+    boxshadow: 0 2px 10px grey;
+    border-radius: 10px;
+    padding-right: 2px;
+  `;
   return (
-    <div>
-      {/* <button
-        onClick={() => {
-          //   toggleIsPlaying(waveSurferRef.current.isPlaying());
-          playWave();
-        }}
-        type='button'
-      >
-        play
-      </button>
-      <button
-        onClick={() => {
-          //   toggleIsPlaying(waveSurferRef.current.isPlaying());
-          pauseWave();
-        }}
-        type='button'
-      >
-        pause
-      </button> */}
-      <div ref={containerRef} />
-    </div>
+    <StyledDiv>
+      <OuterWaveDiv>
+        <WaveDiv ref={containerRef} />
+      </OuterWaveDiv>
+      <form action=''>
+        <StyledSlider
+          defaultValue={[0.5]}
+          max={1}
+          min={0}
+          step={0.1}
+          aria-label='Volume'
+          orientation='vertical'
+          onValueChange={handleChange}
+        >
+          <StyledTrack>
+            <StyledRange />
+          </StyledTrack>
+          <StyledThumb />
+        </StyledSlider>
+      </form>
+    </StyledDiv>
   );
 };
 
 export default AudioWrapper;
+
+const StyledDiv = styled.div`
+  margin: 0px 7px;
+  width: 1079px;
+  display: flex;
+  justify-content: space-between;
+`;
+const OuterWaveDiv = styled.div`
+  width: 1064px;
+`;
+const WaveDiv = styled.div`
+  width: 80%%;
+`;

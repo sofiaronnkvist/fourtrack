@@ -1,7 +1,10 @@
-import React, { useEffect, useImperativeHandle, useRef } from 'react';
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import WaveSurfer from 'wavesurfer.js';
+// import MarkersPlugin from "wavesurfer.js/src/plugin/markers"
 import styled from 'styled-components';
 import * as SliderPrimitive from '@radix-ui/react-slider';
+import MarkersPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.markers.min.js';
+import RegionsPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.regions.min.js';
 
 const AudioWrapper = (props) => {
   const containerRef = useRef();
@@ -15,17 +18,63 @@ const AudioWrapper = (props) => {
       responsive: true,
       barWidth: 2,
       barHeight: 1,
-      cursorWidth: 1,
+      barRadius: 3,
+      cursorWidth: 2,
       progressColor: 'hotpink',
       waveColor: 'white',
       backgroundColor: 'grey',
       height: 50,
+      // backend: 'MediaElement',
+      plugins: [
+        MarkersPlugin.create({
+          markers: [
+            {
+              time: sessionStorage.getItem(`startMarker${props.id}${props.projectId}`)
+                ? sessionStorage.getItem(`startMarker${props.id}${props.projectId}`)
+                : 0.002,
+              label: 'start',
+              color: 'hotpink',
+              draggable: true,
+            },
+          ],
+        }),
+        RegionsPlugin.create({
+          regionsMinLength: 2,
+          regions: [
+            // {
+            //     start: 1,
+            //     end: 3,
+            //     loop: false,
+            //     color: 'hsla(400, 100%, 30%, 0.5)'
+            // },
+            // {
+            //   start: 1,
+            //   end: 2,
+            //   loop: false,
+            //   color: 'hsla(200, 50%, 70%, 0.4)',
+            //   minLength: 0.01,
+            //   maxLength: 5,
+            // },
+          ],
+          // dragSelection: {
+          //     slop: 1
+          // }
+        }),
+
+        // ({
+
+        // }),
+      ],
     });
     waveSurfer.load(props.src);
     waveSurfer.on('ready', () => {
       waveSurferRef.current = waveSurfer;
     });
 
+    waveSurfer.on('marker-drop', function (marker) {
+      console.log('marker drop:', marker.time);
+      sessionStorage.setItem(`startMarker${props.id}${props.projectId}`, marker.time);
+    });
     return () => {
       waveSurfer.destroy();
     };

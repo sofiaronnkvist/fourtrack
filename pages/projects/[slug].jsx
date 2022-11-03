@@ -176,6 +176,9 @@ export default function Project({ res }) {
               <AudioVisualizer
                 src={trackArray[0]}
                 ref={waveRef1}
+                id={1}
+                projectId={res.id}
+
               ></AudioVisualizer>
             ) : (
               // <div></div>
@@ -202,6 +205,9 @@ export default function Project({ res }) {
               <AudioVisualizer
                 src={trackArray[1]}
                 ref={waveRef2}
+                id={2}
+                projectId={res.id}
+
               ></AudioVisualizer>
             ) : (
               <NoAudioVisualizationContainer></NoAudioVisualizationContainer>
@@ -228,6 +234,9 @@ export default function Project({ res }) {
               <AudioVisualizer
                 src={trackArray[2]}
                 ref={waveRef3}
+                id={3}
+                projectId={res.id}
+
               ></AudioVisualizer>
             ) : (
               <NoAudioVisualizationContainer></NoAudioVisualizationContainer>
@@ -253,6 +262,9 @@ export default function Project({ res }) {
               <AudioVisualizer
                 src={trackArray[3]}
                 ref={waveRef4}
+                id={4}
+                projectId={res.id}
+
               ></AudioVisualizer>
             ) : (
               <NoAudioVisualizationContainer></NoAudioVisualizationContainer>

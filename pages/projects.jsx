@@ -35,7 +35,7 @@ export async function getServerSideProps(ctx) {
         return {
           ...item.data(),
           id: item.id,
-          timestamp: item.data().timestamp.toDate().getTime(),
+          timestamp: item.data().timestamp.toDate().toLocaleDateString(),
         };
       })
     );
@@ -68,7 +68,10 @@ const Projects = ({ projects }) => {
                 key={project.title}
               >
                 <a>
-                  <ProjectCard title={project.title}></ProjectCard>
+                  <ProjectCard
+                    title={project.title}
+                    date={project.timestamp}
+                  ></ProjectCard>
                 </a>
               </Link>
             );

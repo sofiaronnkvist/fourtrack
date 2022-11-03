@@ -1,11 +1,13 @@
 import { firestore } from '../../utils/firebase';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { useRouter } from 'next/router';
 
 export default function Project() {
   const [project, setProject] = useState({ title: '' });
   const { user } = useAuth();
+  const router = useRouter();
 
   const createProject = async (e) => {
     e.preventDefault();
@@ -14,7 +16,10 @@ export default function Project() {
       await addDoc(projectsCollectionRef, {
         uid: user.uid,
         title: project.title,
+        timestamp: serverTimestamp(),
       });
+      setProject({ title: '' });
+      router.push('/projects');
     } catch (error) {
       console.log(error);
       alert(error);

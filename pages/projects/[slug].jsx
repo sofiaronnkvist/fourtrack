@@ -9,6 +9,7 @@ import AudioVisualizer from '../../components/AudioVisualizer/audiovisualizer';
 import { deleteFileFromStorage } from '../../utils/deleteFileFromStorage';
 import Button from '../../components/Button/Button';
 import DeleteButton from '../../components/Button/DeleteButton';
+import { useRouter } from 'next/router';
 
 import { async } from '@firebase/util';
 
@@ -17,6 +18,7 @@ export default function Project({ res }) {
   const [trackArray, setTrackArray] = useState([]);
   const [playId, setPlayId] = useState();
   const [childTrack, setChildTrack] = useState(1);
+  const router = useRouter();
 
   let ref1 = useRef(null);
   let ref2 = useRef(null);
@@ -154,6 +156,7 @@ export default function Project({ res }) {
   return (
     <div>
       <p>This route is protected</p>
+      <button onClick={() => router.back()}>Back</button>
       <h1>{res.title}</h1>
       <p>id: {res.id}</p>
 

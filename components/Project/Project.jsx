@@ -1,39 +1,39 @@
 import { firestore } from '../../utils/firebase';
-import { collection, addDoc, getDocs, Timestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
+import { useRouter } from 'next/router';
 
-const createProject = async (person, data) => {
-  try {
-    const projectsCollectionRef = collection(firestore, 'projects');
-    // const date = new Date;
-    await addDoc(projectsCollectionRef, {
-      uid: person.uid,
-      title: data.title,
-      // createdAt: Timestamp.now(),
-    });
-    readProjects();
-  } catch (error) {
-    console.log(error);
-    alert(error);
-  }
-};
-
-const readProjects = async () => {
-  const querySnapshot = await getDocs(collection(firestore, 'projects'));
-  querySnapshot.forEach((doc) => {
-    console.log('Look here at the projects', `${doc.id} => ${doc.data()}`);
-  });
-};
-
-export default function Project({ user }) {
+export default function Project() {
   const [project, setProject] = useState({ title: '' });
+  const { user } = useAuth();
+  const router = useRouter();
+
+  const createProject = async (e) => {
+    e.preventDefault();
+    try {
+      const projectsCollectionRef = collection(firestore, 'projects');
+      await addDoc(projectsCollectionRef, {
+        uid: user.uid,
+        title: project.title,
+        timestamp: serverTimestamp(),
+      });
+      setProject({ title: '' });
+      router.push('/projects');
+    } catch (error) {
+      console.log(error);
+      alert(error);
+    }
+  };
 
   return (
     <div>
-      <form>
+      <form onSubmit={createProject}>
         <label>Project title</label>
         <input
           value={project.title}
+          minLength='1'
+          maxLength='30'
           onChange={(e) =>
             setProject({
               ...project,
@@ -44,10 +44,8 @@ export default function Project({ user }) {
           placeholder='My new song'
           required
         ></input>
+        <button type='submit'>Create new project</button>
       </form>
-      <button onClick={() => createProject(user, project)}>
-        Create new project
-      </button>
     </div>
   );
 }

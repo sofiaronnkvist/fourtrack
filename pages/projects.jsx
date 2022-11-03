@@ -1,6 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import {
+  collection,
+  getDocs,
+  orderBy,
+  query,
+  Timestamp,
+  where,
+} from 'firebase/firestore';
 import { firestore } from '../utils/firebase';
 import Project from '../components/Project/Project';
 import styled from 'styled-components';
@@ -17,11 +24,19 @@ export async function getServerSideProps(ctx) {
   let projects = [];
 
   const ref = collection(firestore, 'projects');
-  const projectsQuery = query(ref, where('uid', '==', uid));
+  const projectsQuery = query(
+    ref,
+    where('uid', '==', uid),
+    orderBy('timestamp', 'desc')
+  );
   await getDocs(projectsQuery).then((data) => {
     projects.push(
       data.docs.map((item) => {
-        return { ...item.data(), id: item.id };
+        return {
+          ...item.data(),
+          id: item.id,
+          timestamp: item.data().timestamp.toDate().toLocaleDateString(),
+        };
       })
     );
   });
@@ -39,7 +54,7 @@ const Projects = ({ projects }) => {
       <h1> Well hello {user.email}!</h1>
       <h1> {user.uid}!</h1>
 
-      <Project user={user} />
+      <Project />
       <h3>My projects</h3>
       <ul>
         {projects &&
@@ -53,7 +68,10 @@ const Projects = ({ projects }) => {
                 key={project.title}
               >
                 <a>
-                  <ProjectCard title={project.title}></ProjectCard>
+                  <ProjectCard
+                    title={project.title}
+                    date={project.timestamp}
+                  ></ProjectCard>
                 </a>
               </Link>
             );

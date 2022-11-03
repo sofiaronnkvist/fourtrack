@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle, useRef } from 'react';
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 // import MarkersPlugin from "wavesurfer.js/src/plugin/markers"
 import styled from 'styled-components';
@@ -19,7 +19,7 @@ const AudioWrapper = (props) => {
       barWidth: 2,
       barHeight: 1,
       barRadius: 3,
-      cursorWidth: 1,
+      cursorWidth: 2,
       progressColor: 'hotpink',
       waveColor: 'white',
       backgroundColor: 'grey',
@@ -29,37 +29,38 @@ const AudioWrapper = (props) => {
         MarkersPlugin.create({
           markers: [
             {
-              time: 0.02,
+              time: sessionStorage.getItem(`startMarker${props.id}${props.projectId}`)
+                ? sessionStorage.getItem(`startMarker${props.id}${props.projectId}`)
+                : 0.002,
               label: 'start',
               color: 'hotpink',
-              draggable: true
-
+              draggable: true,
             },
           ],
         }),
         RegionsPlugin.create({
           regionsMinLength: 2,
           regions: [
-              // {
-              //     start: 1,
-              //     end: 3,
-              //     loop: false,
-              //     color: 'hsla(400, 100%, 30%, 0.5)'
-              // },
-              {
-                  start: 1,
-                  end: 2,
-                  loop: false,
-                  color: 'hsla(200, 50%, 70%, 0.4)',
-                  minLength: 0.01,
-                  maxLength: 5
-              }
+            // {
+            //     start: 1,
+            //     end: 3,
+            //     loop: false,
+            //     color: 'hsla(400, 100%, 30%, 0.5)'
+            // },
+            // {
+            //   start: 1,
+            //   end: 2,
+            //   loop: false,
+            //   color: 'hsla(200, 50%, 70%, 0.4)',
+            //   minLength: 0.01,
+            //   maxLength: 5,
+            // },
           ],
           // dragSelection: {
           //     slop: 1
           // }
-      })
-  
+        }),
+
         // ({
 
         // }),
@@ -70,14 +71,14 @@ const AudioWrapper = (props) => {
       waveSurferRef.current = waveSurfer;
     });
 
-    waveSurfer.on('marker-drop', function(marker) {
-      console.log("marker drop:", marker.time);
-  });
+    waveSurfer.on('marker-drop', function (marker) {
+      console.log('marker drop:', marker.time);
+      sessionStorage.setItem(`startMarker${props.id}${props.projectId}`, marker.time);
+    });
     return () => {
       waveSurfer.destroy();
     };
   }, []);
-
 
   useImperativeHandle(props.waveRef1, () => ({
     play() {

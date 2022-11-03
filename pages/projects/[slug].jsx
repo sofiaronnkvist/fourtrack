@@ -278,13 +278,10 @@ const Label = styled.label`
   grid-template-columns: 2% 95% 3%;
   align-items: center;
   margin-bottom: 10px;
-
 `;
 const Form = styled.form`
   margin-top: 20px;
   margin-bottom: 20px;
-
-  
 `;
 const RecorderBlock = styled.div`
   position: absolute;
@@ -305,7 +302,6 @@ const NoAudioVisualizationContainer = styled.div`
 `;
 const Container = styled.div`
   width: 1064px;
-
 `;
 
 export async function getServerSideProps(ctx) {
@@ -315,7 +311,11 @@ export async function getServerSideProps(ctx) {
   const projectsQuery = query(ref, where('title', '==', slug));
   const querySnapshot = await getDocs(projectsQuery);
   querySnapshot.forEach((doc) => {
-    res = { id: doc.id, ...doc.data() };
+    res = {
+      ...doc.data(),
+      id: doc.id,
+      timestamp: doc.data().timestamp.toDate().toLocaleDateString(),
+    };
   });
   return { props: { res } };
 }

@@ -15,6 +15,7 @@ import Link from 'next/link';
 import { verifyIdToken } from '../utils/firebaseAdmin';
 import nookies from 'nookies';
 import ProjectCard from '../components/ProjectCard/ProjectCard';
+import LeftSideNavigation from '../components/LeftSideNavigation/LeftSideNavigation';
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
@@ -50,36 +51,44 @@ const Projects = ({ projects }) => {
   console.log(projects);
 
   return (
-    <div>
-      <h1> Well hello {user.email}!</h1>
-      <h1> {user.uid}!</h1>
+    <MainWrapper>
+      <LeftSideNavigation></LeftSideNavigation>
+      <MainContent>
+        <h1> Well hello {user.email}!</h1>
+        <h1> {user.uid}!</h1>
 
-      <Project />
-      <h3>My projects</h3>
-      <ul>
-        {projects &&
-          projects[0].map((project) => {
-            return (
-              <Link
-                href={{
-                  pathname: '/projects/[slug]',
-                  query: { slug: project.title },
-                }}
-                key={project.title}
-              >
-                <a>
-                  <ProjectCard
-                    title={project.title}
-                    date={project.timestamp}
-                  ></ProjectCard>
-                </a>
-              </Link>
-            );
-          })}
-      </ul>
-    </div>
+        <Project />
+        <h3>My projects</h3>
+        <ul>
+          {projects &&
+            projects[0].map((project) => {
+              return (
+                <Link
+                  href={{
+                    pathname: '/projects/[slug]',
+                    query: { slug: project.title },
+                  }}
+                  key={project.title}
+                >
+                  <a>
+                    <ProjectCard
+                      title={project.title}
+                      date={project.timestamp}
+                    ></ProjectCard>
+                  </a>
+                </Link>
+              );
+            })}
+        </ul>
+      </MainContent>
+    </MainWrapper>
   );
 };
+const MainWrapper = styled.div`
+display: grid;
+grid-template-columns: 237px auto;
+`;
+const MainContent = styled.div``;
 
 const Label = styled.label`
   color: black;

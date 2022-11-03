@@ -24,14 +24,6 @@ export default function Navbar() {
           <Link href='/projects'>
             <Image src={logo} alt='Logo' />
           </Link>
-          <button
-            onClick={() => {
-              logout();
-              router.push('/');
-            }}
-          >
-            Logout
-          </button>{' '}
         </div>
       )}
     </div>

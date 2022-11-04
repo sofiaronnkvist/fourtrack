@@ -10,7 +10,6 @@ import { deleteFileFromStorage } from '../../utils/deleteFileFromStorage';
 import Button from '../../components/Button/Button';
 import DeleteButton from '../../components/Button/DeleteButton';
 import { useRouter } from 'next/router';
-
 import { async } from '@firebase/util';
 
 export default function Project({ res }) {
@@ -41,7 +40,7 @@ export default function Project({ res }) {
   const player3 = new Audio(trackArray[2]);
   const player4 = new Audio(trackArray[3]);
 
-  const playChecked = (id) => {
+   const playChecked = (id) => {
     if (id == 1) {
       waveRef1.current ? waveRef1.current.play() : null;
       return;
@@ -178,7 +177,6 @@ export default function Project({ res }) {
                 ref={waveRef1}
                 id={1}
                 projectId={res.id}
-
               ></AudioVisualizer>
             ) : (
               // <div></div>
@@ -207,7 +205,6 @@ export default function Project({ res }) {
                 ref={waveRef2}
                 id={2}
                 projectId={res.id}
-
               ></AudioVisualizer>
             ) : (
               <NoAudioVisualizationContainer></NoAudioVisualizationContainer>
@@ -236,7 +233,6 @@ export default function Project({ res }) {
                 ref={waveRef3}
                 id={3}
                 projectId={res.id}
-
               ></AudioVisualizer>
             ) : (
               <NoAudioVisualizationContainer></NoAudioVisualizationContainer>
@@ -264,7 +260,6 @@ export default function Project({ res }) {
                 ref={waveRef4}
                 id={4}
                 projectId={res.id}
-
               ></AudioVisualizer>
             ) : (
               <NoAudioVisualizationContainer></NoAudioVisualizationContainer>

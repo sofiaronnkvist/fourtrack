@@ -5,7 +5,7 @@ export const getFileFromStorage = async (userId, projectId) => {
   let trackArray = [];
 
   const downloadUrl = await getDownloadURL(
-    ref(storage, `files/${userId}/${projectId}/1/test`)
+    ref(storage, `files/${userId}/${projectId}/1`)
   )
     .then((url) => {
       trackArray.push(url);
@@ -20,7 +20,7 @@ export const getFileFromStorage = async (userId, projectId) => {
     });
 
   const downloadUrl2 = await getDownloadURL(
-    ref(storage, `files/${userId}/${projectId}/2/test`)
+    ref(storage, `files/${userId}/${projectId}/2`)
   )
     .then((url) => {
       trackArray.push(url);
@@ -35,7 +35,7 @@ export const getFileFromStorage = async (userId, projectId) => {
     });
 
   const downloadUrl3 = await getDownloadURL(
-    ref(storage, `files/${userId}/${projectId}/3/test`)
+    ref(storage, `files/${userId}/${projectId}/3`)
   )
     .then((url) => {
       trackArray.push(url);
@@ -50,7 +50,7 @@ export const getFileFromStorage = async (userId, projectId) => {
     });
 
   const downloadUrl4 = await getDownloadURL(
-    ref(storage, `files/${userId}/${projectId}/4/test`)
+    ref(storage, `files/${userId}/${projectId}/4`)
   )
     .then((url) => {
       trackArray.push(url);

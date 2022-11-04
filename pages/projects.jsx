@@ -63,20 +63,12 @@ const Projects = ({ projects }) => {
           {projects &&
             projects[0].map((project) => {
               return (
-                <Link
-                  href={{
-                    pathname: '/projects/[slug]',
-                    query: { slug: project.title },
-                  }}
+                <ProjectCard
                   key={project.title}
-                >
-                  <a>
-                    <ProjectCard
-                      title={project.title}
-                      date={project.timestamp}
-                    ></ProjectCard>
-                  </a>
-                </Link>
+                  id={project.id}
+                  title={project.title}
+                  date={project.timestamp}
+                ></ProjectCard>
               );
             })}
         </ul>

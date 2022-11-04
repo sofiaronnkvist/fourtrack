@@ -46,7 +46,7 @@ export const useMyRecorder = (id, projectid) => {
 
       function uploadFiles(file, userId) {
         if (!file) return;
-        const sotrageRef = ref(storage, `files/${userId}/${projectid}/${id}/test`);
+        const sotrageRef = ref(storage, `files/${userId}/${projectid}/${id}`);
         // console.log(sotrageRef);
         const uploadTask = uploadBytesResumable(sotrageRef, file);
         // console.log(uploadTask);

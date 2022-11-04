@@ -54,7 +54,7 @@ const BottomItems = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 400px;
+  margin-top: 340px;
 `;
 const NavLink = styled.a`
   padding-bottom: 16px;

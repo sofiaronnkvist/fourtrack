@@ -22,6 +22,10 @@ const StyledContent = styled(dialogContent)`
   padding: 25;
   border: 1px solid black;
   border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const StyledOverlay = styled(dialogOverlay)`
@@ -31,31 +35,41 @@ const StyledOverlay = styled(dialogOverlay)`
 `;
 
 const NavButton = styled.button`
+  width: 145px;
+  height: 56px;
   color: black;
-  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 4px;
   font-size: 18px;
-  border: none;
-  background-color: white;
+  border: ${(props) => (props.border ? 'black' : 'none')};
+  background-color: ${(props) =>
+    props.background ? `${props.theme.purple}` : 'transparent'};
   cursor: pointer;
+  color: ${(props) =>
+    props.whiteText ? `${props.theme.white}` : `${props.theme.purple}`};
 `;
 
 const GoogleButton = styled.button`
+  width: 330px;
+  height: 48px;
   color: black;
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: transparent;
   font-size: 16px;
   border: 1px solid black;
-  border-radius: 7px;
+  border-radius: 8px;
 `;
 
 const CloseButton = styled.button`
-  color: black;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 10px;
+  color: grey;
+  font-size: 20px;
+  margin-left: 350px;
+  margin-top: 30px;
+  background-color: transparent;
+  border: none;
+
 `;
 
 const Divider = styled.p`
   color: black;
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -64,31 +78,62 @@ const Divider = styled.p`
 const StyledTitle = styled.h1`
   color: black;
   font-size: 20;
-  font-family: Arial, Helvetica, sans-serif;
 `;
 
 const PrivacyText = styled.p`
   color: grey;
-  font-size: 12;
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  text-align: center;
+  margin-bottom: 32px;
 `;
 
 const LoginTexts = styled.button`
   color: black;
   font-size: 16;
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: transparent;
+  border: none;
 `;
 
 const CreateAccountTexts = styled.button`
   color: black;
-  font-size: 16;
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+
 `;
 
 const ForgotPassword = styled.p`
   color: blue;
-  font-size: 16;
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+`;
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    width: 330px;
+    height: 48px;
+    font-size: 16px;
+    padding: 5px;
+    margin-top: 30px;
+    border-radius: 8px;
+    border: 1px solid #D0D5DD;
+
+  }
+  button {
+    width: 330px;
+    height: 48px;
+    font-size: 16px;
+    padding: 5px;
+    margin: 30px;
+
+    background-color: black;
+    color: white;
+    border-radius: 8px;
+
+  }
 `;
 
 function Content({ children, ...props }) {
@@ -109,7 +154,7 @@ export const DialogClose = DialogPrimitive.Close;
 export default function Modal(props) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const { user, login, signUpWithGoogle, signup} = useAuth();
+  const { user, login, signUpWithGoogle, signup } = useAuth();
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -180,16 +225,21 @@ export default function Modal(props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <NavButton>{buttonTitle}</NavButton>
+        <NavButton background={props.background} whiteText={props.whiteText}>
+          {buttonTitle}
+        </NavButton>
       </DialogTrigger>
       <DialogContent>
+        <DialogClose asChild>
+          <CloseButton onClick={returnButtonValue}>X</CloseButton>
+        </DialogClose>
         <DialogTitle>{buttonTitle}</DialogTitle>
         <GoogleButton onClick={handleGoogleSignIn}>
           Continue with Google
         </GoogleButton>
         <Divider>or</Divider>
-        <form onSubmit={checkForm() ? handleLogin : handleSignup}>
-          <label>email</label>
+        <StyledForm onSubmit={checkForm() ? handleLogin : handleSignup}>
+          {/* <label>email</label> */}
           <input
             onChange={(e) =>
               setData({
@@ -200,9 +250,9 @@ export default function Modal(props) {
             value={data.email}
             required
             type='email'
-            placeholder='Enter email'
+            placeholder='Email'
           ></input>
-          <label>password</label>
+          {/* <label>password</label> */}
           <input
             onChange={(e) =>
               setData({
@@ -213,16 +263,16 @@ export default function Modal(props) {
             value={data.password}
             required
             type='password'
-            placeholder='Enter password'
+            placeholder='Password'
           ></input>
           <button type='submit'>{buttonTitle}</button>
-        </form>
+        </StyledForm>
         {checkForm() ? (
           <>
-            <ForgotPassword>I forgot my password</ForgotPassword>
             <CreateAccountTexts onClick={changeForm}>
-              No account? Create an account
+            Don’t have an account? Create one.
             </CreateAccountTexts>
+            <ForgotPassword>I forgot my password</ForgotPassword>
           </>
         ) : (
           <LoginTexts onClick={changeForm}>
@@ -230,11 +280,8 @@ export default function Modal(props) {
           </LoginTexts>
         )}
         <PrivacyText>
-          By clicking create account I agree to Fortracks awesome privacy policy
+          By clicking create account I agree to <br/>Fortracks awesome privacy policy
         </PrivacyText>
-        <DialogClose asChild>
-          <CloseButton onClick={returnButtonValue}>X</CloseButton>
-        </DialogClose>
       </DialogContent>
     </Dialog>
   );

@@ -17,9 +17,9 @@ export default function Navbar() {
         <NotLogedInWrapper>
           <Image src={logo} alt='Logo' />
           <div>
-            <Link href='/'>How it works</Link>
+            <Link border href='/'>How does it work?</Link>
             <Modal buttonTitle='Sign in' />
-            <Modal buttonTitle='Get started' />
+            <Modal background whiteText buttonTitle='Get started' />
           </div>
         </NotLogedInWrapper>
       ) : (
@@ -33,11 +33,15 @@ export default function Navbar() {
   );
 }
 const NavWrapper = styled.nav`
-margin: 32px;
-
+  margin: 32px;
 `;
 const NotLogedInWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  a {
+    font-size: 18px;
+    color: #6D4DEB;
+  }
 `;

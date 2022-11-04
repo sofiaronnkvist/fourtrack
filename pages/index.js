@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/router';
-import styled, { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 import Link from 'next/link';
 import Modal from '../components/Modal/Modal';
 import logo from '../public/logo.svg';

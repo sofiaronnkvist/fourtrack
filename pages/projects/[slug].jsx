@@ -4,7 +4,7 @@ import { firestore } from '../../utils/firebase';
 import React, { useEffect, useRef, useState } from 'react';
 import Recorder from '../../components/Recorder/Recorder';
 import { getFileFromStorage } from '../../utils/getFileFromStorage';
-import styled from 'styled-components';
+import styled, { ThemeConsumer } from 'styled-components';
 import AudioVisualizer from '../../components/AudioVisualizer/audiovisualizer';
 import { deleteFileFromStorage } from '../../utils/deleteFileFromStorage';
 import Button from '../../components/Button/Button';
@@ -40,7 +40,7 @@ export default function Project({ res }) {
   const player3 = new Audio(trackArray[2]);
   const player4 = new Audio(trackArray[3]);
 
-   const playChecked = (id) => {
+  const playChecked = (id) => {
     if (id == 1) {
       waveRef1.current ? waveRef1.current.play() : null;
       return;
@@ -177,10 +177,15 @@ export default function Project({ res }) {
                 ref={waveRef1}
                 id={1}
                 projectId={res.id}
+                background='#EBBA00'
+                waveColor={'white'}
+                progressColor={'hotpink'}
               ></AudioVisualizer>
             ) : (
               // <div></div>
-              <NoAudioVisualizationContainer></NoAudioVisualizationContainer>
+              <NoAudioVisualizationContainer
+                style={{ backgroundColor: '#EBBA00' }}
+              ></NoAudioVisualizationContainer>
             )}
             <DeleteButton
               handleclick={() => deleteTrack(user.uid, res.id, 1)}
@@ -205,9 +210,14 @@ export default function Project({ res }) {
                 ref={waveRef2}
                 id={2}
                 projectId={res.id}
+                background='#EC8300'
+                waveColor={'white'}
+                progressColor={'hotpink'}
               ></AudioVisualizer>
             ) : (
-              <NoAudioVisualizationContainer></NoAudioVisualizationContainer>
+              <NoAudioVisualizationContainer
+                style={{ backgroundColor: '#EC8300' }}
+              ></NoAudioVisualizationContainer>
             )}
             <DeleteButton
               handleclick={() => deleteTrack(user.uid, res.id, 2)}
@@ -233,9 +243,14 @@ export default function Project({ res }) {
                 ref={waveRef3}
                 id={3}
                 projectId={res.id}
+                background='#69B6D3'
+                waveColor={'white'}
+                progressColor={'hotpink'}
               ></AudioVisualizer>
             ) : (
-              <NoAudioVisualizationContainer></NoAudioVisualizationContainer>
+              <NoAudioVisualizationContainer
+                style={{ backgroundColor: '#69B6D3' }}
+              ></NoAudioVisualizationContainer>
             )}
             <DeleteButton
               handleclick={() => deleteTrack(user.uid, res.id, 3)}
@@ -260,9 +275,14 @@ export default function Project({ res }) {
                 ref={waveRef4}
                 id={4}
                 projectId={res.id}
+                background='#69B6D3'
+                waveColor={'white'}
+                progressColor={'hotpink'}
               ></AudioVisualizer>
             ) : (
-              <NoAudioVisualizationContainer></NoAudioVisualizationContainer>
+              <NoAudioVisualizationContainer
+                style={{ backgroundColor: '#B4ABDC' }}
+              ></NoAudioVisualizationContainer>
             )}
             <DeleteButton
               handleclick={() => deleteTrack(user.uid, res.id, 4)}
@@ -307,7 +327,6 @@ const NoAudioVisualizationContainer = styled.div`
   height: 49px;
   width: 1055px;
   margin-left: 7px;
-  background-color: grey;
   margin-top: 0px;
 `;
 const Container = styled.div`

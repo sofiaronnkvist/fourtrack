@@ -1,25 +1,55 @@
 import { MdDragIndicator } from 'react-icons/md';
 import { AiOutlineStar } from 'react-icons/ai';
 import { BiDotsVerticalRounded } from 'react-icons/bi';
+import { useAuth } from '../../context/AuthContext';
+import { deleteFolderFromStorage } from '../../utils/deleteFolderFromStorage';
+import { useRouter } from 'next/router';
 
 import styled from 'styled-components';
+import Link from 'next/link';
+import { async } from '@firebase/util';
 
-const ProjectCard = ({ title, date }) => {
+const ProjectCard = ({ title, date, id }) => {
+  const { user } = useAuth();
+  const router = useRouter();
+
+  console.log(`project id in card ${id}`);
+  console.log(`user id in card ${user.uid}`);
+
+  const deteleProject = async (userId, ProjectId) => {
+    await deleteFolderFromStorage(userId, ProjectId);
+    router.push('/projects');
+
+    // setTimeout(function () {
+    //   router.push('/projects');
+    // }, 100);
+  };
   return (
-    <ProjectOuterWrapper>
+    <ProjectOuterWrapper id={id}>
       <MdDragIndicator size={'24px'}></MdDragIndicator>
-      <ProjectWrapper>
-        <ProjectTitle>{title}</ProjectTitle>
-        <ProjectDate>{date}</ProjectDate>
-        <ProjectLegth>1.23</ProjectLegth>
-        <ProjectLegth>113</ProjectLegth>
-        <StarWrapper>
-          <AiOutlineStar size={'20px'}></AiOutlineStar>
-        </StarWrapper>
-        <DotWrapper>
-          <BiDotsVerticalRounded size={'25px'}></BiDotsVerticalRounded>
-        </DotWrapper>
-      </ProjectWrapper>
+      <Link
+        href={{
+          pathname: '/projects/[slug]',
+          query: { slug: title },
+        }}
+        key={title}
+      >
+        <a>
+          <ProjectWrapper>
+            <ProjectTitle>{title}</ProjectTitle>
+            <ProjectDate>{date}</ProjectDate>
+            <ProjectLegth>1.23</ProjectLegth>
+            <ProjectLegth>113</ProjectLegth>
+            <StarWrapper>
+              <AiOutlineStar size={'20px'}></AiOutlineStar>
+            </StarWrapper>
+            <DotWrapper>
+              <BiDotsVerticalRounded size={'25px'}></BiDotsVerticalRounded>
+            </DotWrapper>
+          </ProjectWrapper>
+        </a>
+      </Link>
+      <button onClick={() => deteleProject(user.uid, id)}>X</button>
     </ProjectOuterWrapper>
   );
 };

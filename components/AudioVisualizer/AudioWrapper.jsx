@@ -11,7 +11,7 @@ const AudioWrapper = (props) => {
   const waveSurferRef = useRef({
     isPlaying: () => false,
   });
-
+  console.log(props.background);
   useEffect(() => {
     const waveSurfer = WaveSurfer.create({
       container: containerRef.current,
@@ -20,17 +20,21 @@ const AudioWrapper = (props) => {
       barHeight: 1,
       barRadius: 3,
       cursorWidth: 2,
-      progressColor: 'hotpink',
-      waveColor: 'white',
-      backgroundColor: 'grey',
+      progressColor: `${props.progressColor}`,
+      waveColor: `${props.waveColor}`,
+      backgroundColor: `${props.background}`,
       height: 50,
       // backend: 'MediaElement',
       plugins: [
         MarkersPlugin.create({
           markers: [
             {
-              time: sessionStorage.getItem(`startMarker${props.id}${props.projectId}`)
-                ? sessionStorage.getItem(`startMarker${props.id}${props.projectId}`)
+              time: sessionStorage.getItem(
+                `startMarker${props.id}${props.projectId}`
+              )
+                ? sessionStorage.getItem(
+                    `startMarker${props.id}${props.projectId}`
+                  )
                 : 0.002,
               label: 'start',
               color: 'hotpink',
@@ -73,7 +77,10 @@ const AudioWrapper = (props) => {
 
     waveSurfer.on('marker-drop', function (marker) {
       console.log('marker drop:', marker.time);
-      sessionStorage.setItem(`startMarker${props.id}${props.projectId}`, marker.time);
+      sessionStorage.setItem(
+        `startMarker${props.id}${props.projectId}`,
+        marker.time
+      );
     });
     return () => {
       waveSurfer.destroy();

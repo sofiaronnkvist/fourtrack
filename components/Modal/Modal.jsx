@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../context/AuthContext';
+import { FcGoogle } from 'react-icons/fc';
+
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
@@ -17,7 +19,7 @@ const StyledContent = styled(dialogContent)`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 90vw;
-  max-width: 450px;
+  max-width: 440px;
   max-height: 85vh;
   padding: 25;
   border: 1px solid black;
@@ -51,11 +53,14 @@ const NavButton = styled.button`
 const GoogleButton = styled.button`
   width: 330px;
   height: 48px;
-  color: black;
+  color: ${(props) => props.theme.purple};
   background-color: transparent;
   font-size: 16px;
-  border: 1px solid black;
+  border: 1px solid ${(props) => props.theme.purple};
   border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CloseButton = styled.button`
@@ -65,7 +70,6 @@ const CloseButton = styled.button`
   margin-top: 30px;
   background-color: transparent;
   border: none;
-
 `;
 
 const Divider = styled.p`
@@ -99,7 +103,6 @@ const CreateAccountTexts = styled.button`
   font-size: 16px;
   background-color: transparent;
   border: none;
-
 `;
 
 const ForgotPassword = styled.p`
@@ -119,8 +122,16 @@ const StyledForm = styled.form`
     padding: 5px;
     margin-top: 30px;
     border-radius: 8px;
-    border: 1px solid #D0D5DD;
+    border: 1px solid #d0d5dd;
 
+  }
+  input[type=email]:focus {
+    outline: none !important;
+    border: 2px solid ${(props) => props.theme.purple};
+  }
+  input[type=password]:focus {
+    outline: none !important;
+    border: 2px solid ${(props) => props.theme.purple};
   }
   button {
     width: 330px;
@@ -129,10 +140,9 @@ const StyledForm = styled.form`
     padding: 5px;
     margin: 30px;
 
-    background-color: black;
+    background-color: ${(props) => props.theme.purple};
     color: white;
     border-radius: 8px;
-
   }
 `;
 
@@ -235,6 +245,7 @@ export default function Modal(props) {
         </DialogClose>
         <DialogTitle>{buttonTitle}</DialogTitle>
         <GoogleButton onClick={handleGoogleSignIn}>
+          <FcGoogle size='22px'/>
           Continue with Google
         </GoogleButton>
         <Divider>or</Divider>
@@ -270,7 +281,7 @@ export default function Modal(props) {
         {checkForm() ? (
           <>
             <CreateAccountTexts onClick={changeForm}>
-            Don’t have an account? Create one.
+              Don’t have an account? Create one.
             </CreateAccountTexts>
             <ForgotPassword>I forgot my password</ForgotPassword>
           </>
@@ -280,7 +291,8 @@ export default function Modal(props) {
           </LoginTexts>
         )}
         <PrivacyText>
-          By clicking create account I agree to <br/>Fortracks awesome privacy policy
+          By clicking create account I agree to <br />
+          Fortracks awesome privacy policy
         </PrivacyText>
       </DialogContent>
     </Dialog>

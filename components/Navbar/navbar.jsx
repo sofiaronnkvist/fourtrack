@@ -5,20 +5,23 @@ import { useAuth } from '../../context/AuthContext';
 import { useRouter } from 'next/router';
 import Modal from '../Modal/Modal';
 import logo from '../../public/logo.svg';
+import styled from 'styled-components';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const router = useRouter();
 
   return (
-    <div>
+    <NavWrapper>
       {!user ? (
-        <div>
+        <NotLogedInWrapper>
           <Image src={logo} alt='Logo' />
-          <Link href='/'>How it works</Link>
-          <Modal buttonTitle='Sign in' />
-          <Modal buttonTitle='Get started' />
-        </div>
+          <div>
+            <Link href='/'>How it works</Link>
+            <Modal buttonTitle='Sign in' />
+            <Modal buttonTitle='Get started' />
+          </div>
+        </NotLogedInWrapper>
       ) : (
         <div>
           <Link href='/projects'>
@@ -26,6 +29,15 @@ export default function Navbar() {
           </Link>
         </div>
       )}
-    </div>
+    </NavWrapper>
   );
 }
+const NavWrapper = styled.nav`
+margin: 32px;
+
+`;
+const NotLogedInWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;

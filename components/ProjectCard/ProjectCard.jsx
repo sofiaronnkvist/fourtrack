@@ -4,7 +4,6 @@ import { BiDotsVerticalRounded } from 'react-icons/bi';
 import { useAuth } from '../../context/AuthContext';
 import { deleteFolderFromStorage } from '../../utils/deleteFolderFromStorage';
 import { useRouter } from 'next/router';
-
 import styled from 'styled-components';
 import Link from 'next/link';
 import { async } from '@firebase/util';
@@ -19,10 +18,6 @@ const ProjectCard = ({ title, date, id }) => {
   const deteleProject = async (userId, ProjectId) => {
     await deleteFolderFromStorage(userId, ProjectId);
     router.push('/projects');
-
-    // setTimeout(function () {
-    //   router.push('/projects');
-    // }, 100);
   };
   return (
     <ProjectOuterWrapper id={id}>

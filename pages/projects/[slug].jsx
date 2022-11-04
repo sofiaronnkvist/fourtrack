@@ -7,7 +7,6 @@ import { getFileFromStorage } from '../../utils/getFileFromStorage';
 import styled, { ThemeConsumer } from 'styled-components';
 import AudioVisualizer from '../../components/AudioVisualizer/audiovisualizer';
 import { deleteFileFromStorage } from '../../utils/deleteFileFromStorage';
-import Button from '../../components/Button/Button';
 import DeleteButton from '../../components/Button/DeleteButton';
 import { useRouter } from 'next/router';
 import { async } from '@firebase/util';

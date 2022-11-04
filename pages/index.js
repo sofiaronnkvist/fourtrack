@@ -1,7 +1,5 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from '../styles/Home.module.css';
-import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/router';
@@ -9,7 +7,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import Link from 'next/link';
 import Modal from '../components/Modal/Modal';
 import logo from '../public/logo.svg';
-import theme from '../theme/theme'
+import { AiOutlineArrowRight } from 'react-icons/ai';
 
 export default function Home() {
   const { user } = useAuth();
@@ -25,7 +23,6 @@ export default function Home() {
         <meta name='Fourtrack' content='A better way for recording music' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <ThemeProvider theme={theme}>
       <StyledMain>
         <HeroSection>
           <StyledH1>
@@ -33,8 +30,11 @@ export default function Home() {
           </StyledH1>
 
           <TitleCTA>
-            <Modal buttonTitle='Get started' />
-            <Link href='/'>How it works</Link>
+            <Modal background whiteText buttonTitle='Get started' />
+            <Wrapper>
+              <AiOutlineArrowRight color='#6D4DEB' size='25px'/>
+              <Link href='/'>How dose it work?</Link>
+            </Wrapper>
           </TitleCTA>
         </HeroSection>
         <CaroselSection>Carosel</CaroselSection>
@@ -85,7 +85,6 @@ export default function Home() {
           <Link href='/'>How does it work?</Link>
         </div>
       </StyledFooter>
-      </ThemeProvider>
     </div>
   );
 }
@@ -115,6 +114,20 @@ const StyledH1 = styled.h1`
 `;
 const TitleCTA = styled.div`
   margin-top: 67px;
+  display: flex;
+  align-items: center;
+
+  a {
+    color: #6d4deb;
+    font-size: 18px;
+    margin-left: 15px;
+
+  }
+`;
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 45px;
 `;
 const StyledH2 = styled.h2`
   margin: 0;
@@ -155,7 +168,8 @@ const CaroselSection = styled.section`
 `;
 const ToolSection = styled.section`
   min-height: 450px;
-  background-color: ${(props) => (props.purple ? `${theme.purple}` : 'none')};
+  background-color: ${(props) =>
+    props.purple ? `${props.theme.purple}` : 'none'};
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -187,7 +201,8 @@ const ControlsSection = styled.section`
   align-items: center;
   min-height: 450px;
   width: 100%;
-  background-color: ${(props) => (props.purple ? `${theme.purple}` : 'none')};
+  background-color: ${(props) =>
+    props.purple ? `${props.theme.purple}` : 'none'};
   padding-bottom: 188px;
   padding-top: 188px;
 `;
@@ -215,7 +230,8 @@ const SignUpSection = styled.section`
   align-items: center;
   min-height: 900px;
   width: 100%;
-  background-color: ${(props) => (props.purple ? `${theme.purple}` : 'none')};
+  background-color: ${(props) =>
+    props.purple ? `${props.theme.purple}` : 'none'};
   padding-bottom: 188px;
   padding-top: 188px;
 `;

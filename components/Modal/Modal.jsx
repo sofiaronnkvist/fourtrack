@@ -31,12 +31,16 @@ const StyledOverlay = styled(dialogOverlay)`
 `;
 
 const NavButton = styled.button`
+  width: 145px;
+  height: 56px;
   color: black;
-  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 4px;
   font-size: 18px;
-  border: none;
-  background-color: white;
+  border: ${(props) => (props.border ? 'black' : 'none')};
+  background-color: ${(props) =>
+    props.background ? `${props.theme.purple}` : 'transparent'};
   cursor: pointer;
+  color: ${(props) => (props.whiteText ? `${props.theme.white}` : `${props.theme.purple}`)};
 `;
 
 const GoogleButton = styled.button`
@@ -109,7 +113,7 @@ export const DialogClose = DialogPrimitive.Close;
 export default function Modal(props) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const { user, login, signUpWithGoogle, signup} = useAuth();
+  const { user, login, signUpWithGoogle, signup } = useAuth();
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -180,7 +184,9 @@ export default function Modal(props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <NavButton>{buttonTitle}</NavButton>
+        <NavButton background={props.background} whiteText={props.whiteText}>
+          {buttonTitle}
+        </NavButton>
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>{buttonTitle}</DialogTitle>

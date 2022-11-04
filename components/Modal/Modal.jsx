@@ -59,14 +59,17 @@ const GoogleButton = styled.button`
 `;
 
 const CloseButton = styled.button`
-  color: black;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 10px;
+  color: grey;
+  font-size: 20px;
+  margin-left: 350px;
+  margin-top: 30px;
+  background-color: transparent;
+  border: none;
+
 `;
 
 const Divider = styled.p`
   color: black;
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -75,12 +78,11 @@ const Divider = styled.p`
 const StyledTitle = styled.h1`
   color: black;
   font-size: 20;
-  font-family: Arial, Helvetica, sans-serif;
 `;
 
 const PrivacyText = styled.p`
   color: grey;
-  font-size: 12;
+  font-size: 10px;
   text-align: center;
   margin-bottom: 32px;
 `;
@@ -88,12 +90,13 @@ const PrivacyText = styled.p`
 const LoginTexts = styled.button`
   color: black;
   font-size: 16;
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: transparent;
+  border: none;
 `;
 
 const CreateAccountTexts = styled.button`
   color: black;
-  font-size: 16;
+  font-size: 16px;
   background-color: transparent;
   border: none;
 
@@ -102,7 +105,6 @@ const CreateAccountTexts = styled.button`
 const ForgotPassword = styled.p`
   color: blue;
   font-size: 12px;
-  font-family: Arial, Helvetica, sans-serif;
 `;
 const StyledForm = styled.form`
   display: flex;

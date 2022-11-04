@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Link from 'next/link';
 import Modal from '../components/Modal/Modal';
+import logo from '../public/logo.svg';
 
 export default function Home() {
   const { user } = useAuth();
@@ -25,7 +26,7 @@ export default function Home() {
       </Head>
       <StyledMain>
         <HeroSection>
-          <StyledH1 className={styles.title}>
+          <StyledH1>
             A better way for <br /> recording music
           </StyledH1>
 
@@ -58,26 +59,35 @@ export default function Home() {
           </StyledP>
           <ImagePlaceholder></ImagePlaceholder>
         </ControlsSection>
+        <CollabSection>
+          <TextContainer>
+            <StyledH3>Collab with everyone</StyledH3>
+            <StyledP>
+              Share your ideas with everyone to take your song to the limit.
+            </StyledP>
+          </TextContainer>
+        </CollabSection>
+        <SignUpSection purple>
+          <StyledH3 white>Try Fourtrack, it´s free</StyledH3>
+        </SignUpSection>
       </StyledMain>
 
-      <footer className={styles.footer}>
-        <a
-          href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src='/vercel.svg' alt='Vercel Logo' width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+      <StyledFooter>
+        <Image src={logo} alt='Logo' />
+        <div>
+          <Link href='/'>
+            <a>About</a>
+          </Link>
+          <Link href='/'>Feedback</Link>
+          <Link href='/'>Terms and conditions</Link>
+          <Link href='/'>How does it work?</Link>
+        </div>
+      </StyledFooter>
     </div>
   );
 }
 const StyledMain = styled.main`
   min-height: 713px;
-  padding: 4rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -117,6 +127,7 @@ const StyledH3 = styled.h3`
   line-height: 0.9;
   font-size: 43px;
   font-weight: 500;
+  color: ${(props) => (props.white ? 'white' : 'black')};
 `;
 const StyledH4 = styled.h4`
   margin: 0;
@@ -183,3 +194,37 @@ const ImagePlaceholder = styled.div`
   margin-top: 80px;
   background-color: grey;
 `;
+const CollabSection = styled.section`
+  position: relative;
+  min-height: 800px;
+  width: 100%;
+  background-color: ${(props) => (props.purple ? 'purple' : 'none')};
+`;
+const TextContainer = styled.div`
+  position: absolute;
+  bottom: 113px;
+  right: 148px;
+  width: 400px;
+`;
+const SignUpSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 900px;
+  width: 100%;
+  background-color: ${(props) => (props.purple ? 'purple' : 'none')};
+  padding-bottom: 188px;
+  padding-top: 188px;
+`;
+const StyledFooter = styled.footer`
+  margin: 54px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: ${(props) => (props.purple ? 'purple' : 'none')};
+
+  a {
+    margin: 0 30px;
+  }
+`;
+const LinkContainer = styled.div``;

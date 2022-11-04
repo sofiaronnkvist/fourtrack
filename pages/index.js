@@ -5,10 +5,11 @@ import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import Link from 'next/link';
 import Modal from '../components/Modal/Modal';
 import logo from '../public/logo.svg';
+import theme from '../theme/theme'
 
 export default function Home() {
   const { user } = useAuth();
@@ -24,6 +25,7 @@ export default function Home() {
         <meta name='Fourtrack' content='A better way for recording music' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
+      <ThemeProvider theme={theme}>
       <StyledMain>
         <HeroSection>
           <StyledH1>
@@ -83,6 +85,7 @@ export default function Home() {
           <Link href='/'>How does it work?</Link>
         </div>
       </StyledFooter>
+      </ThemeProvider>
     </div>
   );
 }
@@ -152,7 +155,7 @@ const CaroselSection = styled.section`
 `;
 const ToolSection = styled.section`
   min-height: 450px;
-  background-color: ${(props) => (props.purple ? 'purple' : 'none')};
+  background-color: ${(props) => (props.purple ? `${theme.purple}` : 'none')};
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -184,7 +187,7 @@ const ControlsSection = styled.section`
   align-items: center;
   min-height: 450px;
   width: 100%;
-  background-color: ${(props) => (props.purple ? 'purple' : 'none')};
+  background-color: ${(props) => (props.purple ? `${theme.purple}` : 'none')};
   padding-bottom: 188px;
   padding-top: 188px;
 `;
@@ -212,7 +215,7 @@ const SignUpSection = styled.section`
   align-items: center;
   min-height: 900px;
   width: 100%;
-  background-color: ${(props) => (props.purple ? 'purple' : 'none')};
+  background-color: ${(props) => (props.purple ? `${theme.purple}` : 'none')};
   padding-bottom: 188px;
   padding-top: 188px;
 `;

@@ -45,7 +45,8 @@ const StyledInput = styled.input`
   border: none;
   width: 195px;
   height: 30px;
-
+  outline: none;
+  padding-left: 5px;
 `;
 const CreateButton = styled.button`
   background-color: transparent;

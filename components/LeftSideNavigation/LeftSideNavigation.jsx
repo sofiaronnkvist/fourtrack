@@ -15,7 +15,7 @@ const LeftSideNavigation = () => {
     <>
       <Navigation>
         <LinkWrapper>
-          <Image src={AllRecIcon} alt='play, oause, rec and stop buttons' />
+          <Image src={AllRecIcon} alt='play, pause, rec and stop buttons' />
           <Link href='/projects'>
             <NavLink>All recordings</NavLink>
           </Link>

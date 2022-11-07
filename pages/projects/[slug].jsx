@@ -159,7 +159,6 @@ export default function Project({ res }) {
       <h1>{res.title}</h1>
       <p>id: {res.id}</p>
 
-      <ShareProject></ShareProject>
       <h3>Recorders</h3>
       {/* Loopa tracks och ref */}
       <Form>

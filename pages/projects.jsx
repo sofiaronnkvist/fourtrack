@@ -56,7 +56,6 @@ const Projects = ({ projects }) => {
       <LeftSideNavigation></LeftSideNavigation>
       <MainContent>
         <TopBar></TopBar>
-        <ShareProject></ShareProject>
         <h1>All recordings</h1>
 
         <Project />

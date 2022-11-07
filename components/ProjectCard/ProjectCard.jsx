@@ -55,7 +55,7 @@ const ProjectOuterWrapper = styled.div`
 `;
 
 const ProjectWrapper = styled.div`
-  height: 50px;
+  height: 72px;
   width: 1000px;
   margin-bottom: 8px;
   display: flex;

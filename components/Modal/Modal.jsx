@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import { useAuth } from '../../context/AuthContext';
 import { FcGoogle } from 'react-icons/fc';
 
-
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
 
@@ -123,13 +122,12 @@ const StyledForm = styled.form`
     margin-top: 30px;
     border-radius: 8px;
     border: 1px solid #d0d5dd;
-
   }
-  input[type=email]:focus {
+  input[type='email']:focus {
     outline: none !important;
     border: 2px solid ${(props) => props.theme.purple};
   }
-  input[type=password]:focus {
+  input[type='password']:focus {
     outline: none !important;
     border: 2px solid ${(props) => props.theme.purple};
   }
@@ -172,11 +170,11 @@ export default function Modal(props) {
   const [buttonTitle, setButtonTitle] = useState(props.buttonTitle);
 
   //TODO: This looks weird.
-  useEffect(() => {
-    if (user) {
-      router.push('/projects');
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (user) {
+  //     router.push('/projects');
+  //   }
+  // }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -203,7 +201,7 @@ export default function Modal(props) {
   const handleGoogleSignIn = async () => {
     try {
       await signUpWithGoogle();
-      router.push('/projects');
+      window.location.href = '/projects';
     } catch (error) {
       console.log(error);
     }
@@ -244,8 +242,12 @@ export default function Modal(props) {
           <CloseButton onClick={returnButtonValue}>X</CloseButton>
         </DialogClose>
         <DialogTitle>{buttonTitle}</DialogTitle>
-        <GoogleButton onClick={handleGoogleSignIn}>
-          <FcGoogle size='22px'/>
+        <GoogleButton
+          onClick={async () => {
+            handleGoogleSignIn();
+          }}
+        >
+          <FcGoogle size='22px' />
           Continue with Google
         </GoogleButton>
         <Divider>or</Divider>

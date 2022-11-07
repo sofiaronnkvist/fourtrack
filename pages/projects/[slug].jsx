@@ -10,6 +10,7 @@ import { deleteFileFromStorage } from '../../utils/deleteFileFromStorage';
 import DeleteButton from '../../components/Button/DeleteButton';
 import { useRouter } from 'next/router';
 import { async } from '@firebase/util';
+import ShareProject from '../../components/Shareproject/ShareProject';
 
 export default function Project({ res }) {
   const { user } = useAuth();
@@ -158,6 +159,7 @@ export default function Project({ res }) {
       <h1>{res.title}</h1>
       <p>id: {res.id}</p>
 
+      <ShareProject></ShareProject>
       <h3>Recorders</h3>
       {/* Loopa tracks och ref */}
       <Form>

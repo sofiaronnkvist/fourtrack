@@ -17,6 +17,7 @@ import nookies from 'nookies';
 import ProjectCard from '../components/ProjectCard/ProjectCard';
 import LeftSideNavigation from '../components/LeftSideNavigation/LeftSideNavigation';
 import TopBar from '../components/TopBar/TopBar';
+import ShareProject from '../components/Shareproject/ShareProject';
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
@@ -49,13 +50,13 @@ export async function getServerSideProps(ctx) {
 
 const Projects = ({ projects }) => {
   const { user } = useAuth();
-  console.log(projects);
 
   return (
     <MainWrapper>
       <LeftSideNavigation></LeftSideNavigation>
       <MainContent>
         <TopBar></TopBar>
+        <ShareProject></ShareProject>
         <h1>All recordings</h1>
 
         <Project />

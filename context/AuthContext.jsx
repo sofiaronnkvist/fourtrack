@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import {
-  onAuthStateChanged,
   onIdTokenChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -79,6 +78,7 @@ export const AuthContextProvider = ({ children }) => {
       const user = res.user;
       await addDoc(collection(firestore, 'users'), {
         uid: user.uid,
+        authProvider: 'local',
         email: user.email,
       });
     } catch (error) {

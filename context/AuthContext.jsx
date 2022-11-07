@@ -37,6 +37,7 @@ export const AuthContextProvider = ({ children }) => {
       }
       setLoading(false);
     });
+    registerGoogleUser();
 
     return () => unsubscribe();
   }, []);
@@ -51,9 +52,35 @@ export const AuthContextProvider = ({ children }) => {
     return () => clearInterval(handle);
   }, []);
 
+  const registerGoogleUser = async () => {
+    try {
+      await getRedirectResult(auth).then(async (res) => {
+        console.log(`res ; ${res}`);
+        const usersCollectionRef = collection(firestore, 'users');
+        const newUser = res.user;
+        const q = query(usersCollectionRef, where('uid', '==', newUser.uid));
+        const docs = await getDocs(q);
+        if (docs.docs.length === 0) {
+          addDoc(usersCollectionRef, {
+            uid: newUser.uid,
+            authProvider: 'google',
+            email: newUser.email,
+          });
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const registerWithEmailAndPassword = async (auth, email, password) => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      const user = res.user;
+      await addDoc(collection(firestore, 'users'), {
+        uid: user.uid,
+        email: user.email,
+      });
     } catch (error) {
       console.error(error);
     }

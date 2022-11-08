@@ -1,13 +1,41 @@
 import { firestore } from '../../utils/firebase';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  doc,
+  setDoc,
+  arrayUnion,
+  updateDoc,
+} from 'firebase/firestore';
+import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { useRouter } from 'next/router';
 
-export default function ShareProject() {
+export default function ShareProject(props) {
   const { user } = useAuth();
   const [searchText, setSearchText] = useState('');
+  const [formMessage, setFormMessage] = useState('');
   const [searchResult, setSearchResult] = useState([]);
+
+  const shareButton = async (e, projectId) => {
+    e.preventDefault();
+    try {
+      const usersArray = await getUsers();
+      if (usersArray.length == 1) {
+        const uid = usersArray[0].uid;
+        const projectRef = doc(firestore, 'projects', projectId);
+        await updateDoc(projectRef, {
+          colab_uid: arrayUnion(uid),
+        });
+        setFormMessage(`Successfully shared with ${usersArray[0].email}!`);
+      } else {
+        setFormMessage('This user does not seem to have Fourtrack, yet...');
+      }
+    } catch (error) {
+      alert(error);
+    }
+  };
 
   const getUsers = async () => {
     let array = [];
@@ -21,28 +49,28 @@ export default function ShareProject() {
       array.push(doc.data());
     });
     setSearchResult(array);
+    return array;
   };
-  console.log('users in outside UE', searchResult);
 
   return (
     <div>
-      <form onSubmit={getUsers}>
-        <label id='friend'>Find your friend</label>
+      <form onSubmit={(e) => shareButton(e, props.projectId)}>
+        <label hidden id='friend'>
+          Search field
+        </label>
         <input
           minLength='1'
           maxLength='50'
+          value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           type='email'
           placeholder='Enter email'
           id='friend'
           required
         ></input>
+        <button type='submit'>Share</button>
       </form>
-      <button onClick={getUsers}>Search</button>
-      {searchResult &&
-        searchResult.map((user) => {
-          return <p key={user.uid}>{user.email}</p>;
-        })}
+      <p>{formMessage}</p>
     </div>
   );
 }

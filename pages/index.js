@@ -32,8 +32,8 @@ export default function Home() {
           <TitleCTA>
             <Modal background whiteText buttonTitle='Get started' />
             <Wrapper>
-              <AiOutlineArrowRight color='#6D4DEB' size='25px'/>
-              <Link href='/'>How dose it work?</Link>
+              <AiOutlineArrowRight color='#6D4DEB' size='25px' />
+              <Link href='/'>How does it work?</Link>
             </Wrapper>
           </TitleCTA>
         </HeroSection>
@@ -121,7 +121,6 @@ const TitleCTA = styled.div`
     color: #6d4deb;
     font-size: 18px;
     margin-left: 15px;
-
   }
 `;
 const Wrapper = styled.div`

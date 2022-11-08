@@ -32,7 +32,6 @@ const ProjectCard = ({ title, date, id }) => {
       >
         <a>
           <ProjectWrapper>
-            <ProjectDropDownMenu/>
             <ProjectTitle>{title}</ProjectTitle>
             <ProjectDate>{date}</ProjectDate>
             <ProjectLegth>1.23</ProjectLegth>
@@ -41,7 +40,7 @@ const ProjectCard = ({ title, date, id }) => {
               <AiOutlineStar size={'20px'}></AiOutlineStar>
             </StarWrapper>
             <DotWrapper>
-              <BiDotsVerticalRounded size={'25px'}></BiDotsVerticalRounded>
+              <ProjectDropDownMenu/>
             </DotWrapper>
           </ProjectWrapper>
         </a>

@@ -39,9 +39,9 @@ export default function ProjectDropDownMenu() {
   const { user } = useAuth();
 
   return (
-    <DropdownMenu.Root >
+    <DropdownMenu.Root>
       <StyledMenuButton>
-        <DotsVerticalIcon />
+        <DotsVerticalIcon style={{ width: '40px' }} />
       </StyledMenuButton>
 
       <StyledMenuPortal>
@@ -80,4 +80,5 @@ const StyledListItem = styled.li`
   padding: 5px;
   align-items: center;
   font-size: 12px;
+  cursor: pointer;
 `;

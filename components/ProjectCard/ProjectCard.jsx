@@ -28,7 +28,7 @@ const ProjectCard = ({ title, date, id, ownerId }) => {
               <AiOutlineStar size={'20px'}></AiOutlineStar>
             </StarWrapper>
             <DotWrapper>
-              <ProjectDropDownMenu ownerId={ownerId} projectId={id} title={title}/>
+              <ProjectDropDownMenu ownerId={ownerId} projectId={id} title={title} />
             </DotWrapper>
           </ProjectWrapper>
         {/* </a>

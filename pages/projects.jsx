@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useAuth } from '../context/AuthContext';
 import {
   collection,
   getDocs,
@@ -66,16 +65,19 @@ export async function getServerSideProps(ctx) {
   };
 }
 
-const Projects = ({ projects, colabProjects }) => {
-  const { user } = useAuth();
+const checkColabs = (projects) => {
+  if (projects[0].length >= 1) {
+    return true;
+  }
+};
 
+const Projects = ({ projects, colabProjects }) => {
   return (
     <MainWrapper>
       <LeftSideNavigation></LeftSideNavigation>
       <MainContent>
         <TopBar></TopBar>
         <h1>All recordings</h1>
-
         <Project />
         <ul>
           {projects &&
@@ -93,7 +95,8 @@ const Projects = ({ projects, colabProjects }) => {
         </ul>
         <h2>Shared with me</h2>
         <ul>
-          {colabProjects &&
+          {checkColabs(colabProjects) ? (
+            colabProjects &&
             colabProjects[0].map((project) => {
               return (
                 <ProjectCard
@@ -104,7 +107,10 @@ const Projects = ({ projects, colabProjects }) => {
                   date={project.timestamp}
                 ></ProjectCard>
               );
-            })}
+            })
+          ) : (
+            <p>Nothing here yet</p>
+          )}
         </ul>
       </MainContent>
     </MainWrapper>

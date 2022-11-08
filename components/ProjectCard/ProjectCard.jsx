@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { async } from '@firebase/util';
+import ProjectDropDownMenu from '../ProjectDropDown/DropDownMenu';
 
 const ProjectCard = ({ title, date, id }) => {
   const { user } = useAuth();
@@ -31,6 +32,7 @@ const ProjectCard = ({ title, date, id }) => {
       >
         <a>
           <ProjectWrapper>
+            <ProjectDropDownMenu/>
             <ProjectTitle>{title}</ProjectTitle>
             <ProjectDate>{date}</ProjectDate>
             <ProjectLegth>1.23</ProjectLegth>

@@ -8,10 +8,11 @@ import {
   Pencil1Icon,
   CrumpledPaperIcon,
 } from '@radix-ui/react-icons';
-import { deleteFolderFromStorage } from '../../utils/deleteFolderFromStorage';
+import { DeleteFolderFromStorage } from '../../utils/deleteFolderFromStorage';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import RenameModal from '../RenameModal/RenameModal';
+import { useAuth } from '../../context/AuthContext';
 
 const menuPortal = DropdownMenu.Portal;
 const menuButton = DropdownMenu.Trigger;
@@ -40,9 +41,13 @@ const StyledMenuContent = styled(menuContent)`
 
 export default function ProjectDropDownMenu(props) {
   const router = useRouter();
+  const { user } = useAuth();
 
-  const deteleProject = async (userId, ProjectId) => {
-    await deleteFolderFromStorage(userId, ProjectId);
+  console.log('Auth user', user.uid);
+  console.log('owner', props.ownerId);
+
+  const deteleProject = async (userId, ProjectId, ownerId) => {
+    await DeleteFolderFromStorage(userId, ProjectId, ownerId);
     router.push('/projects');
   };
 
@@ -74,7 +79,9 @@ export default function ProjectDropDownMenu(props) {
             <RenameModal projectId={props.projectId} />
           </StyledListItem>
           <StyledListItem
-            onClick={() => deteleProject(props.userId, props.projectId)}
+            onClick={() =>
+              deteleProject(user.uid, props.projectId, props.ownerId)
+            }
           >
             <CrumpledPaperIcon style={{ marginRight: '5px', width: '13px' }} />
             Delete

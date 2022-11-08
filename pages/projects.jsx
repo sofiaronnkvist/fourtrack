@@ -82,6 +82,7 @@ const Projects = ({ projects, colabProjects }) => {
             projects[0].map((project) => {
               return (
                 <ProjectCard
+                  ownerId={project.uid}
                   key={project.title}
                   id={project.id}
                   title={project.title}
@@ -96,6 +97,7 @@ const Projects = ({ projects, colabProjects }) => {
             colabProjects[0].map((project) => {
               return (
                 <ProjectCard
+                  ownerId={project.uid}
                   key={project.title}
                   id={project.id}
                   title={project.title}

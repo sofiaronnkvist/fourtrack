@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import ProjectDropDownMenu from '../ProjectDropDown/DropDownMenu';
 
-const ProjectCard = ({ title, date, id }) => {
+const ProjectCard = ({ title, date, id, ownerId }) => {
   const { user } = useAuth();
 
   return (
@@ -28,7 +28,7 @@ const ProjectCard = ({ title, date, id }) => {
               <AiOutlineStar size={'20px'}></AiOutlineStar>
             </StarWrapper>
             <DotWrapper>
-              <ProjectDropDownMenu userId={user.uid} projectId={id} title={title}/>
+              <ProjectDropDownMenu ownerId={ownerId} projectId={id} title={title}/>
             </DotWrapper>
           </ProjectWrapper>
         {/* </a>

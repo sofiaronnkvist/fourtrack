@@ -13,6 +13,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import RenameModal from '../RenameModal/RenameModal';
 import { useAuth } from '../../context/AuthContext';
+import SearchModal from '../SearchModal/SearchModal';
 
 const menuPortal = DropdownMenu.Portal;
 const menuButton = DropdownMenu.Trigger;
@@ -77,7 +78,11 @@ export default function ProjectDropDownMenu(props) {
             <>
               <StyledListItem>
                 <Share2Icon style={{ marginRight: '5px', width: '13px' }} />
-                Share
+                <SearchModal
+              projectTitle={props.title}
+              projectId={props.projectId}
+              
+            />
               </StyledListItem>
               <StyledListItem>
                 <Pencil1Icon style={{ marginRight: '5px', width: '13px' }} />

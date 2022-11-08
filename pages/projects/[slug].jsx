@@ -305,9 +305,6 @@ export default function Project({ res }) {
       <button onClick={() => playChecked(playId)}>PLAY</button>
       <button onClick={() => record(playId)}>REC</button>
       <p>To play all tracks at once, uncheck all tracks and press play.</p>
-      <button onClick={() => shareButton('sdjhfjkshdfsdf', res.id)}>
-        Share with a user
-      </button>
       <SearchModal projectTitle={res.title} projectId={res.id} />
     </div>
   );

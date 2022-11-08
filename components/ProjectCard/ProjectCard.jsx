@@ -1,24 +1,16 @@
 import { MdDragIndicator } from 'react-icons/md';
 import { AiOutlineStar } from 'react-icons/ai';
-import { BiDotsVerticalRounded } from 'react-icons/bi';
 import { useAuth } from '../../context/AuthContext';
-import { deleteFolderFromStorage } from '../../utils/deleteFolderFromStorage';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { async } from '@firebase/util';
+import ProjectDropDownMenu from '../ProjectDropDown/DropDownMenu';
 
 const ProjectCard = ({ title, date, id }) => {
   const { user } = useAuth();
-  const router = useRouter();
 
-  const deteleProject = async (userId, ProjectId) => {
-    await deleteFolderFromStorage(userId, ProjectId);
-    router.push('/projects');
-  };
   return (
     <ProjectOuterWrapper id={id}>
-      <MdDragIndicator size={'24px'}></MdDragIndicator>
       <Link
         href={{
           pathname: '/projects/[slug]',
@@ -36,12 +28,11 @@ const ProjectCard = ({ title, date, id }) => {
               <AiOutlineStar size={'20px'}></AiOutlineStar>
             </StarWrapper>
             <DotWrapper>
-              <BiDotsVerticalRounded size={'25px'}></BiDotsVerticalRounded>
+              <ProjectDropDownMenu userId={user.uid} projectId={id} title={title}/>
             </DotWrapper>
           </ProjectWrapper>
         </a>
       </Link>
-      <button onClick={() => deteleProject(user.uid, id)}>X</button>
     </ProjectOuterWrapper>
   );
 };

@@ -1,4 +1,11 @@
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  setDoc,
+} from 'firebase/firestore';
 import { useAuth } from '../../context/AuthContext';
 import { firestore } from '../../utils/firebase';
 import React, { useEffect, useRef, useState } from 'react';
@@ -10,7 +17,7 @@ import { deleteFileFromStorage } from '../../utils/deleteFileFromStorage';
 import DeleteButton from '../../components/Button/DeleteButton';
 import { useRouter } from 'next/router';
 import { async } from '@firebase/util';
-import ShareProject from '../../components/Shareproject/ShareProject';
+import SearchModal from '../../components/SearchModal/SearchModal';
 
 export default function Project({ res }) {
   const { user } = useAuth();
@@ -155,7 +162,7 @@ export default function Project({ res }) {
   return (
     <div>
       <p>This route is protected</p>
-      <button onClick={() => router.back()}>Back</button>
+      <button onClick={() => router.push('/projects')}>Back</button>
       <h1>{res.title}</h1>
       <p>id: {res.id}</p>
 
@@ -298,6 +305,10 @@ export default function Project({ res }) {
       <button onClick={() => playChecked(playId)}>PLAY</button>
       <button onClick={() => record(playId)}>REC</button>
       <p>To play all tracks at once, uncheck all tracks and press play.</p>
+      <button onClick={() => shareButton('sdjhfjkshdfsdf', res.id)}>
+        Share with a user
+      </button>
+      <SearchModal projectTitle={res.title} projectId={res.id} />
     </div>
   );
 }

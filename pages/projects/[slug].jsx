@@ -38,7 +38,7 @@ export default function Project({ res }) {
   useEffect(() => {
     // Waiting for index.js to send file to FB
     setTimeout(function () {
-      getFileFromStorage(user.uid, res.id).then((res) => setTrackArray(res));
+      getFileFromStorage(res.uid, res.id).then((res) => setTrackArray(res));
     }, 500);
   }, [childTrack]);
 
@@ -195,12 +195,12 @@ export default function Project({ res }) {
               ></NoAudioVisualizationContainer>
             )}
             <DeleteButton
-              handleclick={() => deleteTrack(user.uid, res.id, 1)}
+              handleclick={() => deleteTrack(res.uid, res.id, 1)}
               text={'X'}
             ></DeleteButton>
           </Container>
           {/* <RecorderBlock></RecorderBlock> */}
-          <Recorder id={1} projectid={res.id} ref={ref1}></Recorder>
+          <Recorder id={1} ownerId={res.uid} projectid={res.id} ref={ref1}></Recorder>
         </Label>
         <Label htmlFor=''>
           <input
@@ -227,13 +227,13 @@ export default function Project({ res }) {
               ></NoAudioVisualizationContainer>
             )}
             <DeleteButton
-              handleclick={() => deleteTrack(user.uid, res.id, 2)}
+              handleclick={() => deleteTrack(res.uid, res.id, 2)}
               text={'X'}
             ></DeleteButton>
           </div>
           {/* <RecorderBlock></RecorderBlock> */}
 
-          <Recorder id={2} projectid={res.id} ref={ref2}></Recorder>
+          <Recorder id={2} ownerId={res.uid} projectid={res.id} ref={ref2}></Recorder>
         </Label>{' '}
         <Label htmlFor=''>
           <input
@@ -260,12 +260,12 @@ export default function Project({ res }) {
               ></NoAudioVisualizationContainer>
             )}
             <DeleteButton
-              handleclick={() => deleteTrack(user.uid, res.id, 3)}
+              handleclick={() => deleteTrack(res.uid, res.id, 3)}
               text={'X'}
             ></DeleteButton>
           </div>
           {/* <RecorderBlock></RecorderBlock> */}
-          <Recorder id={3} projectid={res.id} ref={ref3}></Recorder>
+          <Recorder id={3} ownerId={res.uid} projectid={res.id} ref={ref3}></Recorder>
         </Label>{' '}
         <Label htmlFor=''>
           <input
@@ -292,13 +292,13 @@ export default function Project({ res }) {
               ></NoAudioVisualizationContainer>
             )}
             <DeleteButton
-              handleclick={() => deleteTrack(user.uid, res.id, 4)}
+              handleclick={() => deleteTrack(res.uid, res.id, 4)}
               text={'X'}
             ></DeleteButton>
           </div>
           {/* <RecorderBlock></RecorderBlock> */}
 
-          <Recorder id={4} projectid={res.id} ref={ref4}></Recorder>
+          <Recorder id={4} ownerId={res.uid} projectid={res.id} ref={ref4}></Recorder>
         </Label>{' '}
       </Form>
       <button onClick={() => stop(playId)}>STOP</button>

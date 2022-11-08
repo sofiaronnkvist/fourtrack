@@ -11,7 +11,6 @@ const AudioWrapper = (props) => {
   const waveSurferRef = useRef({
     isPlaying: () => false,
   });
-  console.log(props.background);
   useEffect(() => {
     const waveSurfer = WaveSurfer.create({
       container: containerRef.current,

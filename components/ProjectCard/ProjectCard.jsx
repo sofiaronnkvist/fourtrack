@@ -12,9 +12,6 @@ const ProjectCard = ({ title, date, id }) => {
   const { user } = useAuth();
   const router = useRouter();
 
-  console.log(`project id in card ${id}`);
-  console.log(`user id in card ${user.uid}`);
-
   const deteleProject = async (userId, ProjectId) => {
     await deleteFolderFromStorage(userId, ProjectId);
     router.push('/projects');

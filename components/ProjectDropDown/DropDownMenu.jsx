@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import {
@@ -42,6 +42,13 @@ const StyledMenuContent = styled(menuContent)`
 export default function ProjectDropDownMenu(props) {
   const router = useRouter();
   const { user } = useAuth();
+  const [owner, SetOwner] = useState(true);
+
+  useEffect(() => {
+    if (user.uid !== props.ownerId) {
+      SetOwner(false);
+    }
+  }, []);
 
   console.log('Auth user', user.uid);
   console.log('owner', props.ownerId);
@@ -69,22 +76,27 @@ export default function ProjectDropDownMenu(props) {
               Open
             </Link>
           </StyledListItem>
-          <StyledListItem>
-            <Share2Icon style={{ marginRight: '5px', width: '13px' }} />
-            Share
-          </StyledListItem>
-          <StyledListItem>
-            <Pencil1Icon style={{ marginRight: '5px', width: '13px' }} />
-            {/* Rename */}
-            <RenameModal projectId={props.projectId} />
-          </StyledListItem>
+          {owner ? (
+            <>
+              <StyledListItem>
+                <Share2Icon style={{ marginRight: '5px', width: '13px' }} />
+                Share
+              </StyledListItem>
+              <StyledListItem>
+                <Pencil1Icon style={{ marginRight: '5px', width: '13px' }} />
+                {/* Rename */}
+                <RenameModal projectId={props.projectId} />
+              </StyledListItem>
+            </>
+          ) : null}
+
           <StyledListItem
             onClick={() =>
               deteleProject(user.uid, props.projectId, props.ownerId)
             }
           >
             <CrumpledPaperIcon style={{ marginRight: '5px', width: '13px' }} />
-            Delete
+            {owner ? 'Delete' : 'Leve project'}
           </StyledListItem>
         </StyledMenuContent>
       </StyledMenuPortal>

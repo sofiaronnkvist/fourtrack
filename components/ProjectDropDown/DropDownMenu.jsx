@@ -11,6 +11,7 @@ import {
 import { deleteFolderFromStorage } from '../../utils/deleteFolderFromStorage';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import RenameModal from '../RenameModal/RenameModal';
 
 const menuPortal = DropdownMenu.Portal;
 const menuButton = DropdownMenu.Trigger;
@@ -69,7 +70,8 @@ export default function ProjectDropDownMenu(props) {
           </StyledListItem>
           <StyledListItem>
             <Pencil1Icon style={{ marginRight: '5px', width: '13px' }} />
-            Rename
+            {/* Rename */}
+            <RenameModal />
           </StyledListItem>
           <StyledListItem
             onClick={() => deteleProject(props.userId, props.projectId)}

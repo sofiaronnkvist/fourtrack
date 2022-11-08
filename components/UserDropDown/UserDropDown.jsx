@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import {
-  DotsVerticalIcon,
-  DiscIcon,
-  Share2Icon,
+  GearIcon,
+  ExitIcon,
+  ChevronDownIcon,
   Pencil1Icon,
   CrumpledPaperIcon,
 } from '@radix-ui/react-icons';
 import { DeleteFolderFromStorage } from '../../utils/deleteFolderFromStorage';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import RenameModal from '../RenameModal/RenameModal';
+import UserModal from '../UserModal/UserModal';
 import { useAuth } from '../../context/AuthContext';
-import SearchModal from '../SearchModal/SearchModal';
 
 const menuPortal = DropdownMenu.Portal;
 const menuButton = DropdownMenu.Trigger;
@@ -22,20 +21,24 @@ const menuContent = DropdownMenu.Content;
 const StyledMenuPortal = styled(menuPortal)`
   background-color: red;
 
-  width: 440px;
-  height: 85px;
+  width: 222px;
+  height: 80px;
 `;
 const StyledMenuButton = styled(menuButton)`
   background-color: transparent;
   border: none;
+  display: flex;
+  align-items: center;
+
+
 `;
 const StyledMenuContent = styled(menuContent)`
   background-color: ${(props) => props.theme.white};
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 104px;
-  height: 128px;
+  width: 222px;
+  height: 80px;
   box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.08),
     0px 4px 6px -2px rgba(16, 24, 40, 0.03);
 `;
@@ -43,13 +46,9 @@ const StyledMenuContent = styled(menuContent)`
 export default function ProjectDropDownMenu(props) {
   const router = useRouter();
   const { user } = useAuth();
-  const [owner, SetOwner] = useState(true);
 
-  useEffect(() => {
-    if (user.uid !== props.ownerId) {
-      SetOwner(false);
-    }
-  }, []);
+  console.log('Auth user', user.uid);
+  console.log('owner', props.ownerId);
 
   const deteleProject = async (userId, ProjectId, ownerId) => {
     await DeleteFolderFromStorage(userId, ProjectId, ownerId);
@@ -59,52 +58,32 @@ export default function ProjectDropDownMenu(props) {
   return (
     <DropdownMenu.Root>
       <StyledMenuButton>
-        <DotsVerticalIcon style={{ width: '40px', height: '20px' }} />
+        <ProfileIcon>N</ProfileIcon>
+        <ChevronDownIcon />
       </StyledMenuButton>
       <StyledMenuPortal>
         <StyledMenuContent>
           <StyledListItem>
-            <DiscIcon style={{ marginRight: '5px', width: '13px' }} />
-            <Link
-              href={{
-                pathname: '/projects/[slug]',
-                query: { slug: props.title },
-              }}
-            >
-              Open
-            </Link>
+            <GearIcon style={{ marginRight: '5px', width: '13px' }} />
+            {/* Rename */}
+            <UserModal projectId={props.projectId} />
           </StyledListItem>
-          {owner ? (
-            <>
-              <StyledListItem>
-                <Share2Icon style={{ marginRight: '5px', width: '13px' }} />
-                <SearchModal
-                  projectTitle={props.title}
-                  projectId={props.projectId}
-                />
-              </StyledListItem>
-              <StyledListItem>
-                <Pencil1Icon style={{ marginRight: '5px', width: '13px' }} />
-                {/* Rename */}
-                <RenameModal projectId={props.projectId} />
-              </StyledListItem>
-            </>
-          ) : null}
-
           <StyledListItem
             onClick={() =>
               deteleProject(user.uid, props.projectId, props.ownerId)
             }
           >
-            <CrumpledPaperIcon style={{ marginRight: '5px', width: '13px' }} />
-            {owner ? 'Delete' : 'Leve project'}
+            <ExitIcon style={{ marginRight: '5px', width: '13px' }} />
+            Log out
           </StyledListItem>
         </StyledMenuContent>
       </StyledMenuPortal>
     </DropdownMenu.Root>
   );
 }
-
+const NavWrapper = styled.nav`
+  margin: 32px;
+`;
 const StyledListItem = styled.li`
   list-style-type: none;
   display: flex;
@@ -112,4 +91,16 @@ const StyledListItem = styled.li`
   align-items: center;
   font-size: 12px;
   cursor: pointer;
+`;
+
+const ProfileIcon = styled.div`
+  background-color: red;
+  border-radius: 100%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 10px;
 `;

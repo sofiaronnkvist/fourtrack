@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Link from 'next/link';
 import ProjectDropDownMenu from '../ProjectDropDown/DropDownMenu';
+import { TrashIcon } from '@radix-ui/react-icons';
 
 const ProjectCard = ({ title, date, id, ownerId }) => {
   const { user } = useAuth();
@@ -19,19 +20,20 @@ const ProjectCard = ({ title, date, id, ownerId }) => {
         key={title}
       >
         <a> */}
-          <ProjectWrapper>
-            <ProjectTitle>{title}</ProjectTitle>
-            <ProjectDate>{date}</ProjectDate>
-            <ProjectLegth>1.23</ProjectLegth>
-            <ProjectLegth>113</ProjectLegth>
-            <StarWrapper>
-              <AiOutlineStar size={'20px'}></AiOutlineStar>
-            </StarWrapper>
-            <DotWrapper>
-              <ProjectDropDownMenu ownerId={ownerId} projectId={id} title={title} />
-            </DotWrapper>
-          </ProjectWrapper>
-        {/* </a>
+      <ProjectWrapper>
+        <ProjectTitle>{title}</ProjectTitle>
+        <ProjectDate>{date}</ProjectDate>
+        <ProjectLegth>1.23</ProjectLegth>
+        <ProjectLegth>113</ProjectLegth>
+        <StarWrapper>
+          <AiOutlineStar size={'20px'}></AiOutlineStar>
+        </StarWrapper>
+        <DotWrapper>
+          <ProjectDropDownMenu ownerId={ownerId} projectId={id} title={title} />
+        </DotWrapper>
+        <TrashIcon/>
+      </ProjectWrapper>
+      {/* </a>
       </Link> */}
     </ProjectOuterWrapper>
   );

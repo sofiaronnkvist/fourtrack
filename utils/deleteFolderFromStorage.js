@@ -1,44 +1,28 @@
 import { ref, deleteObject } from 'firebase/storage';
 import { storage } from './firebase';
-import { doc, deleteDoc } from 'firebase/firestore';
+import { doc, deleteDoc, updateDoc, deleteField } from 'firebase/firestore';
 import { firestore } from '../utils/firebase';
 
 export const DeleteFolderFromStorage = async (userId, projectId, ownerId) => {
-  console.log('in delete func');
-  //   const desertRef = ref(storage, `files/${userId}/${projectId}/1`);
-
+  const deleteFolder = (projectId, ownerId, trackNo) => {
+    deleteObject(ref(storage, `files/${ownerId}/${projectId}/${trackNo}`))
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   if (ownerId === userId) {
-    deleteObject(ref(storage, `files/${ownerId}/${projectId}/1`))
-      .then(() => {
-        console.log('gone!');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    deleteObject(ref(storage, `files/${ownerId}/${projectId}/2`))
-      .then(() => {
-        console.log('gone!');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    deleteObject(ref(storage, `files/${ownerId}/${projectId}/3`))
-      .then(() => {
-        console.log('gone!');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    deleteObject(ref(storage, `files/${ownerId}/${projectId}/4`))
-      .then(() => {
-        console.log('gone!');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    deleteFolder(projectId, ownerId, 1);
+    deleteFolder(projectId, ownerId, 2);
+    deleteFolder(projectId, ownerId, 3);
+    deleteFolder(projectId, ownerId, 4);
 
     await deleteDoc(doc(firestore, 'projects', `${projectId}`));
   } else {
-    alert('Alarma!! You are not the owner. ')
+    const ref = doc(firestore, 'projects', `${projectId}`);
+    await updateDoc(ref, {
+      colab_uid: deleteField(),
+    });
+    alert('You have now left this project.');
   }
 };

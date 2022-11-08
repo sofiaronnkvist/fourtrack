@@ -9,9 +9,6 @@ import ProjectDropDownMenu from '../ProjectDropDown/DropDownMenu';
 const ProjectCard = ({ title, date, id }) => {
   const { user } = useAuth();
 
-  console.log(`project id in card ${id}`);
-  console.log(`user id in card ${user.uid}`);
-
   return (
     <ProjectOuterWrapper id={id}>
       <Link

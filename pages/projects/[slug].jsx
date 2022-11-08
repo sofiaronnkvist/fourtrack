@@ -17,6 +17,7 @@ import { deleteFileFromStorage } from '../../utils/deleteFileFromStorage';
 import DeleteButton from '../../components/Button/DeleteButton';
 import { useRouter } from 'next/router';
 import { async } from '@firebase/util';
+import ShareProject from '../../components/Shareproject/ShareProject';
 
 export default function Project({ res }) {
   const { user } = useAuth();

@@ -11,6 +11,7 @@ import {
 } from '@radix-ui/react-icons';
 import { deleteFolderFromStorage } from '../../utils/deleteFolderFromStorage';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const menuPortal = DropdownMenu.Portal;
 const menuButton = DropdownMenu.Trigger;
@@ -40,7 +41,7 @@ const StyledMenuContent = styled(menuContent)`
 export default function ProjectDropDownMenu(props) {
   const { user } = useAuth();
   const router = useRouter();
- console.log('project id in drop down:', props.projectId);
+  console.log('project id in drop down:', props.projectId);
 
   const deteleProject = async (userId, ProjectId) => {
     await deleteFolderFromStorage(userId, ProjectId);
@@ -52,12 +53,18 @@ export default function ProjectDropDownMenu(props) {
       <StyledMenuButton>
         <DotsVerticalIcon style={{ width: '40px', height: '20px' }} />
       </StyledMenuButton>
-
       <StyledMenuPortal>
         <StyledMenuContent>
           <StyledListItem>
             <DiscIcon style={{ marginRight: '5px', width: '13px' }} />
-            Open
+            <Link
+              href={{
+                pathname: '/projects/[slug]',
+                query: { slug: props.title },
+              }}
+            >
+              Open
+            </Link>
           </StyledListItem>
           <StyledListItem>
             <Share2Icon style={{ marginRight: '5px', width: '13px' }} />
@@ -73,10 +80,6 @@ export default function ProjectDropDownMenu(props) {
             <CrumpledPaperIcon style={{ marginRight: '5px', width: '13px' }} />
             Delete
           </StyledListItem>
-          {/* <DropdownMenu.Item>Open</DropdownMenu.Item>
-          <DropdownMenu.Item>Share</DropdownMenu.Item>
-          <DropdownMenu.Item disabled>Rename</DropdownMenu.Item>
-          <DropdownMenu.Item disabled>Delete</DropdownMenu.Item> */}
         </StyledMenuContent>
       </StyledMenuPortal>
     </DropdownMenu.Root>

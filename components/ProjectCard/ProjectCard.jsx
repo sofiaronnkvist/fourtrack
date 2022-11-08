@@ -22,7 +22,6 @@ const ProjectCard = ({ title, date, id }) => {
   };
   return (
     <ProjectOuterWrapper id={id}>
-      <MdDragIndicator size={'24px'}></MdDragIndicator>
       <Link
         href={{
           pathname: '/projects/[slug]',
@@ -40,7 +39,7 @@ const ProjectCard = ({ title, date, id }) => {
               <AiOutlineStar size={'20px'}></AiOutlineStar>
             </StarWrapper>
             <DotWrapper>
-              <ProjectDropDownMenu/>
+              <ProjectDropDownMenu userId={user.uid} projectId={id}/>
             </DotWrapper>
           </ProjectWrapper>
         </a>

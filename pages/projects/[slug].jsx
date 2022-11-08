@@ -1,4 +1,11 @@
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  setDoc,
+} from 'firebase/firestore';
 import { useAuth } from '../../context/AuthContext';
 import { firestore } from '../../utils/firebase';
 import React, { useEffect, useRef, useState } from 'react';
@@ -151,6 +158,13 @@ export default function Project({ res }) {
     await deleteFileFromStorage(userId, projectId, trackNo);
   };
 
+  const shareButton = async (collaboratorId, projectId) => {
+    const projectRef = doc(firestore, 'projects', projectId);
+    const q = query(projectRef, where('colab_uid'));
+
+    await setDoc(projectRef, { colab_uid: collaboratorId }, { merge: true });
+  };
+
   return (
     <div>
       <p>This route is protected</p>
@@ -297,6 +311,9 @@ export default function Project({ res }) {
       <button onClick={() => playChecked(playId)}>PLAY</button>
       <button onClick={() => record(playId)}>REC</button>
       <p>To play all tracks at once, uncheck all tracks and press play.</p>
+      <button onClick={() => shareButton('sdjhfjkshdfsdf', res.id)}>
+        Share with a user
+      </button>
     </div>
   );
 }

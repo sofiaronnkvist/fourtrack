@@ -71,7 +71,7 @@ export default function ProjectDropDownMenu(props) {
           <StyledListItem>
             <Pencil1Icon style={{ marginRight: '5px', width: '13px' }} />
             {/* Rename */}
-            <RenameModal />
+            <RenameModal projectId={props.projectId} />
           </StyledListItem>
           <StyledListItem
             onClick={() => deteleProject(props.userId, props.projectId)}

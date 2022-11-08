@@ -2,8 +2,8 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useAuth } from '../../context/AuthContext';
-import { FcGoogle } from 'react-icons/fc';
+import { doc, updateDoc } from 'firebase/firestore';
+import { firestore } from '../../utils/firebase';
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
@@ -39,19 +39,6 @@ const NavLinkItem = styled.li`
   cursor: pointer;
 `;
 
-const GoogleButton = styled.button`
-  width: 330px;
-  height: 48px;
-  color: ${(props) => props.theme.purple};
-  background-color: transparent;
-  font-size: 16px;
-  border: 1px solid ${(props) => props.theme.purple};
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const CloseButton = styled.button`
   color: grey;
   font-size: 20px;
@@ -61,43 +48,11 @@ const CloseButton = styled.button`
   border: none;
 `;
 
-const Divider = styled.p`
-  color: black;
-  font-size: 16px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-`;
-
 const StyledTitle = styled.h1`
   color: black;
   font-size: 20;
 `;
 
-const PrivacyText = styled.p`
-  color: grey;
-  font-size: 10px;
-  text-align: center;
-  margin-bottom: 32px;
-`;
-
-const LoginTexts = styled.button`
-  color: black;
-  font-size: 16;
-  background-color: transparent;
-  border: none;
-`;
-
-const CreateAccountTexts = styled.button`
-  color: black;
-  font-size: 16px;
-  background-color: transparent;
-  border: none;
-`;
-
-const ForgotPassword = styled.p`
-  color: blue;
-  font-size: 12px;
-`;
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -152,13 +107,20 @@ export const DialogClose = DialogPrimitive.Close;
 export default function RenameModal(props) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const [data, setData] = useState({
-    title: '',
-  });
+  const [data, setData] = useState('');
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e, projectId) => {
+    e.preventDefault();
+    console.log(projectId);
     try {
-    } catch (error) {}
+      const ref = doc(firestore, 'projects', projectId);
+      await updateDoc(ref, {
+        title: data,
+      });
+      router.push('/projects');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //Make this better
@@ -177,34 +139,17 @@ export default function RenameModal(props) {
         </DialogClose>
         <DialogTitle>Change title</DialogTitle>
 
-        <StyledForm>
+        <StyledForm onSubmit={(e) => handleSubmit(e, props.projectId)}>
           {/* <label>email</label> */}
           <input
-            onChange={(e) =>
-              setData({
-                ...data,
-                title: e.target.value,
-              })
-            }
-            value={data.title}
+            onChange={(e) => setData(e.target.value)}
+            value={data}
             required
             type='text'
             placeholder='New name'
           ></input>
           <button type='submit'>Change title</button>
         </StyledForm>
-        {/* {checkForm() ? (
-          <>
-            <CreateAccountTexts onClick={changeForm}>
-              Don’t have an account? Create one.
-            </CreateAccountTexts>
-            <ForgotPassword>I forgot my password</ForgotPassword>
-          </>
-        ) : (
-          <LoginTexts onClick={changeForm}>
-            Already have an account? Log in
-          </LoginTexts>
-        )} */}
       </DialogContent>
     </Dialog>
   );

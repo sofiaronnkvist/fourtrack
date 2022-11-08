@@ -11,14 +11,14 @@ const ProjectCard = ({ title, date, id }) => {
 
   return (
     <ProjectOuterWrapper id={id}>
-      <Link
+      {/* <Link
         href={{
           pathname: '/projects/[slug]',
           query: { slug: title },
         }}
         key={title}
       >
-        <a>
+        <a> */}
           <ProjectWrapper>
             <ProjectTitle>{title}</ProjectTitle>
             <ProjectDate>{date}</ProjectDate>
@@ -31,8 +31,8 @@ const ProjectCard = ({ title, date, id }) => {
               <ProjectDropDownMenu userId={user.uid} projectId={id} title={title}/>
             </DotWrapper>
           </ProjectWrapper>
-        </a>
-      </Link>
+        {/* </a>
+      </Link> */}
     </ProjectOuterWrapper>
   );
 };

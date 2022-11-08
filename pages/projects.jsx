@@ -25,6 +25,7 @@ export async function getServerSideProps(ctx) {
 
   const { uid } = token;
   let projects = [];
+  let colabProjects = [];
 
   const ref = collection(firestore, 'projects');
   const projectsQuery = query(
@@ -43,12 +44,29 @@ export async function getServerSideProps(ctx) {
       })
     );
   });
+
+  const colabQuery = query(
+    ref,
+    where('colab_uid', 'array-contains-any', [uid]),
+    orderBy('timestamp', 'desc')
+  );
+  await getDocs(colabQuery).then((data) => {
+    colabProjects.push(
+      data.docs.map((item) => {
+        return {
+          ...item.data(),
+          id: item.id,
+          timestamp: item.data().timestamp.toDate().toLocaleDateString(),
+        };
+      })
+    );
+  });
   return {
-    props: { projects },
+    props: { projects, colabProjects },
   };
 }
 
-const Projects = ({ projects }) => {
+const Projects = ({ projects, colabProjects }) => {
   const { user } = useAuth();
 
   return (
@@ -72,8 +90,20 @@ const Projects = ({ projects }) => {
               );
             })}
         </ul>
-        <p> {user.email}</p>
-        <p> {user.uid}</p>
+        <h2>Shared with me</h2>
+        <ul>
+          {colabProjects &&
+            colabProjects[0].map((project) => {
+              return (
+                <ProjectCard
+                  key={project.title}
+                  id={project.id}
+                  title={project.title}
+                  date={project.timestamp}
+                ></ProjectCard>
+              );
+            })}
+        </ul>
       </MainContent>
     </MainWrapper>
   );

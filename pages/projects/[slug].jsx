@@ -159,17 +159,10 @@ export default function Project({ res }) {
     await deleteFileFromStorage(userId, projectId, trackNo);
   };
 
-  const shareButton = async (collaboratorId, projectId) => {
-    const projectRef = doc(firestore, 'projects', projectId);
-    const q = query(projectRef, where('colab_uid'));
-
-    await setDoc(projectRef, { colab_uid: collaboratorId }, { merge: true });
-  };
-
   return (
     <div>
       <p>This route is protected</p>
-      <button onClick={() => router.back()}>Back</button>
+      <button onClick={() => router.push('/projects')}>Back</button>
       <h1>{res.title}</h1>
       <p>id: {res.id}</p>
 
@@ -315,7 +308,7 @@ export default function Project({ res }) {
       <button onClick={() => shareButton('sdjhfjkshdfsdf', res.id)}>
         Share with a user
       </button>
-      <SearchModal projectTitle={res.title} />
+      <SearchModal projectTitle={res.title} projectId={res.id} />
     </div>
   );
 }

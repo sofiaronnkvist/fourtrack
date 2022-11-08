@@ -94,7 +94,7 @@ export default function Modal(props) {
           <CloseButton>X</CloseButton>
         </DialogClose>
         <DialogTitle>Share {props.projectTitle}</DialogTitle>
-        <ShareProject></ShareProject>
+        <ShareProject projectId={props.projectId} />
       </DialogContent>
     </Dialog>
   );

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useAuth } from '../../context/AuthContext';
+import React from 'react';
 import styled from 'styled-components';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import {
@@ -39,9 +38,7 @@ const StyledMenuContent = styled(menuContent)`
 `;
 
 export default function ProjectDropDownMenu(props) {
-  const { user } = useAuth();
   const router = useRouter();
-  console.log('project id in drop down:', props.projectId);
 
   const deteleProject = async (userId, ProjectId) => {
     await deleteFolderFromStorage(userId, ProjectId);

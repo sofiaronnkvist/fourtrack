@@ -1,25 +1,17 @@
 import { MdDragIndicator } from 'react-icons/md';
 import { AiOutlineStar } from 'react-icons/ai';
-import { BiDotsVerticalRounded } from 'react-icons/bi';
 import { useAuth } from '../../context/AuthContext';
-import { deleteFolderFromStorage } from '../../utils/deleteFolderFromStorage';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { async } from '@firebase/util';
 import ProjectDropDownMenu from '../ProjectDropDown/DropDownMenu';
 
 const ProjectCard = ({ title, date, id }) => {
   const { user } = useAuth();
-  const router = useRouter();
 
   console.log(`project id in card ${id}`);
   console.log(`user id in card ${user.uid}`);
 
-  const deteleProject = async (userId, ProjectId) => {
-    await deleteFolderFromStorage(userId, ProjectId);
-    router.push('/projects');
-  };
   return (
     <ProjectOuterWrapper id={id}>
       <Link
@@ -44,7 +36,6 @@ const ProjectCard = ({ title, date, id }) => {
           </ProjectWrapper>
         </a>
       </Link>
-      <button onClick={() => deteleProject(user.uid, id)}>X</button>
     </ProjectOuterWrapper>
   );
 };

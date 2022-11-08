@@ -67,7 +67,7 @@ export default function ProjectDropDownMenu(props) {
             <DiscIcon style={{ marginRight: '5px', width: '13px' }} />
             <Link
               href={{
-                pathname: '/projects/[slug]',
+                pathname: '/projects/[...slug]',
                 query: { slug: props.title },
               }}
             >
@@ -79,10 +79,9 @@ export default function ProjectDropDownMenu(props) {
               <StyledListItem>
                 <Share2Icon style={{ marginRight: '5px', width: '13px' }} />
                 <SearchModal
-              projectTitle={props.title}
-              projectId={props.projectId}
-              
-            />
+                  projectTitle={props.title}
+                  projectId={props.projectId}
+                />
               </StyledListItem>
               <StyledListItem>
                 <Pencil1Icon style={{ marginRight: '5px', width: '13px' }} />

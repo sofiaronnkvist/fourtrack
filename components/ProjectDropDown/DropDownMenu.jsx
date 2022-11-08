@@ -50,9 +50,6 @@ export default function ProjectDropDownMenu(props) {
     }
   }, []);
 
-  console.log('Auth user', user.uid);
-  console.log('owner', props.ownerId);
-
   const deteleProject = async (userId, ProjectId, ownerId) => {
     await DeleteFolderFromStorage(userId, ProjectId, ownerId);
     router.push('/projects');
@@ -103,9 +100,7 @@ export default function ProjectDropDownMenu(props) {
     </DropdownMenu.Root>
   );
 }
-const NavWrapper = styled.nav`
-  margin: 32px;
-`;
+
 const StyledListItem = styled.li`
   list-style-type: none;
   display: flex;

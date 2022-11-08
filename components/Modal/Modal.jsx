@@ -1,6 +1,6 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../context/AuthContext';
 import { FcGoogle } from 'react-icons/fc';
@@ -168,13 +168,6 @@ export default function Modal(props) {
     password: '',
   });
   const [buttonTitle, setButtonTitle] = useState(props.buttonTitle);
-
-  //TODO: This looks weird.
-  // useEffect(() => {
-  //   if (user) {
-  //     router.push('/projects');
-  //   }
-  // }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();

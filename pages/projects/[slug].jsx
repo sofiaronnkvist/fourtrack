@@ -17,7 +17,7 @@ import { deleteFileFromStorage } from '../../utils/deleteFileFromStorage';
 import DeleteButton from '../../components/Button/DeleteButton';
 import { useRouter } from 'next/router';
 import { async } from '@firebase/util';
-import ShareProject from '../../components/Shareproject/ShareProject';
+import SearchModal from '../../components/SearchModal/SearchModal';
 
 export default function Project({ res }) {
   const { user } = useAuth();
@@ -315,6 +315,7 @@ export default function Project({ res }) {
       <button onClick={() => shareButton('sdjhfjkshdfsdf', res.id)}>
         Share with a user
       </button>
+      <SearchModal projectTitle={res.title} />
     </div>
   );
 }

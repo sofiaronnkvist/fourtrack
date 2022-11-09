@@ -114,65 +114,21 @@ export const DialogClose = DialogPrimitive.Close;
 export default function ChangeEmailModal(props) {
   const [open, setOpen] = useState(false);
   const [updatedUser, setUpdatedUser] = useState({ email: '', password: '' });
-  const router = useRouter();
   const { user } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(updatedUser.email);
-
-    // getAuth()
-    //   .updateUser(uid, {
-    //     email: 'modifiedUser@example.com',
-    //   })
-    //   .then((userRecord) => {
-    //     // See the UserRecord reference doc for the contents of userRecord.
-    //     console.log('Successfully updated user', userRecord.toJSON());
-    //   })
-    //   .catch((error) => {
-    //     console.log('Error updating user:', error);
-    //   });
-
     const auth = getAuth();
-    console.log(auth.currentUser);
-    // updateProfile(auth.currentUser, {
-    //   email: updatedUser.email,
-    // })
-    //   .then(() => {
-    //     console.log('email change'); // ...
+    // console.log(updatedUser.email);
+    // console.log(auth.currentUser);
 
-    //     // Profile updated!
-    //     // ...
-    //   })
-    //   .catch((error) => {
-    //     // An error occurred
-    //     // ...
-    //   });
-
-    await updateEmail(auth.currentUser, updatedUser.email)
+    await updateEmail(auth.currentUser, {
+      email: updatedUser.email,
+    })
       .then(() => {
-        console.log('email change'); // ...
+        console.log('email change');
       })
-      .catch((error) => {
-        // An error occurred
-        // ...
-      });
-
-    // try {
-    //   const projectsCollectionRef = collection(firestore, 'projects');
-    //   await addDoc(projectsCollectionRef, {
-    //     uid: user.uid,
-    //     title: project.title,
-    //     timestamp: serverTimestamp(),
-    //     favorite: false,
-    //   });
-    //   setProject({ title: '' });
-    //   setOpen(false);
-    //   router.push('/projects');
-    // } catch (error) {
-    //   console.log(error);
-    //   alert(error);
-    // }
+      .catch((error) => {});
   };
 
   return (

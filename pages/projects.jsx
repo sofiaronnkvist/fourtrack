@@ -17,7 +17,6 @@ import ProjectCard from '../components/ProjectCard/ProjectCard';
 import LeftSideNavigation from '../components/LeftSideNavigation/LeftSideNavigation';
 import TopBar from '../components/TopBar/TopBar';
 import ShareProject from '../components/Shareproject/ShareProject';
-import { makeFavorite, removeFavorite } from '../utils/favoriteFunctions';
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);

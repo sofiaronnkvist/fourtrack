@@ -1,7 +1,9 @@
 import { doc, updateDoc } from 'firebase/firestore';
 import { firestore } from './firebase';
 
-const makeFavorite = async (projectId) => {
+const makeFavorite = async (e, projectId) => {
+  console.log('LOOOOOK', projectId);
+  e.preventDefault();
   try {
     const projectRef = doc(firestore, 'projects', projectId);
     await updateDoc(projectRef, {
@@ -13,7 +15,8 @@ const makeFavorite = async (projectId) => {
   }
 };
 
-const removeFavorite = async (projectId) => {
+const removeFavorite = async (e, projectId) => {
+  e.preventDefault();
   try {
     const projectRef = doc(firestore, 'projects', projectId);
     await updateDoc(projectRef, {

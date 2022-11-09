@@ -22,7 +22,7 @@ const LeftSideNavigation = () => {
         </LinkWrapper>
         <LinkWrapper>
           <AiOutlineStar size='20px' />
-          <Link href='/projects'>
+          <Link href='/projects/favorites'>
             <NavLink>Favorites</NavLink>
           </Link>
         </LinkWrapper>

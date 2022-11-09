@@ -1,8 +1,6 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import { useAuth } from '../../context/AuthContext';
 import ShareProject from '../Shareproject/ShareProject';
 
 const dialogContent = DialogPrimitive.Content;

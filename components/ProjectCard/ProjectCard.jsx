@@ -5,8 +5,9 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Link from 'next/link';
 import ProjectDropDownMenu from '../ProjectDropDown/DropDownMenu';
+import Favorite from '../Favorite/Favorite';
 
-const ProjectCard = ({ title, date, id, ownerId }) => {
+const ProjectCard = ({ title, date, id, ownerId, favorite }) => {
   const { user } = useAuth();
 
   return (
@@ -25,7 +26,11 @@ const ProjectCard = ({ title, date, id, ownerId }) => {
         <ProjectLegth>1.23</ProjectLegth>
         <ProjectLegth>113</ProjectLegth>
         <StarWrapper>
-          <AiOutlineStar size={'20px'}></AiOutlineStar>
+          <Favorite
+            projectId={id}
+            favorite={favorite}
+            size={'20px'}
+          ></Favorite>
         </StarWrapper>
         <DotWrapper>
           <ProjectDropDownMenu ownerId={ownerId} projectId={id} title={title} />

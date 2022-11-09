@@ -71,6 +71,7 @@ const Shared = ({ colabProjects }) => {
                   id={project.id}
                   title={project.title}
                   date={project.timestamp}
+                  favorite={project.favorite}
                 ></ProjectCard>
               );
             })

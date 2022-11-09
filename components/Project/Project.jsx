@@ -17,6 +17,7 @@ export default function Project() {
         uid: user.uid,
         title: project.title,
         timestamp: serverTimestamp(),
+        favorite: false,
       });
       setProject({ title: '' });
       router.push('/projects');

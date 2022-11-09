@@ -7,19 +7,21 @@ import {
   Timestamp,
   where,
 } from 'firebase/firestore';
-import { firestore } from '../utils/firebase';
-import Project from '../components/Project/Project';
+import { firestore } from '../../utils/firebase';
+import Project from '../../components/Project/Project';
 import styled from 'styled-components';
-import { verifyIdToken } from '../utils/firebaseAdmin';
+import Link from 'next/link';
+import { verifyIdToken } from '../../utils/firebaseAdmin';
 import nookies from 'nookies';
-import ProjectCard from '../components/ProjectCard/ProjectCard';
-import LeftSideNavigation from '../components/LeftSideNavigation/LeftSideNavigation';
-import TopBar from '../components/TopBar/TopBar';
-
+import ProjectCard from '../../components/ProjectCard/ProjectCard';
+import LeftSideNavigation from '../../components/LeftSideNavigation/LeftSideNavigation';
+import TopBar from '../../components/TopBar/TopBar';
+import ShareProject from '../../components/Shareproject/ShareProject';
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
   const token = await verifyIdToken(cookies.token);
+
   const { uid } = token;
   let projects = [];
 
@@ -27,6 +29,7 @@ export async function getServerSideProps(ctx) {
   const projectsQuery = query(
     ref,
     where('uid', '==', uid),
+    where('favorite', '==', true),
     orderBy('timestamp', 'desc')
   );
   await getDocs(projectsQuery).then((data) => {
@@ -45,16 +48,22 @@ export async function getServerSideProps(ctx) {
   };
 }
 
-const Projects = ({ projects }) => {
+const checkFavorites = (projects) => {
+  if (projects[0].length >= 1) {
+    return true;
+  }
+};
+
+const Favorites = ({ projects }) => {
   return (
     <MainWrapper>
       <LeftSideNavigation></LeftSideNavigation>
       <MainContent>
         <TopBar></TopBar>
-        <h1>All recordings</h1>
-        <Project />
+        <h1>Favorites</h1>
         <ul>
-          {projects &&
+          {checkFavorites(projects) ? (
+            projects &&
             projects[0].map((project) => {
               return (
                 <ProjectCard
@@ -66,7 +75,10 @@ const Projects = ({ projects }) => {
                   favorite={project.favorite}
                 ></ProjectCard>
               );
-            })}
+            })
+          ) : (
+            <p>Nothing here yet</p>
+          )}
         </ul>
       </MainContent>
     </MainWrapper>
@@ -84,4 +96,4 @@ const Label = styled.label`
   margin: 20px;
 `;
 
-export default Projects;
+export default Favorites;

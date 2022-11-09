@@ -3,8 +3,7 @@ import {
   query,
   where,
   getDocs,
-  doc,
-  setDoc,
+
 } from 'firebase/firestore';
 import { useAuth } from '../../context/AuthContext';
 import { firestore } from '../../utils/firebase';

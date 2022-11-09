@@ -43,19 +43,19 @@ const NavButton = styled.button`
   font-size: 18px;
   border: ${(props) => (props.border ? 'black' : 'none')};
   background-color: ${(props) =>
-    props.background ? `${props.theme.purple}` : 'transparent'};
+    props.background ? `${props.theme.purple500}` : 'transparent'};
   cursor: pointer;
   color: ${(props) =>
-    props.whiteText ? `${props.theme.white}` : `${props.theme.purple}`};
+    props.whiteText ? `${props.theme.white}` : `${props.theme.purple500}`};
 `;
 
 const GoogleButton = styled.button`
   width: 330px;
   height: 48px;
-  color: ${(props) => props.theme.purple};
+  color: ${(props) => props.theme.purple500};
   background-color: transparent;
   font-size: 16px;
-  border: 1px solid ${(props) => props.theme.purple};
+  border: 1px solid ${(props) => props.theme.purple500};
   border-radius: 8px;
   display: flex;
   justify-content: center;
@@ -125,11 +125,11 @@ const StyledForm = styled.form`
   }
   input[type='email']:focus {
     outline: none !important;
-    border: 2px solid ${(props) => props.theme.purple};
+    border: 2px solid ${(props) => props.theme.purple500};
   }
   input[type='password']:focus {
     outline: none !important;
-    border: 2px solid ${(props) => props.theme.purple};
+    border: 2px solid ${(props) => props.theme.purple500};
   }
   button {
     width: 330px;
@@ -137,8 +137,7 @@ const StyledForm = styled.form`
     font-size: 16px;
     padding: 5px;
     margin: 30px;
-
-    background-color: ${(props) => props.theme.purple};
+    background-color: ${(props) => props.theme.purple500};
     color: white;
     border-radius: 8px;
   }

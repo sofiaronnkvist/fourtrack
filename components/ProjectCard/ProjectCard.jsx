@@ -54,7 +54,7 @@ const ProjectWrapper = styled.div`
   display: flex;
   align-items: center;
   background: #ffffff;
-  box-shadow: 0px 5px 16px rgba(0, 0, 0, 0.06);
+  box-shadow: ${(props) => props.theme.mdShadow};
   border-radius: 4px;
 `;
 const ProjectTitle = styled.p`

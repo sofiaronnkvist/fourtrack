@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../context/AuthContext';
 import ShareProject from '../Shareproject/ShareProject';
+import Image from 'next/image';
+import { logo } from '../../public/logo.svg';
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
@@ -17,16 +19,23 @@ const StyledContent = styled(dialogContent)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 90vw;
-  max-width: 440px;
-  max-height: 85vh;
-  padding: 25;
+  width: 480px;
+  height: 500px;
+  padding: 25px;
   border: 1px solid black;
   border-radius: 7px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+
+  a {
+    cursor: pointer;
+  }
+  image {
+    width: 48px;
+    height: 50px;
+    margin-right: 20px;
+  }
 `;
 
 const StyledOverlay = styled(dialogOverlay)`
@@ -41,26 +50,22 @@ const StyledTitle = styled.h1`
 `;
 
 const NavButton = styled.button`
-  width: ${(props) => (props.btnWithBackground ? '64px' : null)};
-  height: ${(props) => (props.btnWithBackground ? '40px' : null)};
-  border-radius: ${(props) => (props.btnWithBackground ? '4px' : null)};
-  font-size: ${(props) => (props.btnWithBackground ? '15px' : '12px')};
-  border: ${(props) => (props.border ? 'black' : 'none')};
-  background-color: ${(props) =>
-    props.btnWithBackground ? `${props.theme.purple}` : 'transparent'};
+  background-color: transparent;
   cursor: pointer;
-  color: ${(props) =>
-    props.btnWithBackground ? 'white' : `${props.theme.black}`}; ;
+  border: none;
 `;
 
 const CloseButton = styled.button`
   color: grey;
   font-size: 20px;
   margin-left: 350px;
-  margin-top: 30px;
+  margin-top: 0px;
   background-color: transparent;
   cursor: pointer;
   border: none;
+`;
+const InfoWrapper = styled.div`
+  display: flex;
 `;
 
 function Content({ children, ...props }) {
@@ -78,25 +83,55 @@ export const DialogContent = Content;
 export const DialogTitle = StyledTitle;
 export const DialogClose = DialogPrimitive.Close;
 
-export default function Modal(props) {
+export default function UserModal(props) {
   const [open, setOpen] = useState(false);
+  const { user } = useAuth();
+  const [googleUser, setGoogleUser] = useState(false)
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <NavButton
-          btnWithBackground={props.btnWithBackground}
-          whiteText={props.whiteText}
-        >
-          Share
-        </NavButton>
+        <NavButton>Settings</NavButton>
       </DialogTrigger>
       <DialogContent>
         <DialogClose asChild>
           <CloseButton>X</CloseButton>
         </DialogClose>
-        <DialogTitle>Share {props.projectTitle}</DialogTitle>
-        <ShareProject projectId={props.projectId} />
+        <DialogTitle>Account settings</DialogTitle>
+        <InfoWrapper>
+          <svg
+            width='44'
+            height='45'
+            viewBox='0 0 44 45'
+            fill='none'
+            xmlns='http://www.w3.org/2000/svg'
+          >
+            <circle
+              cx='22'
+              cy='22.5'
+              r='17.1754'
+              stroke='black'
+            />
+            <path
+              d='M15.4385 22.5H28.5613'
+              stroke='black'
+        
+            />
+            <path
+              d='M22 29.0614L22 15.9386'
+              stroke='black'
+        
+            />
+          </svg>
+          <div>
+            <h5>Email</h5>
+            <p>{user.email}</p>
+            <a>Change email</a>
+            <h5>Password</h5>
+            <a>Change password</a>
+          </div>
+        </InfoWrapper>
+        {/* <ShareProject projectId={props.projectId} /> */}
       </DialogContent>
     </Dialog>
   );

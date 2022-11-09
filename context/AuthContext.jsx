@@ -31,6 +31,8 @@ export const AuthContextProvider = ({ children }) => {
         setUser({
           uid: user.uid,
           email: user.email,
+          // provider: user.,
+          profileImage: user.photoURL
         });
         nookies.set(undefined, 'token', token, { path: '/' });
       }
@@ -54,7 +56,7 @@ export const AuthContextProvider = ({ children }) => {
   const registerGoogleUser = async () => {
     try {
       await getRedirectResult(auth).then(async (res) => {
-        console.log(`res ; ${res}`);
+        // console.log(`res ; ${res}`);
         const usersCollectionRef = collection(firestore, 'users');
         const newUser = res.user;
         const q = query(usersCollectionRef, where('uid', '==', newUser.uid));

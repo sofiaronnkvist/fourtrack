@@ -44,6 +44,7 @@ export default function ProjectDropDownMenu(props) {
   const router = useRouter();
   const { user } = useAuth();
   const [owner, SetOwner] = useState(true);
+  console.log(user);
 
   useEffect(() => {
     if (user.uid !== props.ownerId) {
@@ -77,8 +78,9 @@ export default function ProjectDropDownMenu(props) {
           {owner ? (
             <>
               <StyledListItem>
-                <Share2Icon style={{ marginRight: '5px', width: '13px' }} />
+                <Share2Icon style={{ width: '13px' }} />
                 <SearchModal
+                  btnWithBackground={false}
                   projectTitle={props.title}
                   projectId={props.projectId}
                 />

@@ -1,8 +1,7 @@
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
 import { makeFavorite, removeFavorite } from '../../utils/favoriteFunctions';
-import router from 'next/router';
-import { useState, useEffect } from 'react';
-import { async } from '@firebase/util';
+import { useState } from 'react';
+import styled from 'styled-components';
 
 export default function Favorite({ favorite, projectId }) {
   const [favoriteStar, setFavoriteStar] = useState(favorite);
@@ -20,18 +19,25 @@ export default function Favorite({ favorite, projectId }) {
 
     if (favoriteStar == false) {
       return (
-        <button onClick={(e) => clickToFavorite(e, projectId)}>
+        <StarButton onClick={(e) => clickToFavorite(e, projectId)}>
           <AiOutlineStar size={'20px'}></AiOutlineStar>
-        </button>
+        </StarButton>
       );
     } else {
       return (
-        <button onClick={(e) => clickToUnmakeFavorite(e, projectId)}>
+        <StarButton onClick={(e) => clickToUnmakeFavorite(e, projectId)}>
           <AiFillStar size={'20px'}></AiFillStar>
-        </button>
+        </StarButton>
       );
     }
   };
 
   return <>{Star(projectId)}</>;
 }
+
+const StarButton = styled.button`
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+`;

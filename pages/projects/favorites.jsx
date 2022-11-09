@@ -23,16 +23,17 @@ export async function getServerSideProps(ctx) {
   const token = await verifyIdToken(cookies.token);
 
   const { uid } = token;
-  let colabProjects = [];
+  let projects = [];
 
   const ref = collection(firestore, 'projects');
-  const colabQuery = query(
+  const projectsQuery = query(
     ref,
-    where('colab_uid', 'array-contains-any', [uid]),
+    where('uid', '==', uid),
+    where('favorite', '==', true),
     orderBy('timestamp', 'desc')
   );
-  await getDocs(colabQuery).then((data) => {
-    colabProjects.push(
+  await getDocs(projectsQuery).then((data) => {
+    projects.push(
       data.docs.map((item) => {
         return {
           ...item.data(),
@@ -43,17 +44,17 @@ export async function getServerSideProps(ctx) {
     );
   });
   return {
-    props: { colabProjects },
+    props: { projects },
   };
 }
 
-const checkColabs = (projects) => {
+const checkFavorites = (projects) => {
   if (projects[0].length >= 1) {
     return true;
   }
 };
 
-const Favorites = ({ colabProjects }) => {
+const Favorites = ({ projects }) => {
   return (
     <MainWrapper>
       <LeftSideNavigation></LeftSideNavigation>
@@ -61,9 +62,9 @@ const Favorites = ({ colabProjects }) => {
         <TopBar></TopBar>
         <h1>Favorites</h1>
         <ul>
-          {checkColabs(colabProjects) ? (
-            colabProjects &&
-            colabProjects[0].map((project) => {
+          {checkFavorites(projects) ? (
+            projects &&
+            projects[0].map((project) => {
               return (
                 <ProjectCard
                   ownerId={project.uid}
@@ -71,6 +72,7 @@ const Favorites = ({ colabProjects }) => {
                   id={project.id}
                   title={project.title}
                   date={project.timestamp}
+                  favorite={project.favorite}
                 ></ProjectCard>
               );
             })

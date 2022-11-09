@@ -83,9 +83,12 @@ export const DialogContent = Content;
 export const DialogTitle = StyledTitle;
 export const DialogClose = DialogPrimitive.Close;
 
-export default function Modal(props) {
+export default function UserModal(props) {
   const [open, setOpen] = useState(false);
   const { user } = useAuth();
+  const [googleUser, setGoogleUser] = useState(false)
+
+  console.log('user in modal', user);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

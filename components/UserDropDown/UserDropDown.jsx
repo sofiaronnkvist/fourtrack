@@ -13,6 +13,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import UserModal from '../UserModal/UserModal';
 import { useAuth } from '../../context/AuthContext';
+import { FiLogOut } from 'react-icons/fi';
 
 const menuPortal = DropdownMenu.Portal;
 const menuButton = DropdownMenu.Trigger;
@@ -45,7 +46,7 @@ const StyledMenuContent = styled(menuContent)`
 
 export default function ProjectDropDownMenu(props) {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   console.log('Auth user', user.uid);
   console.log('owner', props.ownerId);
@@ -70,7 +71,7 @@ export default function ProjectDropDownMenu(props) {
           </StyledListItem>
           <StyledListItem
             onClick={() =>
-              deteleProject(user.uid, props.projectId, props.ownerId)
+              logout()
             }
           >
             <ExitIcon style={{ marginRight: '5px', width: '13px' }} />

@@ -6,6 +6,9 @@ import { useAuth } from '../../context/AuthContext';
 import ShareProject from '../Shareproject/ShareProject';
 import Image from 'next/image';
 import { logo } from '../../public/logo.svg';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import { firestore } from '../../utils/firebase';
+import ChangeEmailModal from '../ChangeEmailModal/ChangeEmailModal';
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
@@ -54,6 +57,9 @@ const NavButton = styled.button`
   cursor: pointer;
   border: none;
 `;
+const InfoContainer = styled.div`
+  margin-left: 20px;
+`;
 
 const CloseButton = styled.button`
   color: grey;
@@ -86,8 +92,24 @@ export const DialogClose = DialogPrimitive.Close;
 export default function UserModal(props) {
   const [open, setOpen] = useState(false);
   const { user } = useAuth();
-  const [googleUser, setGoogleUser] = useState(false)
+  const [googleUser, setGoogleUser] = useState(false);
 
+  const getUser = async () => {
+    let res;
+    const ref = collection(firestore, 'users');
+    const projectsQuery = query(ref, where('uid', '==', user.uid));
+    const querySnapshot = await getDocs(projectsQuery);
+    querySnapshot.forEach((doc) => {
+      res = {
+        ...doc.data(),
+      };
+    });
+    if (res.authProvider == 'google') {
+      setGoogleUser(true);
+      return;
+    }
+  };
+  getUser();
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -99,39 +121,28 @@ export default function UserModal(props) {
         </DialogClose>
         <DialogTitle>Account settings</DialogTitle>
         <InfoWrapper>
-          <svg
-            width='44'
-            height='45'
-            viewBox='0 0 44 45'
-            fill='none'
-            xmlns='http://www.w3.org/2000/svg'
-          >
-            <circle
-              cx='22'
-              cy='22.5'
-              r='17.1754'
-              stroke='black'
+          {user.profileImage ? (
+            <Image
+              src={user.profileImage}
+              width={'90px'}
+              height={'40px'}
+              style={{ borderRadius: '100%' }}
+              alt={'User profile image'}
             />
-            <path
-              d='M15.4385 22.5H28.5613'
-              stroke='black'
-        
-            />
-            <path
-              d='M22 29.0614L22 15.9386'
-              stroke='black'
-        
-            />
-          </svg>
-          <div>
+          ) : null}
+
+          <InfoContainer>
             <h5>Email</h5>
             <p>{user.email}</p>
-            <a>Change email</a>
-            <h5>Password</h5>
-            <a>Change password</a>
-          </div>
+            {googleUser ? null : (
+              <>
+                <ChangeEmailModal/>
+                <h5>Password</h5>
+                <a>Change password</a>
+              </>
+            )}
+          </InfoContainer>
         </InfoWrapper>
-        {/* <ShareProject projectId={props.projectId} /> */}
       </DialogContent>
     </Dialog>
   );

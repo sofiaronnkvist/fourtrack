@@ -6,8 +6,9 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import ProjectDropDownMenu from '../ProjectDropDown/DropDownMenu';
 import { TrashIcon } from '@radix-ui/react-icons';
+import Favorite from '../Favorite/Favorite';
 
-const ProjectCard = ({ title, date, id, ownerId }) => {
+const ProjectCard = ({ title, date, id, ownerId, favorite }) => {
   const { user } = useAuth();
 
   return (
@@ -26,12 +27,16 @@ const ProjectCard = ({ title, date, id, ownerId }) => {
         <ProjectLegth>1.23</ProjectLegth>
         <ProjectLegth>113</ProjectLegth>
         <StarWrapper>
-          <AiOutlineStar size={'20px'}></AiOutlineStar>
+          <Favorite
+            projectId={id}
+            favorite={favorite}
+            size={'20px'}
+          ></Favorite>
         </StarWrapper>
         <DotWrapper>
           <ProjectDropDownMenu ownerId={ownerId} projectId={id} title={title} />
         </DotWrapper>
-        <TrashIcon/>
+        <TrashIcon />
       </ProjectWrapper>
       {/* </a>
       </Link> */}

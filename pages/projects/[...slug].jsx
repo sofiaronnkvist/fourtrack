@@ -363,7 +363,7 @@ const Container = styled.div`
 
 export async function getServerSideProps(ctx) {
   const { params } = ctx;
-  const { slug } = params;
+  const { slug } = params; 
   let res;
   const ref = collection(firestore, 'projects');
   const projectsQuery = query(ref, where('title', '==', slug));

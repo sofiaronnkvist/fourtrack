@@ -53,7 +53,7 @@ const checkColabs = (projects) => {
 const Shared = ({ colabProjects }) => {
   return (
     <MainWrapper>
-      <LeftSideNavigation></LeftSideNavigation>
+      <LeftSideNavigation />
       <MainContent>
         <TopBar></TopBar>
         <h1>Shared with me</h1>

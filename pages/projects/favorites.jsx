@@ -54,7 +54,7 @@ const checkFavorites = (projects) => {
 const Favorites = ({ projects }) => {
   return (
     <MainWrapper>
-      <LeftSideNavigation></LeftSideNavigation>
+      <LeftSideNavigation />
       <MainContent>
         <TopBar></TopBar>
         <h1>Favorites</h1>

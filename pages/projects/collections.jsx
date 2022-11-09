@@ -7,13 +7,13 @@ import {
   Timestamp,
   where,
 } from 'firebase/firestore';
-import { firestore } from '../utils/firebase';
+import { firestore } from '../../utils/firebase';
 import styled from 'styled-components';
-import { verifyIdToken } from '../utils/firebaseAdmin';
+import { verifyIdToken } from '../../utils/firebaseAdmin';
 import nookies from 'nookies';
-import ProjectCard from '../components/ProjectCard/ProjectCard';
-import LeftSideNavigation from '../components/LeftSideNavigation/LeftSideNavigation';
-import TopBar from '../components/TopBar/TopBar';
+import ProjectCard from '../../components/ProjectCard/ProjectCard';
+import LeftSideNavigation from '../../components/LeftSideNavigation/LeftSideNavigation';
+import TopBar from '../../components/TopBar/TopBar';
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
@@ -43,13 +43,13 @@ export async function getServerSideProps(ctx) {
   };
 }
 
-const Projects = ({ projects }) => {
+const Collections = ({ projects }) => {
   return (
     <MainWrapper>
-      <LeftSideNavigation />
+      <LeftSideNavigation></LeftSideNavigation>
       <MainContent>
         <TopBar></TopBar>
-        <h1>All recordings</h1>
+        <h1>Collections</h1>
         <ul>
           {projects &&
             projects[0].map((project) => {
@@ -81,4 +81,4 @@ const Label = styled.label`
   margin: 20px;
 `;
 
-export default Projects;
+export default Collections;

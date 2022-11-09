@@ -63,8 +63,8 @@ const GoogleButton = styled.button`
 `;
 
 const CloseButton = styled.button`
-  color: grey;
-  font-size: 20px;
+  color: black;
+  font-size: 15px;
   margin-left: 350px;
   margin-top: 30px;
   background-color: transparent;
@@ -232,7 +232,7 @@ export default function Modal(props) {
       </DialogTrigger>
       <DialogContent>
         <DialogClose asChild>
-          <CloseButton onClick={returnButtonValue}>X</CloseButton>
+          <CloseButton onClick={returnButtonValue}>&#9587;</CloseButton>
         </DialogClose>
         <DialogTitle>{buttonTitle}</DialogTitle>
         <GoogleButton

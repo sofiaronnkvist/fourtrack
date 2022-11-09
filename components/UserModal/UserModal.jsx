@@ -56,8 +56,8 @@ const NavButton = styled.button`
 `;
 
 const CloseButton = styled.button`
-  color: grey;
-  font-size: 20px;
+  color: black;
+  font-size: 15px;
   margin-left: 350px;
   margin-top: 0px;
   background-color: transparent;
@@ -86,7 +86,7 @@ export const DialogClose = DialogPrimitive.Close;
 export default function UserModal(props) {
   const [open, setOpen] = useState(false);
   const { user } = useAuth();
-  const [googleUser, setGoogleUser] = useState(false)
+  const [googleUser, setGoogleUser] = useState(false);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -95,7 +95,7 @@ export default function UserModal(props) {
       </DialogTrigger>
       <DialogContent>
         <DialogClose asChild>
-          <CloseButton>X</CloseButton>
+          <CloseButton>&#9587;</CloseButton>
         </DialogClose>
         <DialogTitle>Account settings</DialogTitle>
         <InfoWrapper>
@@ -106,22 +106,9 @@ export default function UserModal(props) {
             fill='none'
             xmlns='http://www.w3.org/2000/svg'
           >
-            <circle
-              cx='22'
-              cy='22.5'
-              r='17.1754'
-              stroke='black'
-            />
-            <path
-              d='M15.4385 22.5H28.5613'
-              stroke='black'
-        
-            />
-            <path
-              d='M22 29.0614L22 15.9386'
-              stroke='black'
-        
-            />
+            <circle cx='22' cy='22.5' r='17.1754' stroke='black' />
+            <path d='M15.4385 22.5H28.5613' stroke='black' />
+            <path d='M22 29.0614L22 15.9386' stroke='black' />
           </svg>
           <div>
             <h5>Email</h5>

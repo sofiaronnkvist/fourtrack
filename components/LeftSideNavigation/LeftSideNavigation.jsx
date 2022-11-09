@@ -7,6 +7,9 @@ import { BsPerson } from 'react-icons/bs';
 import { MdLogout } from 'react-icons/md';
 import { CiFileOn } from 'react-icons/ci';
 import Image from 'next/image';
+import { ChevronRightIcon } from '@radix-ui/react-icons';
+import * as Separator from '@radix-ui/react-separator';
+import CollectionsAccordion from '../CollectionsAccordion/CollectionsAccordion';
 
 const LeftSideNavigation = () => {
   const { logout } = useAuth();
@@ -14,30 +17,38 @@ const LeftSideNavigation = () => {
   return (
     <>
       <Navigation>
-        <LinkWrapper>
-          <Image src={AllRecIcon} alt='play, pause, rec and stop buttons' />
-          <Link href='/projects'>
-            <NavLink>All recordings</NavLink>
-          </Link>
-        </LinkWrapper>
-        <LinkWrapper>
-          <AiOutlineStar size='20px' />
-          <Link href='/projects/favorites'>
-            <NavLink>Favorites</NavLink>
-          </Link>
-        </LinkWrapper>
-        <LinkWrapper>
-          <BsPerson size='20px' />
-          <Link href='/projects/shared'>
-            <NavLink>Shared with me</NavLink>
-          </Link>
-        </LinkWrapper>
-        <LinkWrapper>
-          <CiFileOn size='20px' />
-          <Link href='/projects'>
-            <NavLink>Collections</NavLink>
-          </Link>
-        </LinkWrapper>
+        <TopItems>
+          <LinkWrapper>
+            <Image src={AllRecIcon} alt='play, pause, rec and stop buttons' />
+            <Link href='/projects'>
+              <NavLink>All recordings</NavLink>
+            </Link>
+            <ChevronRightIcon size='20px' />
+          </LinkWrapper>
+          <LinkWrapper>
+            <AiOutlineStar size='20px' />
+            <Link href='/projects/favorites'>
+              <NavLink>Favorites</NavLink>
+            </Link>
+            <ChevronRightIcon size='20px' />
+          </LinkWrapper>
+          <LinkWrapper>
+            <BsPerson size='20px' />
+            <Link href='/projects/shared'>
+              <NavLink>Shared with me</NavLink>
+            </Link>
+            <ChevronRightIcon size='20px' />
+          </LinkWrapper>
+          <StyledSeparator />
+          {/* <LinkWrapper>
+            <CiFileOn size='20px' />
+            <Link href='/projects/collections'>
+              <NavLink>Collections</NavLink>
+            </Link>
+            <ChevronRightIcon size='20px' />
+          </LinkWrapper> */}
+          <CollectionsAccordion />
+        </TopItems>
         <BottomItems>
           <LinkWrapper>
             <Link href='/projects'>
@@ -68,12 +79,17 @@ const LeftSideNavigation = () => {
   );
 };
 export default LeftSideNavigation;
+
+const SeparatorLine = Separator.Root;
+
 const Navigation = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 16px;
   margin-top: 100px;
+  justify-content: space-between;
+  height: 80vh;
 `;
 const LinkWrapper = styled.div`
   display: flex;
@@ -84,9 +100,19 @@ const BottomItems = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 35vh;
+  padding-bottom: 10vh;
+`;
+const TopItems = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 const NavLink = styled.a`
   padding: 0px 8px;
   cursor: pointer;
+`;
+
+const StyledSeparator = styled(SeparatorLine)`
+  margin: 15px;
+  height: 1px;
+  width: 100%;
 `;

@@ -52,8 +52,8 @@ const NavButton = styled.button`
 `;
 
 const CloseButton = styled.button`
-  color: grey;
-  font-size: 20px;
+  color: black;
+  font-size: 15px;
   margin-left: 350px;
   margin-top: 30px;
   background-color: transparent;
@@ -91,7 +91,7 @@ export default function Modal(props) {
       </DialogTrigger>
       <DialogContent>
         <DialogClose asChild>
-          <CloseButton>X</CloseButton>
+          <CloseButton>&#9587;</CloseButton>
         </DialogClose>
         <DialogTitle>Share {props.projectTitle}</DialogTitle>
         <ShareProject projectId={props.projectId} />

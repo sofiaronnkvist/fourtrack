@@ -41,17 +41,16 @@ const StyledTitle = styled.h1`
 `;
 
 const NavButton = styled.button`
-  width: 145px;
-  height: 56px;
-  color: black;
-  border-radius: 4px;
-  font-size: 18px;
+  width: ${(props) => (props.btnWithBackground ? '64px' : null)};
+  height: ${(props) => (props.btnWithBackground ? '40px' : null)};
+  border-radius: ${(props) => (props.btnWithBackground ? '4px' : null)};
+  font-size: ${(props) => (props.btnWithBackground ? '15px' : '12px')};
   border: ${(props) => (props.border ? 'black' : 'none')};
   background-color: ${(props) =>
-    props.background ? `${props.theme.purple}` : 'transparent'};
+    props.btnWithBackground ? `${props.theme.purple}` : 'transparent'};
   cursor: pointer;
   color: ${(props) =>
-    props.whiteText ? `${props.theme.white}` : `${props.theme.purple}`};
+    props.btnWithBackground ? 'white' : `${props.theme.black}`}; ;
 `;
 
 const CloseButton = styled.button`
@@ -85,7 +84,10 @@ export default function Modal(props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <NavButton background={props.background} whiteText={props.whiteText}>
+        <NavButton
+          btnWithBackground={props.btnWithBackground}
+          whiteText={props.whiteText}
+        >
           Share
         </NavButton>
       </DialogTrigger>

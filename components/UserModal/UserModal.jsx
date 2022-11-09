@@ -88,7 +88,7 @@ export default function UserModal(props) {
   const { user } = useAuth();
   const [googleUser, setGoogleUser] = useState(false)
 
-  console.log('user in modal', user);
+  console.log('in user modal', user);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -99,7 +99,7 @@ export default function UserModal(props) {
         <DialogClose asChild>
           <CloseButton>X</CloseButton>
         </DialogClose>
-        <DialogTitle>Account settings {props.projectTitle}</DialogTitle>
+        <DialogTitle>Account settings</DialogTitle>
         <InfoWrapper>
           <svg
             width='44'
@@ -113,19 +113,16 @@ export default function UserModal(props) {
               cy='22.5'
               r='17.1754'
               stroke='black'
-              stroke-width='9.64912'
             />
             <path
               d='M15.4385 22.5H28.5613'
               stroke='black'
-              stroke-width='5.40351'
-              stroke-linecap='round'
+        
             />
             <path
               d='M22 29.0614L22 15.9386'
               stroke='black'
-              stroke-width='5.40351'
-              stroke-linecap='round'
+        
             />
           </svg>
           <div>

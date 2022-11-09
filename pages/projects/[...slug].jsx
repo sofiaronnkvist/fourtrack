@@ -325,7 +325,11 @@ export default function Project({ ...res }) {
       <button onClick={() => playChecked(playId)}>PLAY</button>
       <button onClick={() => record(playId)}>REC</button>
       <p>To play all tracks at once, uncheck all tracks and press play.</p>
-      <SearchModal projectTitle={res.title} projectId={res.id} />
+      <SearchModal
+        btnWithBackground={true}
+        projectTitle={res.title}
+        projectId={res.id}
+      />
     </div>
   );
 }

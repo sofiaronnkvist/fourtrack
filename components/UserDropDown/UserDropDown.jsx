@@ -1,19 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import {
-  GearIcon,
-  ExitIcon,
-  ChevronDownIcon,
-  Pencil1Icon,
-  CrumpledPaperIcon,
-} from '@radix-ui/react-icons';
-import { DeleteFolderFromStorage } from '../../utils/deleteFolderFromStorage';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
+import { GearIcon, ExitIcon, ChevronDownIcon } from '@radix-ui/react-icons';
 import UserModal from '../UserModal/UserModal';
 import { useAuth } from '../../context/AuthContext';
-import { FiLogOut } from 'react-icons/fi';
 
 const menuPortal = DropdownMenu.Portal;
 const menuButton = DropdownMenu.Trigger;
@@ -30,8 +20,6 @@ const StyledMenuButton = styled(menuButton)`
   border: none;
   display: flex;
   align-items: center;
-
-
 `;
 const StyledMenuContent = styled(menuContent)`
   background-color: ${(props) => props.theme.white};
@@ -45,16 +33,7 @@ const StyledMenuContent = styled(menuContent)`
 `;
 
 export default function ProjectDropDownMenu(props) {
-  const router = useRouter();
-  const { user, logout } = useAuth();
-
-  console.log('Auth user', user.uid);
-  console.log('owner', props.ownerId);
-
-  const deteleProject = async (userId, ProjectId, ownerId) => {
-    await DeleteFolderFromStorage(userId, ProjectId, ownerId);
-    router.push('/projects');
-  };
+  const { logout } = useAuth();
 
   return (
     <DropdownMenu.Root>
@@ -67,13 +46,9 @@ export default function ProjectDropDownMenu(props) {
           <StyledListItem>
             <GearIcon style={{ marginRight: '5px', width: '13px' }} />
             {/* Rename */}
-            <UserModal projectId={props.projectId} />
+            <UserModal />
           </StyledListItem>
-          <StyledListItem
-            onClick={() =>
-              logout()
-            }
-          >
+          <StyledListItem onClick={() => logout()}>
             <ExitIcon style={{ marginRight: '5px', width: '13px' }} />
             Log out
           </StyledListItem>
@@ -82,9 +57,7 @@ export default function ProjectDropDownMenu(props) {
     </DropdownMenu.Root>
   );
 }
-const NavWrapper = styled.nav`
-  margin: 32px;
-`;
+
 const StyledListItem = styled.li`
   list-style-type: none;
   display: flex;

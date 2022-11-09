@@ -136,13 +136,13 @@ const AudioWrapper = (props) => {
     align-items: center;
     user-select: none;
     touch-action: none;
-    width: 6px;
+    width: 3px;
     height: 50px;
     margin-left: 18px;
   `;
 
   const StyledTrack = styled(track)`
-    background-color: black;
+    background-color: ${(props) => props.theme.grey600};
     position: relative;
     flex-grow: 1;
     border-radius: 9999px;
@@ -152,7 +152,7 @@ const AudioWrapper = (props) => {
 
   const StyledRange = styled(range)`
     position: absolute;
-    background-color: red;
+    background-color: ${props.volumeColor};
     border-radius: 9999px;
     width: 100%;
   `;
@@ -160,12 +160,12 @@ const AudioWrapper = (props) => {
   const StyledThumb = styled(thumb)`
     all: unset;
     display: block;
-    width: 4px;
-    height: 4px;
-    background-color: lightgray;
-    boxshadow: 0 2px 10px grey;
+    width: 6px;
+    height: 6px;
+    background-color: white;
+    border: 0.9px solid black;
     border-radius: 10px;
-    padding-right: 2px;
+    margin-left: -2.5px;
   `;
   return (
     <StyledDiv>

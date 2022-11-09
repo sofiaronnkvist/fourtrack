@@ -8,7 +8,7 @@ const AudioVisualizer = (props, ref) => {
 
   return (
     <div>
-      <AudioWrapper progressColor={props.progressColor} waveColor={props.waveColor} background={props.background} id={props.id} projectId={props.projectId} waveRef1={ref} waveRef2={ref} waveRef3={ref} waveRef4={ref} src={props.src}></AudioWrapper>
+      <AudioWrapper volumeColor={props.volumeColor} progressColor={props.progressColor} waveColor={props.waveColor} background={props.background} id={props.id} projectId={props.projectId} waveRef1={ref} waveRef2={ref} waveRef3={ref} waveRef4={ref} src={props.src}></AudioWrapper>
     </div>
   );
 };

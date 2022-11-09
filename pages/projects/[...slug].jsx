@@ -182,9 +182,11 @@ export default function Project({ ...res }) {
                 ref={waveRef1}
                 id={1}
                 projectId={res.id}
-                background='#EBBA00'
-                waveColor={'white'}
+                background={'#EBBA00'}
+                waveColor={'#2E2E2E'}
                 progressColor={'hotpink'}
+                volumeColor={'#EBBA00'}
+
               ></AudioVisualizer>
             ) : (
               // <div></div>
@@ -221,8 +223,10 @@ export default function Project({ ...res }) {
                 id={2}
                 projectId={res.id}
                 background='#EC8300'
-                waveColor={'white'}
+                waveColor={'#2E2E2E'}
                 progressColor={'hotpink'}
+                volumeColor={'#EC8300'}
+
               ></AudioVisualizer>
             ) : (
               <NoAudioVisualizationContainer
@@ -259,8 +263,9 @@ export default function Project({ ...res }) {
                 id={3}
                 projectId={res.id}
                 background='#69B6D3'
-                waveColor={'white'}
+                waveColor={'#2E2E2E'}
                 progressColor={'hotpink'}
+                volumeColor={'#69B6D3'}
               ></AudioVisualizer>
             ) : (
               <NoAudioVisualizationContainer
@@ -295,9 +300,11 @@ export default function Project({ ...res }) {
                 ref={waveRef4}
                 id={4}
                 projectId={res.id}
-                background='#69B6D3'
-                waveColor={'white'}
+                background='#B4ABDC'
+                waveColor={'#2E2E2E'}
                 progressColor={'hotpink'}
+                volumeColor={'#B4ABDC'}
+
               ></AudioVisualizer>
             ) : (
               <NoAudioVisualizationContainer

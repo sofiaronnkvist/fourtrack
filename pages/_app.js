@@ -5,7 +5,8 @@ import { useRouter } from 'next/router';
 import ProtectedRoute from '../components/ProtectedRoute/protectedRoute';
 import { Toaster } from 'react-hot-toast';
 import { ThemeProvider } from 'styled-components';
-import theme from '../theme/theme'
+import theme from '../theme/theme';
+import Theme from '../theme/theme';
 
 const noAuthRequired = ['/'];
 
@@ -14,41 +15,43 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <AuthContextProvider>
-      <ThemeProvider theme={theme}>
-        <Toaster
-          position='top-center'
-          reverseOrder={false}
-          gutter={8}
-          containerClassName=''
-          containerStyle={{}}
-          toastOptions={{
-            // Define default options
-            className: '',
-            duration: 5000,
-            style: {
-              background: '#363636',
-              color: '#fff',
-            },
-
-            // Default options for specific types
-            success: {
-              duration: 3000,
-              theme: {
-                primary: 'green',
-                secondary: 'black',
+      {/* <Theme> */}
+        <ThemeProvider theme={theme}>
+          <Toaster
+            position='top-center'
+            reverseOrder={false}
+            gutter={8}
+            containerClassName=''
+            containerStyle={{}}
+            toastOptions={{
+              // Define default options
+              className: '',
+              duration: 5000,
+              style: {
+                background: '#363636',
+                color: '#fff',
               },
-            },
-          }}
-        />
-        <Navbar />
-        {noAuthRequired.includes(router.pathname) ? (
-          <Component {...pageProps} />
-        ) : (
-          <ProtectedRoute>
+
+              // Default options for specific types
+              success: {
+                duration: 3000,
+                theme: {
+                  primary: 'green',
+                  secondary: 'black',
+                },
+              },
+            }}
+          />
+          <Navbar />
+          {noAuthRequired.includes(router.pathname) ? (
             <Component {...pageProps} />
-          </ProtectedRoute>
-        )}
-      </ThemeProvider>
+          ) : (
+            <ProtectedRoute>
+              <Component {...pageProps} />
+            </ProtectedRoute>
+          )}
+        </ThemeProvider>
+      {/* </Theme> */}
     </AuthContextProvider>
   );
 }

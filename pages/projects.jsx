@@ -8,14 +8,12 @@ import {
   where,
 } from 'firebase/firestore';
 import { firestore } from '../utils/firebase';
-import Project from '../components/Project/Project';
 import styled from 'styled-components';
 import { verifyIdToken } from '../utils/firebaseAdmin';
 import nookies from 'nookies';
 import ProjectCard from '../components/ProjectCard/ProjectCard';
 import LeftSideNavigation from '../components/LeftSideNavigation/LeftSideNavigation';
 import TopBar from '../components/TopBar/TopBar';
-
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
@@ -52,7 +50,6 @@ const Projects = ({ projects }) => {
       <MainContent>
         <TopBar></TopBar>
         <h1>All recordings</h1>
-        <Project />
         <ul>
           {projects &&
             projects[0].map((project) => {

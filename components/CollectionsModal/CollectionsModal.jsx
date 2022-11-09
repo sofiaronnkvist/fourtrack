@@ -2,7 +2,7 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { addDoc } from 'firebase/firestore';
+import { addDoc, collection } from 'firebase/firestore';
 import { firestore } from '../../utils/firebase';
 import { useAuth } from '../../context/AuthContext';
 
@@ -113,7 +113,7 @@ export const DialogClose = DialogPrimitive.Close;
 
 export default function CollectionsModal() {
   const [open, setOpen] = useState(false);
-  const [collection, setCollection] = useState({ title: '' });
+  const [collectionData, setCollectionData] = useState({ title: '' });
   const router = useRouter();
   const { user } = useAuth();
 
@@ -123,9 +123,9 @@ export default function CollectionsModal() {
       const projectsCollectionRef = collection(firestore, 'collections');
       await addDoc(projectsCollectionRef, {
         uid: user.uid,
-        title: collection.title,
+        title: collectionData.title,
       });
-      setCollection({ title: '' });
+      setCollectionData({ title: '' });
       setOpen(false);
       router.push('/projects');
     } catch (error) {
@@ -148,12 +148,12 @@ export default function CollectionsModal() {
         <StyledForm onSubmit={(e) => handleSubmit(e)}>
           {/* <label>email</label> */}
           <input
-            value={collection.title}
+            value={collectionData.title}
             minLength='1'
             maxLength='30'
             onChange={(e) =>
-              setCollection({
-                ...collection,
+              setCollectionData({
+                ...collectionData,
                 title: e.target.value,
               })
             }

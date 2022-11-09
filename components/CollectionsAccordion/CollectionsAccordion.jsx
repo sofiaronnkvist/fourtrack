@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import CollectionsModal from '../CollectionsModal/CollectionsModal';
 import Link from 'next/link';
 
-export default function CollectionsAccordion({ collections, title }) {
+export default function CollectionsAccordion({ collections }) {
   return (
     <StyledAccordion type='single' defaultValue='item-1' collapsible>
       <Accordion.Item value='item-1'>
@@ -23,7 +23,7 @@ export default function CollectionsAccordion({ collections, title }) {
                     <StyledLink
                       href={{
                         pathname: '/projects/collections/[slug]',
-                        query: { slug: title },
+                        query: { slug: collection.title },
                       }}
                     >
                       {collection.title}

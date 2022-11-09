@@ -88,8 +88,6 @@ export default function UserModal(props) {
   const { user } = useAuth();
   const [googleUser, setGoogleUser] = useState(false)
 
-  console.log('in user modal', user);
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>

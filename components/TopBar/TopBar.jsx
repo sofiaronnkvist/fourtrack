@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { GrSearch } from 'react-icons/gr';
 import { FiBell } from 'react-icons/fi';
-import UserDropDown from '../UserDropDown/UserDropDown'
+import UserDropDown from '../UserDropDown/UserDropDown';
 
 const TopBar = () => {
   return (
@@ -14,8 +14,8 @@ const TopBar = () => {
       </div>
       <RightSection>
         <CreateButton>Create project</CreateButton>
-        <FiBell size='20px' />
-        <UserDropDown/>
+        <FiBell size='20px' style={{ marginLeft: '20px', marginRight: '20px' }} />
+        <UserDropDown />
       </RightSection>
     </TopBarWrapper>
   );

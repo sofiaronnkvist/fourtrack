@@ -32,6 +32,7 @@ export const AuthContextProvider = ({ children }) => {
           uid: user.uid,
           email: user.email,
           // provider: user.,
+          profileImage: user.photoURL
         });
         nookies.set(undefined, 'token', token, { path: '/' });
       }

@@ -44,6 +44,7 @@ export default function ProjectDropDownMenu(props) {
   const router = useRouter();
   const { user } = useAuth();
   const [owner, SetOwner] = useState(true);
+  console.log(user);
 
   useEffect(() => {
     if (user.uid !== props.ownerId) {

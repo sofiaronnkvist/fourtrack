@@ -4,6 +4,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { GearIcon, ExitIcon, ChevronDownIcon } from '@radix-ui/react-icons';
 import UserModal from '../UserModal/UserModal';
 import { useAuth } from '../../context/AuthContext';
+import Image from 'next/image';
 
 const menuPortal = DropdownMenu.Portal;
 const menuButton = DropdownMenu.Trigger;
@@ -33,13 +34,27 @@ const StyledMenuContent = styled(menuContent)`
 `;
 
 export default function ProjectDropDownMenu(props) {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
+  const string = user.email.split('')
+  const firstLetter = string[0].toUpperCase();
+ 
 
   return (
     <DropdownMenu.Root>
       <StyledMenuButton>
-        <ProfileIcon>N</ProfileIcon>
-        <ChevronDownIcon />
+        {user.profileImage ? (
+          <Image
+            src={user.profileImage}
+            width={'32px'}
+            height={'32px'}
+            style={{ borderRadius: '100%' }}
+            alt={'profile image of loged in user'}
+          ></Image>
+        ) : (
+          <ProfileIcon>{firstLetter}</ProfileIcon>
+        )}
+
+        <ChevronDownIcon style={{ marginLeft: '10px' }} />
       </StyledMenuButton>
       <StyledMenuPortal>
         <StyledMenuContent>
@@ -68,7 +83,7 @@ const StyledListItem = styled.li`
 `;
 
 const ProfileIcon = styled.div`
-  background-color: red;
+  background-color: ${(props) => props.theme.yellow};
   border-radius: 100%;
   width: 32px;
   height: 32px;

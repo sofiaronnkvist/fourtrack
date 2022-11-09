@@ -18,6 +18,7 @@ import DeleteButton from '../../components/Button/DeleteButton';
 import { useRouter } from 'next/router';
 import { async } from '@firebase/util';
 import SearchModal from '../../components/SearchModal/SearchModal';
+import Image from 'next/image';
 
 export default function Project({ ...res }) {
   const { user } = useAuth();
@@ -165,8 +166,8 @@ export default function Project({ ...res }) {
       <button onClick={() => router.push('/projects')}>Back</button>
       <h1>{res.title}</h1>
       <p>id: {res.id}</p>
-
-      <h3>Recorders</h3>
+      <p>id: {user.profileImage}</p>
+<Image src={user.profileImage} width={'40px'} height={'40px'}></Image>      <h3>Recorders</h3>
       {/* Loopa tracks och ref */}
       <Form>
         <Label htmlFor=''>
@@ -325,7 +326,11 @@ export default function Project({ ...res }) {
       <button onClick={() => playChecked(playId)}>PLAY</button>
       <button onClick={() => record(playId)}>REC</button>
       <p>To play all tracks at once, uncheck all tracks and press play.</p>
-      <SearchModal projectTitle={res.title} projectId={res.id} />
+      <SearchModal
+        btnWithBackground={true}
+        projectTitle={res.title}
+        projectId={res.id}
+      />
     </div>
   );
 }

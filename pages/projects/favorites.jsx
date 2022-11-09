@@ -8,15 +8,12 @@ import {
   where,
 } from 'firebase/firestore';
 import { firestore } from '../../utils/firebase';
-import Project from '../../components/Project/Project';
 import styled from 'styled-components';
-import Link from 'next/link';
 import { verifyIdToken } from '../../utils/firebaseAdmin';
 import nookies from 'nookies';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import LeftSideNavigation from '../../components/LeftSideNavigation/LeftSideNavigation';
 import TopBar from '../../components/TopBar/TopBar';
-import ShareProject from '../../components/Shareproject/ShareProject';
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);

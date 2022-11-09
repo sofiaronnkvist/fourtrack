@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { GrSearch } from 'react-icons/gr';
 import { FiBell } from 'react-icons/fi';
 import UserDropDown from '../UserDropDown/UserDropDown';
+import ProjectModal from '../ProjectModal/ProjectModal';
 
 const TopBar = () => {
   return (
@@ -13,8 +14,11 @@ const TopBar = () => {
         </SearchField>
       </div>
       <RightSection>
-        <CreateButton>Create project</CreateButton>
-        <FiBell size='20px' style={{ marginLeft: '20px', marginRight: '20px' }} />
+        <ProjectModal />
+        <FiBell
+          size='20px'
+          style={{ marginLeft: '20px', marginRight: '20px' }}
+        />
         <UserDropDown />
       </RightSection>
     </TopBarWrapper>
@@ -49,11 +53,4 @@ const StyledInput = styled.input`
   height: 30px;
   outline: none;
   padding-left: 5px;
-`;
-const CreateButton = styled.button`
-  background-color: transparent;
-  border-radius: 8px;
-  width: 117px;
-  height: 34px;
-  margin-right: 16px;
 `;

@@ -18,7 +18,6 @@ import DeleteButton from '../../components/Button/DeleteButton';
 import { useRouter } from 'next/router';
 import { async } from '@firebase/util';
 import SearchModal from '../../components/SearchModal/SearchModal';
-import Image from 'next/image';
 
 export default function Project({ ...res }) {
   const { user } = useAuth();
@@ -40,6 +39,7 @@ export default function Project({ ...res }) {
     // Waiting for index.js to send file to FB
     setTimeout(function () {
       getFileFromStorage(res.uid, res.id).then((res) => setTrackArray(res));
+      // console.log('res uid', ${res.uid});
     }, 500);
   }, [childTrack]);
 
@@ -166,8 +166,6 @@ export default function Project({ ...res }) {
       <button onClick={() => router.push('/projects')}>Back</button>
       <h1>{res.title}</h1>
       <p>id: {res.id}</p>
-      <p>id: {user.profileImage}</p>
-<Image src={user.profileImage} width={'40px'} height={'40px'}></Image>      <h3>Recorders</h3>
       {/* Loopa tracks och ref */}
       <Form>
         <Label htmlFor=''>
@@ -369,9 +367,10 @@ const Container = styled.div`
 export async function getServerSideProps(ctx) {
   const { params } = ctx;
   const { slug } = params;
+
   let res;
   const ref = collection(firestore, 'projects');
-  const projectsQuery = query(ref, where('title', '==', slug));
+  const projectsQuery = query(ref, where('title', '==', slug[0]));
   const querySnapshot = await getDocs(projectsQuery);
   querySnapshot.forEach((doc) => {
     res = {

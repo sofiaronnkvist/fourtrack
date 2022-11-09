@@ -15,14 +15,12 @@ import nookies from 'nookies';
 import ProjectCard from '../components/ProjectCard/ProjectCard';
 import LeftSideNavigation from '../components/LeftSideNavigation/LeftSideNavigation';
 import TopBar from '../components/TopBar/TopBar';
-import { useAuth } from '../context/AuthContext';
+
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
   const token = await verifyIdToken(cookies.token);
-
   const { uid } = token;
-
   let projects = [];
 
   const ref = collection(firestore, 'projects');
@@ -48,9 +46,6 @@ export async function getServerSideProps(ctx) {
 }
 
 const Projects = ({ projects }) => {
-  const { user } = useAuth;
-  console.log(user);
-
   return (
     <MainWrapper>
       <LeftSideNavigation></LeftSideNavigation>

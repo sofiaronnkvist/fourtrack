@@ -7,32 +7,32 @@ import {
   Timestamp,
   where,
 } from 'firebase/firestore';
-import { firestore } from '../utils/firebase';
-import Project from '../components/Project/Project';
+import { firestore } from '../../utils/firebase';
+import Project from '../../components/Project/Project';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { verifyIdToken } from '../utils/firebaseAdmin';
+import { verifyIdToken } from '../../utils/firebaseAdmin';
 import nookies from 'nookies';
-import ProjectCard from '../components/ProjectCard/ProjectCard';
-import LeftSideNavigation from '../components/LeftSideNavigation/LeftSideNavigation';
-import TopBar from '../components/TopBar/TopBar';
-import ShareProject from '../components/Shareproject/ShareProject';
+import ProjectCard from '../../components/ProjectCard/ProjectCard';
+import LeftSideNavigation from '../../components/LeftSideNavigation/LeftSideNavigation';
+import TopBar from '../../components/TopBar/TopBar';
+import ShareProject from '../../components/Shareproject/ShareProject';
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
   const token = await verifyIdToken(cookies.token);
 
   const { uid } = token;
-  let projects = [];
+  let colabProjects = [];
 
   const ref = collection(firestore, 'projects');
-  const projectsQuery = query(
+  const colabQuery = query(
     ref,
-    where('uid', '==', uid),
+    where('colab_uid', 'array-contains-any', [uid]),
     orderBy('timestamp', 'desc')
   );
-  await getDocs(projectsQuery).then((data) => {
-    projects.push(
+  await getDocs(colabQuery).then((data) => {
+    colabProjects.push(
       data.docs.map((item) => {
         return {
           ...item.data(),
@@ -43,21 +43,27 @@ export async function getServerSideProps(ctx) {
     );
   });
   return {
-    props: { projects },
+    props: { colabProjects },
   };
 }
 
-const Projects = ({ projects }) => {
+const checkColabs = (projects) => {
+  if (projects[0].length >= 1) {
+    return true;
+  }
+};
+
+const Shared = ({ colabProjects }) => {
   return (
     <MainWrapper>
       <LeftSideNavigation></LeftSideNavigation>
       <MainContent>
         <TopBar></TopBar>
-        <h1>All recordings</h1>
-        <Project />
+        <h1>Shared with me</h1>
         <ul>
-          {projects &&
-            projects[0].map((project) => {
+          {checkColabs(colabProjects) ? (
+            colabProjects &&
+            colabProjects[0].map((project) => {
               return (
                 <ProjectCard
                   ownerId={project.uid}
@@ -67,7 +73,10 @@ const Projects = ({ projects }) => {
                   date={project.timestamp}
                 ></ProjectCard>
               );
-            })}
+            })
+          ) : (
+            <p>Nothing here yet</p>
+          )}
         </ul>
       </MainContent>
     </MainWrapper>
@@ -85,4 +94,4 @@ const Label = styled.label`
   margin: 20px;
 `;
 
-export default Projects;
+export default Shared;

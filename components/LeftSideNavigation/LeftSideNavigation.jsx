@@ -28,7 +28,7 @@ const LeftSideNavigation = () => {
         </LinkWrapper>
         <LinkWrapper>
           <BsPerson size='20px' />
-          <Link href='/projects'>
+          <Link href='/projects/shared'>
             <NavLink>Shared with me</NavLink>
           </Link>
         </LinkWrapper>
@@ -88,4 +88,5 @@ const BottomItems = styled.div`
 `;
 const NavLink = styled.a`
   padding: 0px 8px;
+  cursor: pointer;
 `;

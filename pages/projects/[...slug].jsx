@@ -19,7 +19,7 @@ import { useRouter } from 'next/router';
 import { async } from '@firebase/util';
 import SearchModal from '../../components/SearchModal/SearchModal';
 
-export default function Project({ res }) {
+export default function Project({ ...res }) {
   const { user } = useAuth();
   const [trackArray, setTrackArray] = useState([]);
   const [playId, setPlayId] = useState();
@@ -200,7 +200,12 @@ export default function Project({ res }) {
             ></DeleteButton>
           </Container>
           {/* <RecorderBlock></RecorderBlock> */}
-          <Recorder id={1} ownerId={res.uid} projectid={res.id} ref={ref1}></Recorder>
+          <Recorder
+            id={1}
+            ownerId={res.uid}
+            projectid={res.id}
+            ref={ref1}
+          ></Recorder>
         </Label>
         <Label htmlFor=''>
           <input
@@ -233,7 +238,12 @@ export default function Project({ res }) {
           </div>
           {/* <RecorderBlock></RecorderBlock> */}
 
-          <Recorder id={2} ownerId={res.uid} projectid={res.id} ref={ref2}></Recorder>
+          <Recorder
+            id={2}
+            ownerId={res.uid}
+            projectid={res.id}
+            ref={ref2}
+          ></Recorder>
         </Label>{' '}
         <Label htmlFor=''>
           <input
@@ -265,7 +275,12 @@ export default function Project({ res }) {
             ></DeleteButton>
           </div>
           {/* <RecorderBlock></RecorderBlock> */}
-          <Recorder id={3} ownerId={res.uid} projectid={res.id} ref={ref3}></Recorder>
+          <Recorder
+            id={3}
+            ownerId={res.uid}
+            projectid={res.id}
+            ref={ref3}
+          ></Recorder>
         </Label>{' '}
         <Label htmlFor=''>
           <input
@@ -298,7 +313,12 @@ export default function Project({ res }) {
           </div>
           {/* <RecorderBlock></RecorderBlock> */}
 
-          <Recorder id={4} ownerId={res.uid} projectid={res.id} ref={ref4}></Recorder>
+          <Recorder
+            id={4}
+            ownerId={res.uid}
+            projectid={res.id}
+            ref={ref4}
+          ></Recorder>
         </Label>{' '}
       </Form>
       <button onClick={() => stop(playId)}>STOP</button>
@@ -342,7 +362,8 @@ const Container = styled.div`
 `;
 
 export async function getServerSideProps(ctx) {
-  const slug = ctx.query.slug;
+  const { params } = ctx;
+  const { slug } = params;
   let res;
   const ref = collection(firestore, 'projects');
   const projectsQuery = query(ref, where('title', '==', slug));
@@ -354,5 +375,5 @@ export async function getServerSideProps(ctx) {
       timestamp: doc.data().timestamp.toDate().toLocaleDateString(),
     };
   });
-  return { props: { res } };
+  return { props: { ...res } };
 }

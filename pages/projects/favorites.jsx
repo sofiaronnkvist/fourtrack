@@ -21,6 +21,7 @@ export async function getServerSideProps(ctx) {
 
   const { uid } = token;
   let projects = [];
+  let collections = [];
 
   const ref = collection(firestore, 'projects');
   const projectsQuery = query(
@@ -40,8 +41,26 @@ export async function getServerSideProps(ctx) {
       })
     );
   });
+
+  const collectionsRef = collection(firestore, 'collections');
+  const collectionsQuery = query(
+    collectionsRef,
+    where('uid', '==', uid),
+    orderBy('title')
+  );
+  await getDocs(collectionsQuery).then((data) => {
+    collections.push(
+      data.docs.map((item) => {
+        return {
+          ...item.data(),
+          id: item.id,
+        };
+      })
+    );
+  });
+
   return {
-    props: { projects },
+    props: { projects, collections },
   };
 }
 
@@ -51,10 +70,10 @@ const checkFavorites = (projects) => {
   }
 };
 
-const Favorites = ({ projects }) => {
+const Favorites = ({ projects, collections }) => {
   return (
     <MainWrapper>
-      <LeftSideNavigation />
+      <LeftSideNavigation collections={collections} />
       <MainContent>
         <TopBar></TopBar>
         <h1>Favorites</h1>

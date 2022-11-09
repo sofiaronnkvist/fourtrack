@@ -21,6 +21,7 @@ export async function getServerSideProps(ctx) {
 
   const { uid } = token;
   let colabProjects = [];
+  let collections = [];
 
   const ref = collection(firestore, 'projects');
   const colabQuery = query(
@@ -39,8 +40,26 @@ export async function getServerSideProps(ctx) {
       })
     );
   });
+
+  const collectionsRef = collection(firestore, 'collections');
+  const collectionsQuery = query(
+    collectionsRef,
+    where('uid', '==', uid),
+    orderBy('title')
+  );
+  await getDocs(collectionsQuery).then((data) => {
+    collections.push(
+      data.docs.map((item) => {
+        return {
+          ...item.data(),
+          id: item.id,
+        };
+      })
+    );
+  });
+  
   return {
-    props: { colabProjects },
+    props: { colabProjects, collections },
   };
 }
 
@@ -50,10 +69,10 @@ const checkColabs = (projects) => {
   }
 };
 
-const Shared = ({ colabProjects }) => {
+const Shared = ({ colabProjects, collections }) => {
   return (
     <MainWrapper>
-      <LeftSideNavigation />
+      <LeftSideNavigation collections={collections} />
       <MainContent>
         <TopBar></TopBar>
         <h1>Shared with me</h1>

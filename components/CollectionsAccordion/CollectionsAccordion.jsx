@@ -16,7 +16,7 @@ export default function CollectionsAccordion({ collections }) {
         </TriggerWrapper>
         <ContentWrapper>
           {collections &&
-            collections.map((collection) => {
+            collections[0].map((collection) => {
               return (
                 <>
                   <StyledContent>
@@ -32,15 +32,6 @@ export default function CollectionsAccordion({ collections }) {
                 </>
               );
             })}
-          <StyledContent>
-            <StyledLink href={'/projects/favorites'}>Country</StyledLink>
-          </StyledContent>
-          <StyledContent>
-            <StyledLink href={'/projects/favorites'}>Hip-hop</StyledLink>
-          </StyledContent>
-          <StyledContent>
-            <StyledLink href={'/projects/favorites'}>Pop</StyledLink>
-          </StyledContent>
           <StyledContent>
             <CollectionsModal />
           </StyledContent>

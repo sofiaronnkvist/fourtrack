@@ -3,7 +3,7 @@ import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../../utils/firebase';
 import { useAuth } from '../../context/AuthContext';
 
-export const useMyRecorder = (id, projectid, ownerId) => {
+export const useMyRecorder = (id, projectid, ownerid) => {
   const [audioURL, setAudioURL] = useState('');
   const [recordingStatus, setRecordingStatus] = useState('save');
   const [recorder, setRecorder] = useState(null);
@@ -42,11 +42,11 @@ export const useMyRecorder = (id, projectid, ownerId) => {
       // console.log(e.data);
       setAudioURL(URL.createObjectURL(blob));
       // sessionStorage.setItem(`audioUrl${id}`, URL.createObjectURL(e.data));
-      uploadFiles(blob, user.uid);
+      uploadFiles(blob, ownerid);
 
-      function uploadFiles(file, userId) {
+      function uploadFiles(file, ownerid) {
         if (!file) return;
-        const sotrageRef = ref(storage, `files/${ownerId}/${projectid}/${id}`);
+        const sotrageRef = ref(storage, `files/${ownerid}/${projectid}/${id}`);
         // console.log(sotrageRef);
         const uploadTask = uploadBytesResumable(sotrageRef, file);
         // console.log(uploadTask);

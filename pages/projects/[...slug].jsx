@@ -1,29 +1,26 @@
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-
-} from 'firebase/firestore';
-import { useAuth } from '../../context/AuthContext';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 import { firestore } from '../../utils/firebase';
 import React, { useEffect, useRef, useState } from 'react';
 import Recorder from '../../components/Recorder/Recorder';
 import { getFileFromStorage } from '../../utils/getFileFromStorage';
-import styled, { ThemeConsumer } from 'styled-components';
+import styled from 'styled-components';
 import AudioVisualizer from '../../components/AudioVisualizer/audiovisualizer';
 import { deleteFileFromStorage } from '../../utils/deleteFileFromStorage';
 import DeleteButton from '../../components/Button/DeleteButton';
 import { useRouter } from 'next/router';
-import { async } from '@firebase/util';
 import SearchModal from '../../components/SearchModal/SearchModal';
+import PlayRecPause from '../../components/PlayRecPauseButton/PlayRecPause';
+import { FaPlay, FaStop } from 'react-icons/fa';
+import { BsRecordFill } from 'react-icons/bs';
 
 export default function Project({ ...res }) {
-  const { user } = useAuth();
   const [trackArray, setTrackArray] = useState([]);
   const [playId, setPlayId] = useState();
   const [childTrack, setChildTrack] = useState(1);
   const router = useRouter();
+  const [playBtnActive, setPlayBtnActive] = useState(false);
+  const [stopBtnActive, setStopBtnActive] = useState(false);
+  const [recBtnActive, setRecBtnActive] = useState(false);
 
   let ref1 = useRef(null);
   let ref2 = useRef(null);
@@ -38,7 +35,6 @@ export default function Project({ ...res }) {
     // Waiting for index.js to send file to FB
     setTimeout(function () {
       getFileFromStorage(res.uid, res.id).then((res) => setTrackArray(res));
-      // console.log('res uid', ${res.uid});
     }, 500);
   }, [childTrack]);
 
@@ -61,8 +57,8 @@ export default function Project({ ...res }) {
       waveRef4.current ? waveRef4.current.play() : null;
       return;
     } else {
-      console.log('playing all');
-      waveRef1.current ? waveRef1.current.play() : null;
+      console.log('playing all', id);
+      waveRef1.current ? waveRef1.current.play() : console.log('cant play');
       waveRef2.current ? waveRef2.current.play() : null;
       waveRef3.current ? waveRef3.current.play() : null;
       waveRef4.current ? waveRef4.current.play() : null;
@@ -85,6 +81,9 @@ export default function Project({ ...res }) {
       waveRef3.current ? waveRef3.current.play() : null;
       waveRef4.current ? waveRef4.current.play() : null;
       ref1.current.start1();
+      setTimeout(() => {
+        stop(1);
+      }, 60 * 1000);
       return;
     } else if (recId == 2) {
       console.log('recId 2');
@@ -92,6 +91,9 @@ export default function Project({ ...res }) {
       waveRef3.current ? waveRef3.current.play() : null;
       waveRef4.current ? waveRef4.current.play() : null;
       ref2.current.start2();
+      setTimeout(() => {
+        stop(2);
+      }, 60 * 1000);
       return;
     } else if (recId == 3) {
       console.log('recId 3');
@@ -99,6 +101,9 @@ export default function Project({ ...res }) {
       waveRef2.current ? waveRef2.current.play() : null;
       waveRef4.current ? waveRef4.current.play() : null;
       ref3.current.start3();
+      setTimeout(() => {
+        stop(3);
+      }, 60 * 1000);
       return;
     } else if (recId == 4) {
       console.log('recId 4');
@@ -106,6 +111,9 @@ export default function Project({ ...res }) {
       waveRef2.current ? waveRef2.current.play() : null;
       waveRef3.current ? waveRef3.current.play() : null;
       ref4.current.start4();
+      setTimeout(() => {
+        stop(4);
+      }, 60 * 1000);
       return;
     }
   };
@@ -124,7 +132,6 @@ export default function Project({ ...res }) {
       waveRef1.current ? waveRef1.current.pause() : null;
       waveRef3.current ? waveRef3.current.pause() : null;
       waveRef4.current ? waveRef4.current.pause() : null;
-      // window.location.reload(false);
       setChildTrack((prev) => prev + 1);
 
       return;
@@ -134,7 +141,6 @@ export default function Project({ ...res }) {
       waveRef2.current ? waveRef2.current.pause() : null;
       waveRef4.current ? waveRef4.current.pause() : null;
       setChildTrack((prev) => prev + 1);
-      // window.location.reload(false);
       return;
     } else if (recId == 4) {
       ref4.current.stop4();
@@ -142,7 +148,6 @@ export default function Project({ ...res }) {
       waveRef2.current ? waveRef2.current.pause() : null;
       waveRef3.current ? waveRef3.current.pause() : null;
       setChildTrack((prev) => prev + 1);
-      // window.location.reload(false);
 
       return;
     } else {
@@ -160,8 +165,12 @@ export default function Project({ ...res }) {
 
   return (
     <div>
-      <p>This route is protected</p>
       <button onClick={() => router.push('/projects')}>Back</button>
+      <SearchModal
+        btnWithBackground={true}
+        projectTitle={res.title}
+        projectId={res.id}
+      />
       <h1>{res.title}</h1>
       <p>id: {res.id}</p>
       <Form>
@@ -182,12 +191,9 @@ export default function Project({ ...res }) {
                 projectId={res.id}
                 background={'#EBBA00'}
                 waveColor={'#2E2E2E'}
-                progressColor={'hotpink'}
                 volumeColor={'#EBBA00'}
-
               ></AudioVisualizer>
             ) : (
-              // <div></div>
               <NoAudioVisualizationContainer
                 style={{ backgroundColor: '#EBBA00' }}
               ></NoAudioVisualizationContainer>
@@ -197,10 +203,9 @@ export default function Project({ ...res }) {
               text={'X'}
             ></DeleteButton>
           </Container>
-          {/* <RecorderBlock></RecorderBlock> */}
           <Recorder
             id={1}
-            ownerId={res.uid}
+            ownerid={res.uid}
             projectid={res.id}
             ref={ref1}
           ></Recorder>
@@ -222,9 +227,7 @@ export default function Project({ ...res }) {
                 projectId={res.id}
                 background='#EC8300'
                 waveColor={'#2E2E2E'}
-                progressColor={'hotpink'}
                 volumeColor={'#EC8300'}
-
               ></AudioVisualizer>
             ) : (
               <NoAudioVisualizationContainer
@@ -236,11 +239,10 @@ export default function Project({ ...res }) {
               text={'X'}
             ></DeleteButton>
           </div>
-          {/* <RecorderBlock></RecorderBlock> */}
 
           <Recorder
             id={2}
-            ownerId={res.uid}
+            ownerid={res.uid}
             projectid={res.id}
             ref={ref2}
           ></Recorder>
@@ -262,7 +264,6 @@ export default function Project({ ...res }) {
                 projectId={res.id}
                 background='#69B6D3'
                 waveColor={'#2E2E2E'}
-                progressColor={'hotpink'}
                 volumeColor={'#69B6D3'}
               ></AudioVisualizer>
             ) : (
@@ -275,10 +276,9 @@ export default function Project({ ...res }) {
               text={'X'}
             ></DeleteButton>
           </div>
-          {/* <RecorderBlock></RecorderBlock> */}
           <Recorder
             id={3}
-            ownerId={res.uid}
+            ownerid={res.uid}
             projectid={res.id}
             ref={ref3}
           ></Recorder>
@@ -300,9 +300,7 @@ export default function Project({ ...res }) {
                 projectId={res.id}
                 background='#B4ABDC'
                 waveColor={'#2E2E2E'}
-                progressColor={'hotpink'}
                 volumeColor={'#B4ABDC'}
-
               ></AudioVisualizer>
             ) : (
               <NoAudioVisualizationContainer
@@ -314,25 +312,32 @@ export default function Project({ ...res }) {
               text={'X'}
             ></DeleteButton>
           </div>
-          {/* <RecorderBlock></RecorderBlock> */}
 
           <Recorder
             id={4}
-            ownerId={res.uid}
+            ownerid={res.uid}
             projectid={res.id}
             ref={ref4}
           ></Recorder>
         </Label>{' '}
       </Form>
-      <button onClick={() => stop(playId)}>STOP</button>
-      <button onClick={() => playChecked(playId)}>PLAY</button>
-      <button onClick={() => record(playId)}>REC</button>
+      <ButtonWrapper>
+        <PlayRecPause
+          handleclick={() => playChecked(playId)}
+          icon={<FaPlay fill='white' />}
+        ></PlayRecPause>
+        <PlayRecPause
+          handleclick={() => stop(playId)}
+          icon={<FaStop fill='white' />}
+        ></PlayRecPause>
+        <PlayRecPause
+          handleclick={() => record(playId)}
+          backgroundRed={'#F57659'}
+          icon={<BsRecordFill fill='white' size='20px' />}
+        ></PlayRecPause>
+      </ButtonWrapper>
       <p>To play all tracks at once, uncheck all tracks and press play.</p>
-      <SearchModal
-        btnWithBackground={true}
-        projectTitle={res.title}
-        projectId={res.id}
-      />
+
     </div>
   );
 }
@@ -356,7 +361,13 @@ const NoAudioVisualizationContainer = styled.div`
   margin-top: 0px;
 `;
 const Container = styled.div`
+  width: 100%;
+  display: flex;
+`;
+const ButtonWrapper = styled.div`
   width: 1064px;
+  display: flex;
+  justify-content: center;
 `;
 
 export async function getServerSideProps(ctx) {

@@ -1,22 +1,12 @@
 import { useMyRecorder } from './../Recorder/index';
-import Button from '../Button/Button';
 import { forwardRef, useImperativeHandle } from 'react';
 
 const Recorder = (props, ref) => {
-  const {
-    // audioURL,
-    // audioData, // you can use this for send audio to server
-    timer,
-    track,
-    saveRecordedAudio,
-    startRecording,
-  } = useMyRecorder(props.id, props.projectid, props.ownerId);
-
-  // props.changeTrack(track);
-
-  // const stop = () => {
-  //   saveRecordedAudio();
-  // };
+  const { timer, track, saveRecordedAudio, startRecording } = useMyRecorder(
+    props.id,
+    props.projectid,
+    props.ownerid
+  );
 
   useImperativeHandle(ref, () => ({
     start1() {
@@ -44,25 +34,16 @@ const Recorder = (props, ref) => {
       saveRecordedAudio();
     },
   }));
-  // const start = () => {
-  //   console.log('Startad');
-  //   setTimeout(() => {
-  //     startRecording();
-  //   }, 0);
 
-  // };
-  // console.log(audioURL);
   return (
     <div>
-      <div>
-        {/* <Button handleclick={stop} text='Stop'></Button> */}
-        {/* <Button handleclick={start} text='Record'></Button> */}
-        {/* <button onClick={() => props.setChildTrack(audioURL)}>setTrack</button> */}
-      </div>
-      <div>
-        <audio id={props.id} src={track} projectid={props.projectid} ownerId={props.ownerId}></audio>
-        <span>{timer}</span>
-      </div>
+      <audio
+        id={props.id}
+        src={track}
+        projectid={props.projectid}
+        ownerid={props.ownerid}
+      ></audio>
+      <span>{timer}</span>
     </div>
   );
 };

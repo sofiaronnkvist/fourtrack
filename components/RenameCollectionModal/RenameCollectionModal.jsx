@@ -112,22 +112,22 @@ export const DialogContent = Content;
 export const DialogTitle = StyledTitle;
 export const DialogClose = DialogPrimitive.Close;
 
-export default function RenameCollectionModal(props) {
+export default function RenameCollectionModal({
+  collectionId,
+  projectsRef,
+}) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const [data, setData] = useState('');
 
-  const handleSubmit = async (
-    e,
-    collectionId,
-    collectionTitle,
-    projectsRef
-  ) => {
+  const handleSubmit = async (e, collectionId, projectsRef) => {
     e.preventDefault();
+    console.log('FINAL', projectsRef);
     try {
       const batch = writeBatch(firestore);
-      console.log(projectsRef);
-      projectsRef[0].forEach((project) => {
+      const projectsArray = projectsRef[0];
+      console.log(projectsArray);
+      projectsArray.forEach((project) => {
         console.log(project);
         batch.update(doc(firestore, 'projects', project.id), {
           collections: data,
@@ -162,14 +162,7 @@ export default function RenameCollectionModal(props) {
         <DialogTitle>Change title</DialogTitle>
 
         <StyledForm
-          onSubmit={(e) =>
-            handleSubmit(
-              e,
-              props.collectionId,
-              props.collectionTitle,
-              props.projectsRef
-            )
-          }
+          onSubmit={(e) => handleSubmit(e, collectionId, projectsRef)}
         >
           <input
             onChange={(e) => setData(e.target.value)}

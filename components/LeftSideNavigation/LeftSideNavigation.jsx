@@ -13,6 +13,7 @@ import CollectionsAccordion from '../CollectionsAccordion/CollectionsAccordion';
 
 const LeftSideNavigation = ({ collections, projectsRef }) => {
   const { logout } = useAuth();
+  console.log('LEFTPRO', projectsRef);
   return (
     <>
       <Navigation>
@@ -46,7 +47,10 @@ const LeftSideNavigation = ({ collections, projectsRef }) => {
             </Link>
             <ChevronRightIcon size='20px' />
           </LinkWrapper> */}
-          <CollectionsAccordion collections={collections} projectsRef={projectsRef} />
+          <CollectionsAccordion
+            collections={collections}
+            projectsRef={projectsRef}
+          />
         </TopItems>
         <BottomItems>
           <LinkWrapper>

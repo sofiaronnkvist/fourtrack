@@ -15,6 +15,7 @@ const ContextLabel = ContextMenu.Label;
 const ContextItem = ContextMenu.Item;
 
 export default function CollectionsAccordion({ collections, projectsRef }) {
+  console.log('ACCPRO', projectsRef);
   return (
     <StyledAccordion type='single' collapsible>
       <Accordion.Item value='item-1'>
@@ -49,7 +50,6 @@ export default function CollectionsAccordion({ collections, projectsRef }) {
                         <StyledContextItem asChild={true}>
                           <RenameCollectionModal
                             collectionId={collection.id}
-                            collectionTitle={collection.title}
                             projectsRef={projectsRef}
                           />
                         </StyledContextItem>

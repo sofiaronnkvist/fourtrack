@@ -122,31 +122,33 @@ const StyledContextContent = styled(ContextContent)`
     0px 10px 20px -15px rgba(22, 23, 24, 0.2);
 `;
 
+const StyledContextButton = styled.button`
+  border: none;
+  background-color: transparent;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 const StyledContextItem = styled(ContextItem)`
-  font-size: 13px;
   line-height: 1;
   color: black;
   border-radius: 3px;
   display: flex;
   align-items: center;
   height: 25px;
-  padding: 0 5px;
+  padding: 20px;
   position: relative;
-  padding-left: 25px;
+  padding-left: 10px;
   user-select: none;
   outline: none;
-  box-shadow: ${(props) => props.theme.mdShadow};
-  &:hover {
-    background-color: lightgray;
-  }
-`;
-
-const StyledContextButton = styled.button`
-  border: none;
   background-color: transparent;
+  box-shadow: ${(props) => props.theme.mdShadow};
   cursor: pointer;
-  padding: 0;
   &:hover {
-    background-color: lightgray;
+    text-decoration: underline;
   }
 `;

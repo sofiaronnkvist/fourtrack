@@ -2,19 +2,15 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import {
-  collection,
-  doc,
-  query,
-  updateDoc,
-  where,
-  writeBatch,
-  getDocs,
-} from 'firebase/firestore';
+import { doc, updateDoc, writeBatch } from 'firebase/firestore';
 import { firestore } from '../../utils/firebase';
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
+const Dialog = DialogPrimitive.Root;
+const DialogTrigger = DialogPrimitive.Trigger;
+const DialogContent = Content;
+const DialogClose = DialogPrimitive.Close;
 
 const StyledContent = styled(dialogContent)`
   background-color: white;
@@ -35,6 +31,15 @@ const StyledContent = styled(dialogContent)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const StyledDialogTrigger = styled(DialogTrigger)`
+  background-color: white;
+  font-size: 14px;
+  padding-left: 10px;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const StyledOverlay = styled(dialogOverlay)`
@@ -97,6 +102,8 @@ const StyledForm = styled.form`
   }
 `;
 
+const DialogTitle = StyledTitle;
+
 function Content({ children, ...props }) {
   return (
     <DialogPrimitive.Portal>
@@ -106,16 +113,7 @@ function Content({ children, ...props }) {
   );
 }
 
-export const Dialog = DialogPrimitive.Root;
-export const DialogTrigger = DialogPrimitive.Trigger;
-export const DialogContent = Content;
-export const DialogTitle = StyledTitle;
-export const DialogClose = DialogPrimitive.Close;
-
-export default function RenameCollectionModal({
-  collectionId,
-  projectsRef,
-}) {
+export default function RenameCollectionModal({ collectionId, projectsRef }) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const [data, setData] = useState('');
@@ -145,19 +143,14 @@ export default function RenameCollectionModal({
     }
   };
 
-  //Make this better
-  const returnButtonValue = () => {
-    window.location.reload(false);
-  };
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <StyledDialogTrigger asChild>
         <NavLinkItem>Rename</NavLinkItem>
-      </DialogTrigger>
+      </StyledDialogTrigger>
       <DialogContent>
         <DialogClose asChild>
-          <CloseButton onClick={returnButtonValue}>&#9587;</CloseButton>
+          <CloseButton>&#9587;</CloseButton>
         </DialogClose>
         <DialogTitle>Change title</DialogTitle>
 

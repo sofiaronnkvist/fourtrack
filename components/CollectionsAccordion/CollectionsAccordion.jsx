@@ -16,20 +16,18 @@ export default function CollectionsAccordion({ collections }) {
         </TriggerWrapper>
         <ContentWrapper>
           {collections &&
-            collections[0].map((collection) => {
+            collections[0].map((collection, key) => {
               return (
-                <>
-                  <StyledContent>
-                    <StyledLink
-                      href={{
-                        pathname: '/projects/collections/[slug]',
-                        query: { slug: collection.title },
-                      }}
-                    >
-                      {collection.title}
-                    </StyledLink>
-                  </StyledContent>
-                </>
+                <StyledContent key={key}>
+                  <StyledLink
+                    href={{
+                      pathname: '/projects/collections/[slug]',
+                      query: { slug: collection.title },
+                    }}
+                  >
+                    {collection.title}
+                  </StyledLink>
+                </StyledContent>
               );
             })}
           <StyledContent>

@@ -70,11 +70,11 @@ const StyledForm = styled.form`
   }
   input[type='email']:focus {
     outline: none !important;
-    border: 2px solid ${(props) => props.theme.purple};
+    border: 2px solid ${(props) => props.theme.purple500};
   }
   input[type='password']:focus {
     outline: none !important;
-    border: 2px solid ${(props) => props.theme.purple};
+    border: 2px solid ${(props) => props.theme.purple500};
   }
   button {
     width: 330px;
@@ -83,7 +83,7 @@ const StyledForm = styled.form`
     padding: 5px;
     margin: 30px;
 
-    background-color: ${(props) => props.theme.purple};
+    background-color: ${(props) => props.theme.purple500};
     color: white;
     border-radius: 8px;
   }

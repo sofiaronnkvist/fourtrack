@@ -45,10 +45,10 @@ const NavButton = styled.button`
   font-size: ${(props) => (props.btnWithBackground ? '15px' : '12px')};
   border: ${(props) => (props.border ? 'black' : 'none')};
   background-color: ${(props) =>
-    props.btnWithBackground ? `${props.theme.purple}` : 'transparent'};
+    props.btnWithBackground ? `${props.theme.purple500}` : 'transparent'};
   cursor: pointer;
   color: ${(props) =>
-    props.btnWithBackground ? 'white' : `${props.theme.black}`}; ;
+    props.btnWithBackground ? 'white' : `${props.theme.black900}`}; ;
 `;
 
 const CloseButton = styled.button`

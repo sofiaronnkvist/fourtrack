@@ -52,8 +52,8 @@ const CreateButton = styled.button`
 `;
 
 const CloseButton = styled.button`
-  color: grey;
-  font-size: 20px;
+  color: black;
+  font-size: 15px;
   margin-left: 350px;
   margin-top: 30px;
   background-color: transparent;
@@ -116,7 +116,7 @@ export const DialogContent = Content;
 export const DialogTitle = StyledTitle;
 export const DialogClose = DialogPrimitive.Close;
 
-export default function RenameModal(props) {
+export default function ProjectModal(props) {
   const [open, setOpen] = useState(false);
   const [project, setProject] = useState({ title: '' });
   const router = useRouter();
@@ -144,11 +144,11 @@ export default function RenameModal(props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <CreateButton>Create Project</CreateButton>
+        <CreateButton>Create recording</CreateButton>
       </DialogTrigger>
       <DialogContent>
         <DialogClose asChild>
-          <CloseButton>X</CloseButton>
+          <CloseButton>&#9587;</CloseButton>
         </DialogClose>
         <DialogTitle>Create project</DialogTitle>
 

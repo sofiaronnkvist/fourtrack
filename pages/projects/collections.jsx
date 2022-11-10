@@ -18,19 +18,17 @@ import TopBar from '../../components/TopBar/TopBar';
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
   const token = await verifyIdToken(cookies.token);
-
   const { uid } = token;
-  let colabProjects = [];
-  let collections = [];
+  let projects = [];
 
   const ref = collection(firestore, 'projects');
-  const colabQuery = query(
+  const projectsQuery = query(
     ref,
-    where('colab_uid', 'array-contains-any', [uid]),
+    where('uid', '==', uid),
     orderBy('timestamp', 'desc')
   );
-  await getDocs(colabQuery).then((data) => {
-    colabProjects.push(
+  await getDocs(projectsQuery).then((data) => {
+    projects.push(
       data.docs.map((item) => {
         return {
           ...item.data(),
@@ -40,46 +38,21 @@ export async function getServerSideProps(ctx) {
       })
     );
   });
-
-  const collectionsRef = collection(firestore, 'collections');
-  const collectionsQuery = query(
-    collectionsRef,
-    where('uid', '==', uid),
-    orderBy('title')
-  );
-  await getDocs(collectionsQuery).then((data) => {
-    collections.push(
-      data.docs.map((item) => {
-        return {
-          ...item.data(),
-          id: item.id,
-        };
-      })
-    );
-  });
-  
   return {
-    props: { colabProjects, collections },
+    props: { projects },
   };
 }
 
-const checkColabs = (projects) => {
-  if (projects[0].length >= 1) {
-    return true;
-  }
-};
-
-const Shared = ({ colabProjects, collections }) => {
+const Collections = ({ projects }) => {
   return (
     <MainWrapper>
-      <LeftSideNavigation collections={collections} />
+      <LeftSideNavigation></LeftSideNavigation>
       <MainContent>
         <TopBar></TopBar>
-        <h1>Shared with me</h1>
+        <h1>Collections</h1>
         <ul>
-          {checkColabs(colabProjects) ? (
-            colabProjects &&
-            colabProjects[0].map((project) => {
+          {projects &&
+            projects[0].map((project) => {
               return (
                 <ProjectCard
                   ownerId={project.uid}
@@ -90,10 +63,7 @@ const Shared = ({ colabProjects, collections }) => {
                   favorite={project.favorite}
                 ></ProjectCard>
               );
-            })
-          ) : (
-            <p>Nothing here yet</p>
-          )}
+            })}
         </ul>
       </MainContent>
     </MainWrapper>
@@ -111,4 +81,4 @@ const Label = styled.label`
   margin: 20px;
 `;
 
-export default Shared;
+export default Collections;

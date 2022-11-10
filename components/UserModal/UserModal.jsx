@@ -62,8 +62,8 @@ const InfoContainer = styled.div`
 `;
 
 const CloseButton = styled.button`
-  color: grey;
-  font-size: 20px;
+  color: black;
+  font-size: 15px;
   margin-left: 350px;
   margin-top: 0px;
   background-color: transparent;
@@ -117,7 +117,7 @@ export default function UserModal(props) {
       </DialogTrigger>
       <DialogContent>
         <DialogClose asChild>
-          <CloseButton>X</CloseButton>
+          <CloseButton>&#9587;</CloseButton>
         </DialogClose>
         <DialogTitle>Account settings</DialogTitle>
         <InfoWrapper>

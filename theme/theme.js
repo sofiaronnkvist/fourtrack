@@ -14,7 +14,10 @@ const theme = {
   lavender500: '#B4ABDC',
 
   grey600: '#DBDBDB',
+  grey400: '#E8E8E8',
+  grey300: '#EDEDED',
   grey200: '#F3F3F3',
+  grey100: '#F8F8F8',
 
   white: '#F8F8F8',
 

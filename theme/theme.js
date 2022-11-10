@@ -20,11 +20,11 @@ const theme = {
   grey100: '#F8F8F8',
 
   white: '#F8F8F8',
+  black50: '#A0A0A0',
 
   black200: '#505050',
   black900: '#1C1C1C',
   black500: '#2E2E2E',
-
   azure200: '#C3E2ED',
   azure300: '#A5D3E5',
   azure400: '#87C5DC',

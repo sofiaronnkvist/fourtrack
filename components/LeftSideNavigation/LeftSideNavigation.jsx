@@ -5,15 +5,53 @@ import AllRecIcon from '../../public/AllRecIcon.svg';
 import { AiOutlineStar } from 'react-icons/ai';
 import { BsPerson } from 'react-icons/bs';
 import { MdLogout } from 'react-icons/md';
-import { CiFileOn } from 'react-icons/ci';
 import Image from 'next/image';
 import { ChevronRightIcon } from '@radix-ui/react-icons';
 import * as Separator from '@radix-ui/react-separator';
 import CollectionsAccordion from '../CollectionsAccordion/CollectionsAccordion';
-
+import { firestore } from '../../utils/firebase';
+import {
+  collection,
+  query,
+  where,
+  getCountFromServer,
+} from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 const LeftSideNavigation = ({ collections, projectsRef }) => {
-  const { logout } = useAuth();
-  console.log('LEFTPRO', projectsRef);
+  const { user, logout } = useAuth();
+  const [allProjectsNo, setAllProjectsNo] = useState(null);
+  const [sharedProjectsNo, setSharedProjectsNo] = useState(null);
+  const [favoritesNo, setFavoritesNo] = useState(null);
+
+  useEffect(() => {
+    getNoOfProjects();
+    numberOfShared();
+    numberOfFavorites();
+  }, []);
+
+  const getNoOfProjects = async () => {
+    const coll = collection(firestore, 'projects');
+    const query_ = query(coll, where('uid', '==', user.uid));
+    const snapshot = await getCountFromServer(query_);
+    setAllProjectsNo(snapshot.data().count);
+  };
+
+  const numberOfShared = async () => {
+    const coll = collection(firestore, 'projects');
+    const query_ = query(coll, where('colab_uid', '==', user.uid));
+    const snapshot = await getCountFromServer(query_);
+    setSharedProjectsNo(snapshot.data().count);
+  };
+  const numberOfFavorites = async () => {
+    const coll = collection(firestore, 'projects');
+    const query_ = query(
+      coll,
+      where('favorite', '==', true),
+      where('uid', '==', user.uid)
+    );
+    const snapshot = await getCountFromServer(query_);
+    setFavoritesNo(snapshot.data().count);
+  };
   return (
     <>
       <Navigation>
@@ -23,6 +61,7 @@ const LeftSideNavigation = ({ collections, projectsRef }) => {
             <Link href='/projects'>
               <NavLink>All recordings</NavLink>
             </Link>
+            <p>{allProjectsNo}</p>
             <ChevronRightIcon size='20px' />
           </LinkWrapper>
           <LinkWrapper>
@@ -30,6 +69,8 @@ const LeftSideNavigation = ({ collections, projectsRef }) => {
             <Link href='/projects/favorites'>
               <NavLink>Favorites</NavLink>
             </Link>
+            <p>{favoritesNo}</p>
+
             <ChevronRightIcon size='20px' />
           </LinkWrapper>
           <LinkWrapper>
@@ -37,6 +78,8 @@ const LeftSideNavigation = ({ collections, projectsRef }) => {
             <Link href='/projects/shared'>
               <NavLink>Shared with me</NavLink>
             </Link>
+            <p>{sharedProjectsNo}</p>
+
             <ChevronRightIcon size='20px' />
           </LinkWrapper>
           <StyledSeparator />

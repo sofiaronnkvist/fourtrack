@@ -20,19 +20,21 @@ const ProjectCard = ({ title, date, id, ownerId, favorite }) => {
 
   return (
     <ProjectOuterWrapper id={id}>
-      {/* <Link
-        href={{
-          pathname: '/projects/[slug]',
-          query: { slug: title },
-        }}
-        key={title}
-      >
-        <a> */}
       <ProjectWrapper>
-        <ProjectTitle>{title}</ProjectTitle>
-        <ProjectDate>{date}</ProjectDate>
-        <ProjectLegth>1.23</ProjectLegth>
-        <ProjectLegth>113</ProjectLegth>
+        <Link
+          href={{
+            pathname: '/projects/[slug]',
+            query: { slug: title },
+          }}
+          key={title}
+        >
+          <StyledA>
+            <ProjectTitle>{title}</ProjectTitle>
+            <ProjectDate>{date}</ProjectDate>
+            <ProjectLegth>1.23</ProjectLegth>
+            <ProjectLegth>113</ProjectLegth>
+          </StyledA>
+        </Link>
         <StarWrapper>
           {owner ? (
             <Favorite
@@ -46,8 +48,6 @@ const ProjectCard = ({ title, date, id, ownerId, favorite }) => {
           <ProjectDropDownMenu ownerId={ownerId} projectId={id} title={title} />
         </DotWrapper>
       </ProjectWrapper>
-      {/* </a>
-      </Link> */}
     </ProjectOuterWrapper>
   );
 };
@@ -66,6 +66,14 @@ const ProjectWrapper = styled.div`
   background: #ffffff;
   box-shadow: ${(props) => props.theme.mdShadow};
   border-radius: 4px;
+`;
+const StyledA = styled.a`
+  height: 72px;
+  width: 1000px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 `;
 const ProjectTitle = styled.p`
   margin-left: 28px;

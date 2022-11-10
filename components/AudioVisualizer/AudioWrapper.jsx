@@ -1,6 +1,5 @@
 import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import WaveSurfer from 'wavesurfer.js';
-// import MarkersPlugin from "wavesurfer.js/src/plugin/markers"
 import styled from 'styled-components';
 import * as SliderPrimitive from '@radix-ui/react-slider';
 import MarkersPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.markers.min.js';
@@ -19,7 +18,7 @@ const AudioWrapper = (props) => {
       barHeight: 1,
       barRadius: 3,
       cursorWidth: 2,
-      progressColor: `${props.progressColor}`,
+      progressColor: `${props.waveColor}`,
       waveColor: `${props.waveColor}`,
       backgroundColor: `${props.background}`,
       height: 50,
@@ -88,6 +87,7 @@ const AudioWrapper = (props) => {
 
   useImperativeHandle(props.waveRef1, () => ({
     play() {
+      console.log('in waveref1 play');
       waveSurferRef.current.play();
     },
     pause() {
@@ -172,7 +172,6 @@ const AudioWrapper = (props) => {
       <OuterWaveDiv>
         <WaveDiv ref={containerRef} />
       </OuterWaveDiv>
-      <form action=''>
         <StyledSlider
           defaultValue={[0.5]}
           max={1}
@@ -187,7 +186,6 @@ const AudioWrapper = (props) => {
           </StyledTrack>
           <StyledThumb />
         </StyledSlider>
-      </form>
     </StyledDiv>
   );
 };
@@ -204,5 +202,5 @@ const OuterWaveDiv = styled.div`
   width: 1064px;
 `;
 const WaveDiv = styled.div`
-  width: 80%;
+  width: 100%;
 `;

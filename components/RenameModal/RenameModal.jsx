@@ -111,7 +111,6 @@ export default function RenameModal(props) {
 
   const handleSubmit = async (e, projectId) => {
     e.preventDefault();
-    console.log(projectId);
     try {
       const ref = doc(firestore, 'projects', projectId);
       await updateDoc(ref, {

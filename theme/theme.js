@@ -14,14 +14,17 @@ const theme = {
   lavender500: '#B4ABDC',
 
   grey600: '#DBDBDB',
+  grey400: '#E8E8E8',
+  grey300: '#EDEDED',
   grey200: '#F3F3F3',
+  grey100: '#F8F8F8',
 
   white: '#F8F8F8',
+  black50: '#A0A0A0',
 
   black200: '#505050',
   black900: '#1C1C1C',
   black500: '#2E2E2E',
-
   azure200: '#C3E2ED',
   azure300: '#A5D3E5',
   azure400: '#87C5DC',

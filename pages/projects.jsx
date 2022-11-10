@@ -4,7 +4,7 @@ import {
   getDocs,
   orderBy,
   query,
-  Timestamp,
+  limit,
   where,
 } from 'firebase/firestore';
 import { firestore } from '../utils/firebase';
@@ -14,12 +14,14 @@ import nookies from 'nookies';
 import ProjectCard from '../components/ProjectCard/ProjectCard';
 import LeftSideNavigation from '../components/LeftSideNavigation/LeftSideNavigation';
 import TopBar from '../components/TopBar/TopBar';
+import LatestProjectCard from '../components/LatestProjectsCard/LatestProjectCard';
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
   const token = await verifyIdToken(cookies.token);
   const { uid } = token;
   let projects = [];
+  let latestProjects = [];
   let collections = [];
 
   const ref = collection(firestore, 'projects');
@@ -28,17 +30,30 @@ export async function getServerSideProps(ctx) {
     where('uid', '==', uid),
     orderBy('timestamp', 'desc')
   );
-  await getDocs(projectsQuery).then((data) => {
-    projects.push(
-      data.docs.map((item) => {
-        return {
-          ...item.data(),
-          id: item.id,
-          timestamp: item.data().timestamp.toDate().toLocaleDateString(),
-        };
-      })
-    );
-  });
+
+  const latestProjectsQuery = query(
+    ref,
+    where('uid', '==', uid),
+    orderBy('timestamp', 'desc'),
+    limit(5)
+  );
+
+  const getProjects = async (projectsQuery, array) => {
+    await getDocs(projectsQuery).then((data) => {
+      array.push(
+        data.docs.map((item) => {
+          return {
+            ...item.data(),
+            id: item.id,
+            timestamp: item.data().timestamp.toDate().toLocaleDateString(),
+          };
+        })
+      );
+    });
+  };
+
+  getProjects(projectsQuery, projects);
+  getProjects(latestProjectsQuery, latestProjects);
 
   const collectionsRef = collection(firestore, 'collections');
   const collectionsQuery = query(
@@ -58,17 +73,39 @@ export async function getServerSideProps(ctx) {
   });
 
   return {
-    props: { projects, collections },
+    props: { projects, collections, latestProjects },
   };
 }
 
-const Projects = ({ projects, collections }) => {
+const Projects = ({ projects, collections, latestProjects }) => {
   return (
     <MainWrapper>
       <LeftSideNavigation collections={collections} />
       <MainContent>
         <TopBar></TopBar>
         <h1>All recordings</h1>
+        <ul>
+          <LatestProjectsWrapper>
+            {latestProjects &&
+              latestProjects[0].map((latestProject) => {
+                return (
+                  <LatestProjectCard
+                    ownerId={latestProject.uid}
+                    key={latestProject.title}
+                    id={latestProject.id}
+                    title={latestProject.title}
+                    date={latestProject.timestamp}
+                  ></LatestProjectCard>
+                );
+              })}
+          </LatestProjectsWrapper>
+        </ul>
+        <ProjectHeadlines>
+          <HedlineItem>title </HedlineItem>
+          <HedlineItem style={{ marginLeft: '305px' }}>date </HedlineItem>
+          <HedlineItem style={{ marginLeft: '150px' }}>bpm </HedlineItem>
+          <HedlineItem style={{ marginLeft: '105px' }}>lenght </HedlineItem>
+        </ProjectHeadlines>
         <ul>
           {projects &&
             projects[0].map((project) => {
@@ -94,6 +131,17 @@ const MainWrapper = styled.div`
 `;
 const MainContent = styled.div``;
 
+const LatestProjectsWrapper = styled.div`
+  display: flex;
+`;
+const ProjectHeadlines = styled.div`
+  display: flex;
+  margin: 0px 40px;
+`;
+const HedlineItem = styled.p`
+  color: ${(props) => props.theme.black50};
+  font-size: 12px;
+`;
 const Label = styled.label`
   color: black;
   display: flex;

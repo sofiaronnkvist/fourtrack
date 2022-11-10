@@ -120,13 +120,10 @@ export default function RenameCollectionModal({ collectionId, projectsRef }) {
 
   const handleSubmit = async (e, collectionId, projectsRef) => {
     e.preventDefault();
-    console.log('FINAL', projectsRef);
     try {
       const batch = writeBatch(firestore);
       const projectsArray = projectsRef[0];
-      console.log(projectsArray);
       projectsArray.forEach((project) => {
-        console.log(project);
         batch.update(doc(firestore, 'projects', project.id), {
           collections: data,
         });

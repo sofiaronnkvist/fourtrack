@@ -15,7 +15,6 @@ const ContextLabel = ContextMenu.Label;
 const ContextItem = ContextMenu.Item;
 
 export default function CollectionsAccordion({ collections, projectsRef }) {
-  console.log('ACCPRO', projectsRef);
   return (
     <StyledAccordion type='single' collapsible>
       <Accordion.Item value='item-1'>
@@ -26,7 +25,7 @@ export default function CollectionsAccordion({ collections, projectsRef }) {
         </TriggerWrapper>
         <ContentWrapper>
           {collections &&
-            collections[0].map((collection) => {
+            collections[0].map((collection, key) => {
               return (
                 <>
                   <ContextRoot>

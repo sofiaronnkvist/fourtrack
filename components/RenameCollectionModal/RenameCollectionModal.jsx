@@ -109,9 +109,11 @@ export default function RenameCollectionModal(props) {
   const router = useRouter();
   const [data, setData] = useState('');
 
+  //ALSO UPDATE COLLECTION NAME IN PROJECTS THAT ARE HERE
+
   const handleSubmit = async (e, collectionId) => {
     e.preventDefault();
-    console.log(projectId);
+    console.log(collectionId);
     try {
       const ref = doc(firestore, 'collections', collectionId);
       await updateDoc(ref, {

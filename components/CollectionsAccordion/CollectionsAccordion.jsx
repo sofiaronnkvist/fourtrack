@@ -46,7 +46,7 @@ export default function CollectionsAccordion({ collections }) {
                         <StyledContextItem>
                           <StyledContextButton>Delete</StyledContextButton>
                         </StyledContextItem>
-                        <StyledContextItem>
+                        <StyledContextItem asChild={true}>
                           <RenameCollectionModal collectionId={collection.id} />
                         </StyledContextItem>
                       </StyledContextContent>

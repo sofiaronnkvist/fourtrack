@@ -13,7 +13,6 @@ import CollectionsAccordion from '../CollectionsAccordion/CollectionsAccordion';
 
 const LeftSideNavigation = ({ collections }) => {
   const { logout } = useAuth();
-
   return (
     <>
       <Navigation>

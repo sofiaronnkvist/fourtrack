@@ -98,7 +98,7 @@ export default function ProjectDropDownMenu(props) {
             }
           >
             <CrumpledPaperIcon style={{ marginRight: '5px', width: '13px' }} />
-            {owner ? 'Delete' : 'Leve project'}
+            {owner ? 'Delete' : 'Leave project'}
           </StyledListItem>
         </StyledMenuContent>
       </StyledMenuPortal>

@@ -17,7 +17,7 @@ import {
   getCountFromServer,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-const LeftSideNavigation = ({ collections }) => {
+const LeftSideNavigation = ({ collections, projectsRef }) => {
   const { user, logout } = useAuth();
   const [allProjectsNo, setAllProjectsNo] = useState(null);
   const [sharedProjectsNo, setSharedProjectsNo] = useState(null);
@@ -52,7 +52,6 @@ const LeftSideNavigation = ({ collections }) => {
     const snapshot = await getCountFromServer(query_);
     setFavoritesNo(snapshot.data().count);
   };
-
   return (
     <>
       <Navigation>
@@ -91,7 +90,10 @@ const LeftSideNavigation = ({ collections }) => {
             </Link>
             <ChevronRightIcon size='20px' />
           </LinkWrapper> */}
-          <CollectionsAccordion collections={collections} />
+          <CollectionsAccordion
+            collections={collections}
+            projectsRef={projectsRef}
+          />
         </TopItems>
         <BottomItems>
           <LinkWrapper>

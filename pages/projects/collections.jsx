@@ -46,7 +46,7 @@ export async function getServerSideProps(ctx) {
 const Collections = ({ projects }) => {
   return (
     <MainWrapper>
-      <LeftSideNavigation></LeftSideNavigation>
+      <LeftSideNavigation projectsRef={projects}></LeftSideNavigation>
       <MainContent>
         <TopBar></TopBar>
         <h1>Collections</h1>

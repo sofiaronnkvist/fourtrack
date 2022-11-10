@@ -6,9 +6,17 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import ProjectDropDownMenu from '../ProjectDropDown/DropDownMenu';
 import Favorite from '../Favorite/Favorite';
+import { useState, useEffect } from 'react';
 
 const ProjectCard = ({ title, date, id, ownerId, favorite }) => {
   const { user } = useAuth();
+  const [owner, SetOwner] = useState(true);
+
+  useEffect(() => {
+    if (user.uid !== ownerId) {
+      SetOwner(false);
+    }
+  }, []);
 
   return (
     <ProjectOuterWrapper id={id}>
@@ -28,7 +36,13 @@ const ProjectCard = ({ title, date, id, ownerId, favorite }) => {
           </StyledA>
         </Link>
         <StarWrapper>
-          <Favorite projectId={id} favorite={favorite} size={'20px'}></Favorite>
+          {owner ? (
+            <Favorite
+              projectId={id}
+              favorite={favorite}
+              size={'20px'}
+            ></Favorite>
+          ) : null}
         </StarWrapper>
         <DotWrapper>
           <ProjectDropDownMenu ownerId={ownerId} projectId={id} title={title} />

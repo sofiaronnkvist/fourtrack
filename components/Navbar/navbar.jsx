@@ -40,6 +40,6 @@ const NotLogedInWrapper = styled.div`
 
   a {
     font-size: 18px;
-    color: #6D4DEB;
+    color: ${(props) => props.theme.purple500};
   }
 `;

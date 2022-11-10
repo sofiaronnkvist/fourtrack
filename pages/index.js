@@ -168,7 +168,7 @@ const CaroselSection = styled.section`
 const ToolSection = styled.section`
   min-height: 450px;
   background-color: ${(props) =>
-    props.purple ? `${props.theme.purple}` : 'none'};
+    props.purple ? `${props.theme.purple500}` : 'none'};
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -191,7 +191,7 @@ const TextWrapper = styled.div`
 
 const StyledDraftDiv = styled.div`
   min-height: 450px;
-  background-color: purple;
+  background-color: ${(props) => props.theme.purple500};
   width: 100%;
 `;
 const ControlsSection = styled.section`
@@ -201,7 +201,7 @@ const ControlsSection = styled.section`
   min-height: 450px;
   width: 100%;
   background-color: ${(props) =>
-    props.purple ? `${props.theme.purple}` : 'none'};
+    props.purple ? `${props.theme.purple500}` : 'none'};
   padding-bottom: 188px;
   padding-top: 188px;
 `;
@@ -215,7 +215,7 @@ const CollabSection = styled.section`
   position: relative;
   min-height: 800px;
   width: 100%;
-  background-color: ${(props) => (props.purple ? 'purple' : 'none')};
+  background-color: ${(props) => (props.purple ? `${props.theme.purple500}` : 'none')};
 `;
 const TextContainer = styled.div`
   position: absolute;
@@ -230,7 +230,7 @@ const SignUpSection = styled.section`
   min-height: 900px;
   width: 100%;
   background-color: ${(props) =>
-    props.purple ? `${props.theme.purple}` : 'none'};
+    props.purple ? `${props.theme.purple500}` : 'none'};
   padding-bottom: 188px;
   padding-top: 188px;
 `;
@@ -239,7 +239,7 @@ const StyledFooter = styled.footer`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: ${(props) => (props.purple ? 'purple' : 'none')};
+  background-color: ${(props) => (props.purple ? `${props.theme.purple500}` : 'none')};
 
   a {
     margin: 0 30px;

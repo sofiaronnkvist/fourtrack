@@ -11,7 +11,7 @@ const menuButton = DropdownMenu.Trigger;
 const menuContent = DropdownMenu.Content;
 
 const StyledMenuPortal = styled(menuPortal)`
-  background-color: red;
+  /* background-color: red; */
 
   width: 222px;
   height: 80px;
@@ -83,7 +83,7 @@ const StyledListItem = styled.li`
 `;
 
 const ProfileIcon = styled.div`
-  background-color: ${(props) => props.theme.yellow};
+  background-color: ${(props) => props.theme.yellow500};
   border-radius: 100%;
   width: 32px;
   height: 32px;

@@ -144,7 +144,6 @@ export default function Project({ ...res }) {
       setChildTrack((prev) => prev + 1);
       // window.location.reload(false);
 
-      //try if insted
       return;
     } else {
       console.log('stop all');
@@ -165,7 +164,6 @@ export default function Project({ ...res }) {
       <button onClick={() => router.push('/projects')}>Back</button>
       <h1>{res.title}</h1>
       <p>id: {res.id}</p>
-      {/* Loopa tracks och ref */}
       <Form>
         <Label htmlFor=''>
           <input
@@ -350,16 +348,7 @@ const Form = styled.form`
   margin-top: 20px;
   margin-bottom: 20px;
 `;
-const RecorderBlock = styled.div`
-  position: absolute;
-  top: 27%;
-  height: 50px;
-  width: 97%;
-  display: flex;
-  justify-content: space-between;
-  background-color: ${(props) => props.color};
-  margin-left: 10px;
-`;
+
 const NoAudioVisualizationContainer = styled.div`
   height: 49px;
   width: 1055px;

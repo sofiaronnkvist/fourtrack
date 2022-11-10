@@ -2,7 +2,15 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { doc, updateDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  query,
+  updateDoc,
+  where,
+  writeBatch,
+  getDocs,
+} from 'firebase/firestore';
 import { firestore } from '../../utils/firebase';
 
 const dialogContent = DialogPrimitive.Content;
@@ -109,14 +117,26 @@ export default function RenameCollectionModal(props) {
   const router = useRouter();
   const [data, setData] = useState('');
 
-  //ALSO UPDATE COLLECTION NAME IN PROJECTS THAT ARE HERE
-
-  const handleSubmit = async (e, collectionId) => {
+  const handleSubmit = async (
+    e,
+    collectionId,
+    collectionTitle,
+    projectsRef
+  ) => {
     e.preventDefault();
-    console.log(collectionId);
     try {
-      const ref = doc(firestore, 'collections', collectionId);
-      await updateDoc(ref, {
+      const batch = writeBatch(firestore);
+      console.log(projectsRef);
+      projectsRef[0].forEach((project) => {
+        console.log(project);
+        batch.update(doc(firestore, 'projects', project.id), {
+          collections: data,
+        });
+      });
+      await batch.commit();
+
+      const collectionRef = doc(firestore, 'collections', collectionId);
+      await updateDoc(collectionRef, {
         title: data,
       });
       router.push('/projects');
@@ -141,7 +161,16 @@ export default function RenameCollectionModal(props) {
         </DialogClose>
         <DialogTitle>Change title</DialogTitle>
 
-        <StyledForm onSubmit={(e) => handleSubmit(e, props.collectionId)}>
+        <StyledForm
+          onSubmit={(e) =>
+            handleSubmit(
+              e,
+              props.collectionId,
+              props.collectionTitle,
+              props.projectsRef
+            )
+          }
+        >
           <input
             onChange={(e) => setData(e.target.value)}
             value={data}

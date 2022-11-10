@@ -14,7 +14,7 @@ const ContextContent = ContextMenu.Content;
 const ContextLabel = ContextMenu.Label;
 const ContextItem = ContextMenu.Item;
 
-export default function CollectionsAccordion({ collections }) {
+export default function CollectionsAccordion({ collections, projectsRef }) {
   return (
     <StyledAccordion type='single' collapsible>
       <Accordion.Item value='item-1'>
@@ -47,7 +47,11 @@ export default function CollectionsAccordion({ collections }) {
                           <StyledContextButton>Delete</StyledContextButton>
                         </StyledContextItem>
                         <StyledContextItem asChild={true}>
-                          <RenameCollectionModal collectionId={collection.id} />
+                          <RenameCollectionModal
+                            collectionId={collection.id}
+                            collectionTitle={collection.title}
+                            projectsRef={projectsRef}
+                          />
                         </StyledContextItem>
                       </StyledContextContent>
                     </ContextPortal>

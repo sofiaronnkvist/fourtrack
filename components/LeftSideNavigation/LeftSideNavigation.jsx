@@ -11,7 +11,7 @@ import { ChevronRightIcon } from '@radix-ui/react-icons';
 import * as Separator from '@radix-ui/react-separator';
 import CollectionsAccordion from '../CollectionsAccordion/CollectionsAccordion';
 
-const LeftSideNavigation = ({ collections }) => {
+const LeftSideNavigation = ({ collections, projectsRef }) => {
   const { logout } = useAuth();
   return (
     <>
@@ -46,7 +46,7 @@ const LeftSideNavigation = ({ collections }) => {
             </Link>
             <ChevronRightIcon size='20px' />
           </LinkWrapper> */}
-          <CollectionsAccordion collections={collections} />
+          <CollectionsAccordion collections={collections} projectsRef={projectsRef} />
         </TopItems>
         <BottomItems>
           <LinkWrapper>

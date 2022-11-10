@@ -10,7 +10,7 @@ import nookies from 'nookies';
 export default function Project({ slug, collections, projects }) {
   return (
     <MainWrapper>
-      <LeftSideNavigation collections={collections} />
+      <LeftSideNavigation collections={collections} projectsRef={projects} />
       <MainContent>
         <TopBar></TopBar>
         <p>Collections</p>
@@ -71,7 +71,7 @@ export async function getServerSideProps(ctx) {
   const projectsRef = collection(firestore, 'projects');
   const projectsQuery = query(
     projectsRef,
-    where('collections', 'array-contains', slug),
+    where('collections', '==', slug),
     where('uid', '==', uid),
     orderBy('timestamp', 'desc')
   );

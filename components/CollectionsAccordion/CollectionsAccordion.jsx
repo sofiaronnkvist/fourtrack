@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 export default function CollectionsAccordion({ collections }) {
   return (
-    <StyledAccordion type='single' defaultValue='item-1' collapsible>
+    <StyledAccordion type='single' collapsible>
       <Accordion.Item value='item-1'>
         <TriggerWrapper>
           <CiFileOn size='20px' />

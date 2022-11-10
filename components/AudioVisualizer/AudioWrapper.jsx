@@ -204,5 +204,5 @@ const OuterWaveDiv = styled.div`
   width: 1064px;
 `;
 const WaveDiv = styled.div`
-  width: 80%%;
+  width: 80%;
 `;

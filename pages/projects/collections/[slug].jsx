@@ -1,15 +1,5 @@
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-  doc,
-  setDoc,
-  orderBy,
-} from 'firebase/firestore';
-// import { useAuth } from '../../../../../context/AuthContext';
+import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { firestore } from '../../../utils/firebase';
-import React, { useEffect, useRef, useState } from 'react';
 import styled, { ThemeConsumer } from 'styled-components';
 import ProjectCard from '../../../components/ProjectCard/ProjectCard';
 import LeftSideNavigation from '../../../components/LeftSideNavigation/LeftSideNavigation';
@@ -18,7 +8,6 @@ import { verifyIdToken } from '../../../utils/firebaseAdmin';
 import nookies from 'nookies';
 
 export default function Project({ slug, collections, projects }) {
-  console.log('PRROOOOO', projects);
   return (
     <MainWrapper>
       <LeftSideNavigation collections={collections} />

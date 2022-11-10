@@ -43,11 +43,13 @@ const StyledOverlay = styled(dialogOverlay)`
 `;
 
 const CreateButton = styled.button`
-  background-color: transparent;
+  background-color: ${(props) => props.theme.purple500};
   border-radius: 8px;
+  border: none;
   width: 117px;
   height: 34px;
   margin-right: 16px;
+  color: white;
   cursor: pointer;
 `;
 

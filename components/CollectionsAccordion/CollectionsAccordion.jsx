@@ -3,9 +3,9 @@ import * as ContextMenu from '@radix-ui/react-context-menu';
 import { ChevronRightIcon } from '@radix-ui/react-icons';
 import { CiFileOn } from 'react-icons/ci';
 import styled from 'styled-components';
-import CollectionsModal from '../CollectionsModal/CollectionsModal';
+import CollectionsModal from '../Modals/CollectionsModal/CollectionsModal';
 import Link from 'next/link';
-import RenameCollectionModal from '../RenameCollectionModal/RenameCollectionModal';
+import RenameCollectionModal from '../Modals/RenameCollectionModal/RenameCollectionModal';
 import {
   doc,
   deleteDoc,

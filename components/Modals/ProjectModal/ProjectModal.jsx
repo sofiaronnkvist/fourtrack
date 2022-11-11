@@ -2,10 +2,15 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { getAuth, updateEmail, updateUser, updateProfile } from 'firebase/auth';
-import { firestore } from '../../utils/firebase';
-import { useAuth } from '../../context/AuthContext';
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from 'firebase/firestore';
+import { firestore } from '../../../utils/firebase';
+import { useAuth } from '../../../context/AuthContext';
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
@@ -38,17 +43,19 @@ const StyledOverlay = styled(dialogOverlay)`
 `;
 
 const CreateButton = styled.button`
-  background-color: transparent;
+  background-color: ${(props) => props.theme.purple500};
   border-radius: 8px;
+  border: none;
   width: 117px;
   height: 34px;
   margin-right: 16px;
+  color: white;
   cursor: pointer;
 `;
 
 const CloseButton = styled.button`
-  color: grey;
-  font-size: 20px;
+  color: black;
+  font-size: 15px;
   margin-left: 350px;
   margin-top: 30px;
   background-color: transparent;
@@ -77,11 +84,11 @@ const StyledForm = styled.form`
   }
   input[type='email']:focus {
     outline: none !important;
-    border: 2px solid ${(props) => props.theme.purple};
+    border: 2px solid ${(props) => props.theme.purple500};
   }
   input[type='password']:focus {
     outline: none !important;
-    border: 2px solid ${(props) => props.theme.purple};
+    border: 2px solid ${(props) => props.theme.purple500};
   }
   button {
     width: 330px;
@@ -90,7 +97,7 @@ const StyledForm = styled.form`
     padding: 5px;
     margin: 30px;
 
-    background-color: ${(props) => props.theme.purple};
+    background-color: ${(props) => props.theme.purple500};
     color: white;
     border-radius: 8px;
   }
@@ -111,67 +118,60 @@ export const DialogContent = Content;
 export const DialogTitle = StyledTitle;
 export const DialogClose = DialogPrimitive.Close;
 
-export default function ChangeEmailModal(props) {
+export default function ProjectModal(props) {
   const [open, setOpen] = useState(false);
-  const [updatedUser, setUpdatedUser] = useState({ email: '', password: '' });
+  const [project, setProject] = useState({ title: '' });
+  const router = useRouter();
   const { user } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const auth = getAuth();
-    // console.log(updatedUser.email);
-    // console.log(auth.currentUser);
-
-    await updateEmail(auth.currentUser, {
-      email: updatedUser.email,
-    })
-      .then(() => {
-        console.log('email change');
-      })
-      .catch((error) => {});
+    try {
+      const projectsCollectionRef = collection(firestore, 'projects');
+      await addDoc(projectsCollectionRef, {
+        uid: user.uid,
+        title: project.title,
+        timestamp: serverTimestamp(),
+        favorite: false,
+        collections: '',
+      });
+      setProject({ title: '' });
+      setOpen(false);
+      router.push('/projects');
+    } catch (error) {
+      console.log(error);
+      alert(error);
+    }
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <CreateButton>Change email</CreateButton>
+        <CreateButton>Create recording</CreateButton>
       </DialogTrigger>
       <DialogContent>
         <DialogClose asChild>
-          <CloseButton>X</CloseButton>
+          <CloseButton>&#9587;</CloseButton>
         </DialogClose>
-        <DialogTitle>Change email</DialogTitle>
+        <DialogTitle>Create project</DialogTitle>
 
-        <StyledForm onSubmit={(e) => handleSubmit(e, user.uid)}>
+        <StyledForm onSubmit={(e) => handleSubmit(e, props.projectId)}>
+          {/* <label>email</label> */}
           <input
-            // value={user.email}
+            value={project.title}
             minLength='1'
             maxLength='30'
             onChange={(e) =>
-              setUpdatedUser({
-                ...updatedUser,
-                email: e.target.value,
+              setProject({
+                ...project,
+                title: e.target.value,
               })
             }
-            type='email'
-            placeholder='New email'
+            type='text'
+            placeholder='My new song'
             required
           ></input>
-          <input
-            // value={user.email}
-            minLength='1'
-            maxLength='30'
-            onChange={(e) =>
-              setUpdatedUser({
-                ...updatedUser,
-                password: e.target.value,
-              })
-            }
-            type='password'
-            placeholder='Password'
-            required
-          ></input>
-          <button type='submit'>Change</button>
+          <button type='submit'>Create</button>
         </StyledForm>
       </DialogContent>
     </Dialog>

@@ -2,11 +2,23 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { doc, updateDoc } from 'firebase/firestore';
-import { firestore } from '../../utils/firebase';
+import {
+  doc,
+  updateDoc,
+  runTransaction,
+  collection,
+  query,
+  where,
+  getDocs,
+} from 'firebase/firestore';
+import { firestore } from '../../../utils/firebase';
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
+const Dialog = DialogPrimitive.Root;
+const DialogTrigger = DialogPrimitive.Trigger;
+const DialogContent = Content;
+const DialogClose = DialogPrimitive.Close;
 
 const StyledContent = styled(dialogContent)`
   background-color: white;
@@ -29,13 +41,22 @@ const StyledContent = styled(dialogContent)`
   align-items: center;
 `;
 
+const StyledDialogTrigger = styled(DialogTrigger)`
+  background-color: white;
+  font-size: 14px;
+  padding-left: 10px;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 const StyledOverlay = styled(dialogOverlay)`
   backdrop-filter: blur(10px);
   position: fixed;
   inset: 0;
 `;
 
-const NavLinkItem = styled.li`
+const NavLinkItem = styled.p`
   cursor: pointer;
 `;
 
@@ -89,6 +110,8 @@ const StyledForm = styled.form`
   }
 `;
 
+const DialogTitle = StyledTitle;
+
 function Content({ children, ...props }) {
   return (
     <DialogPrimitive.Portal>
@@ -98,22 +121,50 @@ function Content({ children, ...props }) {
   );
 }
 
-export const Dialog = DialogPrimitive.Root;
-export const DialogTrigger = DialogPrimitive.Trigger;
-export const DialogContent = Content;
-export const DialogTitle = StyledTitle;
-export const DialogClose = DialogPrimitive.Close;
-
-export default function RenameModal(props) {
+export default function RenameCollectionModal({
+  collectionId,
+  collectionTitle,
+}) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const [data, setData] = useState('');
+  const [searchResult, setSearchResult] = useState([]);
 
-  const handleSubmit = async (e, projectId) => {
+  const handleSubmit = async (e, collectionId, collectionTitle) => {
     e.preventDefault();
     try {
-      const ref = doc(firestore, 'projects', projectId);
-      await updateDoc(ref, {
+      await runTransaction(firestore, async (transaction) => {
+        let array = [];
+        let res;
+        const q = query(
+          collection(firestore, 'projects'),
+          where('collections', '==', collectionTitle)
+        );
+        const querySnapshot = await getDocs(q);
+
+        querySnapshot.forEach((doc) => {
+          res = {
+            ...doc.data(),
+            id: doc.id,
+            timestamp: doc.data().timestamp.toDate().toLocaleDateString(),
+          };
+          array.push(res);
+        });
+        setSearchResult(array);
+        if (array.length == 0) {
+          console.log('No projects to update');
+        } else {
+          array.forEach((project) => {
+            console.log(project.id);
+            transaction.update(doc(firestore, 'projects', project.id), {
+              collections: data,
+            });
+          });
+        }
+      });
+
+      const collectionRef = doc(firestore, 'collections', collectionId);
+      await updateDoc(collectionRef, {
         title: data,
       });
       router.push('/projects');
@@ -122,24 +173,20 @@ export default function RenameModal(props) {
     }
   };
 
-  //Make this better
-  const returnButtonValue = () => {
-    window.location.reload(false);
-  };
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <StyledDialogTrigger asChild>
         <NavLinkItem>Rename</NavLinkItem>
-      </DialogTrigger>
+      </StyledDialogTrigger>
       <DialogContent>
         <DialogClose asChild>
-          <CloseButton onClick={returnButtonValue}>&#9587;</CloseButton>
+          <CloseButton>&#9587;</CloseButton>
         </DialogClose>
         <DialogTitle>Change title</DialogTitle>
 
-        <StyledForm onSubmit={(e) => handleSubmit(e, props.projectId)}>
-          {/* <label>email</label> */}
+        <StyledForm
+          onSubmit={(e) => handleSubmit(e, collectionId, collectionTitle)}
+        >
           <input
             onChange={(e) => setData(e.target.value)}
             value={data}

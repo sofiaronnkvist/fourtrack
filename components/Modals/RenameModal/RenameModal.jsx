@@ -1,10 +1,9 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { addDoc, collection } from 'firebase/firestore';
-import { firestore } from '../../utils/firebase';
-import { useAuth } from '../../context/AuthContext';
+import { doc, updateDoc } from 'firebase/firestore';
+import { firestore } from '../../../utils/firebase';
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
@@ -36,13 +35,7 @@ const StyledOverlay = styled(dialogOverlay)`
   inset: 0;
 `;
 
-const CreateButton = styled.button`
-  border: none;
-  font-size: 16px;
-  background-color: transparent;
-  padding-left: 0;
-  padding-top: 10px;
-  font-weight: bold;
+const NavLinkItem = styled.li`
   cursor: pointer;
 `;
 
@@ -111,57 +104,50 @@ export const DialogContent = Content;
 export const DialogTitle = StyledTitle;
 export const DialogClose = DialogPrimitive.Close;
 
-export default function CollectionsModal() {
+export default function RenameModal(props) {
   const [open, setOpen] = useState(false);
-  const [collectionData, setCollectionData] = useState({ title: '' });
   const router = useRouter();
-  const { user } = useAuth();
+  const [data, setData] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, projectId) => {
     e.preventDefault();
     try {
-      const projectsCollectionRef = collection(firestore, 'collections');
-      await addDoc(projectsCollectionRef, {
-        uid: user.uid,
-        title: collectionData.title,
+      const ref = doc(firestore, 'projects', projectId);
+      await updateDoc(ref, {
+        title: data,
       });
-      setCollectionData({ title: '' });
-      setOpen(false);
       router.push('/projects');
     } catch (error) {
       console.log(error);
-      alert(error);
     }
+  };
+
+  //Make this better
+  const returnButtonValue = () => {
+    window.location.reload(false);
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <CreateButton>&#43; Add new collection</CreateButton>
+        <NavLinkItem>Rename</NavLinkItem>
       </DialogTrigger>
       <DialogContent>
         <DialogClose asChild>
-          <CloseButton>&#9587;</CloseButton>
+          <CloseButton onClick={returnButtonValue}>&#9587;</CloseButton>
         </DialogClose>
-        <DialogTitle>Create collection</DialogTitle>
+        <DialogTitle>Change title</DialogTitle>
 
-        <StyledForm onSubmit={(e) => handleSubmit(e)}>
+        <StyledForm onSubmit={(e) => handleSubmit(e, props.projectId)}>
           {/* <label>email</label> */}
           <input
-            value={collectionData.title}
-            minLength='1'
-            maxLength='30'
-            onChange={(e) =>
-              setCollectionData({
-                ...collectionData,
-                title: e.target.value,
-              })
-            }
-            type='text'
-            placeholder='K-pop'
+            onChange={(e) => setData(e.target.value)}
+            value={data}
             required
+            type='text'
+            placeholder='New name'
           ></input>
-          <button type='submit'>Create</button>
+          <button type='submit'>Change title</button>
         </StyledForm>
       </DialogContent>
     </Dialog>

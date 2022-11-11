@@ -32,6 +32,7 @@ const TopBarWrapper = styled.div`
   max-width: 1050px;
   height: 133px;
   border-bottom: 1px solid lightgray;
+
 `;
 
 const SearchField = styled.div`

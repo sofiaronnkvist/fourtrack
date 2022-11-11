@@ -7,6 +7,11 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import Modal from '../components/Modal/Modal';
 import logo from '../public/logo.svg';
+import purpuleIcon from '../public/purpleIcon2.svg';
+import yellowIcon from '../public/yellowIcon.svg';
+import orangeIcon from '../public/orangeIcon.svg';
+import blueIcon from '../public/blueIcon.svg';
+
 import { AiOutlineArrowRight } from 'react-icons/ai';
 
 export default function Home() {
@@ -28,7 +33,6 @@ export default function Home() {
           <StyledH1>
             A better way for <br /> recording music
           </StyledH1>
-
           <TitleCTA>
             <Modal background whiteText buttonTitle='Get started' />
             <Wrapper>
@@ -36,8 +40,21 @@ export default function Home() {
               <Link href='/'>How does it work?</Link>
             </Wrapper>
           </TitleCTA>
+          <OrangeIconWrapper>
+          <Image src={orangeIcon} height={'128px'} width={'128px'}/>
+          </OrangeIconWrapper>
+          <YellowIconWrapper>
+            <Image src={yellowIcon} height={'283px'} width={'283px'}/>
+          </YellowIconWrapper>
+          <BlueIconWrapper>
+            <Image src={blueIcon} height={'107px'} width={'107px'}/>
+          </BlueIconWrapper>
         </HeroSection>
-        <CaroselSection>Carosel</CaroselSection>
+        <CaroselSection>
+          <PurpuleIconWrapper>
+            <Image src={purpuleIcon} height={'447px'} width={'447px'}/>
+          </PurpuleIconWrapper>
+        </CaroselSection>
         <ToolSection purple>
           <StyledH2>A new tool to capture your musical moments</StyledH2>
         </ToolSection>
@@ -95,9 +112,34 @@ const StyledMain = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: ${(props) => props.theme.grey100};
+`;
+const PurpuleIconWrapper = styled.div`
+  position: absolute;
+  z-index: 0;
+  bottom: -230px;
+  left: 57px;
+`;
+const YellowIconWrapper = styled.div`
+  position: absolute;
+  z-index: 0;
+  bottom: 114px;
+  right: 149px;
+`;
+const OrangeIconWrapper = styled.div`
+  position: absolute;
+  z-index: 0;
+  top: 90px;
+  left: 189px;
+`;
+const BlueIconWrapper = styled.div`
+  position: absolute;
+  z-index: 0;
+  bottom: 320px;
+  right: 147px;
 `;
 const HeroSection = styled.section`
-  min-height: 713px;
+  min-height: 550px;
   width: 100%;
   padding: 4rem 0;
   flex: 1;
@@ -111,6 +153,7 @@ const StyledH1 = styled.h1`
   line-height: 0.9;
   font-size: 100px;
   font-weight: 500;
+  z-index: 99;
 `;
 const TitleCTA = styled.div`
   margin-top: 67px;
@@ -164,6 +207,7 @@ const CaroselSection = styled.section`
   min-height: 713px;
   background-color: lightpink;
   width: 100%;
+  z-index: 999;
 `;
 const ToolSection = styled.section`
   min-height: 450px;
@@ -215,7 +259,8 @@ const CollabSection = styled.section`
   position: relative;
   min-height: 800px;
   width: 100%;
-  background-color: ${(props) => (props.purple ? `${props.theme.purple500}` : 'none')};
+  background-color: ${(props) =>
+    props.purple ? `${props.theme.purple500}` : 'none'};
 `;
 const TextContainer = styled.div`
   position: absolute;
@@ -239,7 +284,8 @@ const StyledFooter = styled.footer`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: ${(props) => (props.purple ? `${props.theme.purple500}` : 'none')};
+  background-color: ${(props) =>
+    props.purple ? `${props.theme.purple500}` : 'none'};
 
   a {
     margin: 0 30px;

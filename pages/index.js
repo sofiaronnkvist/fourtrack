@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Link from 'next/link';
-import Modal from '../components/Modal/Modal';
+import Modal from '../components/Modals/Modal/Modal';
 import logo from '../public/logo.svg';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 
@@ -215,7 +215,8 @@ const CollabSection = styled.section`
   position: relative;
   min-height: 800px;
   width: 100%;
-  background-color: ${(props) => (props.purple ? `${props.theme.purple500}` : 'none')};
+  background-color: ${(props) =>
+    props.purple ? `${props.theme.purple500}` : 'none'};
 `;
 const TextContainer = styled.div`
   position: absolute;
@@ -239,7 +240,8 @@ const StyledFooter = styled.footer`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: ${(props) => (props.purple ? `${props.theme.purple500}` : 'none')};
+  background-color: ${(props) =>
+    props.purple ? `${props.theme.purple500}` : 'none'};
 
   a {
     margin: 0 30px;

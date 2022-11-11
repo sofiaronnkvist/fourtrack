@@ -16,7 +16,7 @@ export default function Project({ slug, collections, projects, allProjects }) {
         <TopBar></TopBar>
         <p>Collections</p>
         <h1>{slug}</h1>
-        <SongsInCollectionModal allProjects={allProjects} slug={slug} />
+        <SongsInCollectionModal allProjects={allProjects} slug={slug} projects={projects} />
         <ul>
           {projects &&
             projects[0].map((project) => {

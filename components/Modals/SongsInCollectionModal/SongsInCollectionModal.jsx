@@ -83,7 +83,7 @@ export const DialogContent = Content;
 export const DialogTitle = StyledTitle;
 export const DialogClose = DialogPrimitive.Close;
 
-export default function RenameModal({ allProjects, slug }) {
+export default function RenameModal({ allProjects, slug, projects }) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const [data, setData] = useState([]);
@@ -92,44 +92,49 @@ export default function RenameModal({ allProjects, slug }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      let projectsToChange = [];
-      data.forEach((element) => {
-        projectsToChange.push(element.value);
-      });
-      setSearchable(projectsToChange);
-      await runTransaction(firestore, async (transaction) => {
-        let array = [];
-        let res;
-        const q = query(
-          collection(firestore, 'projects'),
-          where('title', 'in', projectsToChange)
-        );
-        const querySnapshot = await getDocs(q);
-
-        querySnapshot.forEach((doc) => {
-          res = {
-            ...doc.data(),
-            id: doc.id,
-            timestamp: doc.data().timestamp.toDate().toLocaleDateString(),
-          };
-          array.push(res);
-        });
-        setSearchResult(array);
-        if (array.length == 0) {
-          console.log('No projects to update');
-        } else {
-          array.forEach((project) => {
-            console.log(project.id);
-            transaction.update(doc(firestore, 'projects', project.id), {
-              collections: slug,
-            });
-          });
-        }
-      });
+    if (data.length == 0) {
+      console.log('Nothing to update');
       router.push('/projects');
-    } catch (error) {
-      console.log(error);
+    } else {
+      try {
+        let projectsToChange = [];
+        data.forEach((element) => {
+          projectsToChange.push(element.value);
+        });
+        setSearchable(projectsToChange);
+        await runTransaction(firestore, async (transaction) => {
+          let array = [];
+          let res;
+          const q = query(
+            collection(firestore, 'projects'),
+            where('title', 'in', projectsToChange)
+          );
+          const querySnapshot = await getDocs(q);
+
+          querySnapshot.forEach((doc) => {
+            res = {
+              ...doc.data(),
+              id: doc.id,
+              timestamp: doc.data().timestamp.toDate().toLocaleDateString(),
+            };
+            array.push(res);
+          });
+          setSearchResult(array);
+          if (array.length == 0) {
+            console.log('No projects to update');
+          } else {
+            array.forEach((project) => {
+              console.log(project.id);
+              transaction.update(doc(firestore, 'projects', project.id), {
+                collections: slug,
+              });
+            });
+          }
+        });
+        router.push('/projects');
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -144,6 +149,11 @@ export default function RenameModal({ allProjects, slug }) {
     projectsArray.push({ value: element.title, label: element.title });
   });
 
+  const chosenProjectsArray = [];
+  projects[0].forEach((element) => {
+    chosenProjectsArray.push({ value: element.title, label: element.title });
+  });
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -151,16 +161,16 @@ export default function RenameModal({ allProjects, slug }) {
       </DialogTrigger>
       <DialogContent>
         <DialogClose asChild>
-          <CloseButton onClick={(e) => handleSubmit(e)}>&#9587;</CloseButton>
+          <CloseButton onClick={(e) => handleSubmit(e)}>&#10004;</CloseButton>
         </DialogClose>
         <DialogTitle>Manage projects</DialogTitle>
         <Select
+          defaultValue={chosenProjectsArray}
           isMulti
           name='projects'
           options={projectsArray}
           className='basic-multi-select'
           classNamePrefix='select'
-          noOptionsMessage='Create som projects first!'
           onChange={(data) => setData(data)}
         />
       </DialogContent>

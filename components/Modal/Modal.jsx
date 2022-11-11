@@ -17,12 +17,11 @@ const StyledContent = styled(dialogContent)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 90vw;
+  width: 96vw;
   max-width: 440px;
-  max-height: 85vh;
+  max-height: 100vh;
   padding: 25;
-  border: 1px solid black;
-  border-radius: 7px;
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -60,6 +59,7 @@ const GoogleButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 24px;
 `;
 
 const CloseButton = styled.button`
@@ -80,7 +80,9 @@ const Divider = styled.p`
 
 const StyledTitle = styled.h1`
   color: black;
-  font-size: 20;
+  font-size: 30px;
+  margin: 0;
+  font-weight: 400;
 `;
 
 const PrivacyText = styled.p`
@@ -120,7 +122,7 @@ const StyledForm = styled.form`
     font-size: 16px;
     padding: 5px;
     margin-top: 30px;
-    border-radius: 8px;
+    border-radius: 4px;
     border: 1px solid #d0d5dd;
   }
   input[type='email']:focus {
@@ -139,7 +141,8 @@ const StyledForm = styled.form`
     margin: 30px;
     background-color: ${(props) => props.theme.purple500};
     color: white;
-    border-radius: 8px;
+    border-radius: 4px;
+    border: none;
   }
 `;
 
@@ -233,7 +236,9 @@ export default function Modal(props) {
         <DialogClose asChild>
           <CloseButton onClick={returnButtonValue}>&#9587;</CloseButton>
         </DialogClose>
-        <DialogTitle>{buttonTitle}</DialogTitle>
+        <div>
+          <DialogTitle>{buttonTitle}</DialogTitle>
+        </div>
         <GoogleButton
           onClick={async () => {
             handleGoogleSignIn();

@@ -82,7 +82,7 @@ const Projects = ({ projects, collections, latestProjects }) => {
     <MainWrapper>
       <LeftSideNavigation collections={collections} />
       <MainContent>
-        <TopBar></TopBar>
+        <TopBar projectsToDelete={projects}></TopBar>
         <h1>All recordings</h1>
         <ul>
           <LatestProjectsWrapper>

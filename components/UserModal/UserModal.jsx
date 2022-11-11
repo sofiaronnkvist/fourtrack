@@ -9,6 +9,7 @@ import { logo } from '../../public/logo.svg';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { firestore } from '../../utils/firebase';
 import ChangeEmailModal from '../ChangeEmailModal/ChangeEmailModal';
+import DeleteAccountModal from '../DeleteAccountModal/DeleteAccountModal';
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
@@ -16,16 +17,14 @@ const dialogOverlay = DialogPrimitive.Overlay;
 const StyledContent = styled(dialogContent)`
   background-color: white;
   border-radius: 6;
-  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
-    hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  box-shadow: ${(props) => props.theme.mdShadow};
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 480px;
-  height: 500px;
+  width: 447px;
+  height: 468px;
   padding: 25px;
-  border: 1px solid black;
   border-radius: 7px;
   display: flex;
   flex-direction: column;
@@ -49,7 +48,8 @@ const StyledOverlay = styled(dialogOverlay)`
 
 const StyledTitle = styled.h1`
   color: black;
-  font-size: 20;
+  font-size: 14px;
+  margin-bottom: 32px;
 `;
 
 const NavButton = styled.button`
@@ -59,6 +59,20 @@ const NavButton = styled.button`
 `;
 const InfoContainer = styled.div`
   margin-left: 20px;
+
+  p{
+    font-size: 14px;
+  }
+`;
+const StyledH5 = styled.h5`
+  margin: 0px;
+  font-size: 14px;
+`;
+const StyledDangerText = styled.h5`
+  margin: 0px;
+  font-size: 14px;
+  margin-top: 170px;
+  margin-bottom: 20px;
 `;
 
 const CloseButton = styled.button`
@@ -72,6 +86,12 @@ const CloseButton = styled.button`
 `;
 const InfoWrapper = styled.div`
   display: flex;
+`;
+const NoProfileImage = styled.div`
+  height: 107px;
+  width: 107px;
+  border-radius: 100%;
+  background-color: gray;
 `;
 
 function Content({ children, ...props }) {
@@ -129,18 +149,25 @@ export default function UserModal(props) {
               style={{ borderRadius: '100%' }}
               alt={'User profile image'}
             />
-          ) : null}
+          ) : (
+            <NoProfileImage></NoProfileImage>
+          )}
 
           <InfoContainer>
-            <h5>Email</h5>
+            <StyledH5>Email</StyledH5>
             <p>{user.email}</p>
             {googleUser ? null : (
               <>
-                <ChangeEmailModal/>
-                <h5>Password</h5>
-                <a>Change password</a>
+                {/* <ChangeEmailModal /> */}
+                {/* <StyledH5>Password</StyledH5> */}
+                {/* <a>Change password</a> */}
               </>
             )}
+            <StyledDangerText>Danger Zone</StyledDangerText>
+            <DeleteAccountModal
+              colabsToDelete={props.colabsToDelete}
+              projectsToDelete={props.projectsToDelete}
+            />
           </InfoContainer>
         </InfoWrapper>
       </DialogContent>

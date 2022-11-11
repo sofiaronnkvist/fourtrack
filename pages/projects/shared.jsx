@@ -74,7 +74,7 @@ const Shared = ({ colabProjects, collections }) => {
     <MainWrapper>
       <LeftSideNavigation collections={collections} />
       <MainContent>
-        <TopBar></TopBar>
+        <TopBar colabsToDelete={colabProjects}></TopBar>
         <h1>Shared with me</h1>
         <ul>
           {checkColabs(colabProjects) ? (

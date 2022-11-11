@@ -41,18 +41,18 @@ export default function Home() {
             </Wrapper>
           </TitleCTA>
           <OrangeIconWrapper>
-          <Image src={orangeIcon} height={'128px'} width={'128px'}/>
+            <Image src={orangeIcon} height={'128px'} width={'128px'} />
           </OrangeIconWrapper>
           <YellowIconWrapper>
-            <Image src={yellowIcon} height={'283px'} width={'283px'}/>
+            <Image src={yellowIcon} height={'283px'} width={'283px'} />
           </YellowIconWrapper>
           <BlueIconWrapper>
-            <Image src={blueIcon} height={'107px'} width={'107px'}/>
+            <Image src={blueIcon} height={'107px'} width={'107px'} />
           </BlueIconWrapper>
         </HeroSection>
         <CaroselSection>
           <PurpuleIconWrapper>
-            <Image src={purpuleIcon} height={'447px'} width={'447px'}/>
+            <Image src={purpuleIcon} height={'447px'} width={'447px'} />
           </PurpuleIconWrapper>
         </CaroselSection>
         <ToolSection purple>
@@ -117,26 +117,26 @@ const StyledMain = styled.main`
 const PurpuleIconWrapper = styled.div`
   position: absolute;
   z-index: 0;
-  bottom: -230px;
-  left: 57px;
+  bottom: -30%;
+  left: 4%;
 `;
 const YellowIconWrapper = styled.div`
   position: absolute;
   z-index: 0;
-  bottom: 114px;
-  right: 149px;
+  bottom: 16%;
+  right: 10%;
 `;
 const OrangeIconWrapper = styled.div`
   position: absolute;
   z-index: 0;
-  top: 90px;
-  left: 189px;
+  top: 10%;
+  left: 13%;
 `;
 const BlueIconWrapper = styled.div`
   position: absolute;
   z-index: 0;
-  bottom: 320px;
-  right: 147px;
+  bottom: 45%;
+  right: 10%;
 `;
 const HeroSection = styled.section`
   min-height: 550px;

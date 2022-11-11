@@ -10,7 +10,7 @@ import nookies from 'nookies';
 export default function Project({ slug, collections, projects }) {
   return (
     <MainWrapper>
-      <LeftSideNavigation collections={collections} projectsRef={projects} />
+      <LeftSideNavigation collections={collections} />
       <MainContent>
         <TopBar></TopBar>
         <p>Collections</p>

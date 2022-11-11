@@ -2,7 +2,16 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { doc, updateDoc, writeBatch } from 'firebase/firestore';
+import {
+  doc,
+  updateDoc,
+  writeBatch,
+  runTransaction,
+  collection,
+  query,
+  where,
+  getDocs,
+} from 'firebase/firestore';
 import { firestore } from '../../utils/firebase';
 
 const dialogContent = DialogPrimitive.Content;
@@ -113,22 +122,47 @@ function Content({ children, ...props }) {
   );
 }
 
-export default function RenameCollectionModal({ collectionId, projectsRef }) {
+export default function RenameCollectionModal({
+  collectionId,
+  collectionTitle,
+}) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const [data, setData] = useState('');
+  const [searchResult, setSearchResult] = useState([]);
 
-  const handleSubmit = async (e, collectionId, projectsRef) => {
+  const handleSubmit = async (e, collectionId, collectionTitle) => {
     e.preventDefault();
     try {
-      const batch = writeBatch(firestore);
-      const projectsArray = projectsRef[0];
-      projectsArray.forEach((project) => {
-        batch.update(doc(firestore, 'projects', project.id), {
-          collections: data,
+      await runTransaction(firestore, async (transaction) => {
+        let array = [];
+        let res;
+        const q = query(
+          collection(firestore, 'projects'),
+          where('collections', '==', collectionTitle)
+        );
+        const querySnapshot = await getDocs(q);
+
+        querySnapshot.forEach((doc) => {
+          res = {
+            ...doc.data(),
+            id: doc.id,
+            timestamp: doc.data().timestamp.toDate().toLocaleDateString(),
+          };
+          array.push(res);
         });
+        setSearchResult(array);
+        if (array.length == 0) {
+          console.log('No projects to update');
+        } else {
+          array.forEach((project) => {
+            console.log(project.id);
+            transaction.update(doc(firestore, 'projects', project.id), {
+              collections: data,
+            });
+          });
+        }
       });
-      await batch.commit();
 
       const collectionRef = doc(firestore, 'collections', collectionId);
       await updateDoc(collectionRef, {
@@ -152,7 +186,7 @@ export default function RenameCollectionModal({ collectionId, projectsRef }) {
         <DialogTitle>Change title</DialogTitle>
 
         <StyledForm
-          onSubmit={(e) => handleSubmit(e, collectionId, projectsRef)}
+          onSubmit={(e) => handleSubmit(e, collectionId, collectionTitle)}
         >
           <input
             onChange={(e) => setData(e.target.value)}

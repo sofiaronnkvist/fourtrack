@@ -14,7 +14,7 @@ const ContextContent = ContextMenu.Content;
 const ContextLabel = ContextMenu.Label;
 const ContextItem = ContextMenu.Item;
 
-export default function CollectionsAccordion({ collections, projectsRef }) {
+export default function CollectionsAccordion({ collections }) {
   return (
     <StyledAccordion type='single' collapsible>
       <Accordion.Item value='item-1'>
@@ -49,7 +49,7 @@ export default function CollectionsAccordion({ collections, projectsRef }) {
                         <StyledContextItem asChild={true}>
                           <RenameCollectionModal
                             collectionId={collection.id}
-                            projectsRef={projectsRef}
+                            collectionTitle={collection.title}
                           />
                         </StyledContextItem>
                       </StyledContextContent>

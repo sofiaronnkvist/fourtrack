@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import {
   doc,
   updateDoc,
-  writeBatch,
   runTransaction,
   collection,
   query,

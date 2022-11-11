@@ -6,6 +6,18 @@ import styled from 'styled-components';
 import CollectionsModal from '../CollectionsModal/CollectionsModal';
 import Link from 'next/link';
 import RenameCollectionModal from '../RenameCollectionModal/RenameCollectionModal';
+import {
+  doc,
+  deleteDoc,
+  runTransaction,
+  collection,
+  query,
+  where,
+  getDocs,
+} from 'firebase/firestore';
+import { useState } from 'react';
+import { firestore } from '../../utils/firebase';
+import { useRouter } from 'next/router';
 
 const ContextRoot = ContextMenu.Root;
 const ContextTrigger = ContextMenu.Trigger;
@@ -15,6 +27,49 @@ const ContextLabel = ContextMenu.Label;
 const ContextItem = ContextMenu.Item;
 
 export default function CollectionsAccordion({ collections }) {
+  const [searchResult, setSearchResult] = useState([]);
+  const router = useRouter();
+
+  const deleteCollection = async (e, collectionId, collectionTitle) => {
+    e.preventDefault();
+    try {
+      await runTransaction(firestore, async (transaction) => {
+        let array = [];
+        let res;
+        const q = query(
+          collection(firestore, 'projects'),
+          where('collections', '==', collectionTitle)
+        );
+        const querySnapshot = await getDocs(q);
+
+        querySnapshot.forEach((doc) => {
+          res = {
+            ...doc.data(),
+            id: doc.id,
+            timestamp: doc.data().timestamp.toDate().toLocaleDateString(),
+          };
+          array.push(res);
+        });
+        setSearchResult(array);
+        if (array.length == 0) {
+          console.log('No projects to update');
+        } else {
+          array.forEach((project) => {
+            console.log(project.id);
+            transaction.update(doc(firestore, 'projects', project.id), {
+              collections: '',
+            });
+          });
+        }
+      });
+
+      const collectionRef = doc(firestore, 'collections', collectionId);
+      await deleteDoc(collectionRef);
+      router.push('/projects');
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <StyledAccordion type='single' collapsible>
       <Accordion.Item value='item-1'>
@@ -44,7 +99,17 @@ export default function CollectionsAccordion({ collections }) {
                     <ContextPortal>
                       <StyledContextContent>
                         <StyledContextItem>
-                          <StyledContextButton>Delete</StyledContextButton>
+                          <StyledContextButton
+                            onClick={(e) =>
+                              deleteCollection(
+                                e,
+                                collection.id,
+                                collection.title
+                              )
+                            }
+                          >
+                            Delete
+                          </StyledContextButton>
                         </StyledContextItem>
                         <StyledContextItem asChild={true}>
                           <RenameCollectionModal

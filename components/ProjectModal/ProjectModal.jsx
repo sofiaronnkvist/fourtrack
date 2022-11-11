@@ -133,6 +133,7 @@ export default function ProjectModal(props) {
         title: project.title,
         timestamp: serverTimestamp(),
         favorite: false,
+        collections: '',
       });
       setProject({ title: '' });
       setOpen(false);

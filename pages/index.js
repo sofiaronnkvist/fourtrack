@@ -9,6 +9,8 @@ import Modal from '../components/Modal/Modal';
 import logo from '../public/logo.svg';
 import purpuleIcon from '../public/purpleIcon2.svg';
 import yellowIcon from '../public/yellowIcon.svg';
+import orangeIcon from '../public/orangeIcon.svg';
+import blueIcon from '../public/blueIcon.svg';
 
 import { AiOutlineArrowRight } from 'react-icons/ai';
 
@@ -38,9 +40,15 @@ export default function Home() {
               <Link href='/'>How does it work?</Link>
             </Wrapper>
           </TitleCTA>
+          <OrangeIconWrapper>
+          <Image src={orangeIcon} height={'128px'} width={'128px'}/>
+          </OrangeIconWrapper>
           <YellowIconWrapper>
             <Image src={yellowIcon} height={'283px'} width={'283px'}/>
           </YellowIconWrapper>
+          <BlueIconWrapper>
+            <Image src={blueIcon} height={'107px'} width={'107px'}/>
+          </BlueIconWrapper>
         </HeroSection>
         <CaroselSection>
           <PurpuleIconWrapper>
@@ -117,6 +125,18 @@ const YellowIconWrapper = styled.div`
   z-index: 0;
   bottom: 114px;
   right: 149px;
+`;
+const OrangeIconWrapper = styled.div`
+  position: absolute;
+  z-index: 0;
+  top: 90px;
+  left: 189px;
+`;
+const BlueIconWrapper = styled.div`
+  position: absolute;
+  z-index: 0;
+  bottom: 320px;
+  right: 147px;
 `;
 const HeroSection = styled.section`
   min-height: 550px;

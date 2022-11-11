@@ -93,21 +93,21 @@ const PrivacyText = styled.p`
 `;
 
 const LoginTexts = styled.button`
-  color: black;
+  color: ${(props) => props.theme.black600};
   font-size: 16;
   background-color: transparent;
   border: none;
 `;
 
 const CreateAccountTexts = styled.button`
-  color: black;
+  color: ${(props) => props.theme.black600};
   font-size: 16px;
   background-color: transparent;
   border: none;
 `;
 
 const ForgotPassword = styled.p`
-  color: blue;
+  color: ${(props) => props.theme.purple500};
   font-size: 12px;
 `;
 const StyledForm = styled.form`
@@ -249,7 +249,6 @@ export default function Modal(props) {
         </GoogleButton>
         <Divider>or</Divider>
         <StyledForm onSubmit={checkForm() ? handleLogin : handleSignup}>
-          {/* <label>email</label> */}
           <input
             onChange={(e) =>
               setData({
@@ -262,7 +261,6 @@ export default function Modal(props) {
             type='email'
             placeholder='Email'
           ></input>
-          {/* <label>password</label> */}
           <input
             onChange={(e) =>
               setData({

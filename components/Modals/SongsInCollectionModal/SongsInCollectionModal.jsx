@@ -90,6 +90,7 @@ export default function RenameModal({ allProjects, slug, projects }) {
   const [searchResult, setSearchResult] = useState([]);
   const [searchable, setSearchable] = useState([]);
 
+  // ADD if projectsArray not in chosenProjectsArray, set collections to ''
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (data.length == 0) {
@@ -136,11 +137,6 @@ export default function RenameModal({ allProjects, slug, projects }) {
         console.log(error);
       }
     }
-  };
-
-  //Make this better
-  const returnButtonValue = () => {
-    window.location.reload(false);
   };
 
   console.log(data);

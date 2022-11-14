@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { getAuth, updateEmail } from 'firebase/auth';
-import { firestore } from '../../utils/firebase';
-import { useAuth } from '../../context/AuthContext';
+import { firestore } from '../../../utils/firebase';
+import { useAuth } from '../../../context/AuthContext';
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
@@ -44,7 +44,6 @@ const CreateButton = styled.button`
   cursor: pointer;
   border: none;
   color: ${(props) => props.theme.purple500};
-
 `;
 
 const CloseButton = styled.button`

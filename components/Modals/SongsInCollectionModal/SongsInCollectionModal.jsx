@@ -8,10 +8,13 @@ import {
   getDocs,
   query,
   runTransaction,
+  updateDoc,
   where,
 } from 'firebase/firestore';
 import { firestore } from '../../../utils/firebase';
 import Select from 'react-select';
+import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
+import { useAuth } from '../../../context/AuthContext';
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
@@ -84,13 +87,14 @@ export const DialogTitle = StyledTitle;
 export const DialogClose = DialogPrimitive.Close;
 
 export default function RenameModal({ allProjects, slug, projects }) {
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const [data, setData] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [searchable, setSearchable] = useState([]);
 
-  // ADD if projectsArray not in chosenProjectsArray, set collections to ''
+  // ADD if chosenProjectsArray not in projectsToChange, set collections to ''
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (data.length == 0) {
@@ -103,35 +107,44 @@ export default function RenameModal({ allProjects, slug, projects }) {
           projectsToChange.push(element.value);
         });
         setSearchable(projectsToChange);
-        await runTransaction(firestore, async (transaction) => {
-          let array = [];
-          let res;
-          const q = query(
-            collection(firestore, 'projects'),
-            where('title', 'in', projectsToChange)
-          );
-          const querySnapshot = await getDocs(q);
 
-          querySnapshot.forEach((doc) => {
-            res = {
-              ...doc.data(),
-              id: doc.id,
-              timestamp: doc.data().timestamp.toDate().toLocaleDateString(),
-            };
-            array.push(res);
-          });
-          setSearchResult(array);
-          if (array.length == 0) {
-            console.log('No projects to update');
-          } else {
-            array.forEach((project) => {
-              console.log(project.id);
-              transaction.update(doc(firestore, 'projects', project.id), {
-                collections: slug,
-              });
+        await runTransaction(firestore, async (transaction) => {
+          projects[0].forEach((project) => {
+            transaction.update(doc(firestore, 'projects', project.id), {
+              collections: '',
             });
-          }
-        });
+          });
+        }),
+          await runTransaction(firestore, async (transaction) => {
+            let array = [];
+            let res;
+            const q = query(
+              collection(firestore, 'projects'),
+              where('title', 'in', projectsToChange),
+              where('uid', '==', user.uid)
+            );
+            const querySnapshot = await getDocs(q);
+
+            querySnapshot.forEach((doc) => {
+              res = {
+                ...doc.data(),
+                id: doc.id,
+                timestamp: doc.data().timestamp.toDate().toLocaleDateString(),
+              };
+              array.push(res);
+            });
+            setSearchResult(array);
+            if (array.length == 0) {
+              console.log('No projects to update');
+            } else {
+              array.forEach((project) => {
+                console.log(project.id);
+                transaction.update(doc(firestore, 'projects', project.id), {
+                  collections: slug,
+                });
+              });
+            }
+          });
         router.push('/projects');
       } catch (error) {
         console.log(error);
@@ -139,7 +152,6 @@ export default function RenameModal({ allProjects, slug, projects }) {
     }
   };
 
-  console.log(data);
   const projectsArray = [];
   allProjects[0].forEach((element) => {
     projectsArray.push({ value: element.title, label: element.title });

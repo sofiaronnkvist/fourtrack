@@ -8,7 +8,7 @@ import AudioVisualizer from '../../components/AudioVisualizer/audiovisualizer';
 import { deleteFileFromStorage } from '../../utils/deleteFileFromStorage';
 import DeleteButton from '../../components/Button/DeleteButton';
 import { useRouter } from 'next/router';
-import SearchModal from '../../components/SearchModal/SearchModal';
+import SearchModal from '../../components/Modals/SearchModal/SearchModal';
 import PlayRecPause from '../../components/PlayRecPauseButton/PlayRecPause';
 import { FaPlay, FaStop } from 'react-icons/fa';
 import { BsRecordFill } from 'react-icons/bs';

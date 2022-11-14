@@ -1,7 +1,7 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
 import React, { useState } from 'react';
-import ShareProject from '../Shareproject/ShareProject';
+import ShareProject from '../../Shareproject/ShareProject';
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;

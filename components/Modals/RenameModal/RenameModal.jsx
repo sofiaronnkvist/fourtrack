@@ -2,15 +2,8 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import {
-  addDoc,
-  collection,
-  doc,
-  serverTimestamp,
-  updateDoc,
-} from 'firebase/firestore';
-import { firestore } from '../../utils/firebase';
-import { useAuth } from '../../context/AuthContext';
+import { doc, updateDoc } from 'firebase/firestore';
+import { firestore } from '../../../utils/firebase';
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
@@ -28,6 +21,7 @@ const StyledContent = styled(dialogContent)`
   max-width: 440px;
   max-height: 85vh;
   padding: 25;
+  border: 1px solid black;
   border-radius: 7px;
   display: flex;
   flex-direction: column;
@@ -41,14 +35,7 @@ const StyledOverlay = styled(dialogOverlay)`
   inset: 0;
 `;
 
-const CreateButton = styled.button`
-  background-color: ${(props) => props.theme.purple500};
-  border-radius: 8px;
-  border: none;
-  width: 117px;
-  height: 34px;
-  margin-right: 16px;
-  color: white;
+const NavLinkItem = styled.li`
   cursor: pointer;
 `;
 
@@ -78,24 +65,27 @@ const StyledForm = styled.form`
     font-size: 16px;
     padding: 5px;
     margin-top: 30px;
-    border-radius: 4px;
+    border-radius: 8px;
     border: 1px solid #d0d5dd;
   }
-  input[type='text']:focus {
+  input[type='email']:focus {
     outline: none !important;
     border: 2px solid ${(props) => props.theme.purple500};
   }
-
+  input[type='password']:focus {
+    outline: none !important;
+    border: 2px solid ${(props) => props.theme.purple500};
+  }
   button {
     width: 330px;
     height: 48px;
     font-size: 16px;
     padding: 5px;
     margin: 30px;
-    border: none;
+
     background-color: ${(props) => props.theme.purple500};
     color: white;
-    border-radius: 4px;
+    border-radius: 8px;
   }
 `;
 
@@ -114,59 +104,50 @@ export const DialogContent = Content;
 export const DialogTitle = StyledTitle;
 export const DialogClose = DialogPrimitive.Close;
 
-export default function ProjectModal(props) {
+export default function RenameModal(props) {
   const [open, setOpen] = useState(false);
-  const [project, setProject] = useState({ title: '' });
   const router = useRouter();
-  const { user } = useAuth();
+  const [data, setData] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, projectId) => {
     e.preventDefault();
     try {
-      const projectsCollectionRef = collection(firestore, 'projects');
-      await addDoc(projectsCollectionRef, {
-        uid: user.uid,
-        title: project.title,
-        timestamp: serverTimestamp(),
-        favorite: false,
+      const ref = doc(firestore, 'projects', projectId);
+      await updateDoc(ref, {
+        title: data,
       });
-      setProject({ title: '' });
-      setOpen(false);
       router.push('/projects');
     } catch (error) {
       console.log(error);
-      alert(error);
     }
+  };
+
+  //Make this better
+  const returnButtonValue = () => {
+    window.location.reload(false);
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <CreateButton>Create recording</CreateButton>
+        <NavLinkItem>Rename</NavLinkItem>
       </DialogTrigger>
       <DialogContent>
         <DialogClose asChild>
-          <CloseButton>&#9587;</CloseButton>
+          <CloseButton onClick={returnButtonValue}>&#9587;</CloseButton>
         </DialogClose>
-        <DialogTitle>Create project</DialogTitle>
+        <DialogTitle>Change title</DialogTitle>
 
         <StyledForm onSubmit={(e) => handleSubmit(e, props.projectId)}>
           {/* <label>email</label> */}
           <input
-            value={project.title}
-            minLength='1'
-            maxLength='30'
-            onChange={(e) =>
-              setProject({
-                ...project,
-                title: e.target.value,
-              })
-            }
-            type='text'
-            placeholder='My new song'
+            onChange={(e) => setData(e.target.value)}
+            value={data}
             required
+            type='text'
+            placeholder='New name'
           ></input>
-          <button type='submit'>Create</button>
+          <button type='submit'>Change title</button>
         </StyledForm>
       </DialogContent>
     </Dialog>

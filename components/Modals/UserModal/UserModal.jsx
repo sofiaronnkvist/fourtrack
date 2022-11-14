@@ -2,12 +2,12 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useAuth } from '../../context/AuthContext';
-import ShareProject from '../Shareproject/ShareProject';
+import { useAuth } from '../../../context/AuthContext';
+import ShareProject from '../../Shareproject/ShareProject';
 import Image from 'next/image';
-import { logo } from '../../public/logo.svg';
+import { logo } from '../../../public/logo.svg';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { firestore } from '../../utils/firebase';
+import { firestore } from '../../../utils/firebase';
 import ChangeEmailModal from '../ChangeEmailModal/ChangeEmailModal';
 import DeleteAccountModal from '../DeleteAccountModal/DeleteAccountModal';
 

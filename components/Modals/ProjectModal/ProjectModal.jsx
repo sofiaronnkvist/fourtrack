@@ -1,10 +1,16 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { addDoc, collection } from 'firebase/firestore';
-import { firestore } from '../../utils/firebase';
-import { useAuth } from '../../context/AuthContext';
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from 'firebase/firestore';
+import { firestore } from '../../../utils/firebase';
+import { useAuth } from '../../../context/AuthContext';
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
@@ -22,7 +28,6 @@ const StyledContent = styled(dialogContent)`
   max-width: 440px;
   max-height: 85vh;
   padding: 25;
-  border: 1px solid black;
   border-radius: 7px;
   display: flex;
   flex-direction: column;
@@ -37,12 +42,13 @@ const StyledOverlay = styled(dialogOverlay)`
 `;
 
 const CreateButton = styled.button`
+  background-color: ${(props) => props.theme.purple500};
+  border-radius: 8px;
   border: none;
-  font-size: 16px;
-  background-color: transparent;
-  padding-left: 0;
-  padding-top: 10px;
-  font-weight: bold;
+  width: 117px;
+  height: 34px;
+  margin-right: 16px;
+  color: white;
   cursor: pointer;
 `;
 
@@ -72,27 +78,24 @@ const StyledForm = styled.form`
     font-size: 16px;
     padding: 5px;
     margin-top: 30px;
-    border-radius: 8px;
+    border-radius: 4px;
     border: 1px solid #d0d5dd;
   }
-  input[type='email']:focus {
+  input[type='text']:focus {
     outline: none !important;
     border: 2px solid ${(props) => props.theme.purple500};
   }
-  input[type='password']:focus {
-    outline: none !important;
-    border: 2px solid ${(props) => props.theme.purple500};
-  }
+
   button {
     width: 330px;
     height: 48px;
     font-size: 16px;
     padding: 5px;
     margin: 30px;
-
+    border: none;
     background-color: ${(props) => props.theme.purple500};
     color: white;
-    border-radius: 8px;
+    border-radius: 4px;
   }
 `;
 
@@ -111,21 +114,24 @@ export const DialogContent = Content;
 export const DialogTitle = StyledTitle;
 export const DialogClose = DialogPrimitive.Close;
 
-export default function CollectionsModal() {
+export default function ProjectModal(props) {
   const [open, setOpen] = useState(false);
-  const [collectionData, setCollectionData] = useState({ title: '' });
+  const [project, setProject] = useState({ title: '' });
   const router = useRouter();
   const { user } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const projectsCollectionRef = collection(firestore, 'collections');
+      const projectsCollectionRef = collection(firestore, 'projects');
       await addDoc(projectsCollectionRef, {
         uid: user.uid,
-        title: collectionData.title,
+        title: project.title,
+        timestamp: serverTimestamp(),
+        favorite: false,
+        collections: '',
       });
-      setCollectionData({ title: '' });
+      setProject({ title: '' });
       setOpen(false);
       router.push('/projects');
     } catch (error) {
@@ -137,28 +143,28 @@ export default function CollectionsModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <CreateButton>&#43; Add new collection</CreateButton>
+        <CreateButton>Create recording</CreateButton>
       </DialogTrigger>
       <DialogContent>
         <DialogClose asChild>
           <CloseButton>&#9587;</CloseButton>
         </DialogClose>
-        <DialogTitle>Create collection</DialogTitle>
+        <DialogTitle>Create project</DialogTitle>
 
-        <StyledForm onSubmit={(e) => handleSubmit(e)}>
+        <StyledForm onSubmit={(e) => handleSubmit(e, props.projectId)}>
           {/* <label>email</label> */}
           <input
-            value={collectionData.title}
+            value={project.title}
             minLength='1'
             maxLength='30'
             onChange={(e) =>
-              setCollectionData({
-                ...collectionData,
+              setProject({
+                ...project,
                 title: e.target.value,
               })
             }
             type='text'
-            placeholder='K-pop'
+            placeholder='My new song'
             required
           ></input>
           <button type='submit'>Create</button>

@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Link from 'next/link';
-import Modal from '../components/Modal/Modal';
+import Modal from '../components/Modals/Modal/Modal';
 import logo from '../public/logo.svg';
 import purpuleIcon from '../public/purpleIcon2.svg';
 import yellowIcon from '../public/yellowIcon.svg';

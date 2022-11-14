@@ -1,16 +1,13 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { doc, updateDoc, writeBatch } from 'firebase/firestore';
-import { firestore } from '../../utils/firebase';
+import { addDoc, collection } from 'firebase/firestore';
+import { firestore } from '../../../utils/firebase';
+import { useAuth } from '../../../context/AuthContext';
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
-const Dialog = DialogPrimitive.Root;
-const DialogTrigger = DialogPrimitive.Trigger;
-const DialogContent = Content;
-const DialogClose = DialogPrimitive.Close;
 
 const StyledContent = styled(dialogContent)`
   background-color: white;
@@ -33,22 +30,19 @@ const StyledContent = styled(dialogContent)`
   align-items: center;
 `;
 
-const StyledDialogTrigger = styled(DialogTrigger)`
-  background-color: white;
-  font-size: 14px;
-  padding-left: 10px;
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
 const StyledOverlay = styled(dialogOverlay)`
   backdrop-filter: blur(10px);
   position: fixed;
   inset: 0;
 `;
 
-const NavLinkItem = styled.p`
+const CreateButton = styled.button`
+  border: none;
+  font-size: 16px;
+  background-color: transparent;
+  padding-left: 0;
+  padding-top: 10px;
+  font-weight: bold;
   cursor: pointer;
 `;
 
@@ -102,8 +96,6 @@ const StyledForm = styled.form`
   }
 `;
 
-const DialogTitle = StyledTitle;
-
 function Content({ children, ...props }) {
   return (
     <DialogPrimitive.Portal>
@@ -113,55 +105,63 @@ function Content({ children, ...props }) {
   );
 }
 
-export default function RenameCollectionModal({ collectionId, projectsRef }) {
-  const [open, setOpen] = useState(false);
-  const router = useRouter();
-  const [data, setData] = useState('');
+export const Dialog = DialogPrimitive.Root;
+export const DialogTrigger = DialogPrimitive.Trigger;
+export const DialogContent = Content;
+export const DialogTitle = StyledTitle;
+export const DialogClose = DialogPrimitive.Close;
 
-  const handleSubmit = async (e, collectionId, projectsRef) => {
+export default function CollectionsModal() {
+  const [open, setOpen] = useState(false);
+  const [collectionData, setCollectionData] = useState({ title: '' });
+  const router = useRouter();
+  const { user } = useAuth();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const batch = writeBatch(firestore);
-      const projectsArray = projectsRef[0];
-      projectsArray.forEach((project) => {
-        batch.update(doc(firestore, 'projects', project.id), {
-          collections: data,
-        });
+      const projectsCollectionRef = collection(firestore, 'collections');
+      await addDoc(projectsCollectionRef, {
+        uid: user.uid,
+        title: collectionData.title,
       });
-      await batch.commit();
-
-      const collectionRef = doc(firestore, 'collections', collectionId);
-      await updateDoc(collectionRef, {
-        title: data,
-      });
+      setCollectionData({ title: '' });
+      setOpen(false);
       router.push('/projects');
     } catch (error) {
       console.log(error);
+      alert(error);
     }
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <StyledDialogTrigger asChild>
-        <NavLinkItem>Rename</NavLinkItem>
-      </StyledDialogTrigger>
+      <DialogTrigger asChild>
+        <CreateButton>&#43; Add new collection</CreateButton>
+      </DialogTrigger>
       <DialogContent>
         <DialogClose asChild>
           <CloseButton>&#9587;</CloseButton>
         </DialogClose>
-        <DialogTitle>Change title</DialogTitle>
+        <DialogTitle>Create collection</DialogTitle>
 
-        <StyledForm
-          onSubmit={(e) => handleSubmit(e, collectionId, projectsRef)}
-        >
+        <StyledForm onSubmit={(e) => handleSubmit(e)}>
+          {/* <label>email</label> */}
           <input
-            onChange={(e) => setData(e.target.value)}
-            value={data}
-            required
+            value={collectionData.title}
+            minLength='1'
+            maxLength='30'
+            onChange={(e) =>
+              setCollectionData({
+                ...collectionData,
+                title: e.target.value,
+              })
+            }
             type='text'
-            placeholder='New name'
+            placeholder='K-pop'
+            required
           ></input>
-          <button type='submit'>Change title</button>
+          <button type='submit'>Create</button>
         </StyledForm>
       </DialogContent>
     </Dialog>

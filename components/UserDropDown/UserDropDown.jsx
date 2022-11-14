@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { GearIcon, ExitIcon, ChevronDownIcon } from '@radix-ui/react-icons';
-import UserModal from '../UserModal/UserModal';
+import UserModal from '../Modals/UserModal/UserModal';
 import { useAuth } from '../../context/AuthContext';
 import Image from 'next/image';
 
@@ -35,9 +35,8 @@ const StyledMenuContent = styled(menuContent)`
 
 export default function ProjectDropDownMenu(props) {
   const { user, logout } = useAuth();
-  const string = user.email.split('')
+  const string = user.email.split('');
   const firstLetter = string[0].toUpperCase();
- 
 
   return (
     <DropdownMenu.Root>

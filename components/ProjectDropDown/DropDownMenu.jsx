@@ -11,9 +11,9 @@ import {
 import { DeleteFolderFromStorage } from '../../utils/deleteFolderFromStorage';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import RenameModal from '../RenameModal/RenameModal';
+import RenameModal from '../Modals/RenameModal/RenameModal';
 import { useAuth } from '../../context/AuthContext';
-import SearchModal from '../SearchModal/SearchModal';
+import SearchModal from '../Modals/SearchModal/SearchModal';
 
 const menuPortal = DropdownMenu.Portal;
 const menuButton = DropdownMenu.Trigger;

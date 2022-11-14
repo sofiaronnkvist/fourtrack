@@ -6,15 +6,17 @@ import LeftSideNavigation from '../../../components/LeftSideNavigation/LeftSideN
 import TopBar from '../../../components/TopBar/TopBar';
 import { verifyIdToken } from '../../../utils/firebaseAdmin';
 import nookies from 'nookies';
+import SongsInCollectionModal from '../../../components/Modals/SongsInCollectionModal/SongsInCollectionModal';
 
-export default function Project({ slug, collections, projects }) {
+export default function Project({ slug, collections, projects, allProjects }) {
   return (
     <MainWrapper>
-      <LeftSideNavigation collections={collections} projectsRef={projects} />
+      <LeftSideNavigation collections={collections} />
       <MainContent>
         <TopBar></TopBar>
         <p>Collections</p>
         <h1>{slug}</h1>
+        <SongsInCollectionModal allProjects={allProjects} slug={slug} projects={projects} />
         <ul>
           {projects &&
             projects[0].map((project) => {
@@ -50,6 +52,7 @@ export async function getServerSideProps(ctx) {
   const { uid } = token;
   let collections = [];
   let projects = [];
+  let allProjects = [];
 
   const collectionsRef = collection(firestore, 'collections');
   const collectionsQuery = query(
@@ -87,5 +90,24 @@ export async function getServerSideProps(ctx) {
     );
   });
 
-  return { props: { slug, collections, projects } };
+  const allProjectsRef = collection(firestore, 'projects');
+  const allProjectsQuery = query(
+    allProjectsRef,
+    where('uid', '==', uid),
+    where('collections', '==', ''),
+    orderBy('title')
+  );
+  await getDocs(allProjectsQuery).then((data) => {
+    allProjects.push(
+      data.docs.map((item) => {
+        return {
+          ...item.data(),
+          id: item.id,
+          timestamp: item.data().timestamp.toDate().toLocaleDateString(),
+        };
+      })
+    );
+  });
+
+  return { props: { slug, collections, projects, allProjects } };
 }

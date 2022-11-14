@@ -10,8 +10,8 @@ import {
   where,
   getDocs,
 } from 'firebase/firestore';
-import { firestore } from '../../utils/firebase';
-import { useAuth } from '../../context/AuthContext';
+import { firestore } from '../../../utils/firebase';
+import { useAuth } from '../../../context/AuthContext';
 import {
   getAuth,
   deleteUser,

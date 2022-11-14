@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { GrSearch } from 'react-icons/gr';
 import { FiBell } from 'react-icons/fi';
 import UserDropDown from '../UserDropDown/UserDropDown';
-import ProjectModal from '../ProjectModal/ProjectModal';
+import ProjectModal from '../Modals/ProjectModal/ProjectModal';
 
 const TopBar = (props) => {
   return (

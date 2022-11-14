@@ -17,7 +17,7 @@ import {
   getCountFromServer,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-const LeftSideNavigation = ({ collections, projectsRef }) => {
+const LeftSideNavigation = ({ collections }) => {
   const { user, logout } = useAuth();
   const [allProjectsNo, setAllProjectsNo] = useState(null);
   const [sharedProjectsNo, setSharedProjectsNo] = useState(null);
@@ -92,7 +92,8 @@ const LeftSideNavigation = ({ collections, projectsRef }) => {
           </LinkWrapper> */}
           <CollectionsAccordion
             collections={collections}
-            projectsRef={projectsRef}
+            collectionTitle={collections}
+            // projectsRef={projectsRef}
           />
         </TopItems>
         <BottomItems>

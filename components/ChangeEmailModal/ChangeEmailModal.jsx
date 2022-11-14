@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { getAuth, updateEmail, updateUser, updateProfile } from 'firebase/auth';
+import { getAuth, updateEmail } from 'firebase/auth';
 import { firestore } from '../../utils/firebase';
 import { useAuth } from '../../context/AuthContext';
 
@@ -23,7 +23,6 @@ const StyledContent = styled(dialogContent)`
   max-width: 440px;
   max-height: 85vh;
   padding: 25;
-  border: 1px solid black;
   border-radius: 7px;
   display: flex;
   flex-direction: column;
@@ -39,11 +38,13 @@ const StyledOverlay = styled(dialogOverlay)`
 
 const CreateButton = styled.button`
   background-color: transparent;
-  border-radius: 8px;
-  width: 117px;
-  height: 34px;
-  margin-right: 16px;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 32px;
   cursor: pointer;
+  border: none;
+  color: ${(props) => props.theme.purple500};
+
 `;
 
 const CloseButton = styled.button`
@@ -72,27 +73,24 @@ const StyledForm = styled.form`
     font-size: 16px;
     padding: 5px;
     margin-top: 30px;
-    border-radius: 8px;
+    border-radius: 4px;
     border: 1px solid #d0d5dd;
   }
   input[type='email']:focus {
     outline: none !important;
-    border: 2px solid ${(props) => props.theme.purple};
+    border: 2px solid ${(props) => props.theme.purple500};
   }
-  input[type='password']:focus {
-    outline: none !important;
-    border: 2px solid ${(props) => props.theme.purple};
-  }
+
   button {
     width: 330px;
     height: 48px;
     font-size: 16px;
     padding: 5px;
     margin: 30px;
-
-    background-color: ${(props) => props.theme.purple};
+    background-color: ${(props) => props.theme.purple500};
     color: white;
-    border-radius: 8px;
+    border-radius: 4px;
+    border: none;
   }
 `;
 
@@ -113,22 +111,21 @@ export const DialogClose = DialogPrimitive.Close;
 
 export default function ChangeEmailModal(props) {
   const [open, setOpen] = useState(false);
-  const [updatedUser, setUpdatedUser] = useState({ email: '', password: '' });
+  const [updatedEmail, setUpdatedEmail] = useState('');
+  const router = useRouter();
   const { user } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const auth = getAuth();
-    // console.log(updatedUser.email);
-    // console.log(auth.currentUser);
 
-    await updateEmail(auth.currentUser, {
-      email: updatedUser.email,
-    })
+    await updateEmail(auth.currentUser, updatedEmail)
       .then(() => {
-        console.log('email change');
+        router.push('/projects');
       })
-      .catch((error) => {});
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -147,31 +144,13 @@ export default function ChangeEmailModal(props) {
             // value={user.email}
             minLength='1'
             maxLength='30'
-            onChange={(e) =>
-              setUpdatedUser({
-                ...updatedUser,
-                email: e.target.value,
-              })
-            }
+            onChange={(e) => setUpdatedEmail(e.target.value)}
             type='email'
             placeholder='New email'
             required
           ></input>
-          <input
-            // value={user.email}
-            minLength='1'
-            maxLength='30'
-            onChange={(e) =>
-              setUpdatedUser({
-                ...updatedUser,
-                password: e.target.value,
-              })
-            }
-            type='password'
-            placeholder='Password'
-            required
-          ></input>
-          <button type='submit'>Change</button>
+
+          <button type='submit'>Change email</button>
         </StyledForm>
       </DialogContent>
     </Dialog>

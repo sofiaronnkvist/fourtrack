@@ -128,6 +128,7 @@ const Projects = ({ projects, collections, latestProjects }) => {
 const MainWrapper = styled.div`
   display: grid;
   grid-template-columns: 237px auto;
+  
 `;
 const MainContent = styled.div``;
 

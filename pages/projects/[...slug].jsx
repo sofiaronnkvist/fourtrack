@@ -162,7 +162,6 @@ export default function Project({ ...res }) {
   const deleteTrack = async (userId, projectId, trackNo) => {
     await deleteFileFromStorage(userId, projectId, trackNo);
   };
-
   return (
     <div>
       <button onClick={() => router.push('/projects')}>Back</button>
@@ -188,6 +187,7 @@ export default function Project({ ...res }) {
                 src={trackArray[0]}
                 ref={waveRef1}
                 id={1}
+                marker={res.marker1}
                 projectId={res.id}
                 background={'#EBBA00'}
                 waveColor={'#2E2E2E'}
@@ -224,6 +224,7 @@ export default function Project({ ...res }) {
                 src={trackArray[1]}
                 ref={waveRef2}
                 id={2}
+                marker={res.marker2}
                 projectId={res.id}
                 background='#EC8300'
                 waveColor={'#2E2E2E'}
@@ -261,6 +262,7 @@ export default function Project({ ...res }) {
                 src={trackArray[2]}
                 ref={waveRef3}
                 id={3}
+                marker={res.marker3}
                 projectId={res.id}
                 background='#69B6D3'
                 waveColor={'#2E2E2E'}
@@ -297,6 +299,7 @@ export default function Project({ ...res }) {
                 src={trackArray[3]}
                 ref={waveRef4}
                 id={4}
+                marker={res.marker4}
                 projectId={res.id}
                 background='#B4ABDC'
                 waveColor={'#2E2E2E'}

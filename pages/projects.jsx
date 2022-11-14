@@ -82,7 +82,7 @@ const Projects = ({ projects, collections, latestProjects }) => {
     <MainWrapper>
       <LeftSideNavigation collections={collections} />
       <MainContent>
-        <TopBar></TopBar>
+        <TopBar projectsToDelete={projects}></TopBar>
         <h1>All recordings</h1>
         <ul>
           <LatestProjectsWrapper>
@@ -128,6 +128,7 @@ const Projects = ({ projects, collections, latestProjects }) => {
 const MainWrapper = styled.div`
   display: grid;
   grid-template-columns: 237px auto;
+  
 `;
 const MainContent = styled.div``;
 

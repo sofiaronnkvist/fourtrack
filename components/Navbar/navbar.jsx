@@ -33,7 +33,9 @@ export default function Navbar() {
   );
 }
 const NavWrapper = styled.nav`
-  margin: 32px;
+  padding: 32px;
+  background-color: ${(props) => props.theme.grey100};
+
 `;
 const NotLogedInWrapper = styled.div`
   display: flex;

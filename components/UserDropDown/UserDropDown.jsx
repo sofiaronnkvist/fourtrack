@@ -60,7 +60,7 @@ export default function ProjectDropDownMenu(props) {
           <StyledListItem>
             <GearIcon style={{ marginRight: '5px', width: '13px' }} />
             {/* Rename */}
-            <UserModal />
+            <UserModal projectsToDelete={props.projectsToDelete} colabsToDelete={props.colabsToDelete}/>
           </StyledListItem>
           <StyledListItem onClick={() => logout()}>
             <ExitIcon style={{ marginRight: '5px', width: '13px' }} />

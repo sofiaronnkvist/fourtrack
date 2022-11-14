@@ -120,7 +120,7 @@ export default function Project({ ...res }) {
 
   const stop = (recId) => {
     if (recId == 1) {
-      ref1.current.stop1();
+      ref1.current ? ref1.current.stop1() : null;
       waveRef2.current ? waveRef2.current.pause() : null;
       waveRef3.current ? waveRef3.current.pause() : null;
       waveRef4.current ? waveRef4.current.pause() : null;
@@ -128,7 +128,7 @@ export default function Project({ ...res }) {
 
       return;
     } else if (recId == 2) {
-      ref2.current.stop2();
+      ref2.current ? ref2.current.stop2() : null;
       waveRef1.current ? waveRef1.current.pause() : null;
       waveRef3.current ? waveRef3.current.pause() : null;
       waveRef4.current ? waveRef4.current.pause() : null;
@@ -136,14 +136,14 @@ export default function Project({ ...res }) {
 
       return;
     } else if (recId == 3) {
-      ref3.current.stop3();
+      ref3.current ? ref3.current.stop3() : null;
       waveRef1.current ? waveRef1.current.pause() : null;
       waveRef2.current ? waveRef2.current.pause() : null;
       waveRef4.current ? waveRef4.current.pause() : null;
       setChildTrack((prev) => prev + 1);
       return;
     } else if (recId == 4) {
-      ref4.current.stop4();
+      ref4.current ? ref4.current.stop4() : null;
       waveRef1.current ? waveRef1.current.pause() : null;
       waveRef2.current ? waveRef2.current.pause() : null;
       waveRef3.current ? waveRef3.current.pause() : null;

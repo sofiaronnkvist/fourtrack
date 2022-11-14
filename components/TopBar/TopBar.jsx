@@ -4,7 +4,7 @@ import { FiBell } from 'react-icons/fi';
 import UserDropDown from '../UserDropDown/UserDropDown';
 import ProjectModal from '../Modals/ProjectModal/ProjectModal';
 
-const TopBar = () => {
+const TopBar = (props) => {
   return (
     <TopBarWrapper>
       <div>
@@ -19,7 +19,7 @@ const TopBar = () => {
           size='20px'
           style={{ marginLeft: '20px', marginRight: '20px' }}
         />
-        <UserDropDown />
+        <UserDropDown colabsToDelete={props.colabsToDelete} projectsToDelete={props.projectsToDelete}/>
       </RightSection>
     </TopBarWrapper>
   );
@@ -32,6 +32,7 @@ const TopBarWrapper = styled.div`
   max-width: 1050px;
   height: 133px;
   border-bottom: 1px solid lightgray;
+
 `;
 
 const SearchField = styled.div`

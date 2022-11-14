@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Fourtrack</title>
         <meta name='Fourtrack' content='A better way for recording music' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
@@ -40,18 +40,18 @@ export default function Home() {
             </Wrapper>
           </TitleCTA>
           <OrangeIconWrapper>
-            <Image src={orangeIcon} height={'128px'} width={'128px'} />
+            <Image src={orangeIcon} alt='' height={'128px'} width={'128px'} />
           </OrangeIconWrapper>
           <YellowIconWrapper>
-            <Image src={yellowIcon} height={'283px'} width={'283px'} />
+            <Image src={yellowIcon} alt='' height={'283px'} width={'283px'} />
           </YellowIconWrapper>
           <BlueIconWrapper>
-            <Image src={blueIcon} height={'107px'} width={'107px'} />
+            <Image src={blueIcon} alt='' height={'107px'} width={'107px'} />
           </BlueIconWrapper>
         </HeroSection>
         <CaroselSection>
           <PurpuleIconWrapper>
-            <Image src={purpuleIcon} height={'447px'} width={'447px'} />
+            <Image src={purpuleIcon} alt='' height={'447px'} width={'447px'} />
           </PurpuleIconWrapper>
         </CaroselSection>
         <ToolSection purple>

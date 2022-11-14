@@ -111,6 +111,12 @@ const ForgotPassword = styled.p`
   color: ${(props) => props.theme.purple500};
   font-size: 12px;
 `;
+
+const StyledErrorMessage = styled.p`
+  color: ${(props) => props.theme.red800};
+  font-size: 14px;
+`;
+
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -166,6 +172,7 @@ export default function Modal(props) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const { user, login, signUpWithGoogle, signup } = useAuth();
+  const [formMessage, setFormMessage] = useState('');
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -178,6 +185,7 @@ export default function Modal(props) {
       await login(data.email, data.password);
       router.push('/projects');
     } catch (err) {
+      setFormMessage('Did you maybe misspell something?');
       console.log(err);
     }
   };
@@ -249,6 +257,7 @@ export default function Modal(props) {
           Continue with Google
         </GoogleButton>
         <Divider>or</Divider>
+        <StyledErrorMessage>{formMessage}</StyledErrorMessage>
         <StyledForm onSubmit={checkForm() ? handleLogin : handleSignup}>
           <input
             onChange={(e) =>

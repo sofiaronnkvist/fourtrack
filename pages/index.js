@@ -11,7 +11,6 @@ import purpuleIcon from '../public/purpleIcon2.svg';
 import yellowIcon from '../public/yellowIcon.svg';
 import orangeIcon from '../public/orangeIcon.svg';
 import blueIcon from '../public/blueIcon.svg';
-
 import { AiOutlineArrowRight } from 'react-icons/ai';
 
 export default function Home() {
@@ -153,7 +152,7 @@ const StyledH1 = styled.h1`
   line-height: 0.9;
   font-size: 100px;
   font-weight: 500;
-  z-index: 99;
+  z-index: 1;
 `;
 const TitleCTA = styled.div`
   margin-top: 67px;

@@ -26,6 +26,7 @@ const StyledContent = styled(dialogContent)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 99;
 `;
 
 const StyledOverlay = styled(dialogOverlay)`

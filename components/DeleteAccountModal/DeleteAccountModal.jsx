@@ -1,12 +1,10 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import {
   doc,
-  writeBatch,
   runTransaction,
-  arrayRemove,
   query,
   collection,
   where,
@@ -14,7 +12,11 @@ import {
 } from 'firebase/firestore';
 import { firestore } from '../../utils/firebase';
 import { useAuth } from '../../context/AuthContext';
-import { getAuth, deleteUser } from 'firebase/auth';
+import {
+  getAuth,
+  deleteUser,
+  reauthenticateWithCredential,
+} from 'firebase/auth';
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
@@ -31,12 +33,17 @@ const StyledContent = styled(dialogContent)`
   max-width: 440px;
   max-height: 85vh;
   padding: 25;
-  border: 1px solid black;
-  border-radius: 7px;
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0px 48px;
+
+  span {
+    color: #f24822;
+    margin-right: 10px;
+  }
 `;
 
 const StyledOverlay = styled(dialogOverlay)`
@@ -50,7 +57,7 @@ const CreateButton = styled.button`
   cursor: pointer;
   border: none;
   margin-left: -5px;
-  color: #F78D75;
+  color: #f78d75;
 `;
 
 const CloseButton = styled.button`
@@ -65,6 +72,7 @@ const CloseButton = styled.button`
 const StyledTitle = styled.h1`
   color: black;
   font-size: 20;
+  text-align: center;
 `;
 
 const StyledForm = styled.form`
@@ -86,20 +94,17 @@ const StyledForm = styled.form`
     outline: none !important;
     border: 2px solid ${(props) => props.theme.purple};
   }
-  input[type='password']:focus {
-    outline: none !important;
-    border: 2px solid ${(props) => props.theme.purple};
-  }
   button {
     width: 330px;
     height: 48px;
     font-size: 16px;
     padding: 5px;
     margin: 30px;
+    border: none;
 
-    background-color: ${(props) => props.theme.purple};
+    background-color: #f24822;
     color: white;
-    border-radius: 8px;
+    border-radius: 4px;
   }
 `;
 
@@ -123,7 +128,6 @@ export default function DeleteAccountModal(props) {
   const router = useRouter();
   const [searchResult, setSearchResult] = useState([]);
   const { user } = useAuth();
-  console.log(user.uid);
 
   const handleSubmit = async (userId) => {
     try {
@@ -151,64 +155,25 @@ export default function DeleteAccountModal(props) {
             transaction.delete(doc(firestore, 'projects', project.id));
           });
         }
+        await deleteCurrentUser();
       });
-      router.push('/');
-
-      // await runTransaction(firestore, async (transaction) => {
-      //   console.log('in runTransaction..ll');
-      //   console.log(userId);
-      //   let testarray = [];
-      //   console.log('testarray', testarray);
-      //   let testres;
-      //   console.log('testres', testres);
-
-      //   const ref = collection(firestore, 'projects');
-      //   const colabQuery = query(
-      //     ref,
-      //     where('colab_uid', 'array-contains-any', [userId])
-      //   );
-      //   console.log('q', q);
-
-      //   const querySnapshot = await getDocs(colabQuery);
-      //   console.log('snapshot', querySnapshot);
-      //   querySnapshot.forEach((doc) => {
-      //     testres = {
-      //       ...doc.data(),
-      //       id: doc.id,
-      //       timestamp: doc.data().timestamp.toDate().toLocaleDateString(),
-      //     };
-      //     testarray.push(testres);
-      //   });
-      //   console.log('array', testarray);
-      //   setSearchResult(testarray);
-      //   if (testarray.length == 0) {
-      //     console.log('No colab to remove');
-      //   } else {
-      //     testarray.forEach((project) => {
-      //       console.log(project.id);
-      //       transaction.update(doc(firestore, 'projects', project.id), {
-      //         colab_uid: arrayRemove(userId),
-      //       });
-      //     });
-      //   }
-      // });
-      // const auth = getAuth();
-      // const user = auth.currentUser;
-
-      // deleteUser(user)
-      //   .then(() => {
-      //     // User deleted.
-      //     console.log('deleted');
-      //     router.push('/');
-      //   })
-      //   .catch((error) => {
-      //     // An error ocurred
-      //     // ...
-      //     console.log('error', error);
-      //   });
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
+  };
+
+  const deleteCurrentUser = async () => {
+    console.log('In deleteCurrentUser');
+    const auth = getAuth();
+    const userToDelete = auth.currentUser;
+    console.log(userToDelete);
+    await deleteUser(userToDelete)
+      .then(() => {
+        console.log('deleted');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -221,6 +186,12 @@ export default function DeleteAccountModal(props) {
           <CloseButton>X</CloseButton>
         </DialogClose>
         <DialogTitle>Deleting account will do the following</DialogTitle>
+        <p>
+          <span>X</span>Log you out on all devices
+        </p>
+        <p>
+          <span>X</span>Delete all of your account information
+        </p>
 
         <StyledForm onSubmit={(e) => handleSubmit(user.uid)}>
           <button type='submit'>Delete Account</button>

@@ -23,7 +23,7 @@ const StyledContent = styled(dialogContent)`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 447px;
-  height: 468px;
+  height: 497px;
   padding: 25px;
   border-radius: 7px;
   display: flex;
@@ -60,7 +60,7 @@ const NavButton = styled.button`
 const InfoContainer = styled.div`
   margin-left: 20px;
 
-  p{
+  p {
     font-size: 14px;
   }
 `;
@@ -71,7 +71,7 @@ const StyledH5 = styled.h5`
 const StyledDangerText = styled.h5`
   margin: 0px;
   font-size: 14px;
-  margin-top: 170px;
+  margin-top: 250px;
   margin-bottom: 20px;
 `;
 
@@ -85,13 +85,19 @@ const CloseButton = styled.button`
   border: none;
 `;
 const InfoWrapper = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
 `;
 const NoProfileImage = styled.div`
   height: 107px;
   width: 107px;
   border-radius: 100%;
   background-color: gray;
+`;
+const ImageWrapper = styled.div`
+  height: 107px;
+  width: 107px;
 `;
 
 function Content({ children, ...props }) {
@@ -142,13 +148,15 @@ export default function UserModal(props) {
         <DialogTitle>Account settings</DialogTitle>
         <InfoWrapper>
           {user.profileImage ? (
-            <Image
-              src={user.profileImage}
-              width={'90px'}
-              height={'40px'}
-              style={{ borderRadius: '100%' }}
-              alt={'User profile image'}
-            />
+            <ImageWrapper>
+              <Image
+                src={user.profileImage}
+                width={'100px'}
+                height={'100px'}
+                style={{ borderRadius: '100%' }}
+                alt={'User profile image'}
+              />
+            </ImageWrapper>
           ) : (
             <NoProfileImage></NoProfileImage>
           )}
@@ -158,9 +166,9 @@ export default function UserModal(props) {
             <p>{user.email}</p>
             {googleUser ? null : (
               <>
-                {/* <ChangeEmailModal /> */}
-                {/* <StyledH5>Password</StyledH5> */}
-                {/* <a>Change password</a> */}
+                <ChangeEmailModal />
+                {/* <StyledH5>Password</StyledH5>
+                 <a>Change password</a> */}
               </>
             )}
             <StyledDangerText>Danger Zone</StyledDangerText>

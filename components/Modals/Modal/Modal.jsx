@@ -187,7 +187,7 @@ export default function Modal(props) {
     const [width, setWidth] = useState(0);
     const handleWindowSizeChange = () => {
       setWidth(window.innerWidth);
-      setUserOnMobile(window.innerWidth < 900 ? true : false);
+      setUserOnMobile(window.innerWidth < 1024 ? true : false);
     };
     useEffect(() => {
       window.addEventListener('resize', handleWindowSizeChange);

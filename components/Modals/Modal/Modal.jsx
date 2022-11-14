@@ -192,14 +192,13 @@ export default function Modal(props) {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-
     try {
       await signup(data.email, data.password);
       router.push('/projects');
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      setFormMessage('This email is already used for an account.');
+      console.log(error);
     }
-    console.log(data);
   };
 
   const handleGoogleSignIn = async () => {

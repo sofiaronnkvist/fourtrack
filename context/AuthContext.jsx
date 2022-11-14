@@ -12,6 +12,7 @@ import { auth, googleAuthProvider, firestore } from '../utils/firebase';
 import nookies from 'nookies';
 import { app } from '../utils/firebase';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/router';
 
 const AuthContext = createContext({});
 
@@ -20,6 +21,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onIdTokenChanged(auth, async (user) => {
@@ -32,7 +34,7 @@ export const AuthContextProvider = ({ children }) => {
           uid: user.uid,
           email: user.email,
           // provider: user.,
-          profileImage: user.photoURL
+          profileImage: user.photoURL,
         });
         nookies.set(undefined, 'token', token, { path: '/' });
       }
@@ -76,7 +78,13 @@ export const AuthContextProvider = ({ children }) => {
 
   const registerWithEmailAndPassword = async (auth, email, password) => {
     try {
-      const res = await createUserWithEmailAndPassword(auth, email, password);
+      const res = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      ).catch((error) => {
+        throw error;
+      });
       const user = res.user;
       await addDoc(collection(firestore, 'users'), {
         uid: user.uid,
@@ -88,7 +96,7 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const signup = (email, password) => {
+  const signup = async (email, password) => {
     return registerWithEmailAndPassword(auth, email, password);
   };
 
@@ -112,22 +120,6 @@ export const AuthContextProvider = ({ children }) => {
   //       }
   //       if (error.code === 'auth/weak-password') {
   //         toast('Your password must be 6 characters or more.');
-  //       }
-  //     });
-  // };
-
-  // const signUpWithGoogle = async () => {
-  //   await signInWithRedirect(auth, googleAuthProvider);
-  // };
-
-  // const login = (email, password) => {
-  //   signInWithEmailAndPassword(auth, email, password)
-  //     .then((userCredential) => {
-  //       // Signed in
-  //     })
-  //     .catch((error) => {
-  //       if (error.code === 'auth/wrong-password') {
-  //         toast('Sorry wrong password or email');
   //       }
   //     });
   // };

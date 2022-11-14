@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import * as SliderPrimitive from '@radix-ui/react-slider';
 import MarkersPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.markers.min.js';
 import RegionsPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.regions.min.js';
-import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import { firestore } from '../../utils/firebase';
 
 const AudioWrapper = (props) => {
@@ -13,8 +13,6 @@ const AudioWrapper = (props) => {
   const waveSurferRef = useRef({
     isPlaying: () => false,
   });
-  console.log('marker', props.marker);
-  console.log('id', props.id);
 
   useEffect(() => {
     const waveSurfer = WaveSurfer.create({
@@ -28,7 +26,6 @@ const AudioWrapper = (props) => {
       waveColor: `${props.waveColor}`,
       backgroundColor: `${props.background}`,
       height: 50,
-      // backend: 'MediaElement',
       plugins: [
         MarkersPlugin.create({
           markers: [
@@ -72,7 +69,6 @@ const AudioWrapper = (props) => {
 
   useImperativeHandle(props.waveRef1, () => ({
     play() {
-      console.log('in waveref1 play');
       waveSurferRef.current.play();
     },
     pause() {
@@ -107,7 +103,6 @@ const AudioWrapper = (props) => {
 
   const handleChange = (value) => {
     waveSurferRef.current.setVolume(value);
-    console.log('value is:', value);
   };
 
   const slider = SliderPrimitive.Root;

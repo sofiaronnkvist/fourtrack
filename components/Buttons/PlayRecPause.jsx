@@ -1,15 +1,12 @@
 import styled from 'styled-components';
-import { PlayIcon } from '@radix-ui/react-icons';
-import { useState } from 'react';
 
 export default function PlayRecPauseButton({
   handleclick,
   icon,
   backgroundRed,
 }) {
-  console.log(backgroundRed);
   return (
-    <PlayRecPauseBtn  onClick={handleclick}>
+    <PlayRecPauseBtn onClick={handleclick}>
       <StyledWrapper backgroundRed={backgroundRed}>{icon}</StyledWrapper>
     </PlayRecPauseBtn>
   );

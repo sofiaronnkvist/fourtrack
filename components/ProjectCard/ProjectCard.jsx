@@ -13,7 +13,7 @@ import {
 import { useRouter } from 'next/router';
 import SearchModal from '../Modals/SearchModal/SearchModal';
 import RenameModal from '../Modals/RenameModal/RenameModal';
-import {DeleteFolderFromStorage} from '../../utils/deleteFolderFromStorage'
+import { DeleteFolderFromStorage } from '../../utils/deleteFolderFromStorage';
 
 const ContextRoot = ContextMenu.Root;
 const ContextTrigger = ContextMenu.Trigger;
@@ -99,9 +99,7 @@ const ProjectCard = ({ title, date, id, ownerId, favorite }) => {
                 ) : null}
                 <StyledContextItem>
                   <StyledContextButton
-                    onClick={() =>
-                      deleteProject(user.uid, id, ownerId)
-                    }
+                    onClick={() => deleteProject(user.uid, id, ownerId)}
                   >
                     <CrumpledPaperIcon
                       style={{ marginRight: '5px', width: '13px' }}
@@ -152,9 +150,6 @@ const ProjectLegth = styled.p`
   margin-left: 100px;
 `;
 const StarWrapper = styled.div`
-  margin-left: 100px;
-`;
-const DotWrapper = styled.div`
   margin-left: 100px;
 `;
 

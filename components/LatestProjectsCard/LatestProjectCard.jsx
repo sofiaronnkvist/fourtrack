@@ -1,10 +1,7 @@
-import { useAuth } from '../../context/AuthContext';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { async } from '@firebase/util';
 
-const LatestProjectCard = ({ title, date, id, ownerId }) => {
-  const { user } = useAuth();
+const LatestProjectCard = ({ title, date, id }) => {
 
   return (
     <ProjectOuterWrapper id={id}>

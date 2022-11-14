@@ -83,17 +83,10 @@ const LeftSideNavigation = ({ collections }) => {
             <ChevronRightIcon size='20px' />
           </LinkWrapper>
           <StyledSeparator />
-          {/* <LinkWrapper>
-            <CiFileOn size='20px' />
-            <Link href='/projects/collections'>
-              <NavLink>Collections</NavLink>
-            </Link>
-            <ChevronRightIcon size='20px' />
-          </LinkWrapper> */}
+
           <CollectionsAccordion
             collections={collections}
             collectionTitle={collections}
-            // projectsRef={projectsRef}
           />
         </TopItems>
         <BottomItems>
@@ -112,7 +105,6 @@ const LeftSideNavigation = ({ collections }) => {
               <NavLink
                 onClick={() => {
                   logout();
-                  // router.push('/');
                 }}
               >
                 Logout
@@ -137,7 +129,6 @@ const Navigation = styled.nav`
   margin-top: 100px;
   justify-content: space-between;
   height: 80vh;
-
 `;
 const LinkWrapper = styled.div`
   display: flex;

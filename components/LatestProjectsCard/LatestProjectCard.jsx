@@ -1,7 +1,6 @@
 import { useAuth } from '../../context/AuthContext';
 import styled from 'styled-components';
 import Link from 'next/link';
-import ProjectDropDownMenu from '../ProjectDropDown/DropDownMenu';
 import { async } from '@firebase/util';
 
 const LatestProjectCard = ({ title, date, id, ownerId }) => {
@@ -19,7 +18,7 @@ const LatestProjectCard = ({ title, date, id, ownerId }) => {
         <a>
           <ProjectWrapper>
             <ProjectTitle>{title}</ProjectTitle>
-            <ProjectDate>Laste edited {date}</ProjectDate>
+            <ProjectDate>Last edited {date}</ProjectDate>
           </ProjectWrapper>
         </a>
       </Link>

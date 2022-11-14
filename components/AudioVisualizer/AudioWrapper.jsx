@@ -4,12 +4,18 @@ import styled from 'styled-components';
 import * as SliderPrimitive from '@radix-ui/react-slider';
 import MarkersPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.markers.min.js';
 import RegionsPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.regions.min.js';
+import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { firestore } from '../../utils/firebase';
 
 const AudioWrapper = (props) => {
   const containerRef = useRef();
+  const [myMarker, setMyMarker] = useState(props.marker);
   const waveSurferRef = useRef({
     isPlaying: () => false,
   });
+  console.log('marker', props.marker);
+  console.log('id', props.id);
+
   useEffect(() => {
     const waveSurfer = WaveSurfer.create({
       container: containerRef.current,
@@ -27,15 +33,9 @@ const AudioWrapper = (props) => {
         MarkersPlugin.create({
           markers: [
             {
-              time: sessionStorage.getItem(
-                `startMarker${props.id}${props.projectId}`
-              )
-                ? sessionStorage.getItem(
-                    `startMarker${props.id}${props.projectId}`
-                  )
-                : 0.002,
-              label: 'start',
-              color: 'hotpink',
+              time: myMarker,
+              // label: 'start',
+              color: `${props.waveColor}`,
               draggable: true,
             },
           ],
@@ -43,29 +43,9 @@ const AudioWrapper = (props) => {
         RegionsPlugin.create({
           regionsMinLength: 2,
           regions: [
-            // {
-            //     start: 1,
-            //     end: 3,
-            //     loop: false,
-            //     color: 'hsla(400, 100%, 30%, 0.5)'
-            // },
-            // {
-            //   start: 1,
-            //   end: 2,
-            //   loop: false,
-            //   color: 'hsla(200, 50%, 70%, 0.4)',
-            //   minLength: 0.01,
-            //   maxLength: 5,
-            // },
           ],
-          // dragSelection: {
-          //     slop: 1
-          // }
+      
         }),
-
-        // ({
-
-        // }),
       ],
     });
     waveSurfer.load(props.src);
@@ -73,17 +53,22 @@ const AudioWrapper = (props) => {
       waveSurferRef.current = waveSurfer;
     });
 
-    waveSurfer.on('marker-drop', function (marker) {
+    waveSurfer.on('marker-drop', async function (marker) {
       console.log('marker drop:', marker.time);
-      sessionStorage.setItem(
-        `startMarker${props.id}${props.projectId}`,
-        marker.time
-      );
+      try {
+        const ref = doc(firestore, 'projects', props.projectId);
+        await updateDoc(ref, {
+          [`marker${props.id}`]: marker.time,
+        });
+      } catch (error) {
+        console.log(error);
+      }
     });
     return () => {
       waveSurfer.destroy();
     };
   }, []);
+
 
   useImperativeHandle(props.waveRef1, () => ({
     play() {
@@ -172,20 +157,20 @@ const AudioWrapper = (props) => {
       <OuterWaveDiv>
         <WaveDiv ref={containerRef} />
       </OuterWaveDiv>
-        <StyledSlider
-          defaultValue={[0.5]}
-          max={1}
-          min={0}
-          step={0.1}
-          aria-label='Volume'
-          orientation='vertical'
-          onValueChange={handleChange}
-        >
-          <StyledTrack>
-            <StyledRange />
-          </StyledTrack>
-          <StyledThumb />
-        </StyledSlider>
+      <StyledSlider
+        defaultValue={[0.5]}
+        max={1}
+        min={0}
+        step={0.1}
+        aria-label='Volume'
+        orientation='vertical'
+        onValueChange={handleChange}
+      >
+        <StyledTrack>
+          <StyledRange />
+        </StyledTrack>
+        <StyledThumb />
+      </StyledSlider>
     </StyledDiv>
   );
 };

@@ -7,8 +7,6 @@ import { async } from '@firebase/util';
 const ProjectCard = ({ title, date, id, ownerId, favorite }) => {
   const { user } = useAuth();
 
-
-
   return (
     <ProjectOuterWrapper id={id}>
       <Link

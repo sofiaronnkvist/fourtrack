@@ -13,6 +13,7 @@ import {
 import { useRouter } from 'next/router';
 import SearchModal from '../Modals/SearchModal/SearchModal';
 import RenameModal from '../Modals/RenameModal/RenameModal';
+import {DeleteFolderFromStorage} from '../../utils/deleteFolderFromStorage'
 
 const ContextRoot = ContextMenu.Root;
 const ContextTrigger = ContextMenu.Trigger;
@@ -99,7 +100,7 @@ const ProjectCard = ({ title, date, id, ownerId, favorite }) => {
                 <StyledContextItem>
                   <StyledContextButton
                     onClick={() =>
-                      deleteProject(user.uid, props.projectId, props.ownerId)
+                      deleteProject(user.uid, id, ownerId)
                     }
                   >
                     <CrumpledPaperIcon

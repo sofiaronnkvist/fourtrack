@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps }) {
               },
             }}
           />
-          <Navbar />
+          {/* <Navbar /> */}
           {noAuthRequired.includes(router.pathname) ? (
             <Component {...pageProps} />
           ) : (

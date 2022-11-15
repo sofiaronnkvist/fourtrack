@@ -5,7 +5,9 @@ export default function DeleteButton({ handleclick, text }) {
 }
 const DeleteBtn = styled.button`
 position: absolute;
-top: 0px;
-left: 1069px;
+top: 5px;
+left: 1180px;
 z-index: 99;
+background-color: transparent;
+border: none;
 `;

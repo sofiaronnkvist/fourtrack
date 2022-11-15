@@ -12,15 +12,13 @@ import SearchModal from '../../components/Modals/SearchModal/SearchModal';
 import PlayRecPause from '../../components/Buttons/PlayRecPause';
 import { FaPlay, FaStop } from 'react-icons/fa';
 import { BsRecordFill } from 'react-icons/bs';
+import { ChevronLeftIcon } from '@radix-ui/react-icons';
 
 export default function Project({ ...res }) {
   const [trackArray, setTrackArray] = useState([]);
   const [playId, setPlayId] = useState();
   const [childTrack, setChildTrack] = useState(1);
   const router = useRouter();
-  const [playBtnActive, setPlayBtnActive] = useState(false);
-  const [stopBtnActive, setStopBtnActive] = useState(false);
-  const [recBtnActive, setRecBtnActive] = useState(false);
 
   let ref1 = useRef(null);
   let ref2 = useRef(null);
@@ -164,14 +162,18 @@ export default function Project({ ...res }) {
   };
   return (
     <div>
-      <button onClick={() => router.push('/projects')}>Back</button>
-      <SearchModal
-        btnWithBackground={true}
-        projectTitle={res.title}
-        projectId={res.id}
-      />
-      <h1>{res.title}</h1>
-      <p>id: {res.id}</p>
+      <StyledTopBar>
+        <BackBtn onClick={() => router.push('/projects')}>
+          <ChevronLeftIcon />
+          Back
+        </BackBtn>
+        <StyledTitle>{res.title}</StyledTitle>{' '}
+        <SearchModal
+          btnWithBackground={true}
+          projectTitle={res.title}
+          projectId={res.id}
+        />
+      </StyledTopBar>
       <Form>
         <Label htmlFor=''>
           <input
@@ -198,10 +200,12 @@ export default function Project({ ...res }) {
                 style={{ backgroundColor: '#EBBA00' }}
               ></NoAudioVisualizationContainer>
             )}
-            <DeleteButton
-              handleclick={() => deleteTrack(res.uid, res.id, 1)}
-              text={'X'}
-            ></DeleteButton>
+            {trackArray[0] ? (
+              <DeleteButton
+                handleclick={() => deleteTrack(res.uid, res.id, 4)}
+                text={'X'}
+              ></DeleteButton>
+            ) : null}
           </Container>
           <Recorder
             id={1}
@@ -235,10 +239,12 @@ export default function Project({ ...res }) {
                 style={{ backgroundColor: '#EC8300' }}
               ></NoAudioVisualizationContainer>
             )}
-            <DeleteButton
-              handleclick={() => deleteTrack(res.uid, res.id, 2)}
-              text={'X'}
-            ></DeleteButton>
+            {trackArray[1] ? (
+              <DeleteButton
+                handleclick={() => deleteTrack(res.uid, res.id, 4)}
+                text={'X'}
+              ></DeleteButton>
+            ) : null}
           </div>
 
           <Recorder
@@ -273,10 +279,12 @@ export default function Project({ ...res }) {
                 style={{ backgroundColor: '#69B6D3' }}
               ></NoAudioVisualizationContainer>
             )}
-            <DeleteButton
-              handleclick={() => deleteTrack(res.uid, res.id, 3)}
-              text={'X'}
-            ></DeleteButton>
+            {trackArray[2] ? (
+              <DeleteButton
+                handleclick={() => deleteTrack(res.uid, res.id, 4)}
+                text={'X'}
+              ></DeleteButton>
+            ) : null}
           </div>
           <Recorder
             id={3}
@@ -310,10 +318,12 @@ export default function Project({ ...res }) {
                 style={{ backgroundColor: '#B4ABDC' }}
               ></NoAudioVisualizationContainer>
             )}
-            <DeleteButton
-              handleclick={() => deleteTrack(res.uid, res.id, 4)}
-              text={'X'}
-            ></DeleteButton>
+            {trackArray[3] ? (
+              <DeleteButton
+                handleclick={() => deleteTrack(res.uid, res.id, 4)}
+                text={'X'}
+              ></DeleteButton>
+            ) : null}
           </div>
 
           <Recorder
@@ -343,6 +353,27 @@ export default function Project({ ...res }) {
     </div>
   );
 }
+const StyledTopBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  padding: 26px;
+`;
+
+const BackBtn = styled.button`
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+const StyledTitle = styled.h3`
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+`;
 
 const Label = styled.label`
   position: relative;
@@ -354,20 +385,24 @@ const Label = styled.label`
 const Form = styled.form`
   margin-top: 20px;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const NoAudioVisualizationContainer = styled.div`
-  height: 49px;
-  width: 1055px;
+  height: 100px;
+  width: 1170px;
   margin-left: 7px;
   margin-top: 0px;
+  border-radius: 4px;
 `;
 const Container = styled.div`
   width: 100%;
   display: flex;
 `;
 const ButtonWrapper = styled.div`
-  width: 1064px;
+  width: 100%;
   display: flex;
   justify-content: center;
 `;

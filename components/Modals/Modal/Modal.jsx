@@ -1,9 +1,11 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../../context/AuthContext';
 import { FcGoogle } from 'react-icons/fc';
+import WireImage from '../../../public/wireAndMic.svg';
+import Image from 'next/image';
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
@@ -83,6 +85,14 @@ const StyledTitle = styled.h1`
   color: black;
   font-size: 30px;
   margin: 0;
+  font-weight: 400;
+`;
+const StyledMobileTitle = styled.h1`
+  color: black;
+  font-size: 20px;
+  margin: 0;
+  padding: 40px;
+  text-align: center;
   font-weight: 400;
 `;
 
@@ -171,6 +181,23 @@ export default function Modal(props) {
     password: '',
   });
   const [buttonTitle, setButtonTitle] = useState(props.buttonTitle);
+  const [userOnMobile, setUserOnMobile] = useState(0);
+
+  const WidthOfWindow = () => {
+    const [width, setWidth] = useState(0);
+    const handleWindowSizeChange = () => {
+      setWidth(window.innerWidth);
+      setUserOnMobile(window.innerWidth < 1024 ? true : false);
+    };
+    useEffect(() => {
+      window.addEventListener('resize', handleWindowSizeChange);
+      return () => {
+        window.removeEventListener('resize', handleWindowSizeChange);
+      };
+    }, []);
+  };
+
+  WidthOfWindow();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -237,61 +264,73 @@ export default function Modal(props) {
         <DialogClose asChild>
           <CloseButton onClick={returnButtonValue}>&#9587;</CloseButton>
         </DialogClose>
-        <div>
-          <DialogTitle>{buttonTitle}</DialogTitle>
-        </div>
-        <GoogleButton
-          onClick={async () => {
-            handleGoogleSignIn();
-          }}
-        >
-          <FcGoogle size='22px' />
-          Continue with Google
-        </GoogleButton>
-        <Divider>or</Divider>
-        <StyledForm onSubmit={checkForm() ? handleLogin : handleSignup}>
-          <input
-            onChange={(e) =>
-              setData({
-                ...data,
-                email: e.target.value,
-              })
-            }
-            value={data.email}
-            required
-            type='email'
-            placeholder='Email'
-          ></input>
-          <input
-            onChange={(e) =>
-              setData({
-                ...data,
-                password: e.target.value,
-              })
-            }
-            value={data.password}
-            required
-            type='password'
-            placeholder='Password'
-          ></input>
-          <button type='submit'>{buttonTitle}</button>
-        </StyledForm>
-        {checkForm() ? (
+        {userOnMobile ? (
           <>
-            <CreateAccountTexts onClick={changeForm}>
-              Don’t have an account? Create one.
-            </CreateAccountTexts>
-            <ForgotPassword>I forgot my password</ForgotPassword>
+            <StyledMobileTitle>
+              Woops you tried to log in on a mobile device, Fourtrack only works
+              on desktop.
+            </StyledMobileTitle>
+            <Image src={WireImage} height={180} width={180}/>
           </>
         ) : (
-          <LoginTexts onClick={changeForm}>
-            Already have an account? Log in
-          </LoginTexts>
+          <>
+            <div>
+              <DialogTitle>{buttonTitle}</DialogTitle>
+            </div>
+            <GoogleButton
+              onClick={async () => {
+                handleGoogleSignIn();
+              }}
+            >
+              <FcGoogle size='22px' />
+              Continue with Google
+            </GoogleButton>
+            <Divider>or</Divider>
+            <StyledForm onSubmit={checkForm() ? handleLogin : handleSignup}>
+              <input
+                onChange={(e) =>
+                  setData({
+                    ...data,
+                    email: e.target.value,
+                  })
+                }
+                value={data.email}
+                required
+                type='email'
+                placeholder='Email'
+              ></input>
+              <input
+                onChange={(e) =>
+                  setData({
+                    ...data,
+                    password: e.target.value,
+                  })
+                }
+                value={data.password}
+                required
+                type='password'
+                placeholder='Password'
+              ></input>
+              <button type='submit'>{buttonTitle}</button>
+            </StyledForm>
+            {checkForm() ? (
+              <>
+                <CreateAccountTexts onClick={changeForm}>
+                  Don’t have an account? Create one.
+                </CreateAccountTexts>
+                <ForgotPassword>I forgot my password</ForgotPassword>
+              </>
+            ) : (
+              <LoginTexts onClick={changeForm}>
+                Already have an account? Log in
+              </LoginTexts>
+            )}
+            <PrivacyText>
+              By clicking create account I agree to <br />
+              Fortracks awesome privacy policy
+            </PrivacyText>
+          </>
         )}
-        <PrivacyText>
-          By clicking create account I agree to <br />
-          Fortracks awesome privacy policy
-        </PrivacyText>
       </DialogContent>
     </Dialog>
   );

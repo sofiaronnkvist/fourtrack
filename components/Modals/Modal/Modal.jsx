@@ -221,9 +221,8 @@ export default function Modal(props) {
     e.preventDefault();
     try {
       await signup(data.email, data.password);
-      router.push('/projects');
     } catch (error) {
-      setFormMessage('This email is already used for an account.');
+      setFormMessage('This email is already used for another account.');
       console.log(error);
     }
   };
@@ -277,7 +276,7 @@ export default function Modal(props) {
               Woops you tried to log in on a mobile device, Fourtrack only works
               on desktop.
             </StyledMobileTitle>
-            <Image src={WireImage} height={180} width={180}/>
+            <Image src={WireImage} height={180} width={180} />
           </>
         ) : (
           <>
@@ -294,7 +293,8 @@ export default function Modal(props) {
             </GoogleButton>
             <Divider>or</Divider>
             <StyledErrorMessage>{formMessage}</StyledErrorMessage>
-        <StyledForm onSubmit={checkForm() ? handleLogin : handleSignup}>
+            <StyledErrorMessage>{props.errorMessage}</StyledErrorMessage>
+            <StyledForm onSubmit={checkForm() ? handleLogin : handleSignup}>
               <input
                 onChange={(e) =>
                   setData({

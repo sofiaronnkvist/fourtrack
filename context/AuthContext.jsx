@@ -22,6 +22,7 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const unsubscribe = onIdTokenChanged(auth, async (user) => {
@@ -78,13 +79,13 @@ export const AuthContextProvider = ({ children }) => {
 
   const registerWithEmailAndPassword = async (auth, email, password) => {
     try {
-      const res = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      ).catch((error) => {
-        throw error;
-      });
+      const res = await createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          router.push('/projects');
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       const user = res.user;
       await addDoc(collection(firestore, 'users'), {
         uid: user.uid,
@@ -92,7 +93,7 @@ export const AuthContextProvider = ({ children }) => {
         email: user.email,
       });
     } catch (error) {
-      console.error(error);
+      throw error;
     }
   };
 

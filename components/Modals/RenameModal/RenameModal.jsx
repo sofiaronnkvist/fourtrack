@@ -21,8 +21,7 @@ const StyledContent = styled(dialogContent)`
   max-width: 440px;
   max-height: 85vh;
   padding: 25;
-  border: 1px solid black;
-  border-radius: 7px;
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,6 +36,8 @@ const StyledOverlay = styled(dialogOverlay)`
 
 const NavLinkItem = styled.li`
   cursor: pointer;
+  list-style-type: none;
+  font-size: 12px;
 `;
 
 const CloseButton = styled.button`

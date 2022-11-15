@@ -166,7 +166,7 @@ const StyledContextContent = styled(ContextContent)`
 const StyledContextButton = styled.button`
   border: none;
   background-color: transparent;
-  font-size: 14px;
+  font-size: 12px;
   cursor: pointer;
   padding: 0;
   &:hover {
@@ -184,6 +184,7 @@ const StyledContextItem = styled(ContextItem)`
   padding: 20px;
   position: relative;
   padding-left: 10px;
+  font-size: 12px;
   user-select: none;
   outline: none;
   background-color: transparent;

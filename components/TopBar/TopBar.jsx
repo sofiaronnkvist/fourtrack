@@ -10,16 +10,23 @@ const TopBar = (props) => {
       <div>
         <SearchField>
           <GrSearch size='17px' />
-          <StyledInput type='text' />
+          <StyledInput type='text' placeholder='Search for files or tags' />
         </SearchField>
       </div>
       <RightSection>
         <ProjectModal />
         <FiBell
           size='20px'
-          style={{ marginLeft: '20px', marginRight: '20px' }}
+          style={{
+            marginLeft: '20px',
+            marginRight: '20px',
+            cursor: 'not-allowed',
+          }}
         />
-        <UserDropDown colabsToDelete={props.colabsToDelete} projectsToDelete={props.projectsToDelete}/>
+        <UserDropDown
+          colabsToDelete={props.colabsToDelete}
+          projectsToDelete={props.projectsToDelete}
+        />
       </RightSection>
     </TopBarWrapper>
   );
@@ -29,10 +36,8 @@ const TopBarWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1050px;
-  height: 133px;
-  border-bottom: 1px solid lightgray;
-
+  height: 100px;
+  max-width: 100%;
 `;
 
 const SearchField = styled.div`
@@ -41,9 +46,10 @@ const SearchField = styled.div`
   padding: 5px;
   border: 1px solid black;
   border-radius: 4px;
-  width: 200px;
-  height: 34px;
+  width: 375px;
+  height: 40px;
 `;
+
 const RightSection = styled.div`
   display: flex;
   align-items: center;
@@ -54,4 +60,5 @@ const StyledInput = styled.input`
   height: 30px;
   outline: none;
   padding-left: 5px;
+  cursor: not-allowed;
 `;

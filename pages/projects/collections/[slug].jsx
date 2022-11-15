@@ -14,24 +14,48 @@ export default function Project({ slug, collections, projects, allProjects }) {
       <LeftSideNavigation collections={collections} />
       <MainContent>
         <TopBar></TopBar>
-        <p>Collections</p>
-        <h1>{slug}</h1>
-        <SongsInCollectionModal allProjects={allProjects} slug={slug} projects={projects} />
-        <ul>
-          {projects &&
-            projects[0].map((project) => {
-              return (
-                <ProjectCard
-                  ownerId={project.uid}
-                  key={project.title}
-                  id={project.id}
-                  title={project.title}
-                  date={project.timestamp}
-                  favorite={project.favorite}
-                ></ProjectCard>
-              );
-            })}
-        </ul>
+        <HeaderContent>
+          <HeaderTexts>
+            <p>Collections</p>
+            <h1>{slug}</h1>
+          </HeaderTexts>
+          <SongsInCollectionModal
+            allProjects={allProjects}
+            slug={slug}
+            projects={projects}
+          />
+        </HeaderContent>
+        {projects[0].length >= 1 ? (
+          <>
+            <ProjectHeadlines>
+              <HedlineItem>title </HedlineItem>
+              <HedlineItem style={{ marginLeft: '312px' }}>date </HedlineItem>
+              <HedlineItem style={{ marginLeft: '137px' }}>bpm </HedlineItem>
+              <HedlineItem style={{ marginLeft: '100px' }}>lenght </HedlineItem>
+            </ProjectHeadlines>
+            <StyledUlList>
+              {projects &&
+                projects[0].map((project) => {
+                  return (
+                    <ProjectCard
+                      ownerId={project.uid}
+                      key={project.title}
+                      id={project.id}
+                      title={project.title}
+                      date={project.timestamp}
+                      favorite={project.favorite}
+                    ></ProjectCard>
+                  );
+                })}
+            </StyledUlList>
+          </>
+        ) : (
+          <NoProjectsMainWrapper>
+            <NoProjectsHeadline>
+              Oh no, no tracks here. Choose some for your collection!
+            </NoProjectsHeadline>
+          </NoProjectsMainWrapper>
+        )}
       </MainContent>
     </MainWrapper>
   );
@@ -42,6 +66,40 @@ const MainWrapper = styled.div`
   grid-template-columns: 237px auto;
 `;
 const MainContent = styled.div``;
+const HeaderContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+  max-width: 100%;
+  padding-top: 20px;
+  p {
+    padding: 0;
+    margin: 0;
+  }
+`;
+const HeaderTexts = styled.div``;
+const StyledUlList = styled.ul`
+  margin: 0;
+  padding: 0;
+`;
+const ProjectHeadlines = styled.div`
+  display: flex;
+  margin: 0px 27px;
+`;
+const HedlineItem = styled.p`
+  color: ${(props) => props.theme.black50};
+  font-size: 12px;
+`;
+const NoProjectsMainWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+`;
+const NoProjectsHeadline = styled.h2`
+  color: ${(props) => props.theme.purple500};
+  font-weight: 400;
+  width: 400px;
+`;
 
 export async function getServerSideProps(ctx) {
   const { params } = ctx;
@@ -78,13 +136,21 @@ export async function getServerSideProps(ctx) {
     where('uid', '==', uid),
     orderBy('timestamp', 'desc')
   );
+  const options = {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  };
   await getDocs(projectsQuery).then((data) => {
     projects.push(
       data.docs.map((item) => {
         return {
           ...item.data(),
           id: item.id,
-          timestamp: item.data().timestamp.toDate().toLocaleDateString(),
+          timestamp: item
+            .data()
+            .timestamp.toDate()
+            .toLocaleDateString(undefined, options),
         };
       })
     );
@@ -103,7 +169,10 @@ export async function getServerSideProps(ctx) {
         return {
           ...item.data(),
           id: item.id,
-          timestamp: item.data().timestamp.toDate().toLocaleDateString(),
+          timestamp: item
+            .data()
+            .timestamp.toDate()
+            .toLocaleDateString(undefined, options),
         };
       })
     );

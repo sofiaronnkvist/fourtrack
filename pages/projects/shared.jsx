@@ -1,12 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {
-  collection,
-  getDocs,
-  orderBy,
-  query,
-  Timestamp,
-  where,
-} from 'firebase/firestore';
+import React from 'react';
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { firestore } from '../../utils/firebase';
 import styled from 'styled-components';
 import { verifyIdToken } from '../../utils/firebaseAdmin';
@@ -14,7 +7,6 @@ import nookies from 'nookies';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import LeftSideNavigation from '../../components/LeftSideNavigation/LeftSideNavigation';
 import TopBar from '../../components/TopBar/TopBar';
-import Navbar from '../../components/Navbar/navbar';
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
@@ -24,6 +16,11 @@ export async function getServerSideProps(ctx) {
   let colabProjects = [];
   let collections = [];
 
+  const options = {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  };
   const ref = collection(firestore, 'projects');
   const colabQuery = query(
     ref,
@@ -36,7 +33,10 @@ export async function getServerSideProps(ctx) {
         return {
           ...item.data(),
           id: item.id,
-          timestamp: item.data().timestamp.toDate().toLocaleDateString(),
+          timestamp: item
+            .data()
+            .timestamp.toDate()
+            .toLocaleDateString(undefined, options),
         };
       })
     );
@@ -73,31 +73,44 @@ const checkColabs = (projects) => {
 const Shared = ({ colabProjects, collections }) => {
   return (
     <>
-      <Navbar />
       <MainWrapper>
         <LeftSideNavigation collections={collections} />
         <MainContent>
           <TopBar colabsToDelete={colabProjects}></TopBar>
           <h1>Shared with me</h1>
-          <ul>
-            {checkColabs(colabProjects) ? (
-              colabProjects &&
-              colabProjects[0].map((project) => {
-                return (
-                  <ProjectCard
-                    ownerId={project.uid}
-                    key={project.title}
-                    id={project.id}
-                    title={project.title}
-                    date={project.timestamp}
-                    favorite={project.favorite}
-                  ></ProjectCard>
-                );
-              })
-            ) : (
-              <p>Nothing here yet</p>
-            )}
-          </ul>
+          {colabProjects[0].length >= 1 ? (
+            <>
+              <ProjectHeadlines>
+                <HedlineItem>title </HedlineItem>
+                <HedlineItem style={{ marginLeft: '312px' }}>date </HedlineItem>
+                <HedlineItem style={{ marginLeft: '137px' }}>bpm </HedlineItem>
+                <HedlineItem style={{ marginLeft: '100px' }}>
+                  lenght{' '}
+                </HedlineItem>
+              </ProjectHeadlines>
+              <StyledUlList>
+                {colabProjects &&
+                  colabProjects[0].map((project) => {
+                    return (
+                      <ProjectCard
+                        ownerId={project.uid}
+                        key={project.title}
+                        id={project.id}
+                        title={project.title}
+                        date={project.timestamp}
+                        favorite={project.favorite}
+                      ></ProjectCard>
+                    );
+                  })}
+              </StyledUlList>
+            </>
+          ) : (
+            <NoProjectsMainWrapper>
+              <NoProjectsHeadline>
+                Oh no, no tracks here. Ask a firend to share something with you!
+              </NoProjectsHeadline>
+            </NoProjectsMainWrapper>
+          )}
         </MainContent>
       </MainWrapper>
     </>
@@ -108,11 +121,28 @@ const MainWrapper = styled.div`
   grid-template-columns: 237px auto;
 `;
 const MainContent = styled.div``;
-
-const Label = styled.label`
-  color: black;
+const StyledUlList = styled.ul`
+  margin: 0;
+  padding: 0;
+`;
+const ProjectHeadlines = styled.div`
   display: flex;
-  margin: 20px;
+  margin: 0px 27px;
+`;
+const HedlineItem = styled.p`
+  color: ${(props) => props.theme.black50};
+  font-size: 12px;
+`;
+const NoProjectsMainWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+`;
+const NoProjectsHeadline = styled.h2`
+  color: ${(props) => props.theme.purple500};
+  font-weight: 400;
+  width: 400px;
 `;
 
 export default Shared;

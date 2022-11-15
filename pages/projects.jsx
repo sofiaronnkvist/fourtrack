@@ -15,7 +15,6 @@ import ProjectCard from '../components/ProjectCard/ProjectCard';
 import LeftSideNavigation from '../components/LeftSideNavigation/LeftSideNavigation';
 import TopBar from '../components/TopBar/TopBar';
 import LatestProjectCard from '../components/LatestProjectsCard/LatestProjectCard';
-import Navbar from '../components/Navbar/navbar';
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
@@ -38,6 +37,11 @@ export async function getServerSideProps(ctx) {
     orderBy('timestamp', 'desc'),
     limit(5)
   );
+  const options = {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  };
 
   const getProjects = async (projectsQuery, array) => {
     await getDocs(projectsQuery).then((data) => {
@@ -46,7 +50,10 @@ export async function getServerSideProps(ctx) {
           return {
             ...item.data(),
             id: item.id,
-            timestamp: item.data().timestamp.toDate().toLocaleDateString(),
+            timestamp: item
+              .data()
+              .timestamp.toDate()
+              .toLocaleDateString(undefined, options),
           };
         })
       );
@@ -80,7 +87,6 @@ export async function getServerSideProps(ctx) {
 const Projects = ({ projects, collections, latestProjects }) => {
   return (
     <>
-      <Navbar />
       <MainWrapper>
         <LeftSideNavigation collections={collections} />
         <MainContent>
@@ -88,7 +94,7 @@ const Projects = ({ projects, collections, latestProjects }) => {
           {projects[0].length >= 1 ? (
             <>
               <h1>All recordings</h1>
-              <ul>
+              <StyledUlList>
                 <LatestProjectsWrapper>
                   {latestProjects &&
                     latestProjects[0].map((latestProject) => {
@@ -103,16 +109,16 @@ const Projects = ({ projects, collections, latestProjects }) => {
                       );
                     })}
                 </LatestProjectsWrapper>
-              </ul>
+              </StyledUlList>
               <ProjectHeadlines>
                 <HedlineItem>title </HedlineItem>
-                <HedlineItem style={{ marginLeft: '305px' }}>date </HedlineItem>
-                <HedlineItem style={{ marginLeft: '150px' }}>bpm </HedlineItem>
-                <HedlineItem style={{ marginLeft: '105px' }}>
+                <HedlineItem style={{ marginLeft: '312px' }}>date </HedlineItem>
+                <HedlineItem style={{ marginLeft: '137px' }}>bpm </HedlineItem>
+                <HedlineItem style={{ marginLeft: '100px' }}>
                   lenght{' '}
                 </HedlineItem>
               </ProjectHeadlines>
-              <ul>
+              <StyledUlList>
                 {projects &&
                   projects[0].map((project) => {
                     return (
@@ -126,7 +132,7 @@ const Projects = ({ projects, collections, latestProjects }) => {
                       ></ProjectCard>
                     );
                   })}
-              </ul>{' '}
+              </StyledUlList>{' '}
             </>
           ) : (
             <NoProjectsMainWrapper>
@@ -149,10 +155,11 @@ const MainContent = styled.div``;
 
 const LatestProjectsWrapper = styled.div`
   display: flex;
+  padding-bottom: 10px;
 `;
 const ProjectHeadlines = styled.div`
   display: flex;
-  margin: 0px 40px;
+  margin: 0px 27px;
 `;
 const HedlineItem = styled.p`
   color: ${(props) => props.theme.black50};
@@ -174,4 +181,9 @@ const NoProjectsHeadline = styled.h2`
   font-weight: 400;
   width: 400px;
 `;
+const StyledUlList = styled.ul`
+  margin: 0;
+  padding: 0;
+`;
+
 export default Projects;

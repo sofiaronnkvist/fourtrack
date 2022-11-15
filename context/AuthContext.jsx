@@ -11,7 +11,6 @@ import { query, getDocs, collection, where, addDoc } from 'firebase/firestore';
 import { auth, googleAuthProvider, firestore } from '../utils/firebase';
 import nookies from 'nookies';
 import { app } from '../utils/firebase';
-import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
 
 const AuthContext = createContext({});
@@ -22,7 +21,6 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const unsubscribe = onIdTokenChanged(auth, async (user) => {
@@ -59,7 +57,6 @@ export const AuthContextProvider = ({ children }) => {
   const registerGoogleUser = async () => {
     try {
       await getRedirectResult(auth).then(async (res) => {
-        // console.log(`res ; ${res}`);
         const usersCollectionRef = collection(firestore, 'users');
         const newUser = res.user;
         const q = query(usersCollectionRef, where('uid', '==', newUser.uid));
@@ -108,22 +105,6 @@ export const AuthContextProvider = ({ children }) => {
   const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
-
-  // MAKE ERROR HANDLING WORK
-  // const signup = (email, password) => {
-  //   createUserWithEmailAndPassword(auth, email, password)
-  //     .then((userCredential) => {
-  //       // Signed in
-  //     })
-  //     .catch((error) => {
-  //       if (error.code === 'auth/email-already-in-use') {
-  //         toast('Ups, email allredy in use');
-  //       }
-  //       if (error.code === 'auth/weak-password') {
-  //         toast('Your password must be 6 characters or more.');
-  //       }
-  //     });
-  // };
 
   const logout = async () => {
     setUser(null);

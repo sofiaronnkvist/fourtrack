@@ -1906,7 +1906,7 @@
     "css-color-keywords" "^1.0.0"
     "postcss-value-parser" "^4.0.2"
 
-"csstype@^3.0.10", "csstype@^3.0.2":
+"csstype@^3.0.2":
   "integrity" "sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw=="
   "resolved" "https://registry.npmjs.org/csstype/-/csstype-3.1.1.tgz"
   "version" "3.1.1"
@@ -2631,11 +2631,6 @@
     "merge2" "^1.4.1"
     "slash" "^3.0.0"
 
-"goober@^2.1.10":
-  "integrity" "sha512-5SS2lmxbhqH0u9ABEWq7WPU69a4i2pYcHeCxqaNq6Cw3mnrF0ghWNM4tEGid4dKy8XNIAUbuThuozDHHKJVh3A=="
-  "resolved" "https://registry.npmjs.org/goober/-/goober-2.1.11.tgz"
-  "version" "2.1.11"
-
 "google-auth-library@^8.0.1", "google-auth-library@^8.0.2":
   "integrity" "sha512-y6bw1yTWMVgs1vGJwBZ3uu+uIClfgxQfsEVcTNKjQeNQOVwox69+ZUgTeTAzrh+74hBqrk1gWyb9RsQVDI7seg=="
   "resolved" "https://registry.npmjs.org/google-auth-library/-/google-auth-library-8.6.0.tgz"
@@ -2744,11 +2739,6 @@
   "version" "3.3.2"
   dependencies:
     "react-is" "^16.7.0"
-
-"howler@^2.2.0", "howler@^2.2.3":
-  "integrity" "sha512-QM0FFkw0LRX1PR8pNzJVAY25JhIWvbKMBFM4gqk+QdV+kPXOhleWGCB6AiAF/goGjIHK2e/nIElplvjQwhr0jg=="
-  "resolved" "https://registry.npmjs.org/howler/-/howler-2.2.3.tgz"
-  "version" "2.2.3"
 
 "http-parser-js@>=0.5.1":
   "integrity" "sha512-SGeBX54F94Wgu5RH3X5jsDtf4eHyRogWX1XGT3b4HuW3tQPM4AaBzoUji/4AAJNXCEOWZ5O0DgZmJw1947gD5Q=="
@@ -3642,7 +3632,7 @@
   "resolved" "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz"
   "version" "2.0.1"
 
-"prop-types@^15.5.6", "prop-types@^15.6.0", "prop-types@^15.6.2", "prop-types@^15.7.2", "prop-types@^15.8.1":
+"prop-types@^15.6.0", "prop-types@^15.6.2", "prop-types@^15.7.2", "prop-types@^15.8.1":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -3740,21 +3730,6 @@
   dependencies:
     "loose-envify" "^1.1.0"
     "scheduler" "^0.23.0"
-
-"react-hot-toast@^2.4.0":
-  "integrity" "sha512-qnnVbXropKuwUpriVVosgo8QrB+IaPJCpL8oBI6Ov84uvHZ5QQcTp2qg6ku2wNfgJl6rlQXJIQU5q+5lmPOutA=="
-  "resolved" "https://registry.npmjs.org/react-hot-toast/-/react-hot-toast-2.4.0.tgz"
-  "version" "2.4.0"
-  dependencies:
-    "goober" "^2.1.10"
-
-"react-howler@^5.2.0":
-  "integrity" "sha512-oDK+zML0MHf3nVNM4lMxh+re87NDa7fHowea2WK8197yqnMiZfPVHoMXtfb/PtuoOsWLO06vmEAtovwTRWpTFg=="
-  "resolved" "https://registry.npmjs.org/react-howler/-/react-howler-5.2.0.tgz"
-  "version" "5.2.0"
-  dependencies:
-    "howler" "^2.2.0"
-    "prop-types" "^15.5.6"
 
 "react-icons@^4.6.0":
   "integrity" "sha512-rR/L9m9340yO8yv1QT1QurxWQvWpbNHqVX0fzMln2HEb9TEIrQRGsqiNFQfiv9/JEUbyHmHPlNTB2LWm2Ttz0g=="

@@ -1,6 +1,6 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import {
   collection,
@@ -8,16 +8,19 @@ import {
   getDocs,
   query,
   runTransaction,
-  updateDoc,
   where,
 } from 'firebase/firestore';
 import { firestore } from '../../../utils/firebase';
 import Select from 'react-select';
-import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
 import { useAuth } from '../../../context/AuthContext';
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
+
+const StyledSelect = styled(Select)`
+  margin-bottom: 30px;
+  max-width: 300px;
+`;
 
 const StyledContent = styled(dialogContent)`
   background-color: white;
@@ -32,7 +35,6 @@ const StyledContent = styled(dialogContent)`
   max-width: 440px;
   max-height: 85vh;
   padding: 25;
-  border: 1px solid black;
   border-radius: 7px;
   display: flex;
   flex-direction: column;
@@ -47,14 +49,15 @@ const StyledOverlay = styled(dialogOverlay)`
 `;
 
 const NavLinkItem = styled.button`
-  background-color: ${(props) => props.theme.purple500};
+  background-color: transparent;
   border-radius: 8px;
-  border: none;
-  width: 117px;
-  height: 34px;
+  border: 1px solid;
+  width: 144px;
+  height: 40px;
   margin-right: 16px;
-  color: white;
+  color: black;
   cursor: pointer;
+  font-size: 14px;
 `;
 
 const CloseButton = styled.button`
@@ -94,7 +97,6 @@ export default function RenameModal({ allProjects, slug, projects }) {
   const [searchResult, setSearchResult] = useState([]);
   const [searchable, setSearchable] = useState([]);
 
-  // ADD if chosenProjectsArray not in projectsToChange, set collections to ''
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (data.length == 0) {
@@ -124,12 +126,19 @@ export default function RenameModal({ allProjects, slug, projects }) {
               where('uid', '==', user.uid)
             );
             const querySnapshot = await getDocs(q);
-
+            const options = {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+            };
             querySnapshot.forEach((doc) => {
               res = {
                 ...doc.data(),
                 id: doc.id,
-                timestamp: doc.data().timestamp.toDate().toLocaleDateString(),
+                timestamp: doc
+                  .data()
+                  .timestamp.toDate()
+                  .toLocaleDateString(undefined, options),
               };
               array.push(res);
             });
@@ -172,7 +181,7 @@ export default function RenameModal({ allProjects, slug, projects }) {
           <CloseButton onClick={(e) => handleSubmit(e)}>&#10004;</CloseButton>
         </DialogClose>
         <DialogTitle>Manage projects</DialogTitle>
-        <Select
+        <StyledSelect
           defaultValue={chosenProjectsArray}
           isMulti
           name='projects'

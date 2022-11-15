@@ -33,7 +33,6 @@ const StyledContent = styled(dialogContent)`
   max-width: 440px;
   max-height: 85vh;
   padding: 25;
-  border: 1px solid black;
   border-radius: 7px;
   display: flex;
   flex-direction: column;
@@ -141,12 +140,19 @@ export default function RenameCollectionModal({
           where('collections', '==', collectionTitle)
         );
         const querySnapshot = await getDocs(q);
-
+        const options = {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+        };
         querySnapshot.forEach((doc) => {
           res = {
             ...doc.data(),
             id: doc.id,
-            timestamp: doc.data().timestamp.toDate().toLocaleDateString(),
+            timestamp: doc
+              .data()
+              .timestamp.toDate()
+              .toLocaleDateString(undefined, options),
           };
           array.push(res);
         });

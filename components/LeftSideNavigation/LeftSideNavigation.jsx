@@ -57,33 +57,42 @@ const LeftSideNavigation = ({ collections }) => {
       <Navigation>
         <TopItems>
           <LinkWrapper>
-            <Image src={AllRecIcon} alt='play, pause, rec and stop buttons' />
-            <Link href='/projects'>
-              <NavLink>All recordings</NavLink>
-            </Link>
-            <p>{allProjectsNo}</p>
-            <ChevronRightIcon size='20px' />
+            <LeftContent>
+              <Image src={AllRecIcon} alt='play, pause, rec and stop buttons' />
+              <Link href='/projects'>
+                <NavLink>All recordings</NavLink>
+              </Link>
+            </LeftContent>
+            <RightContent>
+              <StyledNumber>{allProjectsNo}</StyledNumber>
+              <ChevronRightIcon size='20px' />
+            </RightContent>
           </LinkWrapper>
           <LinkWrapper>
-            <AiOutlineStar size='20px' />
-            <Link href='/projects/favorites'>
-              <NavLink>Favorites</NavLink>
-            </Link>
-            <p>{favoritesNo}</p>
-
-            <ChevronRightIcon size='20px' />
+            <LeftContent>
+              <AiOutlineStar size='20px' />
+              <Link href='/projects/favorites'>
+                <NavLink>Favorites</NavLink>
+              </Link>
+            </LeftContent>
+            <RightContent>
+              <StyledNumber>{favoritesNo}</StyledNumber>
+              <ChevronRightIcon size='20px' />
+            </RightContent>
           </LinkWrapper>
           <LinkWrapper>
-            <BsPerson size='20px' />
-            <Link href='/projects/shared'>
-              <NavLink>Shared with me</NavLink>
-            </Link>
-            <p>{sharedProjectsNo}</p>
-
-            <ChevronRightIcon size='20px' />
+            <LeftContent>
+              <BsPerson size='20px' />
+              <Link href='/projects/shared'>
+                <NavLink>Shared with me</NavLink>
+              </Link>
+            </LeftContent>
+            <RightContent>
+              <StyledNumber>{sharedProjectsNo}</StyledNumber>
+              <ChevronRightIcon size='20px' />
+            </RightContent>
           </LinkWrapper>
           <StyledSeparator />
-
           <CollectionsAccordion
             collections={collections}
             collectionTitle={collections}
@@ -128,30 +137,44 @@ const Navigation = styled.nav`
   padding: 16px;
   margin-top: 100px;
   justify-content: space-between;
-  height: 80vh;
+  height: 90vh;
 `;
 const LinkWrapper = styled.div`
   display: flex;
   align-items: center;
   padding-bottom: 16px;
+  justify-content: space-between;
 `;
 const BottomItems = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-bottom: 10vh;
 `;
 const TopItems = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 const NavLink = styled.a`
-  padding: 0px 8px;
+  padding: 4px 8px;
   cursor: pointer;
+  font-weight: 500;
 `;
-
 const StyledSeparator = styled(SeparatorLine)`
-  margin: 15px;
+  margin: 35px;
   height: 1px;
   width: 100%;
+`;
+const RightContent = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const LeftContent = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const StyledNumber = styled.p`
+  padding: 0;
+  margin: 0;
+  color: ${(props) => props.theme.black50};
 `;

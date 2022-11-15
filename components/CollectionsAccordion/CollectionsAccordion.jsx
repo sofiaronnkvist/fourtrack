@@ -41,12 +41,19 @@ export default function CollectionsAccordion({ collections }) {
           where('collections', '==', collectionTitle)
         );
         const querySnapshot = await getDocs(q);
-
+        const options = {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+        };
         querySnapshot.forEach((doc) => {
           res = {
             ...doc.data(),
             id: doc.id,
-            timestamp: doc.data().timestamp.toDate().toLocaleDateString(),
+            timestamp: doc
+              .data()
+              .timestamp.toDate()
+              .toLocaleDateString(undefined, options),
           };
           array.push(res);
         });
@@ -139,6 +146,8 @@ const AccordionContent = Accordion.Content;
 const StyledTrigger = styled(AccordionTrigger)`
   color: black;
   font-size: 16px;
+  font-weight: 500;
+  font-family: 'Inter';
   border: none;
   background-color: transparent;
   cursor: pointer;

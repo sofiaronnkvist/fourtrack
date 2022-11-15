@@ -109,10 +109,4 @@ const MainWrapper = styled.div`
 `;
 const MainContent = styled.div``;
 
-const Label = styled.label`
-  color: black;
-  display: flex;
-  margin: 20px;
-`;
-
 export default Shared;

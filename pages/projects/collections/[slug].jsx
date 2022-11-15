@@ -14,9 +14,17 @@ export default function Project({ slug, collections, projects, allProjects }) {
       <LeftSideNavigation collections={collections} />
       <MainContent>
         <TopBar></TopBar>
-        <p>Collections</p>
-        <h1>{slug}</h1>
-        <SongsInCollectionModal allProjects={allProjects} slug={slug} projects={projects} />
+        <HeaderContent>
+          <HeaderTexts>
+            <p>Collections</p>
+            <h1>{slug}</h1>
+          </HeaderTexts>
+          <SongsInCollectionModal
+            allProjects={allProjects}
+            slug={slug}
+            projects={projects}
+          />
+        </HeaderContent>
         <ul>
           {projects &&
             projects[0].map((project) => {
@@ -42,6 +50,17 @@ const MainWrapper = styled.div`
   grid-template-columns: 237px auto;
 `;
 const MainContent = styled.div``;
+const HeaderContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+  max-width: 1050px;
+  padding-top: 20px;
+  p {
+    padding: 0;
+    margin: 0;
+  }
+`;
+const HeaderTexts = styled.div``;
 
 export async function getServerSideProps(ctx) {
   const { params } = ctx;

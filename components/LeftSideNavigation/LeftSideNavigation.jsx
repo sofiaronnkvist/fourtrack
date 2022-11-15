@@ -61,7 +61,7 @@ const LeftSideNavigation = ({ collections }) => {
             <Link href='/projects'>
               <NavLink>All recordings</NavLink>
             </Link>
-            <p>{allProjectsNo}</p>
+            <StyledNumber>{allProjectsNo}</StyledNumber>
             <ChevronRightIcon size='20px' />
           </LinkWrapper>
           <LinkWrapper>
@@ -69,7 +69,7 @@ const LeftSideNavigation = ({ collections }) => {
             <Link href='/projects/favorites'>
               <NavLink>Favorites</NavLink>
             </Link>
-            <p>{favoritesNo}</p>
+            <StyledNumber>{favoritesNo}</StyledNumber>
 
             <ChevronRightIcon size='20px' />
           </LinkWrapper>
@@ -78,7 +78,7 @@ const LeftSideNavigation = ({ collections }) => {
             <Link href='/projects/shared'>
               <NavLink>Shared with me</NavLink>
             </Link>
-            <p>{sharedProjectsNo}</p>
+            <StyledNumber>{sharedProjectsNo}</StyledNumber>
 
             <ChevronRightIcon size='20px' />
           </LinkWrapper>
@@ -154,4 +154,9 @@ const StyledSeparator = styled(SeparatorLine)`
   margin: 15px;
   height: 1px;
   width: 100%;
+`;
+
+const StyledNumber = styled.p`
+  padding: 0;
+  margin: 0;
 `;

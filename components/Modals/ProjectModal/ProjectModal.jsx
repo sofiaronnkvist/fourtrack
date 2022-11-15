@@ -45,11 +45,12 @@ const CreateButton = styled.button`
   background-color: ${(props) => props.theme.purple500};
   border-radius: 8px;
   border: none;
-  width: 117px;
-  height: 34px;
+  width: 144px;
+  height: 40px;
   margin-right: 16px;
   color: white;
   cursor: pointer;
+  font-size: 14px;
 `;
 
 const CloseButton = styled.button`

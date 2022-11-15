@@ -15,7 +15,6 @@ import ProjectCard from '../components/ProjectCard/ProjectCard';
 import LeftSideNavigation from '../components/LeftSideNavigation/LeftSideNavigation';
 import TopBar from '../components/TopBar/TopBar';
 import LatestProjectCard from '../components/LatestProjectsCard/LatestProjectCard';
-import Navbar from '../components/Navbar/navbar';
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
@@ -80,7 +79,6 @@ export async function getServerSideProps(ctx) {
 const Projects = ({ projects, collections, latestProjects }) => {
   return (
     <>
-      <Navbar />
       <MainWrapper>
         <LeftSideNavigation collections={collections} />
         <MainContent>

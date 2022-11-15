@@ -12,6 +12,7 @@ import yellowIcon from '../public/yellowIcon.svg';
 import orangeIcon from '../public/orangeIcon.svg';
 import blueIcon from '../public/blueIcon.svg';
 import { AiOutlineArrowRight } from 'react-icons/ai';
+import Navbar from '../components/Navbar/navbar';
 
 export default function Home() {
   const { user } = useAuth();
@@ -27,6 +28,7 @@ export default function Home() {
         <meta name='Fourtrack' content='A better way for recording music' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
+      <Navbar/>
       <StyledMain>
         <HeroSection>
           <StyledH1>

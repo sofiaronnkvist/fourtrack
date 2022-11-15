@@ -14,6 +14,7 @@ import nookies from 'nookies';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import LeftSideNavigation from '../../components/LeftSideNavigation/LeftSideNavigation';
 import TopBar from '../../components/TopBar/TopBar';
+import Navbar from '../../components/Navbar/navbar';
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
@@ -57,7 +58,7 @@ export async function getServerSideProps(ctx) {
       })
     );
   });
-  
+
   return {
     props: { colabProjects, collections },
   };
@@ -71,32 +72,35 @@ const checkColabs = (projects) => {
 
 const Shared = ({ colabProjects, collections }) => {
   return (
-    <MainWrapper>
-      <LeftSideNavigation collections={collections} />
-      <MainContent>
-        <TopBar colabsToDelete={colabProjects}></TopBar>
-        <h1>Shared with me</h1>
-        <ul>
-          {checkColabs(colabProjects) ? (
-            colabProjects &&
-            colabProjects[0].map((project) => {
-              return (
-                <ProjectCard
-                  ownerId={project.uid}
-                  key={project.title}
-                  id={project.id}
-                  title={project.title}
-                  date={project.timestamp}
-                  favorite={project.favorite}
-                ></ProjectCard>
-              );
-            })
-          ) : (
-            <p>Nothing here yet</p>
-          )}
-        </ul>
-      </MainContent>
-    </MainWrapper>
+    <>
+      <Navbar />
+      <MainWrapper>
+        <LeftSideNavigation collections={collections} />
+        <MainContent>
+          <TopBar colabsToDelete={colabProjects}></TopBar>
+          <h1>Shared with me</h1>
+          <ul>
+            {checkColabs(colabProjects) ? (
+              colabProjects &&
+              colabProjects[0].map((project) => {
+                return (
+                  <ProjectCard
+                    ownerId={project.uid}
+                    key={project.title}
+                    id={project.id}
+                    title={project.title}
+                    date={project.timestamp}
+                    favorite={project.favorite}
+                  ></ProjectCard>
+                );
+              })
+            ) : (
+              <p>Nothing here yet</p>
+            )}
+          </ul>
+        </MainContent>
+      </MainWrapper>
+    </>
   );
 };
 const MainWrapper = styled.div`

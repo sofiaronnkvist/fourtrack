@@ -86,7 +86,7 @@ const Projects = ({ projects, collections, latestProjects }) => {
           {projects[0].length >= 1 ? (
             <>
               <h1>All recordings</h1>
-              <ul>
+              <StyledUlList>
                 <LatestProjectsWrapper>
                   {latestProjects &&
                     latestProjects[0].map((latestProject) => {
@@ -101,7 +101,7 @@ const Projects = ({ projects, collections, latestProjects }) => {
                       );
                     })}
                 </LatestProjectsWrapper>
-              </ul>
+              </StyledUlList>
               <ProjectHeadlines>
                 <HedlineItem>title </HedlineItem>
                 <HedlineItem style={{ marginLeft: '305px' }}>date </HedlineItem>
@@ -147,6 +147,7 @@ const MainContent = styled.div``;
 
 const LatestProjectsWrapper = styled.div`
   display: flex;
+  padding-bottom: 10px;
 `;
 const ProjectHeadlines = styled.div`
   display: flex;

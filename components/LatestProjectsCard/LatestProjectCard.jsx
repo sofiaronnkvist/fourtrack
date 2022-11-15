@@ -26,8 +26,8 @@ const ProjectOuterWrapper = styled.div``;
 
 const ProjectWrapper = styled.div`
   height: 136px;
-  width: 220px;
-  box-shadow: ${(props) => props.theme.mdShadow};
+  width: 235px;
+  box-shadow: ${(props) => props.theme.lgShadow};
   border: 1px solid ${(props) => props.theme.purple500};
   border-radius: 4px;
   padding: 16px;
@@ -35,6 +35,7 @@ const ProjectWrapper = styled.div`
 `;
 const ProjectTitle = styled.p`
   font-size: 18px;
+  font-weight: 500;
 `;
 const ProjectDate = styled.p`
   font-size: 10px;

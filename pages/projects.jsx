@@ -76,51 +76,61 @@ export async function getServerSideProps(ctx) {
     props: { projects, collections, latestProjects },
   };
 }
-
 const Projects = ({ projects, collections, latestProjects }) => {
   return (
     <MainWrapper>
       <LeftSideNavigation collections={collections} />
       <MainContent>
         <TopBar projectsToDelete={projects}></TopBar>
-        <h1>All recordings</h1>
-        <ul>
-          <LatestProjectsWrapper>
-            {latestProjects &&
-              latestProjects[0].map((latestProject) => {
-                return (
-                  <LatestProjectCard
-                    ownerId={latestProject.uid}
-                    key={latestProject.title}
-                    id={latestProject.id}
-                    title={latestProject.title}
-                    date={latestProject.timestamp}
-                  ></LatestProjectCard>
-                );
-              })}
-          </LatestProjectsWrapper>
-        </ul>
-        <ProjectHeadlines>
-          <HedlineItem>title </HedlineItem>
-          <HedlineItem style={{ marginLeft: '305px' }}>date </HedlineItem>
-          <HedlineItem style={{ marginLeft: '150px' }}>bpm </HedlineItem>
-          <HedlineItem style={{ marginLeft: '105px' }}>lenght </HedlineItem>
-        </ProjectHeadlines>
-        <ul>
-          {projects &&
-            projects[0].map((project) => {
-              return (
-                <ProjectCard
-                  ownerId={project.uid}
-                  key={project.title}
-                  id={project.id}
-                  title={project.title}
-                  date={project.timestamp}
-                  favorite={project.favorite}
-                ></ProjectCard>
-              );
-            })}
-        </ul>
+        {projects[0].length >= 1 ? (
+          <>
+            <h1>All recordings</h1>
+            <ul>
+              <LatestProjectsWrapper>
+                {latestProjects &&
+                  latestProjects[0].map((latestProject) => {
+                    return (
+                      <LatestProjectCard
+                        ownerId={latestProject.uid}
+                        key={latestProject.title}
+                        id={latestProject.id}
+                        title={latestProject.title}
+                        date={latestProject.timestamp}
+                      ></LatestProjectCard>
+                    );
+                  })}
+              </LatestProjectsWrapper>
+            </ul>
+            <ProjectHeadlines>
+              <HedlineItem>title </HedlineItem>
+              <HedlineItem style={{ marginLeft: '305px' }}>date </HedlineItem>
+              <HedlineItem style={{ marginLeft: '150px' }}>bpm </HedlineItem>
+              <HedlineItem style={{ marginLeft: '105px' }}>lenght </HedlineItem>
+            </ProjectHeadlines>
+            <ul>
+              {projects &&
+                projects[0].map((project) => {
+                  return (
+                    <ProjectCard
+                      ownerId={project.uid}
+                      key={project.title}
+                      id={project.id}
+                      title={project.title}
+                      date={project.timestamp}
+                      favorite={project.favorite}
+                    ></ProjectCard>
+                  );
+                })}
+            </ul>{' '}
+          </>
+        ) : (
+          <NoProjectsMainWrapper>
+            <NoProjectsHeadline>
+              Oh no, no tracks here. Just press the create recording button to
+              get started.
+            </NoProjectsHeadline>
+          </NoProjectsMainWrapper>
+        )}
       </MainContent>
     </MainWrapper>
   );
@@ -128,7 +138,6 @@ const Projects = ({ projects, collections, latestProjects }) => {
 const MainWrapper = styled.div`
   display: grid;
   grid-template-columns: 237px auto;
-  
 `;
 const MainContent = styled.div``;
 
@@ -148,5 +157,15 @@ const Label = styled.label`
   display: flex;
   margin: 20px;
 `;
-
+const NoProjectsMainWrapper = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+height: 70%;
+`;
+const NoProjectsHeadline = styled.h2`
+  color: ${(props) => props.theme.purple500};
+  font-weight: 400;
+  width: 400px;
+`;
 export default Projects;

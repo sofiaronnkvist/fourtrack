@@ -38,18 +38,13 @@ export const useMyRecorder = (id, projectid, ownerid) => {
       chunks.push(e.data);
       const blob = new Blob(chunks, { type: 'audio/mpeg; codecs=opus' });
       console.log(blob);
-      // setAudioData(e.data);
-      // console.log(e.data);
       setAudioURL(URL.createObjectURL(blob));
-      // sessionStorage.setItem(`audioUrl${id}`, URL.createObjectURL(e.data));
       uploadFiles(blob, ownerid);
 
       function uploadFiles(file, ownerid) {
         if (!file) return;
         const sotrageRef = ref(storage, `files/${ownerid}/${projectid}/${id}`);
-        // console.log(sotrageRef);
         const uploadTask = uploadBytesResumable(sotrageRef, file);
-        // console.log(uploadTask);
 
         uploadTask.on(
           'state_changed',
@@ -62,7 +57,6 @@ export const useMyRecorder = (id, projectid, ownerid) => {
           (error) => console.log(error),
           () => {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-              // console.log('File available at', downloadURL);
               setTrack(downloadURL);
             });
           }
@@ -115,7 +109,6 @@ export const useMyRecorder = (id, projectid, ownerid) => {
     audioData,
     timer,
     track,
-    
   };
 };
 

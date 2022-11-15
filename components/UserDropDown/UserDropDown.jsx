@@ -11,8 +11,6 @@ const menuButton = DropdownMenu.Trigger;
 const menuContent = DropdownMenu.Content;
 
 const StyledMenuPortal = styled(menuPortal)`
-  /* background-color: red; */
-
   width: 222px;
   height: 80px;
 `;

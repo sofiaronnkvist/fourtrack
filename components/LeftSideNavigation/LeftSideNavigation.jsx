@@ -128,7 +128,7 @@ const Navigation = styled.nav`
   padding: 16px;
   margin-top: 100px;
   justify-content: space-between;
-  height: 80vh;
+  height: 90vh;
 `;
 const LinkWrapper = styled.div`
   display: flex;
@@ -139,7 +139,7 @@ const BottomItems = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-bottom: 10vh;
+  /* padding-bottom: 1vh; */
 `;
 const TopItems = styled.div`
   display: flex;

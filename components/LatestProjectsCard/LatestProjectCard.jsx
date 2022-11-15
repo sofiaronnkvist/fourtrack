@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import Link from 'next/link';
 
 const LatestProjectCard = ({ title, date, id }) => {
-
   return (
     <ProjectOuterWrapper id={id}>
       <Link
@@ -15,7 +14,7 @@ const LatestProjectCard = ({ title, date, id }) => {
         <a>
           <ProjectWrapper>
             <ProjectTitle>{title}</ProjectTitle>
-            <ProjectDate>Last edited {date}</ProjectDate>
+            <ProjectDate>Created {date}</ProjectDate>
           </ProjectWrapper>
         </a>
       </Link>

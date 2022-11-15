@@ -19,7 +19,6 @@ const ContextRoot = ContextMenu.Root;
 const ContextTrigger = ContextMenu.Trigger;
 const ContextPortal = ContextMenu.Portal;
 const ContextContent = ContextMenu.Content;
-const ContextLabel = ContextMenu.Label;
 const ContextItem = ContextMenu.Item;
 
 const ProjectCard = ({ title, date, id, ownerId, favorite }) => {
@@ -123,7 +122,7 @@ const ProjectOuterWrapper = styled.div`
 
 const ProjectWrapper = styled.div`
   height: 72px;
-  width: 1000px;
+  width: 100%;
   margin-bottom: 8px;
   display: flex;
   align-items: center;
@@ -133,7 +132,7 @@ const ProjectWrapper = styled.div`
 `;
 const StyledA = styled.a`
   height: 72px;
-  width: 1000px;
+  width: 100%;
   margin-bottom: 8px;
   display: flex;
   align-items: center;
@@ -150,7 +149,7 @@ const ProjectLegth = styled.p`
   margin-left: 100px;
 `;
 const StarWrapper = styled.div`
-  margin-left: 100px;
+  margin-right: 100px;
 `;
 
 const StyledContextContent = styled(ContextContent)`

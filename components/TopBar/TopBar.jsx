@@ -17,7 +17,11 @@ const TopBar = (props) => {
         <ProjectModal />
         <FiBell
           size='20px'
-          style={{ marginLeft: '20px', marginRight: '20px' }}
+          style={{
+            marginLeft: '20px',
+            marginRight: '20px',
+            cursor: 'not-allowed',
+          }}
         />
         <UserDropDown
           colabsToDelete={props.colabsToDelete}
@@ -32,9 +36,9 @@ const TopBarWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1050px;
   height: 133px;
   border-bottom: 1px solid lightgray;
+  max-width: 100%;
 `;
 
 const SearchField = styled.div`

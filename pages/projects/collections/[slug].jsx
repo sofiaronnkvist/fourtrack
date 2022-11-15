@@ -25,21 +25,37 @@ export default function Project({ slug, collections, projects, allProjects }) {
             projects={projects}
           />
         </HeaderContent>
-        <ul>
-          {projects &&
-            projects[0].map((project) => {
-              return (
-                <ProjectCard
-                  ownerId={project.uid}
-                  key={project.title}
-                  id={project.id}
-                  title={project.title}
-                  date={project.timestamp}
-                  favorite={project.favorite}
-                ></ProjectCard>
-              );
-            })}
-        </ul>
+        {projects[0].length >= 1 ? (
+          <>
+            <ProjectHeadlines>
+              <HedlineItem>title </HedlineItem>
+              <HedlineItem style={{ marginLeft: '305px' }}>date </HedlineItem>
+              <HedlineItem style={{ marginLeft: '130px' }}>bpm </HedlineItem>
+              <HedlineItem style={{ marginLeft: '100px' }}>lenght </HedlineItem>
+            </ProjectHeadlines>
+            <StyledUlList>
+              {projects &&
+                projects[0].map((project) => {
+                  return (
+                    <ProjectCard
+                      ownerId={project.uid}
+                      key={project.title}
+                      id={project.id}
+                      title={project.title}
+                      date={project.timestamp}
+                      favorite={project.favorite}
+                    ></ProjectCard>
+                  );
+                })}
+            </StyledUlList>
+          </>
+        ) : (
+          <NoProjectsMainWrapper>
+            <NoProjectsHeadline>
+              Oh no, no tracks here. Choose some for your collection!
+            </NoProjectsHeadline>
+          </NoProjectsMainWrapper>
+        )}
       </MainContent>
     </MainWrapper>
   );
@@ -53,7 +69,7 @@ const MainContent = styled.div``;
 const HeaderContent = styled.div`
   display: flex;
   justify-content: space-between;
-  max-width: 1050px;
+  max-width: 100%;
   padding-top: 20px;
   p {
     padding: 0;
@@ -61,6 +77,29 @@ const HeaderContent = styled.div`
   }
 `;
 const HeaderTexts = styled.div``;
+const StyledUlList = styled.ul`
+  margin: 0;
+  padding: 0;
+`;
+const ProjectHeadlines = styled.div`
+  display: flex;
+  margin: 0px 27px;
+`;
+const HedlineItem = styled.p`
+  color: ${(props) => props.theme.black50};
+  font-size: 12px;
+`;
+const NoProjectsMainWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+`;
+const NoProjectsHeadline = styled.h2`
+  color: ${(props) => props.theme.purple500};
+  font-weight: 400;
+  width: 400px;
+`;
 
 export async function getServerSideProps(ctx) {
   const { params } = ctx;

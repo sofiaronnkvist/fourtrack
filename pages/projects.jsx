@@ -105,12 +105,12 @@ const Projects = ({ projects, collections, latestProjects }) => {
               <ProjectHeadlines>
                 <HedlineItem>title </HedlineItem>
                 <HedlineItem style={{ marginLeft: '305px' }}>date </HedlineItem>
-                <HedlineItem style={{ marginLeft: '150px' }}>bpm </HedlineItem>
-                <HedlineItem style={{ marginLeft: '105px' }}>
+                <HedlineItem style={{ marginLeft: '130px' }}>bpm </HedlineItem>
+                <HedlineItem style={{ marginLeft: '100px' }}>
                   lenght{' '}
                 </HedlineItem>
               </ProjectHeadlines>
-              <ul>
+              <StyledUlList>
                 {projects &&
                   projects[0].map((project) => {
                     return (
@@ -124,7 +124,7 @@ const Projects = ({ projects, collections, latestProjects }) => {
                       ></ProjectCard>
                     );
                   })}
-              </ul>{' '}
+              </StyledUlList>{' '}
             </>
           ) : (
             <NoProjectsMainWrapper>
@@ -150,7 +150,7 @@ const LatestProjectsWrapper = styled.div`
 `;
 const ProjectHeadlines = styled.div`
   display: flex;
-  margin: 0px 40px;
+  margin: 0px 27px;
 `;
 const HedlineItem = styled.p`
   color: ${(props) => props.theme.black50};
@@ -172,4 +172,9 @@ const NoProjectsHeadline = styled.h2`
   font-weight: 400;
   width: 400px;
 `;
+const StyledUlList = styled.ul`
+  margin: 0;
+  padding: 0;
+`;
+
 export default Projects;

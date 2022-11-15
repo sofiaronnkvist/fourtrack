@@ -50,7 +50,15 @@ const Collections = ({ projects }) => {
       <MainContent>
         <TopBar></TopBar>
         <h1>Collections</h1>
-        <ul>
+        <ProjectHeadlines>
+                <HedlineItem>title </HedlineItem>
+                <HedlineItem style={{ marginLeft: '305px' }}>date </HedlineItem>
+                <HedlineItem style={{ marginLeft: '130px' }}>bpm </HedlineItem>
+                <HedlineItem style={{ marginLeft: '100px' }}>
+                  lenght{' '}
+                </HedlineItem>
+              </ProjectHeadlines>
+        <StyledUlList>
           {projects &&
             projects[0].map((project) => {
               return (
@@ -64,7 +72,7 @@ const Collections = ({ projects }) => {
                 ></ProjectCard>
               );
             })}
-        </ul>
+        </StyledUlList>
       </MainContent>
     </MainWrapper>
   );
@@ -74,11 +82,17 @@ const MainWrapper = styled.div`
   grid-template-columns: 237px auto;
 `;
 const MainContent = styled.div``;
-
-const Label = styled.label`
-  color: black;
+const StyledUlList = styled.ul`
+  margin: 0;
+  padding: 0;
+`;
+const ProjectHeadlines = styled.div`
   display: flex;
-  margin: 20px;
+  margin: 0px 27px;
+`;
+const HedlineItem = styled.p`
+  color: ${(props) => props.theme.black50};
+  font-size: 12px;
 `;
 
 export default Collections;

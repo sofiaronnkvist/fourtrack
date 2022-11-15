@@ -21,7 +21,7 @@ const AudioWrapper = (props) => {
       barWidth: 2,
       barHeight: 1,
       barRadius: 3,
-      cursorWidth: 2,
+      cursorWidth: 1,
       progressColor: `${props.waveColor}`,
       waveColor: `${props.waveColor}`,
       backgroundColor: `${props.background}`,

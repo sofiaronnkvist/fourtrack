@@ -160,6 +160,13 @@ export default function Project({ ...res }) {
   const deleteTrack = async (userId, projectId, trackNo) => {
     await deleteFileFromStorage(userId, projectId, trackNo);
   };
+
+  // const lavenderBg = {
+  //   backgroundColor: 'rgba(195, 188, 227, 0.5)',
+  //   '&:checked': {
+  //     backgroundColor: 'rgba(180, 171, 220, 0.5)',
+  //   },
+  // };
   return (
     <div>
       <StyledTopBar>
@@ -176,13 +183,18 @@ export default function Project({ ...res }) {
       </StyledTopBar>
       <Form>
         <Label htmlFor=''>
-          <input
-            checked={playId === '1'}
-            onChange={handleChange}
-            type='checkbox'
-            value='1'
-            name='playId'
-          ></input>{' '}
+          <InputWrapper>
+            <input
+              className='yellowInput'
+              checked={playId === '1'}
+              onChange={handleChange}
+              type='checkbox'
+              value='1'
+              name='playId'
+              placeholder='1'
+            ></input>{' '}
+            <StyledInput>1</StyledInput>
+          </InputWrapper>
           <Container>
             {trackArray[0] ? (
               <AudioVisualizer
@@ -215,13 +227,18 @@ export default function Project({ ...res }) {
           ></Recorder>
         </Label>
         <Label htmlFor=''>
-          <input
-            checked={playId === '2'}
-            onChange={handleChange}
-            type='checkbox'
-            value='2'
-            name='playId'
-          ></input>
+          <InputWrapper>
+            <input
+              className='orangeInput'
+              checked={playId === '2'}
+              onChange={handleChange}
+              type='checkbox'
+              value='2'
+              name='playId'
+            ></input>{' '}
+            <StyledInput>2</StyledInput>
+          </InputWrapper>
+
           <div>
             {trackArray[1] ? (
               <AudioVisualizer
@@ -255,13 +272,17 @@ export default function Project({ ...res }) {
           ></Recorder>
         </Label>{' '}
         <Label htmlFor=''>
-          <input
-            checked={playId === '3'}
-            onChange={handleChange}
-            type='checkbox'
-            value='3'
-            name='playId'
-          ></input>
+          <InputWrapper>
+            <input
+              className='blueInput'
+              checked={playId === '3'}
+              onChange={handleChange}
+              type='checkbox'
+              value='3'
+              name='playId'
+            ></input>
+            <StyledInput>3</StyledInput>
+          </InputWrapper>
           <div>
             {trackArray[2] ? (
               <AudioVisualizer
@@ -294,13 +315,19 @@ export default function Project({ ...res }) {
           ></Recorder>
         </Label>{' '}
         <Label htmlFor=''>
-          <input
-            checked={playId === '4'}
-            onChange={handleChange}
-            type='checkbox'
-            value='4'
-            name='playId'
-          ></input>
+          <InputWrapper>
+            <input
+            className='lavenderInput'
+              checked={playId === '4'}
+              onChange={handleChange}
+              type='checkbox'
+              value='4'
+              name='playId'
+              ifChecked={'rgba(195, 188, 227, 0.5)'}
+            ></input>
+            <StyledInput>4</StyledInput>
+          </InputWrapper>
+
           <div>
             {trackArray[3] ? (
               <AudioVisualizer
@@ -378,7 +405,7 @@ const StyledTitle = styled.h3`
 const Label = styled.label`
   position: relative;
   display: grid;
-  grid-template-columns: 2% 95% 3%;
+  grid-template-columns: 3% 94% 3%;
   align-items: center;
   margin-bottom: 10px;
 `;
@@ -388,6 +415,62 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  input[type='checkbox'] {
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    height: 25px;
+    width: 25px;
+    border-radius: 4px;
+    z-index: 99;
+  }
+
+  .yellowInput {
+    background-color: rgba(255, 221, 90, 0.5);
+    :checked {
+      background-color: rgba(235, 186, 0, 0.8);
+    }
+  }
+
+  .orangeInput {
+    background-color: rgba(255, 206, 145, 0.5);
+    :checked {
+      background-color: rgba(236, 131, 0, 0.8);
+    }
+  }
+  .blueInput {
+    background-color: rgba(195, 226, 237, 0.5);
+    :checked {
+      background-color: rgba(105, 182, 211, 0.8);
+    }
+  }
+  .lavenderInput {
+    background-color: rgba(195, 188, 227, 0.5);
+    :checked {
+      background-color: rgba(180, 171, 220, 0.8);
+    }
+  }
+`;
+
+const InputWrapper = styled.div`
+  display: block;
+  position: relative;
+  cursor: pointer;
+`;
+const StyledInput = styled.span`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 12px;
+  padding-top: 20%;
+  padding-left: 20%;
+
+  z-index: 0;
 `;
 
 const NoAudioVisualizationContainer = styled.div`

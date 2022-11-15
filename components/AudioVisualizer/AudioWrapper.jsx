@@ -21,11 +21,11 @@ const AudioWrapper = (props) => {
       barWidth: 2,
       barHeight: 1,
       barRadius: 3,
-      cursorWidth: 2,
+      cursorWidth: 1,
       progressColor: `${props.waveColor}`,
       waveColor: `${props.waveColor}`,
       backgroundColor: `${props.background}`,
-      height: 50,
+      height: 100,
       plugins: [
         MarkersPlugin.create({
           markers: [
@@ -34,6 +34,7 @@ const AudioWrapper = (props) => {
               // label: 'start',
               color: `${props.waveColor}`,
               draggable: true,
+              position: 'top',
             },
           ],
         }),
@@ -117,7 +118,7 @@ const AudioWrapper = (props) => {
     user-select: none;
     touch-action: none;
     width: 3px;
-    height: 50px;
+    height: 100px;
     margin-left: 18px;
   `;
 
@@ -127,7 +128,7 @@ const AudioWrapper = (props) => {
     flex-grow: 1;
     border-radius: 9999px;
     width: 10px;
-    height: 50px;
+    height: 100px;
   `;
 
   const StyledRange = styled(range)`
@@ -174,13 +175,14 @@ export default AudioWrapper;
 
 const StyledDiv = styled.div`
   margin: 0px 7px;
-  width: 1079px;
+  width: 1170px;
   display: flex;
   justify-content: space-between;
 `;
 const OuterWaveDiv = styled.div`
-  width: 1064px;
+  width: 1170px;
 `;
 const WaveDiv = styled.div`
-  width: 100%;
+  width: 1170px;
+  border-radius: 4px;
 `;

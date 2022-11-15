@@ -12,15 +12,13 @@ import SearchModal from '../../components/Modals/SearchModal/SearchModal';
 import PlayRecPause from '../../components/Buttons/PlayRecPause';
 import { FaPlay, FaStop } from 'react-icons/fa';
 import { BsRecordFill } from 'react-icons/bs';
+import { ChevronLeftIcon } from '@radix-ui/react-icons';
 
 export default function Project({ ...res }) {
   const [trackArray, setTrackArray] = useState([]);
   const [playId, setPlayId] = useState();
   const [childTrack, setChildTrack] = useState(1);
   const router = useRouter();
-  const [playBtnActive, setPlayBtnActive] = useState(false);
-  const [stopBtnActive, setStopBtnActive] = useState(false);
-  const [recBtnActive, setRecBtnActive] = useState(false);
 
   let ref1 = useRef(null);
   let ref2 = useRef(null);
@@ -162,25 +160,41 @@ export default function Project({ ...res }) {
   const deleteTrack = async (userId, projectId, trackNo) => {
     await deleteFileFromStorage(userId, projectId, trackNo);
   };
+
+  // const lavenderBg = {
+  //   backgroundColor: 'rgba(195, 188, 227, 0.5)',
+  //   '&:checked': {
+  //     backgroundColor: 'rgba(180, 171, 220, 0.5)',
+  //   },
+  // };
   return (
     <div>
-      <button onClick={() => router.push('/projects')}>Back</button>
-      <SearchModal
-        btnWithBackground={true}
-        projectTitle={res.title}
-        projectId={res.id}
-      />
-      <h1>{res.title}</h1>
-      <p>id: {res.id}</p>
+      <StyledTopBar>
+        <BackBtn onClick={() => router.push('/projects')}>
+          <ChevronLeftIcon />
+          Back
+        </BackBtn>
+        <StyledTitle>{res.title}</StyledTitle>{' '}
+        <SearchModal
+          btnWithBackground={true}
+          projectTitle={res.title}
+          projectId={res.id}
+        />
+      </StyledTopBar>
       <Form>
         <Label htmlFor=''>
-          <input
-            checked={playId === '1'}
-            onChange={handleChange}
-            type='checkbox'
-            value='1'
-            name='playId'
-          ></input>{' '}
+          <InputWrapper>
+            <input
+              className='yellowInput'
+              checked={playId === '1'}
+              onChange={handleChange}
+              type='checkbox'
+              value='1'
+              name='playId'
+              placeholder='1'
+            ></input>{' '}
+            <StyledInput>1</StyledInput>
+          </InputWrapper>
           <Container>
             {trackArray[0] ? (
               <AudioVisualizer
@@ -198,10 +212,12 @@ export default function Project({ ...res }) {
                 style={{ backgroundColor: '#EBBA00' }}
               ></NoAudioVisualizationContainer>
             )}
-            <DeleteButton
-              handleclick={() => deleteTrack(res.uid, res.id, 1)}
-              text={'X'}
-            ></DeleteButton>
+            {trackArray[0] ? (
+              <DeleteButton
+                handleclick={() => deleteTrack(res.uid, res.id, 1)}
+                text={'X'}
+              ></DeleteButton>
+            ) : null}
           </Container>
           <Recorder
             id={1}
@@ -211,13 +227,18 @@ export default function Project({ ...res }) {
           ></Recorder>
         </Label>
         <Label htmlFor=''>
-          <input
-            checked={playId === '2'}
-            onChange={handleChange}
-            type='checkbox'
-            value='2'
-            name='playId'
-          ></input>
+          <InputWrapper>
+            <input
+              className='orangeInput'
+              checked={playId === '2'}
+              onChange={handleChange}
+              type='checkbox'
+              value='2'
+              name='playId'
+            ></input>{' '}
+            <StyledInput>2</StyledInput>
+          </InputWrapper>
+
           <div>
             {trackArray[1] ? (
               <AudioVisualizer
@@ -235,10 +256,12 @@ export default function Project({ ...res }) {
                 style={{ backgroundColor: '#EC8300' }}
               ></NoAudioVisualizationContainer>
             )}
-            <DeleteButton
-              handleclick={() => deleteTrack(res.uid, res.id, 2)}
-              text={'X'}
-            ></DeleteButton>
+            {trackArray[1] ? (
+              <DeleteButton
+                handleclick={() => deleteTrack(res.uid, res.id, 2)}
+                text={'X'}
+              ></DeleteButton>
+            ) : null}
           </div>
 
           <Recorder
@@ -249,13 +272,17 @@ export default function Project({ ...res }) {
           ></Recorder>
         </Label>{' '}
         <Label htmlFor=''>
-          <input
-            checked={playId === '3'}
-            onChange={handleChange}
-            type='checkbox'
-            value='3'
-            name='playId'
-          ></input>
+          <InputWrapper>
+            <input
+              className='blueInput'
+              checked={playId === '3'}
+              onChange={handleChange}
+              type='checkbox'
+              value='3'
+              name='playId'
+            ></input>
+            <StyledInput>3</StyledInput>
+          </InputWrapper>
           <div>
             {trackArray[2] ? (
               <AudioVisualizer
@@ -273,10 +300,12 @@ export default function Project({ ...res }) {
                 style={{ backgroundColor: '#69B6D3' }}
               ></NoAudioVisualizationContainer>
             )}
-            <DeleteButton
-              handleclick={() => deleteTrack(res.uid, res.id, 3)}
-              text={'X'}
-            ></DeleteButton>
+            {trackArray[2] ? (
+              <DeleteButton
+                handleclick={() => deleteTrack(res.uid, res.id, 3)}
+                text={'X'}
+              ></DeleteButton>
+            ) : null}
           </div>
           <Recorder
             id={3}
@@ -286,13 +315,18 @@ export default function Project({ ...res }) {
           ></Recorder>
         </Label>{' '}
         <Label htmlFor=''>
-          <input
-            checked={playId === '4'}
-            onChange={handleChange}
-            type='checkbox'
-            value='4'
-            name='playId'
-          ></input>
+          <InputWrapper>
+            <input
+            className='lavenderInput'
+              checked={playId === '4'}
+              onChange={handleChange}
+              type='checkbox'
+              value='4'
+              name='playId'
+            ></input>
+            <StyledInput>4</StyledInput>
+          </InputWrapper>
+
           <div>
             {trackArray[3] ? (
               <AudioVisualizer
@@ -310,10 +344,12 @@ export default function Project({ ...res }) {
                 style={{ backgroundColor: '#B4ABDC' }}
               ></NoAudioVisualizationContainer>
             )}
-            <DeleteButton
-              handleclick={() => deleteTrack(res.uid, res.id, 4)}
-              text={'X'}
-            ></DeleteButton>
+            {trackArray[3] ? (
+              <DeleteButton
+                handleclick={() => deleteTrack(res.uid, res.id, 4)}
+                text={'X'}
+              ></DeleteButton>
+            ) : null}
           </div>
 
           <Recorder
@@ -343,31 +379,112 @@ export default function Project({ ...res }) {
     </div>
   );
 }
+const StyledTopBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  padding: 26px;
+`;
+
+const BackBtn = styled.button`
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+const StyledTitle = styled.h3`
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+`;
 
 const Label = styled.label`
   position: relative;
   display: grid;
-  grid-template-columns: 2% 95% 3%;
+  grid-template-columns: 3% 97%;
   align-items: center;
   margin-bottom: 10px;
 `;
 const Form = styled.form`
   margin-top: 20px;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  input[type='checkbox'] {
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    height: 25px;
+    width: 25px;
+    border-radius: 4px;
+    z-index: 99;
+  }
+
+  .yellowInput {
+    background-color: rgba(255, 221, 90, 0.5);
+    :checked {
+      background-color: rgba(235, 186, 0, 0.8);
+    }
+  }
+
+  .orangeInput {
+    background-color: rgba(255, 206, 145, 0.5);
+    :checked {
+      background-color: rgba(236, 131, 0, 0.8);
+    }
+  }
+  .blueInput {
+    background-color: rgba(195, 226, 237, 0.5);
+    :checked {
+      background-color: rgba(105, 182, 211, 0.8);
+    }
+  }
+  .lavenderInput {
+    background-color: rgba(195, 188, 227, 0.5);
+    :checked {
+      background-color: rgba(180, 171, 220, 0.8);
+    }
+  }
+`;
+
+const InputWrapper = styled.div`
+  display: block;
+  position: relative;
+  cursor: pointer;
+`;
+const StyledInput = styled.span`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 12px;
+  padding-top: 20%;
+  padding-left: 20%;
+
+  z-index: 0;
 `;
 
 const NoAudioVisualizationContainer = styled.div`
-  height: 49px;
-  width: 1055px;
+  height: 100px;
+  width: 1170px;
   margin-left: 7px;
   margin-top: 0px;
+  border-radius: 4px;
 `;
 const Container = styled.div`
   width: 100%;
   display: flex;
 `;
 const ButtonWrapper = styled.div`
-  width: 1064px;
+  width: 100%;
   display: flex;
   justify-content: center;
 `;

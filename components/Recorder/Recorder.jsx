@@ -43,7 +43,7 @@ const Recorder = (props, ref) => {
         projectid={props.projectid}
         ownerid={props.ownerid}
       ></audio>
-      <span>{timer}</span>
+      {/* <span>{timer}</span> */}
     </div>
   );
 };

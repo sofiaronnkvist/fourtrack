@@ -15,6 +15,7 @@ import ProjectCard from '../components/ProjectCard/ProjectCard';
 import LeftSideNavigation from '../components/LeftSideNavigation/LeftSideNavigation';
 import TopBar from '../components/TopBar/TopBar';
 import LatestProjectCard from '../components/LatestProjectsCard/LatestProjectCard';
+import Navbar from '../components/Navbar/navbar';
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
@@ -78,61 +79,66 @@ export async function getServerSideProps(ctx) {
 }
 const Projects = ({ projects, collections, latestProjects }) => {
   return (
-    <MainWrapper>
-      <LeftSideNavigation collections={collections} />
-      <MainContent>
-        <TopBar projectsToDelete={projects}></TopBar>
-        {projects[0].length >= 1 ? (
-          <>
-            <h1>All recordings</h1>
-            <ul>
-              <LatestProjectsWrapper>
-                {latestProjects &&
-                  latestProjects[0].map((latestProject) => {
+    <>
+      <Navbar />
+      <MainWrapper>
+        <LeftSideNavigation collections={collections} />
+        <MainContent>
+          <TopBar projectsToDelete={projects}></TopBar>
+          {projects[0].length >= 1 ? (
+            <>
+              <h1>All recordings</h1>
+              <ul>
+                <LatestProjectsWrapper>
+                  {latestProjects &&
+                    latestProjects[0].map((latestProject) => {
+                      return (
+                        <LatestProjectCard
+                          ownerId={latestProject.uid}
+                          key={latestProject.title}
+                          id={latestProject.id}
+                          title={latestProject.title}
+                          date={latestProject.timestamp}
+                        ></LatestProjectCard>
+                      );
+                    })}
+                </LatestProjectsWrapper>
+              </ul>
+              <ProjectHeadlines>
+                <HedlineItem>title </HedlineItem>
+                <HedlineItem style={{ marginLeft: '305px' }}>date </HedlineItem>
+                <HedlineItem style={{ marginLeft: '150px' }}>bpm </HedlineItem>
+                <HedlineItem style={{ marginLeft: '105px' }}>
+                  lenght{' '}
+                </HedlineItem>
+              </ProjectHeadlines>
+              <ul>
+                {projects &&
+                  projects[0].map((project) => {
                     return (
-                      <LatestProjectCard
-                        ownerId={latestProject.uid}
-                        key={latestProject.title}
-                        id={latestProject.id}
-                        title={latestProject.title}
-                        date={latestProject.timestamp}
-                      ></LatestProjectCard>
+                      <ProjectCard
+                        ownerId={project.uid}
+                        key={project.title}
+                        id={project.id}
+                        title={project.title}
+                        date={project.timestamp}
+                        favorite={project.favorite}
+                      ></ProjectCard>
                     );
                   })}
-              </LatestProjectsWrapper>
-            </ul>
-            <ProjectHeadlines>
-              <HedlineItem>title </HedlineItem>
-              <HedlineItem style={{ marginLeft: '305px' }}>date </HedlineItem>
-              <HedlineItem style={{ marginLeft: '150px' }}>bpm </HedlineItem>
-              <HedlineItem style={{ marginLeft: '105px' }}>lenght </HedlineItem>
-            </ProjectHeadlines>
-            <ul>
-              {projects &&
-                projects[0].map((project) => {
-                  return (
-                    <ProjectCard
-                      ownerId={project.uid}
-                      key={project.title}
-                      id={project.id}
-                      title={project.title}
-                      date={project.timestamp}
-                      favorite={project.favorite}
-                    ></ProjectCard>
-                  );
-                })}
-            </ul>{' '}
-          </>
-        ) : (
-          <NoProjectsMainWrapper>
-            <NoProjectsHeadline>
-              Oh no, no tracks here. Just press the create recording button to
-              get started.
-            </NoProjectsHeadline>
-          </NoProjectsMainWrapper>
-        )}
-      </MainContent>
-    </MainWrapper>
+              </ul>{' '}
+            </>
+          ) : (
+            <NoProjectsMainWrapper>
+              <NoProjectsHeadline>
+                Oh no, no tracks here. Just press the create recording button to
+                get started.
+              </NoProjectsHeadline>
+            </NoProjectsMainWrapper>
+          )}
+        </MainContent>
+      </MainWrapper>
+    </>
   );
 };
 const MainWrapper = styled.div`
@@ -158,10 +164,10 @@ const Label = styled.label`
   margin: 20px;
 `;
 const NoProjectsMainWrapper = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
 `;
 const NoProjectsHeadline = styled.h2`
   color: ${(props) => props.theme.purple500};

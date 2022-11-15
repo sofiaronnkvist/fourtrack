@@ -14,6 +14,7 @@ import nookies from 'nookies';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import LeftSideNavigation from '../../components/LeftSideNavigation/LeftSideNavigation';
 import TopBar from '../../components/TopBar/TopBar';
+import Navbar from '../../components/Navbar/navbar';
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
@@ -72,32 +73,35 @@ const checkFavorites = (projects) => {
 
 const Favorites = ({ projects, collections }) => {
   return (
-    <MainWrapper>
-      <LeftSideNavigation collections={collections} />
-      <MainContent>
-        <TopBar></TopBar>
-        <h1>Favorites</h1>
-        <ul>
-          {checkFavorites(projects) ? (
-            projects &&
-            projects[0].map((project) => {
-              return (
-                <ProjectCard
-                  ownerId={project.uid}
-                  key={project.title}
-                  id={project.id}
-                  title={project.title}
-                  date={project.timestamp}
-                  favorite={project.favorite}
-                ></ProjectCard>
-              );
-            })
-          ) : (
-            <p>Nothing here yet</p>
-          )}
-        </ul>
-      </MainContent>
-    </MainWrapper>
+    <>
+      <Navbar />
+      <MainWrapper>
+        <LeftSideNavigation collections={collections} />
+        <MainContent>
+          <TopBar></TopBar>
+          <h1>Favorites</h1>
+          <ul>
+            {checkFavorites(projects) ? (
+              projects &&
+              projects[0].map((project) => {
+                return (
+                  <ProjectCard
+                    ownerId={project.uid}
+                    key={project.title}
+                    id={project.id}
+                    title={project.title}
+                    date={project.timestamp}
+                    favorite={project.favorite}
+                  ></ProjectCard>
+                );
+              })
+            ) : (
+              <p>Nothing here yet</p>
+            )}
+          </ul>
+        </MainContent>
+      </MainWrapper>
+    </>
   );
 };
 const MainWrapper = styled.div`

@@ -6,10 +6,10 @@ import { getFileFromStorage } from '../../utils/getFileFromStorage';
 import styled from 'styled-components';
 import AudioVisualizer from '../../components/AudioVisualizer/audiovisualizer';
 import { deleteFileFromStorage } from '../../utils/deleteFileFromStorage';
-import DeleteButton from '../../components/Button/DeleteButton';
+import DeleteButton from '../../components/Buttons/DeleteButton';
 import { useRouter } from 'next/router';
 import SearchModal from '../../components/Modals/SearchModal/SearchModal';
-import PlayRecPause from '../../components/PlayRecPauseButton/PlayRecPause';
+import PlayRecPause from '../../components/Buttons/PlayRecPause';
 import { FaPlay, FaStop } from 'react-icons/fa';
 import { BsRecordFill } from 'react-icons/bs';
 

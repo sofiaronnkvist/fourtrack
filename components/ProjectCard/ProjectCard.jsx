@@ -13,6 +13,7 @@ import {
 import { useRouter } from 'next/router';
 import SearchModal from '../Modals/SearchModal/SearchModal';
 import RenameModal from '../Modals/RenameModal/RenameModal';
+import { DeleteFolderFromStorage } from '../../utils/deleteFolderFromStorage';
 
 const ContextRoot = ContextMenu.Root;
 const ContextTrigger = ContextMenu.Trigger;
@@ -98,9 +99,7 @@ const ProjectCard = ({ title, date, id, ownerId, favorite }) => {
                 ) : null}
                 <StyledContextItem>
                   <StyledContextButton
-                    onClick={() =>
-                      deleteProject(user.uid, props.projectId, props.ownerId)
-                    }
+                    onClick={() => deleteProject(user.uid, id, ownerId)}
                   >
                     <CrumpledPaperIcon
                       style={{ marginRight: '5px', width: '13px' }}
@@ -153,9 +152,6 @@ const ProjectLegth = styled.p`
 const StarWrapper = styled.div`
   margin-left: 100px;
 `;
-const DotWrapper = styled.div`
-  margin-left: 100px;
-`;
 
 const StyledContextContent = styled(ContextContent)`
   min-width: 150px;
@@ -170,7 +166,7 @@ const StyledContextContent = styled(ContextContent)`
 const StyledContextButton = styled.button`
   border: none;
   background-color: transparent;
-  font-size: 14px;
+  font-size: 12px;
   cursor: pointer;
   padding: 0;
   &:hover {
@@ -188,6 +184,7 @@ const StyledContextItem = styled(ContextItem)`
   padding: 20px;
   position: relative;
   padding-left: 10px;
+  font-size: 12px;
   user-select: none;
   outline: none;
   background-color: transparent;

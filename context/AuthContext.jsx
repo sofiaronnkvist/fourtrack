@@ -45,15 +45,15 @@ export const AuthContextProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    const handle = setInterval(async () => {
-      const user = app.auth().currentUser;
-      if (user) await user.getIdToken(true);
-    }, 10 * 60 * 1000);
+  // useEffect(() => {
+  const handle = setInterval(async () => {
+    const user = app.auth().currentUser;
+    if (user) await user.getIdToken(true);
+  }, 60 * 60 * 1000);
 
-    // clean up setInterval
-    return () => clearInterval(handle);
-  }, []);
+  // clean up setInterval
+  // return () => clearInterval(handle);
+  // }, []);
 
   const registerGoogleUser = async () => {
     try {

@@ -214,7 +214,7 @@ export default function Project({ ...res }) {
             )}
             {trackArray[0] ? (
               <DeleteButton
-                handleclick={() => deleteTrack(res.uid, res.id, 4)}
+                handleclick={() => deleteTrack(res.uid, res.id, 1)}
                 text={'X'}
               ></DeleteButton>
             ) : null}
@@ -258,7 +258,7 @@ export default function Project({ ...res }) {
             )}
             {trackArray[1] ? (
               <DeleteButton
-                handleclick={() => deleteTrack(res.uid, res.id, 4)}
+                handleclick={() => deleteTrack(res.uid, res.id, 2)}
                 text={'X'}
               ></DeleteButton>
             ) : null}
@@ -302,7 +302,7 @@ export default function Project({ ...res }) {
             )}
             {trackArray[2] ? (
               <DeleteButton
-                handleclick={() => deleteTrack(res.uid, res.id, 4)}
+                handleclick={() => deleteTrack(res.uid, res.id, 3)}
                 text={'X'}
               ></DeleteButton>
             ) : null}
@@ -323,7 +323,6 @@ export default function Project({ ...res }) {
               type='checkbox'
               value='4'
               name='playId'
-              ifChecked={'rgba(195, 188, 227, 0.5)'}
             ></input>
             <StyledInput>4</StyledInput>
           </InputWrapper>
@@ -405,7 +404,7 @@ const StyledTitle = styled.h3`
 const Label = styled.label`
   position: relative;
   display: grid;
-  grid-template-columns: 3% 94% 3%;
+  grid-template-columns: 3% 97%;
   align-items: center;
   margin-bottom: 10px;
 `;

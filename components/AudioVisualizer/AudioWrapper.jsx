@@ -34,6 +34,7 @@ const AudioWrapper = (props) => {
               // label: 'start',
               color: `${props.waveColor}`,
               draggable: true,
+              position: 'top',
             },
           ],
         }),

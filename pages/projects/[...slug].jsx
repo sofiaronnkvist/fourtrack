@@ -317,7 +317,7 @@ export default function Project({ ...res }) {
         <Label htmlFor=''>
           <InputWrapper>
             <input
-            className='lavenderInput'
+              className='lavenderInput'
               checked={playId === '4'}
               onChange={handleChange}
               type='checkbox'
@@ -494,6 +494,11 @@ export async function getServerSideProps(ctx) {
   const { slug } = params;
 
   let res;
+  const options = {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  };
   const ref = collection(firestore, 'projects');
   const projectsQuery = query(ref, where('title', '==', slug[0]));
   const querySnapshot = await getDocs(projectsQuery);
@@ -501,7 +506,10 @@ export async function getServerSideProps(ctx) {
     res = {
       ...doc.data(),
       id: doc.id,
-      timestamp: doc.data().timestamp.toDate().toLocaleDateString(),
+      timestamp: doc
+        .data()
+        .timestamp.toDate()
+        .toLocaleDateString(undefined, options),
     };
   });
   return { props: { ...res } };

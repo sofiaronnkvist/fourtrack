@@ -23,6 +23,11 @@ export async function getServerSideProps(ctx) {
   let projects = [];
   let collections = [];
 
+  const options = {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  };
   const ref = collection(firestore, 'projects');
   const projectsQuery = query(
     ref,
@@ -36,7 +41,10 @@ export async function getServerSideProps(ctx) {
         return {
           ...item.data(),
           id: item.id,
-          timestamp: item.data().timestamp.toDate().toLocaleDateString(),
+          timestamp: item
+            .data()
+            .timestamp.toDate()
+            .toLocaleDateString(undefined, options),
         };
       })
     );

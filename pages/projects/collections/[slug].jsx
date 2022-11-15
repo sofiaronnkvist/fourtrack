@@ -136,13 +136,21 @@ export async function getServerSideProps(ctx) {
     where('uid', '==', uid),
     orderBy('timestamp', 'desc')
   );
+  const options = {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  };
   await getDocs(projectsQuery).then((data) => {
     projects.push(
       data.docs.map((item) => {
         return {
           ...item.data(),
           id: item.id,
-          timestamp: item.data().timestamp.toDate().toLocaleDateString(),
+          timestamp: item
+            .data()
+            .timestamp.toDate()
+            .toLocaleDateString(undefined, options),
         };
       })
     );
@@ -161,7 +169,10 @@ export async function getServerSideProps(ctx) {
         return {
           ...item.data(),
           id: item.id,
-          timestamp: item.data().timestamp.toDate().toLocaleDateString(),
+          timestamp: item
+            .data()
+            .timestamp.toDate()
+            .toLocaleDateString(undefined, options),
         };
       })
     );

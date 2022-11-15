@@ -37,6 +37,11 @@ export async function getServerSideProps(ctx) {
     orderBy('timestamp', 'desc'),
     limit(5)
   );
+  const options = {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  };
 
   const getProjects = async (projectsQuery, array) => {
     await getDocs(projectsQuery).then((data) => {
@@ -45,7 +50,10 @@ export async function getServerSideProps(ctx) {
           return {
             ...item.data(),
             id: item.id,
-            timestamp: item.data().timestamp.toDate().toLocaleDateString(),
+            timestamp: item
+              .data()
+              .timestamp.toDate()
+              .toLocaleDateString(undefined, options),
           };
         })
       );

@@ -21,6 +21,11 @@ export async function getServerSideProps(ctx) {
   const { uid } = token;
   let projects = [];
 
+  const options = {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  };
   const ref = collection(firestore, 'projects');
   const projectsQuery = query(
     ref,
@@ -33,7 +38,10 @@ export async function getServerSideProps(ctx) {
         return {
           ...item.data(),
           id: item.id,
-          timestamp: item.data().timestamp.toDate().toLocaleDateString(),
+          timestamp: item
+            .data()
+            .timestamp.toDate()
+            .toLocaleDateString(undefined, options),
         };
       })
     );
@@ -51,13 +59,11 @@ const Collections = ({ projects }) => {
         <TopBar></TopBar>
         <h1>Collections</h1>
         <ProjectHeadlines>
-                <HedlineItem>title </HedlineItem>
-                <HedlineItem style={{ marginLeft: '305px' }}>date </HedlineItem>
-                <HedlineItem style={{ marginLeft: '130px' }}>bpm </HedlineItem>
-                <HedlineItem style={{ marginLeft: '100px' }}>
-                  lenght{' '}
-                </HedlineItem>
-              </ProjectHeadlines>
+          <HedlineItem>title </HedlineItem>
+          <HedlineItem style={{ marginLeft: '305px' }}>date </HedlineItem>
+          <HedlineItem style={{ marginLeft: '130px' }}>bpm </HedlineItem>
+          <HedlineItem style={{ marginLeft: '100px' }}>lenght </HedlineItem>
+        </ProjectHeadlines>
         <StyledUlList>
           {projects &&
             projects[0].map((project) => {

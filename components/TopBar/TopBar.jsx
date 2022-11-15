@@ -36,8 +36,7 @@ const TopBarWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 133px;
-  border-bottom: 1px solid lightgray;
+  height: 100px;
   max-width: 100%;
 `;
 

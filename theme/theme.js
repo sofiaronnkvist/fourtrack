@@ -30,7 +30,6 @@ const theme = {
   azure400: '#87C5DC',
   azure500: '#69B6D3',
 
-
   yellow500: '#EBBA00',
   yellow400: '##FFD123',
   yellow300: '#FFDD5A',
@@ -40,6 +39,8 @@ const theme = {
   orange400: '#FFCE91',
   orange300: '#FF9D24',
   orange200: '#FFCE91',
+
+  red800: '#F24822',
 
   //Shadows
   smallShadow:

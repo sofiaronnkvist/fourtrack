@@ -46,8 +46,8 @@ const SearchField = styled.div`
   padding: 5px;
   border: 1px solid black;
   border-radius: 4px;
-  width: 200px;
-  height: 34px;
+  width: 375px;
+  height: 40px;
 `;
 
 const RightSection = styled.div`

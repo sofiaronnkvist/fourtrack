@@ -146,6 +146,8 @@ const AccordionContent = Accordion.Content;
 const StyledTrigger = styled(AccordionTrigger)`
   color: black;
   font-size: 16px;
+  font-weight: 500;
+  font-family: 'Inter';
   border: none;
   background-color: transparent;
   cursor: pointer;

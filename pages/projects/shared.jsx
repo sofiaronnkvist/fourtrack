@@ -1,12 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {
-  collection,
-  getDocs,
-  orderBy,
-  query,
-  Timestamp,
-  where,
-} from 'firebase/firestore';
+import React from 'react';
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { firestore } from '../../utils/firebase';
 import styled from 'styled-components';
 import { verifyIdToken } from '../../utils/firebaseAdmin';
@@ -89,8 +82,8 @@ const Shared = ({ colabProjects, collections }) => {
             <>
               <ProjectHeadlines>
                 <HedlineItem>title </HedlineItem>
-                <HedlineItem style={{ marginLeft: '305px' }}>date </HedlineItem>
-                <HedlineItem style={{ marginLeft: '130px' }}>bpm </HedlineItem>
+                <HedlineItem style={{ marginLeft: '312px' }}>date </HedlineItem>
+                <HedlineItem style={{ marginLeft: '137px' }}>bpm </HedlineItem>
                 <HedlineItem style={{ marginLeft: '100px' }}>
                   lenght{' '}
                 </HedlineItem>

@@ -83,7 +83,6 @@ const LeftSideNavigation = ({ collections }) => {
             <ChevronRightIcon size='20px' />
           </LinkWrapper>
           <StyledSeparator />
-
           <CollectionsAccordion
             collections={collections}
             collectionTitle={collections}
@@ -139,19 +138,19 @@ const BottomItems = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* padding-bottom: 1vh; */
 `;
 const TopItems = styled.div`
   display: flex;
   flex-direction: column;
 `;
 const NavLink = styled.a`
-  padding: 0px 8px;
+  padding: 4px 8px;
   cursor: pointer;
+  font-weight: 500;
 `;
 
 const StyledSeparator = styled(SeparatorLine)`
-  margin: 15px;
+  margin: 35px;
   height: 1px;
   width: 100%;
 `;

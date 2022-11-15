@@ -11,6 +11,9 @@ import purpuleIcon from '../public/purpleIcon2.svg';
 import yellowIcon from '../public/yellowIcon.svg';
 import orangeIcon from '../public/orangeIcon.svg';
 import blueIcon from '../public/blueIcon.svg';
+import projectsImage from '../public/projects.webp';
+import recorderImage from '../public/recorder.webp';
+
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import Navbar from '../components/Navbar/navbar';
 
@@ -24,11 +27,11 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Fourtrack</title>
         <meta name='Fourtrack' content='A better way for recording music' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Navbar/>
+      <Navbar />
       <StyledMain>
         <HeroSection>
           <StyledH1>
@@ -42,19 +45,56 @@ export default function Home() {
             </Wrapper>
           </TitleCTA>
           <OrangeIconWrapper>
-            <Image src={orangeIcon} height={'128px'} width={'128px'} />
+            <Image
+              src={orangeIcon}
+              height={'128px'}
+              width={'128px'}
+              alt={'A orange icon'}
+            />
           </OrangeIconWrapper>
           <YellowIconWrapper>
-            <Image src={yellowIcon} height={'283px'} width={'283px'} />
+            <Image
+              src={yellowIcon}
+              height={'283px'}
+              width={'283px'}
+              alt={'A yellow icon'}
+            />
           </YellowIconWrapper>
           <BlueIconWrapper>
-            <Image src={blueIcon} height={'107px'} width={'107px'} />
+            <Image
+              src={blueIcon}
+              height={'107px'}
+              width={'107px'}
+              alt={'A blue icon'}
+            />
           </BlueIconWrapper>
         </HeroSection>
         <CaroselSection>
           <PurpuleIconWrapper>
-            <Image src={purpuleIcon} height={'447px'} width={'447px'} />
+            <Image
+              src={purpuleIcon}
+              height={'447px'}
+              width={'447px'}
+              alt={'A purple icon'}
+            />
           </PurpuleIconWrapper>
+
+          <Image
+            src={recorderImage}
+            height={'847px'}
+            width={'614px'}
+            objectFit={'cover'}
+            objectPosition={'80% 90%'}
+            alt={'The Fourtrack dashboard'}
+          />
+          <Image
+            src={projectsImage}
+            height={'847px'}
+            width={'800px'}
+            objectFit={'cover'}
+            objectPosition={'10% 90%'}
+            alt={'The Fourtrack recorder'}
+          />
         </CaroselSection>
         <ToolSection purple>
           <StyledH2>A new tool to capture your musical moments</StyledH2>
@@ -118,7 +158,7 @@ const StyledMain = styled.main`
 const PurpuleIconWrapper = styled.div`
   position: absolute;
   z-index: 0;
-  bottom: -30%;
+  bottom: -36%;
   left: 4%;
 `;
 const YellowIconWrapper = styled.div`
@@ -206,9 +246,11 @@ const StyledP = styled.p`
 `;
 const CaroselSection = styled.section`
   min-height: 713px;
-  background-color: lightpink;
   width: 100%;
   z-index: 999;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 32px;
 `;
 const ToolSection = styled.section`
   min-height: 450px;

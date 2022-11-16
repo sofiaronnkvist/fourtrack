@@ -91,6 +91,7 @@ export default function Home() {
             objectFit={'cover'}
             objectPosition={'10% 90%'}
             alt={'The Fourtrack recorder'}
+            style={{position: 'relative'}}
           />
         </CaroselSection>
         <ToolSection purple>
@@ -101,6 +102,7 @@ export default function Home() {
               fillInner={'#69B6D3'}
             />
           </SecondBlueIconWrapper>
+
           <StyledH2>A new tool to capture your musical moments</StyledH2>
           <SecondOrangeIconWrapper>
             <BigRoundIcon
@@ -232,8 +234,9 @@ const SecondOrangeIconWrapper = styled.div`
   top: 30%;
   left: -210px;
 `;
+
 const HeroSection = styled.section`
-  min-height: 550px;
+  min-height: 500px;
   width: 100%;
   padding: 4rem 0;
   flex: 1;
@@ -309,6 +312,7 @@ const CaroselSection = styled.section`
     position: relative;
   }
 `;
+
 const ToolSection = styled.section`
   position: relative;
   min-height: 450px;

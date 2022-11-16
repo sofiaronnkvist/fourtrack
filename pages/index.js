@@ -94,9 +94,18 @@ export default function Home() {
             objectFit={'cover'}
             objectPosition={'10% 90%'}
             alt={'The Fourtrack recorder'}
+            style={{position: 'relative'}}
           />
         </CaroselSection>
         <ToolSection purple>
+          <BlueIconSecondWrapper>
+            <Image
+              src={blueIcon}
+              height={'165px'}
+              width={'164px'}
+              alt={'A blue icon'}
+            />
+          </BlueIconSecondWrapper>
           <StyledH2>A new tool to capture your musical moments</StyledH2>
         </ToolSection>
         <RecorderSection>
@@ -179,8 +188,15 @@ const BlueIconWrapper = styled.div`
   bottom: 45%;
   right: 10%;
 `;
+const BlueIconSecondWrapper = styled.div`
+  position: absolute;
+  z-index: 999;
+  top: -16%;
+  right: 10%;
+`;
+
 const HeroSection = styled.section`
-  min-height: 550px;
+  min-height: 500px;
   width: 100%;
   padding: 4rem 0;
   flex: 1;
@@ -252,7 +268,9 @@ const CaroselSection = styled.section`
   justify-content: space-between;
   padding-top: 32px;
 `;
+
 const ToolSection = styled.section`
+  position: relative;
   min-height: 450px;
   background-color: ${(props) =>
     props.purple ? `${props.theme.purple500}` : 'none'};

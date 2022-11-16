@@ -161,12 +161,6 @@ export default function Project({ ...res }) {
     await deleteFileFromStorage(userId, projectId, trackNo);
   };
 
-  // const lavenderBg = {
-  //   backgroundColor: 'rgba(195, 188, 227, 0.5)',
-  //   '&:checked': {
-  //     backgroundColor: 'rgba(180, 171, 220, 0.5)',
-  //   },
-  // };
   return (
     <div>
       <StyledTopBar>

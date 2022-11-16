@@ -11,6 +11,7 @@ import {
 } from 'firebase/firestore';
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import styled from 'styled-components';
 
 export default function ShareProject(props) {
   const { user } = useAuth();
@@ -54,7 +55,7 @@ export default function ShareProject(props) {
 
   return (
     <div>
-      <form onSubmit={(e) => shareButton(e, props.projectId)}>
+      <StyledForm onSubmit={(e) => shareButton(e, props.projectId)}>
         <label hidden id='friend'>
           Search field
         </label>
@@ -69,8 +70,40 @@ export default function ShareProject(props) {
           required
         ></input>
         <button type='submit'>Share</button>
-      </form>
+      </StyledForm>
       <p>{formMessage}</p>
     </div>
   );
 }
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+
+  input {
+    width: 330px;
+    height: 48px;
+    font-size: 16px;
+    padding: 5px;
+    margin-top: 30px;
+    margin-left: 30px;
+    border-radius: 8px;
+    border: 1px solid #d0d5dd;
+  }
+  input[type='email']:focus {
+    outline: none !important;
+    border: 2px solid ${(props) => props.theme.purple500};
+  }
+
+  button {
+    width: 330px;
+    height: 48px;
+    font-size: 16px;
+    padding: 5px;
+    margin: 30px;
+    border: none;
+    background-color: ${(props) => props.theme.purple500};
+    color: white;
+    border-radius: 4px;
+  }
+`;

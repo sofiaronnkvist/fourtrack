@@ -47,23 +47,19 @@ export default function Home() {
             </Wrapper>
           </TitleCTA>
           <OrangeIconWrapper>
-            <SquareIcon
-              height={'155px'}
-              width={'155px'}
-              fillInner={'#EC8300'}
-            />
+            <SquareIcon height={'100%'} width={'100%'} fillInner={'#EC8300'} />
           </OrangeIconWrapper>
           <YellowIconWrapper>
             <BigRoundIcon
-              height={'283px'}
-              width={'283px'}
+              height={'100%'}
+              width={'100%'}
               fillInner={'#EBBA00'}
             />
           </YellowIconWrapper>
           <BlueIconWrapper>
             <SmallRoundIcon
-              height={'107px'}
-              width={'107px'}
+              height={'100%'}
+              width={'100%'}
               fillInner={'#69B6D3'}
             />
           </BlueIconWrapper>
@@ -71,8 +67,8 @@ export default function Home() {
         <CaroselSection>
           <PurpuleIconWrapper>
             <BigRoundIcon
-              height={'447px'}
-              width={'447px'}
+              height={'100%'}
+              width={'100%'}
               fillInner={'#B4ABDC'}
             />
           </PurpuleIconWrapper>
@@ -97,18 +93,14 @@ export default function Home() {
         </CaroselSection>
         <ToolSection purple>
           <SecondBlueIconWrapper>
-            <SquareIcon
-              height={'164px'}
-              width={'164px'}
-              fillInner={'#69B6D3'}
-            />
+            <SquareIcon height={'100%'} width={'100%'} fillInner={'#69B6D3'} />
           </SecondBlueIconWrapper>
 
           <StyledH2>A new tool to capture your musical moments</StyledH2>
           <SecondOrangeIconWrapper>
             <BigRoundIcon
-              height={'403px'}
-              width={'403px'}
+              height={'100%'}
+              width={'100%'}
               fillInner={'#EBBA00'}
             />
           </SecondOrangeIconWrapper>
@@ -130,11 +122,14 @@ export default function Home() {
           </StyledDraftDiv>
           <ThirdOrangeIconWrapper>
             <BigRoundIcon
-              height={'168px'}
-              width={'168px'}
+              height={'100%'}
+              width={'100%'}
               fillInner={'#EC8300'}
             />
           </ThirdOrangeIconWrapper>
+          <SecondPurpleIconWrapper>
+            <SquareIcon height={'100%'} width={'100%'} fillInner={'#B4ABDC'} />
+          </SecondPurpleIconWrapper>
         </RecorderSection>
         <ControlsSection purple>
           <StyledH4>No more headaching controls</StyledH4>
@@ -146,20 +141,15 @@ export default function Home() {
           <ImagePlaceholder></ImagePlaceholder>
           <ThirdBlueIconWrapper>
             <BigRoundIcon
-              classname={'blue'}
-              height={'362px'}
-              width={'362px'}
+              height={'100%'}
+              width={'100%'}
               fillInner={'#69B6D3'}
             />
           </ThirdBlueIconWrapper>
         </ControlsSection>
         <CollabSection>
           <ThirdYellowIconWrapper>
-            <SquareIcon
-              height={'152px'}
-              width={'152px'}
-              fillInner={'#EBBA00'}
-            />
+            <SquareIcon height={'100%'} width={'100%'} fillInner={'#EBBA00'} />
           </ThirdYellowIconWrapper>
           <Image
             src={peoplePicture}
@@ -204,58 +194,69 @@ const StyledMain = styled.main`
   overflow-x: hidden;
   background-color: ${(props) => props.theme.grey100};
 `;
-const PurpuleIconWrapper = styled.div`
-  position: absolute;
-  z-index: 0;
-  bottom: -36%;
-  left: 4%;
-`;
-const YellowIconWrapper = styled.div`
-  position: absolute;
-  z-index: 0;
-  bottom: 16%;
-  right: 10%;
-`;
 const OrangeIconWrapper = styled.div`
   position: absolute;
+  width: 155px;
+  height: 155px;
   z-index: 0;
   top: 10%;
   left: 13%;
 `;
+const YellowIconWrapper = styled.div`
+  position: absolute;
+  width: 283px;
+  height: 283px;
+  z-index: 0;
+  bottom: 16%;
+  right: 10%;
+
+  @media screen and (max-width: 720px) {
+    bottom: 21%;
+    right: -14%;
+  }
+`;
 const BlueIconWrapper = styled.div`
   position: absolute;
+  width: 107px;
+  height: 107px;
   z-index: 0;
   bottom: 45%;
   right: 10%;
+
+  @media screen and (max-width: 720px) {
+    bottom: 53%;
+    right: -8%;
+  }
 `;
-const SecondBlueIconWrapper = styled.div`
+const PurpuleIconWrapper = styled.div`
   position: absolute;
-  transform: rotate(17deg);
-  z-index: 999;
-  top: -10%;
-  right: 8%;
-`;
-const SecondOrangeIconWrapper = styled.div`
-  position: absolute;
+  width: 447px;
+  height: 447px;
   z-index: 0;
-  top: 30%;
-  left: -210px;
+  bottom: -45%;
+  left: 4%;
+
+  @media screen and (max-width: 720px) {
+    left: -13%;
+  }
 `;
 
 const HeroSection = styled.section`
-  min-height: 500px;
+  min-height: 570px;
   width: 100%;
   padding: 4rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
 `;
 const StyledH1 = styled.h1`
   margin: 0;
-  line-height: 0.9;
-  font-size: 100px;
+  margin-top: 75px;
+  line-height: 70px;
+  font-size: clamp(2.5rem, 1.4667rem + 4.5926vw, 5.6rem);
+  /* font-size: 100px; */
   font-weight: 500;
   z-index: 1;
 `;
@@ -263,11 +264,17 @@ const TitleCTA = styled.div`
   margin-top: 67px;
   display: flex;
   align-items: center;
+  z-index: 10;
 
   a {
     color: #6d4deb;
     font-size: 18px;
     margin-left: 15px;
+  }
+  @media screen and (max-width: 720px) {
+    margin-top: 80px;
+    margin-bottom: 57px;
+
   }
 `;
 const Wrapper = styled.div`
@@ -331,6 +338,24 @@ const ToolSection = styled.section`
   justify-content: center;
   align-items: center;
 `;
+
+const SecondBlueIconWrapper = styled.div`
+  position: absolute;
+  width: 164px;
+  height: 164px;
+  transform: rotate(17deg);
+  z-index: 999;
+  top: -10%;
+  right: 8%;
+`;
+const SecondOrangeIconWrapper = styled.div`
+  position: absolute;
+  width: 403px;
+  height: 403px;
+  z-index: 0;
+  top: 30%;
+  left: -210px;
+`;
 const RecorderSection = styled.section`
   position: relative;
   min-height: 450px;
@@ -353,9 +378,19 @@ const StyledDraftDiv = styled.div`
 
 const ThirdOrangeIconWrapper = styled.div`
   position: absolute;
+  width: 168px;
+  height: 168px;
   z-index: 1;
   bottom: -5%;
   right: 10%;
+`;
+const SecondPurpleIconWrapper = styled.div`
+  position: absolute;
+  width: 316px;
+  height: 316px;
+  z-index: 1;
+  bottom: -25%;
+  left: -1%;
 `;
 const ControlsSection = styled.section`
   display: flex;
@@ -384,6 +419,10 @@ const CollabSection = styled.section`
   overflow-x: hidden;
   background-color: ${(props) =>
     props.purple ? `${props.theme.purple500}` : 'none'};
+
+  @media screen and (max-width: 700px) {
+    margin: 0 15px;
+  }
 `;
 const ThirdBlueIconWrapper = styled.div`
   position: absolute;
@@ -393,12 +432,16 @@ const ThirdBlueIconWrapper = styled.div`
   right: 0;
   bottom: -180px;
   transform: translateX(70px);
-  .blue {
-    transform: translateX(700px);
+
+  @media screen and (max-width: 700px) {
+    width: 181px;
+    height: 181px;
   }
 `;
 const ThirdYellowIconWrapper = styled.div`
   position: absolute;
+  width: 152px;
+  height: 152px;
   transform: rotate(17deg);
   z-index: 2;
   top: 7%;

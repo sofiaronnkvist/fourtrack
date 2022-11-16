@@ -38,10 +38,14 @@ const LeftSideNavigation = ({ collections }) => {
 
   const numberOfShared = async () => {
     const coll = collection(firestore, 'projects');
-    const query_ = query(coll, where('colab_uid', '==', user.uid));
+    const query_ = query(
+      coll,
+      where('colab_uid', 'array-contains-any', [user.uid])
+    );
     const snapshot = await getCountFromServer(query_);
     setSharedProjectsNo(snapshot.data().count);
   };
+
   const numberOfFavorites = async () => {
     const coll = collection(firestore, 'projects');
     const query_ = query(
@@ -52,6 +56,7 @@ const LeftSideNavigation = ({ collections }) => {
     const snapshot = await getCountFromServer(query_);
     setFavoritesNo(snapshot.data().count);
   };
+
   return (
     <>
       <Navigation>
@@ -159,6 +164,7 @@ const NavLink = styled.a`
   padding: 4px 8px;
   cursor: pointer;
   font-weight: 500;
+  color: ${(props) => props.theme.black900};
 `;
 const StyledSeparator = styled(SeparatorLine)`
   margin: 35px;

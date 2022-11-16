@@ -86,47 +86,41 @@ export default function CollectionsAccordion({ collections }) {
         </TriggerWrapper>
         <ContentWrapper>
           {collections &&
-            collections[0].map((collection, key) => {
+            collections[0].map((collection) => {
               return (
-                <>
-                  <ContextRoot>
-                    <ContextTrigger>
-                      <StyledContent>
-                        <StyledLink
-                          href={{
-                            pathname: '/projects/collections/[slug]',
-                            query: { slug: collection.title },
-                          }}
+                <ContextRoot key={collection.id}>
+                  <ContextTrigger>
+                    <StyledContent>
+                      <StyledLink
+                        href={{
+                          pathname: '/projects/collections/[slug]',
+                          query: { slug: collection.title },
+                        }}
+                      >
+                        {collection.title}
+                      </StyledLink>
+                    </StyledContent>
+                  </ContextTrigger>
+                  <ContextPortal>
+                    <StyledContextContent>
+                      <StyledContextItem>
+                        <StyledContextButton
+                          onClick={(e) =>
+                            deleteCollection(e, collection.id, collection.title)
+                          }
                         >
-                          {collection.title}
-                        </StyledLink>
-                      </StyledContent>
-                    </ContextTrigger>
-                    <ContextPortal>
-                      <StyledContextContent>
-                        <StyledContextItem>
-                          <StyledContextButton
-                            onClick={(e) =>
-                              deleteCollection(
-                                e,
-                                collection.id,
-                                collection.title
-                              )
-                            }
-                          >
-                            Delete
-                          </StyledContextButton>
-                        </StyledContextItem>
-                        <StyledContextItem asChild={true}>
-                          <RenameCollectionModal
-                            collectionId={collection.id}
-                            collectionTitle={collection.title}
-                          />
-                        </StyledContextItem>
-                      </StyledContextContent>
-                    </ContextPortal>
-                  </ContextRoot>
-                </>
+                          Delete
+                        </StyledContextButton>
+                      </StyledContextItem>
+                      <StyledContextItem asChild={true}>
+                        <RenameCollectionModal
+                          collectionId={collection.id}
+                          collectionTitle={collection.title}
+                        />
+                      </StyledContextItem>
+                    </StyledContextContent>
+                  </ContextPortal>
+                </ContextRoot>
               );
             })}
           <StyledContent>

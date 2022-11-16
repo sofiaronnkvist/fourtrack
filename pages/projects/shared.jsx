@@ -84,7 +84,7 @@ const Shared = ({ colabProjects, collections }) => {
                 <HedlineItem>title </HedlineItem>
                 <HedlineItem style={{ marginLeft: '312px' }}>date </HedlineItem>
                 <HedlineItem style={{ marginLeft: '137px' }}>bpm </HedlineItem>
-                <HedlineItem style={{ marginLeft: '100px' }}>
+                <HedlineItem style={{ marginLeft: '105px' }}>
                   lenght{' '}
                 </HedlineItem>
               </ProjectHeadlines>

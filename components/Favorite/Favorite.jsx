@@ -19,13 +19,21 @@ export default function Favorite({ favorite, projectId }) {
 
     if (favoriteStar == false) {
       return (
-        <StarButton onClick={(e) => clickToFavorite(e, projectId)}>
+        <StarButton
+          type='submit'
+          name='Like button'
+          onClick={(e) => clickToFavorite(e, projectId)}
+        >
           <AiOutlineStar size={'20px'}></AiOutlineStar>
         </StarButton>
       );
     } else {
       return (
-        <StarButton onClick={(e) => clickToUnmakeFavorite(e, projectId)}>
+        <StarButton
+          type='submit'
+          name='Unlike button'
+          onClick={(e) => clickToUnmakeFavorite(e, projectId)}
+        >
           <AiFillStar size={'20px'}></AiFillStar>
         </StarButton>
       );
@@ -39,5 +47,6 @@ const StarButton = styled.button`
   border: 0;
   padding: 0;
   background-color: transparent;
+  display: flex;
   cursor: pointer;
 `;

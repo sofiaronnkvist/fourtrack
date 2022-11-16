@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  collection,
-  getDocs,
-  orderBy,
-  query,
-  where,
-} from 'firebase/firestore';
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { firestore } from '../../utils/firebase';
 import styled from 'styled-components';
 import { verifyIdToken } from '../../utils/firebaseAdmin';
@@ -90,8 +84,8 @@ const Favorites = ({ projects, collections }) => {
               <ProjectHeadlines>
                 <HedlineItem>title </HedlineItem>
                 <HedlineItem style={{ marginLeft: '312px' }}>date </HedlineItem>
-              <HedlineItem style={{ marginLeft: '137px' }}>bpm </HedlineItem>
-                <HedlineItem style={{ marginLeft: '100px' }}>
+                <HedlineItem style={{ marginLeft: '137px' }}>bpm </HedlineItem>
+                <HedlineItem style={{ marginLeft: '105px' }}>
                   lenght{' '}
                 </HedlineItem>
               </ProjectHeadlines>
@@ -106,6 +100,7 @@ const Favorites = ({ projects, collections }) => {
                         title={project.title}
                         date={project.timestamp}
                         favorite={project.favorite}
+                        collection={project.collections}
                       ></ProjectCard>
                     );
                   })}

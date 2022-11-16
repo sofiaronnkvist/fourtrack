@@ -114,7 +114,7 @@ const Projects = ({ projects, collections, latestProjects }) => {
                 <HedlineItem>title </HedlineItem>
                 <HedlineItem style={{ marginLeft: '312px' }}>date </HedlineItem>
                 <HedlineItem style={{ marginLeft: '137px' }}>bpm </HedlineItem>
-                <HedlineItem style={{ marginLeft: '100px' }}>
+                <HedlineItem style={{ marginLeft: '105px' }}>
                   lenght{' '}
                 </HedlineItem>
               </ProjectHeadlines>
@@ -129,6 +129,7 @@ const Projects = ({ projects, collections, latestProjects }) => {
                         title={project.title}
                         date={project.timestamp}
                         favorite={project.favorite}
+                        collection={project.collections}
                       ></ProjectCard>
                     );
                   })}

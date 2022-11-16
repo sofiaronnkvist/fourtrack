@@ -174,13 +174,13 @@ export default function RenameModal({ allProjects, slug, projects }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <NavLinkItem>Manage projects</NavLinkItem>
+        <NavLinkItem>Manage songs</NavLinkItem>
       </DialogTrigger>
       <DialogContent>
         <DialogClose asChild>
           <CloseButton onClick={(e) => handleSubmit(e)}>&#10004;</CloseButton>
         </DialogClose>
-        <DialogTitle>Manage projects</DialogTitle>
+        <DialogTitle>Manage songs</DialogTitle>
         <StyledSelect
           defaultValue={chosenProjectsArray}
           isMulti

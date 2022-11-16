@@ -44,7 +44,7 @@ const SearchField = styled.div`
   display: flex;
   align-items: center;
   padding: 5px;
-  border: 1px solid black;
+  border: 1px solid ${(props) => props.theme.light800};
   border-radius: 4px;
   width: 375px;
   height: 40px;

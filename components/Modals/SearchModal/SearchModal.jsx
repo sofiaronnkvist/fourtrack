@@ -2,6 +2,7 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled from 'styled-components';
 import React, { useState } from 'react';
 import ShareProject from '../../Shareproject/ShareProject';
+import { Share2Icon } from '@radix-ui/react-icons';
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
@@ -25,7 +26,6 @@ const StyledContent = styled(dialogContent)`
   justify-content: center;
   align-items: center;
   z-index: 99;
-
 `;
 
 const StyledOverlay = styled(dialogOverlay)`
@@ -62,6 +62,17 @@ const CloseButton = styled.button`
   border: none;
 `;
 
+const TitleContent = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const StyledTriggerTitle = styled.p`
+  :hover {
+    text-decoration: underline;
+  }
+`;
+
 function Content({ children, ...props }) {
   return (
     <DialogPrimitive.Portal>
@@ -87,14 +98,18 @@ export default function Modal(props) {
           btnWithBackground={props.btnWithBackground}
           whiteText={props.whiteText}
         >
-          Share
+          {' '}
+          <TitleContent>
+            <Share2Icon style={{ marginRight: '5px', width: '13px' }} />
+            <StyledTriggerTitle>Share</StyledTriggerTitle>
+          </TitleContent>
         </NavButton>
       </DialogTrigger>
       <DialogContent>
         <DialogClose asChild>
           <CloseButton>&#9587;</CloseButton>
         </DialogClose>
-        <DialogTitle>Share {props.projectTitle}</DialogTitle>
+        <DialogTitle>Share &#34;{props.projectTitle}&#34;</DialogTitle>
         <ShareProject projectId={props.projectId} />
       </DialogContent>
     </Dialog>

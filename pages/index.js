@@ -26,11 +26,11 @@ export default function Home() {
   }, []);
   return (
     <div>
-      <Head>
+      {/* <Head>
         <title>Fourtrack</title>
         <meta name='Fourtrack' content='A better way for recording music' />
         <link rel='icon' href='/favicon.ico' />
-      </Head>
+      </Head> */}
       <Navbar />
       <StyledMain>
         <HeroSection>

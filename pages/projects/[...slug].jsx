@@ -13,6 +13,7 @@ import PlayRecPause from '../../components/Buttons/PlayRecPause';
 import { FaPlay, FaStop } from 'react-icons/fa';
 import { BsRecordFill } from 'react-icons/bs';
 import { ChevronLeftIcon } from '@radix-ui/react-icons';
+import InfoModal from '../../components/Modals/InfoModal/InfoModal';
 
 export default function Project({ ...res }) {
   const [trackArray, setTrackArray] = useState([]);
@@ -168,12 +169,15 @@ export default function Project({ ...res }) {
           <ChevronLeftIcon />
           Back
         </BackBtn>
-        <StyledTitle>{res.title}</StyledTitle>{' '}
-        <SearchModal
-          btnWithBackground={true}
-          projectTitle={res.title}
-          projectId={res.id}
-        />
+        <StyledTitle>{res.title}</StyledTitle>
+        <ModalsWrapper>
+          <InfoModal />
+          <SearchModal
+            btnWithBackground={true}
+            projectTitle={res.title}
+            projectId={res.id}
+          />
+        </ModalsWrapper>
       </StyledTopBar>
       <Form>
         <Label htmlFor=''>
@@ -369,7 +373,6 @@ export default function Project({ ...res }) {
           icon={<BsRecordFill fill='white' size='20px' />}
         ></PlayRecPause>
       </ButtonWrapper>
-      <p>To play all tracks at once, uncheck all tracks and press play.</p>
     </div>
   );
 }
@@ -465,6 +468,12 @@ const StyledInput = styled.span`
   padding-left: 20%;
 
   z-index: 0;
+`;
+
+const ModalsWrapper = styled.div`
+  display: flex;
+  gap: 1em;
+  align-items: center;
 `;
 
 const NoAudioVisualizationContainer = styled.div`

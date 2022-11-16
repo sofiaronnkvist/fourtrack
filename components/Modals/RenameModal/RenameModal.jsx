@@ -11,7 +11,6 @@ const dialogOverlay = DialogPrimitive.Overlay;
 
 const StyledContent = styled(dialogContent)`
   background-color: white;
-  border-radius: 6;
   box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
     hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
   position: fixed;
@@ -70,24 +69,21 @@ const StyledForm = styled.form`
     border-radius: 8px;
     border: 1px solid #d0d5dd;
   }
-  input[type='email']:focus {
+  input[type='text']:focus {
     outline: none !important;
     border: 2px solid ${(props) => props.theme.purple500};
   }
-  input[type='password']:focus {
-    outline: none !important;
-    border: 2px solid ${(props) => props.theme.purple500};
-  }
+
   button {
     width: 330px;
     height: 48px;
     font-size: 16px;
     padding: 5px;
     margin: 30px;
-
+    border: none;
     background-color: ${(props) => props.theme.purple500};
     color: white;
-    border-radius: 8px;
+    border-radius: 4px;
   }
 `;
 

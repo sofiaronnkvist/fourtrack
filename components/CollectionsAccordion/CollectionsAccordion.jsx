@@ -1,7 +1,6 @@
 import * as Accordion from '@radix-ui/react-accordion';
 import * as ContextMenu from '@radix-ui/react-context-menu';
-import { ChevronRightIcon } from '@radix-ui/react-icons';
-import { CiFileOn } from 'react-icons/ci';
+import { ChevronRightIcon, FileIcon } from '@radix-ui/react-icons';
 import styled from 'styled-components';
 import CollectionsModal from '../Modals/CollectionsModal/CollectionsModal';
 import Link from 'next/link';
@@ -81,7 +80,7 @@ export default function CollectionsAccordion({ collections }) {
     <StyledAccordion type='single' collapsible>
       <Accordion.Item value='item-1'>
         <TriggerWrapper>
-          <CiFileOn size='20px' />
+          <FileIcon height={'40px'} />
           <StyledTrigger>Collections</StyledTrigger>
           <AccordionChevron aria-hidden size='20px' />
         </TriggerWrapper>

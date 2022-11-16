@@ -6,7 +6,7 @@ import { AiOutlineStar } from 'react-icons/ai';
 import { BsPerson } from 'react-icons/bs';
 import { MdLogout } from 'react-icons/md';
 import Image from 'next/image';
-import { ChevronRightIcon } from '@radix-ui/react-icons';
+import { ChevronRightIcon, MixIcon } from '@radix-ui/react-icons';
 import * as Separator from '@radix-ui/react-separator';
 import CollectionsAccordion from '../CollectionsAccordion/CollectionsAccordion';
 import { firestore } from '../../utils/firebase';
@@ -63,7 +63,7 @@ const LeftSideNavigation = ({ collections }) => {
         <TopItems>
           <LinkWrapper>
             <LeftContent>
-              <Image src={AllRecIcon} alt='play, pause, rec and stop buttons' />
+              <MixIcon size={'25px'} />
               <Link href='/projects'>
                 <NavLink>All recordings</NavLink>
               </Link>

@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../Modals/Modal/Modal';
 import logo from '../../public/logo.svg';
+import Logo from '../../public/logo.svg';
+
 import styled from 'styled-components';
 
 export default function Navbar() {
@@ -13,7 +15,8 @@ export default function Navbar() {
     <NavWrapper>
       {!user ? (
         <NotLogedInWrapper>
-          <Image src={logo} alt='Logo' />
+          <Logo alt='Logo' />
+          {/* <Image src={logo}  /> */}
           <div>
             <Link border href='/'>
               How does it work?
@@ -25,7 +28,9 @@ export default function Navbar() {
       ) : (
         <div>
           <Link href='/projects'>
-            <Image src={logo} alt='Logo' />
+            <Logo alt='Logo' />
+
+            {/* <Image src={logo} alt='Logo' /> */}
           </Link>
         </div>
       )}

@@ -1,21 +1,22 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+
+import React, { useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import Link from 'next/link';
 import Modal from '../components/Modals/Modal/Modal';
-import logo from '../public/logo.svg';
-import purpuleIcon from '../public/purpleIcon2.svg';
-import yellowIcon from '../public/yellowIcon.svg';
-import orangeIcon from '../public/orangeIcon.svg';
-import blueIcon from '../public/blueIcon.svg';
+import Navbar from '../components/Navbar/navbar';
+//Images and svgs
+import Logo from '../public/logo.svg';
+import SquareIcon from '../public/SquareIcon';
+import SmallRoundIcon from '../public/SmallRoundIcon';
+import BigRoundIcon from '../public/BigRoundIcon';
 import projectsImage from '../public/projects.webp';
 import recorderImage from '../public/recorder.webp';
-
 import { AiOutlineArrowRight } from 'react-icons/ai';
-import Navbar from '../components/Navbar/navbar';
+import recorderUnit from '../public/recorderUnit.webp';
 
 export default function Home() {
   const { user } = useAuth();
@@ -45,37 +46,33 @@ export default function Home() {
             </Wrapper>
           </TitleCTA>
           <OrangeIconWrapper>
-            <Image
-              src={orangeIcon}
-              height={'128px'}
-              width={'128px'}
-              alt={'A orange icon'}
+            <SquareIcon
+              height={'155px'}
+              width={'155px'}
+              fillInner={'#EC8300'}
             />
           </OrangeIconWrapper>
           <YellowIconWrapper>
-            <Image
-              src={yellowIcon}
+            <BigRoundIcon
               height={'283px'}
               width={'283px'}
-              alt={'A yellow icon'}
+              fillInner={'#EBBA00'}
             />
           </YellowIconWrapper>
           <BlueIconWrapper>
-            <Image
-              src={blueIcon}
+            <SmallRoundIcon
               height={'107px'}
               width={'107px'}
-              alt={'A blue icon'}
+              fillInner={'#69B6D3'}
             />
           </BlueIconWrapper>
         </HeroSection>
         <CaroselSection>
           <PurpuleIconWrapper>
-            <Image
-              src={purpuleIcon}
+            <BigRoundIcon
               height={'447px'}
               width={'447px'}
-              alt={'A purple icon'}
+              fillInner={'#B4ABDC'}
             />
           </PurpuleIconWrapper>
 
@@ -98,15 +95,22 @@ export default function Home() {
           />
         </CaroselSection>
         <ToolSection purple>
-          <BlueIconSecondWrapper>
-            <Image
-              src={blueIcon}
-              height={'165px'}
+          <SecondBlueIconWrapper>
+            <SquareIcon
+              height={'164px'}
               width={'164px'}
-              alt={'A blue icon'}
+              fillInner={'#69B6D3'}
             />
-          </BlueIconSecondWrapper>
+          </SecondBlueIconWrapper>
+
           <StyledH2>A new tool to capture your musical moments</StyledH2>
+          <SecondOrangeIconWrapper>
+            <BigRoundIcon
+              height={'403px'}
+              width={'403px'}
+              fillInner={'#EBBA00'}
+            />
+          </SecondOrangeIconWrapper>
         </ToolSection>
         <RecorderSection>
           <TextWrapper>
@@ -117,7 +121,19 @@ export default function Home() {
               Think of it like a sketch of you future hit.
             </StyledP>
           </TextWrapper>
-          <StyledDraftDiv></StyledDraftDiv>
+          <StyledDraftDiv>
+            <Image
+              src={recorderUnit}
+              alt={'The recorders four tracks in different colors.'}
+            />
+          </StyledDraftDiv>
+          <ThirdOrangeIconWrapper>
+            <BigRoundIcon
+              height={'168px'}
+              width={'168px'}
+              fillInner={'#EC8300'}
+            />
+          </ThirdOrangeIconWrapper>
         </RecorderSection>
         <ControlsSection purple>
           <StyledH4>No more headaching controls</StyledH4>
@@ -129,6 +145,22 @@ export default function Home() {
           <ImagePlaceholder></ImagePlaceholder>
         </ControlsSection>
         <CollabSection>
+          <ThirdBlueIconWrapper>
+            <BigRoundIcon
+              classname={'blue'}
+              height={'362px'}
+              width={'362px'}
+              fillInner={'#69B6D3'}
+              // style={{ transform: 'translateX(-10%)' }}
+            />
+          </ThirdBlueIconWrapper>
+          <ThirdYellowIconWrapper>
+            <SquareIcon
+              height={'152px'}
+              width={'152px'}
+              fillInner={'#EBBA00'}
+            />
+          </ThirdYellowIconWrapper>
           <TextContainer>
             <StyledH3>Collab with everyone</StyledH3>
             <StyledP>
@@ -142,7 +174,7 @@ export default function Home() {
       </StyledMain>
 
       <StyledFooter>
-        <Image src={logo} alt='Logo' />
+        <Logo />
         <div>
           <Link href='/'>
             <a>About</a>
@@ -155,6 +187,7 @@ export default function Home() {
     </div>
   );
 }
+
 const StyledMain = styled.main`
   min-height: 713px;
   flex: 1;
@@ -188,11 +221,18 @@ const BlueIconWrapper = styled.div`
   bottom: 45%;
   right: 10%;
 `;
-const BlueIconSecondWrapper = styled.div`
+const SecondBlueIconWrapper = styled.div`
   position: absolute;
+  transform: rotate(17deg);
   z-index: 999;
-  top: -16%;
-  right: 10%;
+  top: -10%;
+  right: 8%;
+`;
+const SecondOrangeIconWrapper = styled.div`
+  position: absolute;
+  z-index: 0;
+  top: 30%;
+  left: -210px;
 `;
 
 const HeroSection = styled.section`
@@ -267,6 +307,10 @@ const CaroselSection = styled.section`
   display: flex;
   justify-content: space-between;
   padding-top: 32px;
+
+  image {
+    position: relative;
+  }
 `;
 
 const ToolSection = styled.section`
@@ -281,6 +325,7 @@ const ToolSection = styled.section`
   align-items: center;
 `;
 const RecorderSection = styled.section`
+  position: relative;
   min-height: 450px;
   width: 100%;
   display: grid;
@@ -296,8 +341,14 @@ const TextWrapper = styled.div`
 
 const StyledDraftDiv = styled.div`
   min-height: 450px;
-  background-color: ${(props) => props.theme.purple500};
   width: 100%;
+`;
+
+const ThirdOrangeIconWrapper = styled.div`
+  position: absolute;
+  z-index: 0;
+  bottom: -5%;
+  right: 10%;
 `;
 const ControlsSection = styled.section`
   display: flex;
@@ -323,6 +374,24 @@ const CollabSection = styled.section`
   background-color: ${(props) =>
     props.purple ? `${props.theme.purple500}` : 'none'};
 `;
+const ThirdBlueIconWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  top: -25%;
+  .blue {
+    transform: translateX(700px);
+  }
+`;
+const ThirdYellowIconWrapper = styled.div`
+  position: absolute;
+  transform: rotate(17deg);
+  z-index: 0;
+  top: 7%;
+  right: 156px;
+`;
+
 const TextContainer = styled.div`
   position: absolute;
   bottom: 113px;
@@ -350,6 +419,6 @@ const StyledFooter = styled.footer`
 
   a {
     margin: 0 30px;
+    color: ${(props) => props.theme.purple500};
   }
 `;
-const LinkContainer = styled.div``;

@@ -4,12 +4,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import Favorite from '../Favorite/Favorite';
 import { useState, useEffect } from 'react';
-import {
-  DiscIcon,
-  Share2Icon,
-  Pencil1Icon,
-  CrumpledPaperIcon,
-} from '@radix-ui/react-icons';
+import { DiscIcon, CrumpledPaperIcon } from '@radix-ui/react-icons';
 import { useRouter } from 'next/router';
 import SearchModal from '../Modals/SearchModal/SearchModal';
 import RenameModal from '../Modals/RenameModal/RenameModal';
@@ -80,18 +75,14 @@ const ProjectCard = ({ title, date, id, ownerId, favorite }) => {
                 </StyledContextItem>
                 {owner ? (
                   <>
-                    <StyledContextItem>
-                      <Share2Icon style={{ width: '13px' }} />
+                    <StyledContextItem asChild={true}>
                       <SearchModal
                         btnWithBackground={false}
                         projectTitle={title}
                         projectId={id}
                       />
                     </StyledContextItem>
-                    <StyledContextItem>
-                      <Pencil1Icon
-                        style={{ marginRight: '5px', width: '13px' }}
-                      />
+                    <StyledContextItem asChild={true}>
                       <RenameModal projectId={id} />
                     </StyledContextItem>
                   </>

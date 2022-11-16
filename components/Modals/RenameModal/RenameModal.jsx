@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { doc, updateDoc } from 'firebase/firestore';
 import { firestore } from '../../../utils/firebase';
+import { Pencil1Icon } from '@radix-ui/react-icons';
 
 const dialogContent = DialogPrimitive.Content;
 const dialogOverlay = DialogPrimitive.Overlay;
@@ -90,6 +91,17 @@ const StyledForm = styled.form`
   }
 `;
 
+const TitleContent = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const StyledTriggerTitle = styled.p`
+  :hover {
+    text-decoration: underline;
+  }
+`;
+
 function Content({ children, ...props }) {
   return (
     <DialogPrimitive.Portal>
@@ -105,7 +117,7 @@ export const DialogContent = Content;
 export const DialogTitle = StyledTitle;
 export const DialogClose = DialogPrimitive.Close;
 
-export default function RenameModal(props) {
+export default function RenameModal({ projectId }) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const [data, setData] = useState('');
@@ -131,7 +143,13 @@ export default function RenameModal(props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <NavLinkItem>Rename</NavLinkItem>
+        <NavLinkItem>
+          {' '}
+          <TitleContent>
+            <Pencil1Icon style={{ marginRight: '5px', width: '13px' }} />
+            <StyledTriggerTitle>Rename</StyledTriggerTitle>
+          </TitleContent>
+        </NavLinkItem>
       </DialogTrigger>
       <DialogContent>
         <DialogClose asChild>
@@ -139,7 +157,7 @@ export default function RenameModal(props) {
         </DialogClose>
         <DialogTitle>Change title</DialogTitle>
 
-        <StyledForm onSubmit={(e) => handleSubmit(e, props.projectId)}>
+        <StyledForm onSubmit={(e) => handleSubmit(e, projectId)}>
           {/* <label>email</label> */}
           <input
             onChange={(e) => setData(e.target.value)}

@@ -276,6 +276,7 @@ export default function Modal(props) {
               Woops you tried to log in on a mobile device, Fourtrack only works
               on desktop.
             </StyledMobileTitle>
+            
             <Image src={WireImage} height={180} width={180} />
           </>
         ) : (

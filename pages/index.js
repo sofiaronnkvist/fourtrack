@@ -15,7 +15,6 @@ import SmallRoundIcon from '../public/SmallRoundIcon';
 import BigRoundIcon from '../public/BigRoundIcon';
 import projectsImage from '../public/projects.webp';
 import recorderImage from '../public/recorder.webp';
-
 import { AiOutlineArrowRight } from 'react-icons/ai';
 
 export default function Home() {
@@ -138,6 +137,20 @@ export default function Home() {
           <ImagePlaceholder></ImagePlaceholder>
         </ControlsSection>
         <CollabSection>
+        <ThirdBlueIconWrapper>
+            <BigRoundIcon
+              height={'362px'}
+              width={'362px'}
+              fillInner={'#69B6D3'}
+            />
+          </ThirdBlueIconWrapper>
+          <ThirdYellowIconWrapper>
+            <SquareIcon
+              height={'152px'}
+              width={'152px'}
+              fillInner={'#EBBA00'}
+            />
+          </ThirdYellowIconWrapper>
           <TextContainer>
             <StyledH3>Collab with everyone</StyledH3>
             <StyledP>
@@ -350,6 +363,20 @@ const CollabSection = styled.section`
   background-color: ${(props) =>
     props.purple ? `${props.theme.purple500}` : 'none'};
 `;
+const ThirdBlueIconWrapper = styled.div`
+  position: absolute;
+  z-index: 0;
+  top: -25%;
+  right: -48px;
+`;
+const ThirdYellowIconWrapper = styled.div`
+  position: absolute;
+  transform: rotate(17deg);
+  z-index: 0;
+  top: 7%;
+  right: 156px;
+`;
+
 const TextContainer = styled.div`
   position: absolute;
   bottom: 113px;
@@ -379,4 +406,3 @@ const StyledFooter = styled.footer`
     margin: 0 30px;
   }
 `;
-const LinkContainer = styled.div``;

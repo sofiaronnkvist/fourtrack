@@ -84,8 +84,8 @@ const Favorites = ({ projects, collections }) => {
               <ProjectHeadlines>
                 <HedlineItem>title </HedlineItem>
                 <HedlineItem style={{ marginLeft: '312px' }}>date </HedlineItem>
-                <HedlineItem style={{ marginLeft: '143px' }}>bpm </HedlineItem>
-                <HedlineItem style={{ marginLeft: '106px' }}>
+                <HedlineItem style={{ marginLeft: '137px' }}>bpm </HedlineItem>
+                <HedlineItem style={{ marginLeft: '105px' }}>
                   lenght{' '}
                 </HedlineItem>
               </ProjectHeadlines>

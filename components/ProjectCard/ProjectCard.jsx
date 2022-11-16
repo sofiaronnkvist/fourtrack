@@ -55,8 +55,8 @@ const ProjectCard = ({ title, date, id, ownerId, favorite, collection }) => {
                   <ProjectCollectionTitle>{collection}</ProjectCollectionTitle>
                 </StyledProjectTitles>
                 <ProjectDate>{date}</ProjectDate>
-                <ProjectLegth>04:32</ProjectLegth>
                 <ProjectLegth>120</ProjectLegth>
+                <ProjectLegth>04:32</ProjectLegth>
               </StyledA>
             </Link>
             <StarWrapper>

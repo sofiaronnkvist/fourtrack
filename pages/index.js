@@ -103,7 +103,7 @@ export default function Home() {
           <TextWrapper>
             <StyledH3>But there is only four tracks?</StyledH3>
             <StyledP>
-              Yes, there is “only” four tracks, and that´s enough to capture
+              Yes, there is &#34;only&#34; four tracks, and that&#39;s enough to capture
               your idea. This is not a production tool but an ideation tool.
               Think of it like a sketch of you future hit.
             </StyledP>
@@ -113,9 +113,9 @@ export default function Home() {
         <ControlsSection purple>
           <StyledH4>No more headaching controls</StyledH4>
           <StyledP center white>
-            Creativity should not be limited by complicated controls. That´s why
+            Creativity should not be limited by complicated controls. That&#39;s why
             we have made a simple to use recording studio with a lot of great
-            presets so you don´t get stuck in soundprocessing.
+            presets so you don&#39;t get stuck in soundprocessing.
           </StyledP>
           <ImagePlaceholder></ImagePlaceholder>
         </ControlsSection>
@@ -128,7 +128,7 @@ export default function Home() {
           </TextContainer>
         </CollabSection>
         <SignUpSection purple>
-          <StyledH3 white>Try Fourtrack, it´s free</StyledH3>
+          <StyledH3 white>Try Fourtrack, it&#39;s free</StyledH3>
         </SignUpSection>
       </StyledMain>
 

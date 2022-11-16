@@ -180,7 +180,7 @@ const BlueIconWrapper = styled.div`
   right: 10%;
 `;
 const HeroSection = styled.section`
-  min-height: 550px;
+  min-height: 500px;
   width: 100%;
   padding: 4rem 0;
   flex: 1;

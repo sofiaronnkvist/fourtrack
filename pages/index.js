@@ -16,6 +16,7 @@ import BigRoundIcon from '../public/BigRoundIcon';
 import projectsImage from '../public/projects.webp';
 import recorderImage from '../public/recorder.webp';
 import { AiOutlineArrowRight } from 'react-icons/ai';
+import recorderUnit from '../public/recorderUnit.webp';
 
 export default function Home() {
   const { user } = useAuth();
@@ -118,7 +119,12 @@ export default function Home() {
               Think of it like a sketch of you future hit.
             </StyledP>
           </TextWrapper>
-          <StyledDraftDiv></StyledDraftDiv>
+          <StyledDraftDiv>
+            <Image
+              src={recorderUnit}
+              alt={'The recorders four tracks in different colors.'}
+            />
+          </StyledDraftDiv>
           <ThirdOrangeIconWrapper>
             <BigRoundIcon
               height={'168px'}
@@ -137,11 +143,13 @@ export default function Home() {
           <ImagePlaceholder></ImagePlaceholder>
         </ControlsSection>
         <CollabSection>
-        <ThirdBlueIconWrapper>
+          <ThirdBlueIconWrapper>
             <BigRoundIcon
+              classname={'blue'}
               height={'362px'}
               width={'362px'}
               fillInner={'#69B6D3'}
+              // style={{ transform: 'translateX(-10%)' }}
             />
           </ThirdBlueIconWrapper>
           <ThirdYellowIconWrapper>
@@ -329,7 +337,6 @@ const TextWrapper = styled.div`
 
 const StyledDraftDiv = styled.div`
   min-height: 450px;
-  background-color: ${(props) => props.theme.purple500};
   width: 100%;
 `;
 
@@ -365,9 +372,13 @@ const CollabSection = styled.section`
 `;
 const ThirdBlueIconWrapper = styled.div`
   position: absolute;
+  width: 100%;
+  height: 100%;
   z-index: 0;
   top: -25%;
-  right: -48px;
+  .blue {
+    transform: translateX(700px);
+  }
 `;
 const ThirdYellowIconWrapper = styled.div`
   position: absolute;
@@ -404,5 +415,6 @@ const StyledFooter = styled.footer`
 
   a {
     margin: 0 30px;
+    color: ${(props) => props.theme.purple500};
   }
 `;

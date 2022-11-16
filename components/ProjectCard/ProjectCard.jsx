@@ -112,6 +112,7 @@ const ProjectCard = ({ title, date, id, ownerId, favorite, collection }) => {
                         btnWithBackground={false}
                         projectTitle={title}
                         projectId={id}
+                        icon={true}
                       />
                     </StyledContextItem>
                     <StyledContextItem asChild={true}>
@@ -205,6 +206,7 @@ const StyledContextContent = styled(ContextContent)`
 
 const StyledContextButton = styled.button`
   border: none;
+  display:flex;
   background-color: transparent;
   font-size: 12px;
   cursor: pointer;

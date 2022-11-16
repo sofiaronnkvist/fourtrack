@@ -40,8 +40,8 @@ const StyledTitle = styled.h1`
 `;
 
 const NavButton = styled.button`
-  width: ${(props) => (props.btnWithBackground ? '64px' : null)};
-  height: ${(props) => (props.btnWithBackground ? '40px' : null)};
+  width: ${(props) => (props.btnWithBackground ? '64px' : '100%')};
+  height: ${(props) => (props.btnWithBackground ? '40px' : '24px')};
   border-radius: ${(props) => (props.btnWithBackground ? '4px' : null)};
   font-size: ${(props) => (props.btnWithBackground ? '15px' : '12px')};
   border: ${(props) => (props.border ? 'black' : 'none')};
@@ -49,7 +49,10 @@ const NavButton = styled.button`
     props.btnWithBackground ? `${props.theme.purple500}` : 'transparent'};
   cursor: pointer;
   color: ${(props) =>
-    props.btnWithBackground ? 'white' : `${props.theme.black900}`}; ;
+    props.btnWithBackground ? 'white' : `${props.theme.black900}`};
+  padding: ${(props) =>
+    props.btnWithBackground ? '7px' : '15px 20px 25px 8px'};
+  box-shadow: ${(props) => props.theme.mdShadow};
 `;
 
 const CloseButton = styled.button`
@@ -68,8 +71,11 @@ const TitleContent = styled.div`
 `;
 
 const StyledTriggerTitle = styled.p`
+  margin: 0px;
+  margin-left: 5px;
   :hover {
-    text-decoration: underline;
+    text-decoration: ${(props) =>
+      props.whiteText ? 'none' : 'underline'};
   }
 `;
 
@@ -90,6 +96,7 @@ export const DialogClose = DialogPrimitive.Close;
 
 export default function Modal(props) {
   const [open, setOpen] = useState(false);
+  const [icon, setIcon] = useState(false);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -97,11 +104,14 @@ export default function Modal(props) {
         <NavButton
           btnWithBackground={props.btnWithBackground}
           whiteText={props.whiteText}
+          icon={props.icon}
         >
           {' '}
           <TitleContent>
-            <Share2Icon style={{ marginRight: '5px', width: '13px' }} />
-            <StyledTriggerTitle>Share</StyledTriggerTitle>
+            <Share2Icon style={props.icon ? IconStyle : NoIcon} />
+            <StyledTriggerTitle whiteText={props.whiteText}>
+              Share
+            </StyledTriggerTitle>
           </TitleContent>
         </NavButton>
       </DialogTrigger>
@@ -115,3 +125,11 @@ export default function Modal(props) {
     </Dialog>
   );
 }
+
+const IconStyle = {
+  marginRight: '5px',
+  width: '13px',
+};
+const NoIcon = {
+  display: 'none',
+};

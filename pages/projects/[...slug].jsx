@@ -392,11 +392,12 @@ const BackBtn = styled.button`
   display: flex;
   align-items: center;
   cursor: pointer;
+  font-size: 14px;
 `;
-const StyledTitle = styled.h3`
+const StyledTitle = styled.h1`
   margin-top: 20px;
   margin-bottom: 20px;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 500;
   text-align: center;
 `;

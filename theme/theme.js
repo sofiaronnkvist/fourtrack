@@ -20,6 +20,7 @@ const theme = {
   grey100: '#F8F8F8',
 
   white: '#F8F8F8',
+  light800: '#8F8F8F',
   black50: '#A0A0A0',
 
   black200: '#505050',

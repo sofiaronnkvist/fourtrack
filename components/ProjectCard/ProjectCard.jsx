@@ -167,6 +167,7 @@ const ProjectTitle = styled.p`
   width: 250px;
   font-size: 18px;
   font-weight: 500;
+  color: ${(props) => props.theme.black900};
 `;
 
 const ProjectCollectionTitle = styled.p`
@@ -179,9 +180,11 @@ const ProjectCollectionTitle = styled.p`
 
 const ProjectDate = styled.p`
   margin-left: 48px;
+  color: ${(props) => props.theme.black200};
 `;
 const ProjectLegth = styled.p`
   margin-left: 100px;
+  color: ${(props) => props.theme.black200};
 `;
 const StarWrapper = styled.div`
   margin-right: 50px;

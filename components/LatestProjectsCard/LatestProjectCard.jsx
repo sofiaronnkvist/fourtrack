@@ -36,6 +36,7 @@ const ProjectWrapper = styled.div`
 const ProjectTitle = styled.p`
   font-size: 18px;
   font-weight: 500;
+  color: ${(props) => props.theme.black900};
 `;
 const ProjectDate = styled.p`
   font-size: 10px;

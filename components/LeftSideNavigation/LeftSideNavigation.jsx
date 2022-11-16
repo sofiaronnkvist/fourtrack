@@ -45,7 +45,7 @@ const LeftSideNavigation = ({ collections }) => {
     const snapshot = await getCountFromServer(query_);
     setSharedProjectsNo(snapshot.data().count);
   };
-  console.log('HERE', sharedProjectsNo);
+
   const numberOfFavorites = async () => {
     const coll = collection(firestore, 'projects');
     const query_ = query(
@@ -164,6 +164,7 @@ const NavLink = styled.a`
   padding: 4px 8px;
   cursor: pointer;
   font-weight: 500;
+  color: ${(props) => props.theme.black900};
 `;
 const StyledSeparator = styled(SeparatorLine)`
   margin: 35px;

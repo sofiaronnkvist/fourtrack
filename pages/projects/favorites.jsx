@@ -100,6 +100,7 @@ const Favorites = ({ projects, collections }) => {
                         title={project.title}
                         date={project.timestamp}
                         favorite={project.favorite}
+                        collection={project.collections}
                       ></ProjectCard>
                     );
                   })}

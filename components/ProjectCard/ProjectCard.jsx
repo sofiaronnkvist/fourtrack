@@ -4,7 +4,12 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import Favorite from '../Favorite/Favorite';
 import { useState, useEffect } from 'react';
-import { DiscIcon, CrumpledPaperIcon } from '@radix-ui/react-icons';
+import {
+  DiscIcon,
+  CrumpledPaperIcon,
+  ArrowRightIcon,
+  DownloadIcon,
+} from '@radix-ui/react-icons';
 import { useRouter } from 'next/router';
 import SearchModal from '../Modals/SearchModal/SearchModal';
 import RenameModal from '../Modals/RenameModal/RenameModal';
@@ -56,11 +61,37 @@ const ProjectCard = ({ title, date, id, ownerId, favorite, collection }) => {
             </Link>
             <StarWrapper>
               {owner ? (
-                <Favorite
-                  projectId={id}
-                  favorite={favorite}
-                  size={'20px'}
-                ></Favorite>
+                <>
+                  <Favorite
+                    projectId={id}
+                    favorite={favorite}
+                    size={'20px'}
+                  ></Favorite>
+                  <DownloadIcon
+                    style={{
+                      marginLeft: '15px',
+                      width: '18px',
+                      height: 'auto',
+                      cursor: 'not-allowed',
+                    }}
+                  ></DownloadIcon>
+                  <Link
+                    href={{
+                      pathname: '/projects/[slug]',
+                      query: { slug: title },
+                    }}
+                    key={title}
+                  >
+                    <ArrowRightIcon
+                      style={{
+                        marginLeft: '15px',
+                        width: '18px',
+                        height: 'auto',
+                        cursor: 'pointer',
+                      }}
+                    ></ArrowRightIcon>
+                  </Link>
+                </>
               ) : null}
             </StarWrapper>
             <ContextPortal>
@@ -155,7 +186,10 @@ const ProjectLegth = styled.p`
   margin-left: 100px;
 `;
 const StarWrapper = styled.div`
-  margin-right: 100px;
+  margin-right: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StyledContextContent = styled(ContextContent)`

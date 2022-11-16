@@ -39,5 +39,6 @@ const StarButton = styled.button`
   border: 0;
   padding: 0;
   background-color: transparent;
+  display: flex;
   cursor: pointer;
 `;

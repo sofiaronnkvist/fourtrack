@@ -17,6 +17,7 @@ import projectsImage from '../public/projects.webp';
 import recorderImage from '../public/recorder.webp';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import recorderUnit from '../public/recorderUnit.webp';
+import peoplePicture from '../public/People.webp';
 
 export default function Home() {
   const { user } = useAuth();
@@ -91,7 +92,7 @@ export default function Home() {
             objectFit={'cover'}
             objectPosition={'10% 90%'}
             alt={'The Fourtrack recorder'}
-            style={{position: 'relative'}}
+            style={{ position: 'relative' }}
           />
         </CaroselSection>
         <ToolSection purple>
@@ -116,9 +117,9 @@ export default function Home() {
           <TextWrapper>
             <StyledH3>But there is only four tracks?</StyledH3>
             <StyledP>
-              Yes, there is &#34;only&#34; four tracks, and that&#39;s enough to capture
-              your idea. This is not a production tool but an ideation tool.
-              Think of it like a sketch of you future hit.
+              Yes, there is &#34;only&#34; four tracks, and that&#39;s enough to
+              capture your idea. This is not a production tool but an ideation
+              tool. Think of it like a sketch of you future hit.
             </StyledP>
           </TextWrapper>
           <StyledDraftDiv>
@@ -138,22 +139,21 @@ export default function Home() {
         <ControlsSection purple>
           <StyledH4>No more headaching controls</StyledH4>
           <StyledP center white>
-            Creativity should not be limited by complicated controls. That&#39;s why
-            we have made a simple to use recording studio with a lot of great
-            presets so you don&#39;t get stuck in soundprocessing.
+            Creativity should not be limited by complicated controls. That&#39;s
+            why we have made a simple to use recording studio with a lot of
+            great presets so you don&#39;t get stuck in soundprocessing.
           </StyledP>
           <ImagePlaceholder></ImagePlaceholder>
-        </ControlsSection>
-        <CollabSection>
           <ThirdBlueIconWrapper>
             <BigRoundIcon
               classname={'blue'}
               height={'362px'}
               width={'362px'}
               fillInner={'#69B6D3'}
-              // style={{ transform: 'translateX(-10%)' }}
             />
           </ThirdBlueIconWrapper>
+        </ControlsSection>
+        <CollabSection>
           <ThirdYellowIconWrapper>
             <SquareIcon
               height={'152px'}
@@ -161,6 +161,12 @@ export default function Home() {
               fillInner={'#EBBA00'}
             />
           </ThirdYellowIconWrapper>
+          <Image
+            src={peoplePicture}
+            alt='People in bubbles'
+            height={'600px'}
+            width={'600px'}
+          />
           <TextContainer>
             <StyledH3>Collab with everyone</StyledH3>
             <StyledP>
@@ -195,6 +201,7 @@ const StyledMain = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-x: hidden;
   background-color: ${(props) => props.theme.grey100};
 `;
 const PurpuleIconWrapper = styled.div`
@@ -346,7 +353,7 @@ const StyledDraftDiv = styled.div`
 
 const ThirdOrangeIconWrapper = styled.div`
   position: absolute;
-  z-index: 0;
+  z-index: 1;
   bottom: -5%;
   right: 10%;
 `;
@@ -356,6 +363,8 @@ const ControlsSection = styled.section`
   align-items: center;
   min-height: 450px;
   width: 100%;
+  z-index: 0;
+  position: relative;
   background-color: ${(props) =>
     props.purple ? `${props.theme.purple500}` : 'none'};
   padding-bottom: 188px;
@@ -371,15 +380,19 @@ const CollabSection = styled.section`
   position: relative;
   min-height: 800px;
   width: 100%;
+  z-index: 1;
+  overflow-x: hidden;
   background-color: ${(props) =>
     props.purple ? `${props.theme.purple500}` : 'none'};
 `;
 const ThirdBlueIconWrapper = styled.div`
   position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  top: -25%;
+  width: 362px;
+  height: 362px;
+  z-index: 1;
+  right: 0;
+  bottom: -180px;
+  transform: translateX(70px);
   .blue {
     transform: translateX(700px);
   }
@@ -387,7 +400,7 @@ const ThirdBlueIconWrapper = styled.div`
 const ThirdYellowIconWrapper = styled.div`
   position: absolute;
   transform: rotate(17deg);
-  z-index: 0;
+  z-index: 2;
   top: 7%;
   right: 156px;
 `;

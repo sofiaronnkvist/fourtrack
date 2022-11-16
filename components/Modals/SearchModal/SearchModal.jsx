@@ -100,11 +100,7 @@ export default function Modal(props) {
           whiteText={props.whiteText}
         >
           {' '}
-          <TitleContent
-            style={{
-              backgroundColor: 'white',
-            }}
-          >
+          <TitleContent>
             <Share2Icon style={{ marginRight: '5px', width: '13px' }} />
             <StyledTriggerTitle>Share</StyledTriggerTitle>
           </TitleContent>

@@ -16,7 +16,7 @@ const ContextPortal = ContextMenu.Portal;
 const ContextContent = ContextMenu.Content;
 const ContextItem = ContextMenu.Item;
 
-const ProjectCard = ({ title, date, id, ownerId, favorite }) => {
+const ProjectCard = ({ title, date, id, ownerId, favorite, collection }) => {
   const router = useRouter();
   const { user } = useAuth();
   const [owner, SetOwner] = useState(true);
@@ -45,10 +45,13 @@ const ProjectCard = ({ title, date, id, ownerId, favorite }) => {
               key={title}
             >
               <StyledA>
-                <ProjectTitle>{title}</ProjectTitle>
+                <StyledProjectTitles>
+                  <ProjectTitle>{title}</ProjectTitle>
+                  <ProjectCollectionTitle>{collection}</ProjectCollectionTitle>
+                </StyledProjectTitles>
                 <ProjectDate>{date}</ProjectDate>
-                <ProjectLegth>1.23</ProjectLegth>
-                <ProjectLegth>113</ProjectLegth>
+                <ProjectLegth>04:32</ProjectLegth>
+                <ProjectLegth>120</ProjectLegth>
               </StyledA>
             </Link>
             <StarWrapper>
@@ -131,8 +134,20 @@ const StyledA = styled.a`
 `;
 const ProjectTitle = styled.p`
   margin-left: 28px;
+  margin-bottom: 2px;
   width: 250px;
+  font-size: 18px;
+  font-weight: 500;
 `;
+
+const ProjectCollectionTitle = styled.p`
+  margin-left: 28px;
+  width: 250px;
+  margin-top: 0;
+  font-size: 12px;
+  color: ${(props) => props.theme.black200};
+`;
+
 const ProjectDate = styled.p`
   margin-left: 48px;
 `;
@@ -184,3 +199,5 @@ const StyledContextItem = styled(ContextItem)`
     text-decoration: underline;
   }
 `;
+
+const StyledProjectTitles = styled.div``;

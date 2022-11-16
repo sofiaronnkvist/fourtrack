@@ -30,8 +30,8 @@ export default function Project({ slug, collections, projects, allProjects }) {
             <ProjectHeadlines>
               <HedlineItem>title </HedlineItem>
               <HedlineItem style={{ marginLeft: '312px' }}>date </HedlineItem>
-              <HedlineItem style={{ marginLeft: '137px' }}>bpm </HedlineItem>
-              <HedlineItem style={{ marginLeft: '100px' }}>lenght </HedlineItem>
+              <HedlineItem style={{ marginLeft: '143px' }}>bpm </HedlineItem>
+              <HedlineItem style={{ marginLeft: '106px' }}>lenght </HedlineItem>
             </ProjectHeadlines>
             <StyledUlList>
               {projects &&

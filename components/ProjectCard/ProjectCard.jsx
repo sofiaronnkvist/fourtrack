@@ -61,38 +61,36 @@ const ProjectCard = ({ title, date, id, ownerId, favorite, collection }) => {
             </Link>
             <StarWrapper>
               {owner ? (
-                <>
-                  <Favorite
-                    projectId={id}
-                    favorite={favorite}
-                    size={'20px'}
-                  ></Favorite>
-                  <DownloadIcon
-                    style={{
-                      marginLeft: '15px',
-                      width: '18px',
-                      height: 'auto',
-                      cursor: 'not-allowed',
-                    }}
-                  ></DownloadIcon>
-                  <Link
-                    href={{
-                      pathname: '/projects/[slug]',
-                      query: { slug: title },
-                    }}
-                    key={title}
-                  >
-                    <ArrowRightIcon
-                      style={{
-                        marginLeft: '15px',
-                        width: '18px',
-                        height: 'auto',
-                        cursor: 'pointer',
-                      }}
-                    ></ArrowRightIcon>
-                  </Link>
-                </>
+                <Favorite
+                  projectId={id}
+                  favorite={favorite}
+                  size={'20px'}
+                ></Favorite>
               ) : null}
+              <DownloadIcon
+                style={{
+                  marginLeft: '15px',
+                  width: '18px',
+                  height: 'auto',
+                  cursor: 'not-allowed',
+                }}
+              ></DownloadIcon>
+              <Link
+                href={{
+                  pathname: '/projects/[slug]',
+                  query: { slug: title },
+                }}
+                key={title}
+              >
+                <ArrowRightIcon
+                  style={{
+                    marginLeft: '15px',
+                    width: '18px',
+                    height: 'auto',
+                    cursor: 'pointer',
+                  }}
+                ></ArrowRightIcon>
+              </Link>
             </StarWrapper>
             <ContextPortal>
               <StyledContextContent>

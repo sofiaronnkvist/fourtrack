@@ -88,8 +88,11 @@ const StyledForm = styled.form`
 `;
 
 const TitleContent = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
+  box-shadow: ${(props) => props.theme.mdShadow};
+  padding: 0px 0px 0px 8px;
 `;
 
 const StyledTriggerTitle = styled.p`

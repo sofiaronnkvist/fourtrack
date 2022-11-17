@@ -142,7 +142,7 @@ const Navigation = styled.nav`
   padding: 16px;
   margin-top: 100px;
   justify-content: space-between;
-  height: 90vh;
+  height: 80vh;
 `;
 const LinkWrapper = styled.div`
   display: flex;

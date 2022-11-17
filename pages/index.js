@@ -327,7 +327,6 @@ const StyledH2 = styled.h2`
 
   @media screen and (max-width: 500px) {
     line-height: 56px;
-  
   }
 `;
 const StyledH3 = styled.h3`
@@ -402,7 +401,7 @@ const ToolSection = styled.section`
   align-items: center;
 
   @media screen and (max-width: 500px) {
-  min-height: 800px;
+    min-height: 800px;
   }
 `;
 
@@ -417,7 +416,6 @@ const SecondBlueIconWrapper = styled.div`
 
   @media screen and (max-width: 500px) {
     right: -10%;
-
   }
 `;
 const SecondOrangeIconWrapper = styled.div`
@@ -442,23 +440,6 @@ const SecondOrangeIconWrapper = styled.div`
   }
 `;
 
-const SecondBlueIconWrapper = styled.div`
-  position: absolute;
-  width: 164px;
-  height: 164px;
-  transform: rotate(17deg);
-  z-index: 999;
-  top: -10%;
-  right: 8%;
-`;
-const SecondOrangeIconWrapper = styled.div`
-  position: absolute;
-  width: 403px;
-  height: 403px;
-  z-index: 0;
-  top: 30%;
-  left: -210px;
-`;
 const RecorderSection = styled.section`
   position: relative;
   min-height: 450px;

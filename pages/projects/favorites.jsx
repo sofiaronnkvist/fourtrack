@@ -66,12 +66,6 @@ export async function getServerSideProps(ctx) {
   };
 }
 
-const checkFavorites = (projects) => {
-  if (projects[0].length >= 1) {
-    return true;
-  }
-};
-
 const Favorites = ({ projects, collections }) => {
   return (
     <>

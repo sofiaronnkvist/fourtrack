@@ -420,7 +420,7 @@ const Form = styled.form`
     height: 25px;
     width: 25px;
     border-radius: 4px;
-    z-index: 99;
+    z-index: 6;
   }
 
   .yellowInput {

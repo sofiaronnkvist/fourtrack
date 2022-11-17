@@ -49,6 +49,11 @@ const NavButton = styled.button`
   cursor: pointer;
   color: ${(props) =>
     props.whiteText ? `${props.theme.white}` : `${props.theme.purple500}`};
+  @media screen and (max-width: 500px) {
+    width: 134px;
+    height: 52px;
+    font-size: 16px;
+  }
 `;
 
 const GoogleButton = styled.button`
@@ -190,7 +195,7 @@ export default function Modal(props) {
   const [buttonTitle, setButtonTitle] = useState(props.buttonTitle);
   const [userOnMobile, setUserOnMobile] = useState(0);
 
-  const WidthOfWindow = () => {
+  const WidthOfWindow = (checkWidth) => {
     const [width, setWidth] = useState(0);
     const handleWindowSizeChange = () => {
       setWidth(window.innerWidth);
@@ -276,7 +281,7 @@ export default function Modal(props) {
               Woops you tried to log in on a mobile device, Fourtrack only works
               on desktop.
             </StyledMobileTitle>
-            
+
             <Image src={WireImage} height={180} width={180} />
           </>
         ) : (

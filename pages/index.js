@@ -201,6 +201,11 @@ const OrangeIconWrapper = styled.div`
   z-index: 0;
   top: 10%;
   left: 13%;
+
+  @media screen and (max-width: 500px) {
+    left: -10%;
+    top: 14%;
+  }
 `;
 const YellowIconWrapper = styled.div`
   position: absolute;
@@ -210,9 +215,14 @@ const YellowIconWrapper = styled.div`
   bottom: 16%;
   right: 10%;
 
-  @media screen and (max-width: 720px) {
+  @media screen and (max-width: 1120px) {
     bottom: 21%;
     right: -14%;
+  }
+  @media screen and (max-width: 500px) {
+    width: 149px;
+    height: 149px;
+    right: -8%;
   }
 `;
 const BlueIconWrapper = styled.div`
@@ -223,9 +233,15 @@ const BlueIconWrapper = styled.div`
   bottom: 45%;
   right: 10%;
 
-  @media screen and (max-width: 720px) {
+  @media screen and (max-width: 1120px) {
     bottom: 53%;
     right: -8%;
+  }
+  @media screen and (max-width: 500px) {
+    width: 62px;
+    height: 62px;
+    bottom: 38%;
+    right: -3%;
   }
 `;
 const PurpuleIconWrapper = styled.div`
@@ -239,6 +255,12 @@ const PurpuleIconWrapper = styled.div`
   @media screen and (max-width: 720px) {
     left: -13%;
   }
+  @media screen and (max-width: 500px) {
+    width: 225px;
+    height: 225px;
+    bottom: -24%;
+    right: -3%;
+  }
 `;
 
 const HeroSection = styled.section`
@@ -248,7 +270,6 @@ const HeroSection = styled.section`
   flex: 1;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
 `;
 const StyledH1 = styled.h1`
@@ -256,9 +277,11 @@ const StyledH1 = styled.h1`
   margin-top: 75px;
   line-height: 70px;
   font-size: clamp(2.5rem, 1.4667rem + 4.5926vw, 5.6rem);
-  /* font-size: 100px; */
   font-weight: 500;
   z-index: 1;
+  @media screen and (max-width: 720px) {
+    line-height: 56px;
+  }
 `;
 const TitleCTA = styled.div`
   margin-top: 67px;
@@ -267,20 +290,31 @@ const TitleCTA = styled.div`
   z-index: 10;
 
   a {
-    color: #6d4deb;
+    color: ${(props) => props.theme.purple500};
     font-size: 18px;
     margin-left: 15px;
   }
   @media screen and (max-width: 720px) {
     margin-top: 80px;
     margin-bottom: 57px;
-
+  }
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    margin-top: 153px;
   }
 `;
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
   margin-left: 45px;
+
+  @media screen and (max-width: 720px) {
+    margin-left: 21px;
+  }
+  @media screen and (max-width: 500px) {
+    margin-left: 0px;
+    margin-top: 22px;
+  }
 `;
 const StyledH2 = styled.h2`
   margin: 0;

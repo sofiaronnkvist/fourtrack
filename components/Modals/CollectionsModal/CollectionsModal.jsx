@@ -22,8 +22,7 @@ const StyledContent = styled(dialogContent)`
   max-width: 440px;
   max-height: 85vh;
   padding: 25;
-  border: 1px solid black;
-  border-radius: 7px;
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -72,14 +71,10 @@ const StyledForm = styled.form`
     font-size: 16px;
     padding: 5px;
     margin-top: 30px;
-    border-radius: 8px;
+    border-radius: 4px;
     border: 1px solid #d0d5dd;
   }
-  input[type='email']:focus {
-    outline: none !important;
-    border: 2px solid ${(props) => props.theme.purple500};
-  }
-  input[type='password']:focus {
+  input[type='text']:focus {
     outline: none !important;
     border: 2px solid ${(props) => props.theme.purple500};
   }
@@ -89,10 +84,10 @@ const StyledForm = styled.form`
     font-size: 16px;
     padding: 5px;
     margin: 30px;
-
+    border: none;
     background-color: ${(props) => props.theme.purple500};
     color: white;
-    border-radius: 8px;
+    border-radius: 4px;
   }
 `;
 

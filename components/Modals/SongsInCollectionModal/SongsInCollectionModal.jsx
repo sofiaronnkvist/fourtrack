@@ -19,7 +19,7 @@ const dialogOverlay = DialogPrimitive.Overlay;
 
 const StyledSelect = styled(Select)`
   margin-bottom: 30px;
-  max-width: 300px;
+  width: 300px;
 `;
 
 const StyledContent = styled(dialogContent)`
@@ -35,7 +35,7 @@ const StyledContent = styled(dialogContent)`
   max-width: 440px;
   max-height: 85vh;
   padding: 25;
-  border-radius: 7px;
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
   justify-content: center;

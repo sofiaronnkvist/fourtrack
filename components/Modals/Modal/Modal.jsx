@@ -28,13 +28,14 @@ const StyledContent = styled(dialogContent)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 99;
+  z-index: 100;
 `;
 
 const StyledOverlay = styled(dialogOverlay)`
   backdrop-filter: blur(10px);
   position: fixed;
   inset: 0;
+  z-index: 99;
 `;
 
 const NavButton = styled.button`

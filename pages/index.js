@@ -359,7 +359,7 @@ const StyledP = styled.p`
 `;
 const CaroselSection = styled.section`
   width: 100%;
-  z-index: 999;
+  z-index: 3;
   display: flex;
   justify-content: space-between;
   padding-top: 32px;
@@ -415,7 +415,7 @@ const SecondBlueIconWrapper = styled.div`
   width: 164px;
   height: 164px;
   transform: rotate(17deg);
-  z-index: 999;
+  z-index: 3;
   top: -10%;
   right: 8%;
 

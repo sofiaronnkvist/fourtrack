@@ -10,66 +10,64 @@ import TopBar from '../../components/TopBar/TopBar';
 import NoProjects from '../../components/NoProjects/NoProjects';
 
 export async function getServerSideProps(ctx) {
-  const cookies = nookies.get(ctx);
-  const token = await verifyIdToken(cookies.token);
+  try {
+    const cookies = nookies.get(ctx);
+    const token = await verifyIdToken(cookies.token);
 
-  const { uid } = token;
-  let colabProjects = [];
-  let collections = [];
+    const { uid } = token;
+    let colabProjects = [];
+    let collections = [];
 
-  const options = {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  };
-  const ref = collection(firestore, 'projects');
-  const colabQuery = query(
-    ref,
-    where('colab_uid', 'array-contains-any', [uid]),
-    orderBy('timestamp', 'desc')
-  );
-  await getDocs(colabQuery).then((data) => {
-    colabProjects.push(
-      data.docs.map((item) => {
-        return {
-          ...item.data(),
-          id: item.id,
-          timestamp: item
-            .data()
-            .timestamp.toDate()
-            .toLocaleDateString(undefined, options),
-        };
-      })
+    const options = {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    };
+    const ref = collection(firestore, 'projects');
+    const colabQuery = query(
+      ref,
+      where('colab_uid', 'array-contains-any', [uid]),
+      orderBy('timestamp', 'desc')
     );
-  });
+    await getDocs(colabQuery).then((data) => {
+      colabProjects.push(
+        data.docs.map((item) => {
+          return {
+            ...item.data(),
+            id: item.id,
+            timestamp: item
+              .data()
+              .timestamp.toDate()
+              .toLocaleDateString(undefined, options),
+          };
+        })
+      );
+    });
 
-  const collectionsRef = collection(firestore, 'collections');
-  const collectionsQuery = query(
-    collectionsRef,
-    where('uid', '==', uid),
-    orderBy('title')
-  );
-  await getDocs(collectionsQuery).then((data) => {
-    collections.push(
-      data.docs.map((item) => {
-        return {
-          ...item.data(),
-          id: item.id,
-        };
-      })
+    const collectionsRef = collection(firestore, 'collections');
+    const collectionsQuery = query(
+      collectionsRef,
+      where('uid', '==', uid),
+      orderBy('title')
     );
-  });
+    await getDocs(collectionsQuery).then((data) => {
+      collections.push(
+        data.docs.map((item) => {
+          return {
+            ...item.data(),
+            id: item.id,
+          };
+        })
+      );
+    });
 
-  return {
-    props: { colabProjects, collections },
-  };
-}
-
-const checkColabs = (projects) => {
-  if (projects[0].length >= 1) {
-    return true;
+    return {
+      props: { colabProjects, collections },
+    };
+  } catch (error) {
+    console.log(error);
   }
-};
+}
 
 const Shared = ({ colabProjects, collections }) => {
   return (
@@ -100,6 +98,7 @@ const Shared = ({ colabProjects, collections }) => {
                         title={project.title}
                         date={project.timestamp}
                         favorite={project.favorite}
+                        ownerEmail={project.owner}
                       ></ProjectCard>
                     );
                   })}

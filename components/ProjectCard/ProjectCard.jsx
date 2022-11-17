@@ -11,7 +11,7 @@ import {
   DownloadIcon,
 } from '@radix-ui/react-icons';
 import { useRouter } from 'next/router';
-import SearchModal from '../Modals/SearchModal/SearchModal';
+import SearchModal from '../Modals/ShareModal/ShareModal';
 import RenameModal from '../Modals/RenameModal/RenameModal';
 import { DeleteFolderFromStorage } from '../../utils/deleteFolderFromStorage';
 
@@ -21,7 +21,15 @@ const ContextPortal = ContextMenu.Portal;
 const ContextContent = ContextMenu.Content;
 const ContextItem = ContextMenu.Item;
 
-const ProjectCard = ({ title, date, id, ownerId, favorite, collection }) => {
+const ProjectCard = ({
+  title,
+  date,
+  id,
+  ownerId,
+  favorite,
+  collection,
+  ownerEmail,
+}) => {
   const router = useRouter();
   const { user } = useAuth();
   const [owner, SetOwner] = useState(true);
@@ -53,6 +61,11 @@ const ProjectCard = ({ title, date, id, ownerId, favorite, collection }) => {
                 <StyledProjectTitles>
                   <ProjectTitle>{title}</ProjectTitle>
                   <ProjectCollectionTitle>{collection}</ProjectCollectionTitle>
+                  {owner ? null : (
+                    <ProjectCollectionTitle>
+                      Owner: {ownerEmail}
+                    </ProjectCollectionTitle>
+                  )}
                 </StyledProjectTitles>
                 <ProjectDate>{date}</ProjectDate>
                 <ProjectLegth>120</ProjectLegth>
@@ -206,7 +219,7 @@ const StyledContextContent = styled(ContextContent)`
 
 const StyledContextButton = styled.button`
   border: none;
-  display:flex;
+  display: flex;
   background-color: transparent;
   font-size: 12px;
   cursor: pointer;

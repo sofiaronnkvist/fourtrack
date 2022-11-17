@@ -8,7 +8,7 @@ import AudioVisualizer from '../../components/AudioVisualizer/audiovisualizer';
 import { deleteFileFromStorage } from '../../utils/deleteFileFromStorage';
 import DeleteButton from '../../components/Buttons/DeleteButton';
 import { useRouter } from 'next/router';
-import SearchModal from '../../components/Modals/SearchModal/SearchModal';
+import SearchModal from '../../components/Modals/ShareModal/ShareModal';
 import PlayRecPause from '../../components/Buttons/PlayRecPause';
 import { FaPlay, FaStop } from 'react-icons/fa';
 import { BsRecordFill } from 'react-icons/bs';
@@ -420,7 +420,7 @@ const Form = styled.form`
     height: 25px;
     width: 25px;
     border-radius: 4px;
-    z-index: 99;
+    z-index: 6;
   }
 
   .yellowInput {

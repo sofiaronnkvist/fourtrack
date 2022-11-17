@@ -5,7 +5,6 @@ import {
   query,
   where,
   doc,
-  setDoc,
   arrayUnion,
   updateDoc,
 } from 'firebase/firestore';
@@ -28,6 +27,7 @@ export default function ShareProject(props) {
         const projectRef = doc(firestore, 'projects', projectId);
         await updateDoc(projectRef, {
           colab_uid: arrayUnion(uid),
+          owner: user.email,
         });
         setFormMessage(`Successfully shared with ${usersArray[0].email}!`);
       } else {

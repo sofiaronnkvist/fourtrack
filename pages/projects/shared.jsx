@@ -98,6 +98,7 @@ const Shared = ({ colabProjects, collections }) => {
                         title={project.title}
                         date={project.timestamp}
                         favorite={project.favorite}
+                        ownerEmail={project.owner}
                       ></ProjectCard>
                     );
                   })}

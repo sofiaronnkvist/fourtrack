@@ -101,7 +101,7 @@ export default function Home() {
             <BigRoundIcon
               height={'100%'}
               width={'100%'}
-              fillInner={'#EBBA00'}
+              fillInner={'#EC8300'}
             />
           </SecondOrangeIconWrapper>
         </ToolSection>
@@ -319,11 +319,16 @@ const Wrapper = styled.div`
 const StyledH2 = styled.h2`
   margin: 0;
   line-height: 0.9;
-  font-size: 84px;
+  font-size: clamp(2.5rem, 1.5317rem + 4.1315vw, 5.25rem);
   font-weight: 500;
   text-align: center;
   color: white;
-  max-width: 925px;
+  max-width: 70%;
+
+  @media screen and (max-width: 500px) {
+    line-height: 56px;
+  
+  }
 `;
 const StyledH3 = styled.h3`
   margin: 0;
@@ -395,6 +400,46 @@ const ToolSection = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 500px) {
+  min-height: 800px;
+  }
+`;
+
+const SecondBlueIconWrapper = styled.div`
+  position: absolute;
+  width: 164px;
+  height: 164px;
+  transform: rotate(17deg);
+  z-index: 999;
+  top: -10%;
+  right: 8%;
+
+  @media screen and (max-width: 500px) {
+    right: -10%;
+
+  }
+`;
+const SecondOrangeIconWrapper = styled.div`
+  position: absolute;
+  width: 403px;
+  height: 403px;
+  z-index: 0;
+  top: 30%;
+  left: -210px;
+
+  @media screen and (max-width: 960px) {
+    width: 269px;
+    height: 269px;
+    left: -90px;
+    top: 59%;
+  }
+  @media screen and (max-width: 500px) {
+    width: 215px;
+    height: 215px;
+    left: -90px;
+    top: 81%;
+  }
 `;
 
 const SecondBlueIconWrapper = styled.div`

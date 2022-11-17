@@ -28,7 +28,7 @@ const StyledContent = styled(dialogContent)`
   max-width: 440px;
   max-height: 85vh;
   padding: 25;
-  border-radius: 7px;
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -43,7 +43,7 @@ const StyledOverlay = styled(dialogOverlay)`
 
 const CreateButton = styled.button`
   background-color: ${(props) => props.theme.purple500};
-  border-radius: 8px;
+  border-radius: 4px;
   border: none;
   width: 144px;
   height: 40px;

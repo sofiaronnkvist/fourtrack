@@ -151,12 +151,17 @@ export default function Home() {
           <ThirdYellowIconWrapper>
             <SquareIcon height={'100%'} width={'100%'} fillInner={'#EBBA00'} />
           </ThirdYellowIconWrapper>
-          <Image
-            src={peoplePicture}
-            alt='People in bubbles'
-            height={'600px'}
-            width={'600px'}
-          />
+          <PeoplePictureWrapper>
+            <Image
+              src={peoplePicture}
+              alt='People in bubbles'
+              height={'100%'}
+              width={'100%'}
+              layout={'fill'}
+              objectFit={'cover'}
+            />
+          </PeoplePictureWrapper>
+
           <TextContainer>
             <StyledH3>Collab with everyone</StyledH3>
             <StyledP>
@@ -467,6 +472,10 @@ const ThirdOrangeIconWrapper = styled.div`
   z-index: 1;
   bottom: -5%;
   right: 10%;
+  @media screen and (max-width: 600px) {
+    bottom: -5%;
+    right: -8%;
+  }
 `;
 const SecondPurpleIconWrapper = styled.div`
   position: absolute;
@@ -475,6 +484,12 @@ const SecondPurpleIconWrapper = styled.div`
   z-index: 1;
   bottom: -25%;
   left: -1%;
+  @media screen and (max-width: 600px) {
+    width: 178px;
+    height: 178px;
+    bottom: -15%;
+    left: -13%;
+  }
 `;
 const ControlsSection = styled.section`
   display: flex;
@@ -497,15 +512,37 @@ const ImagePlaceholder = styled.div`
 `;
 const CollabSection = styled.section`
   position: relative;
-  min-height: 800px;
+  min-height: 900px;
   width: 100%;
   z-index: 1;
-  overflow-x: hidden;
   background-color: ${(props) =>
     props.purple ? `${props.theme.purple500}` : 'none'};
 
   @media screen and (max-width: 700px) {
     margin: 0 15px;
+  }
+  @media screen and (max-width: 600px) {
+    height: 900px;
+  }
+`;
+const PeoplePictureWrapper = styled.div`
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  z-index: 0;
+  left: 0;
+  bottom: -100px;
+
+  @media screen and (max-width: 910px) {
+    width: 550px;
+    height: 550px;
+    bottom: 80px;
+  }
+  @media screen and (max-width: 600px) {
+    width: 600px;
+    height: 600px;
+    bottom: -100px;
+    left: -110px;
   }
 `;
 const ThirdBlueIconWrapper = styled.div`
@@ -517,9 +554,10 @@ const ThirdBlueIconWrapper = styled.div`
   bottom: -180px;
   transform: translateX(70px);
 
-  @media screen and (max-width: 700px) {
-    width: 181px;
-    height: 181px;
+  @media screen and (max-width: 720px) {
+    width: 208px;
+    height: 206px;
+    bottom: -60px;
   }
 `;
 const ThirdYellowIconWrapper = styled.div`
@@ -530,16 +568,42 @@ const ThirdYellowIconWrapper = styled.div`
   z-index: 2;
   top: 7%;
   right: 156px;
+  @media screen and (max-width: 720px) {
+    width: 94px;
+    height: 94px;
+    top: 0%;
+    right: 46px;
+  }
 `;
 
 const TextContainer = styled.div`
   position: absolute;
   bottom: 113px;
-  right: 148px;
+  right: 10%;
   width: 400px;
+
+  @media screen and (max-width: 1200px) {
+    bottom: 50px;
+    right: 48px;
+    width: 200px;
+  }
+  @media screen and (max-width: 600px) {
+    bottom: 630px;
+    right: 4%;
+    width: 340px;
+    h3 {
+      text-align: center;
+      font-size: 30px;
+    }
+    p {
+      text-align: center;
+      font-size: 20px;
+    }
+  }
 `;
 const SignUpSection = styled.section`
   display: flex;
+  z-index: 9;
   flex-direction: column;
   align-items: center;
   min-height: 900px;

@@ -72,24 +72,24 @@ export default function Home() {
               fillInner={'#B4ABDC'}
             />
           </PurpuleIconWrapper>
-
-          <Image
-            src={recorderImage}
-            height={'847px'}
-            width={'614px'}
-            objectFit={'cover'}
-            objectPosition={'80% 90%'}
-            alt={'The Fourtrack dashboard'}
-          />
-          <Image
-            src={projectsImage}
-            height={'847px'}
-            width={'800px'}
-            objectFit={'cover'}
-            objectPosition={'10% 90%'}
-            alt={'The Fourtrack recorder'}
-            style={{ position: 'relative' }}
-          />
+          <TestWrapper>
+            <Image
+              src={recorderImage}
+              layout={'fill'}
+              objectFit={'cover'}
+              objectPosition={'80% 90%'}
+              alt={'The Fourtrack dashboard'}
+            />
+          </TestWrapper>
+          <TestWrapperTwo>
+            <Image
+              src={projectsImage}
+              layout={'fill'}
+              objectFit={'cover'}
+              objectPosition={'0% 90%'}
+              alt={'The Fourtrack recorder'}
+            />
+          </TestWrapperTwo>
         </CaroselSection>
         <ToolSection purple>
           <SecondBlueIconWrapper>
@@ -349,15 +349,39 @@ const StyledP = styled.p`
   max-width: 700px;
 `;
 const CaroselSection = styled.section`
-  min-height: 713px;
   width: 100%;
   z-index: 999;
   display: flex;
   justify-content: space-between;
   padding-top: 32px;
+`;
+
+const TestWrapper = styled.div`
+  position: relative;
+  height: 847px;
+  width: 50%;
 
   image {
-    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @media screen and (max-width: 500px) {
+    height: 450px;
+  }
+`;
+const TestWrapperTwo = styled.div`
+  position: relative;
+  height: 847px;
+  width: 50%;
+
+  image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @media screen and (max-width: 500px) {
+    height: 450px;
   }
 `;
 

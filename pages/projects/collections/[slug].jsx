@@ -7,6 +7,7 @@ import TopBar from '../../../components/TopBar/TopBar';
 import { verifyIdToken } from '../../../utils/firebaseAdmin';
 import nookies from 'nookies';
 import SongsInCollectionModal from '../../../components/Modals/SongsInCollectionModal/SongsInCollectionModal';
+import NoProjects from '../../../components/NoProjects/NoProjects';
 
 export default function Project({ slug, collections, projects, allProjects }) {
   return (
@@ -16,8 +17,8 @@ export default function Project({ slug, collections, projects, allProjects }) {
         <TopBar></TopBar>
         <HeaderContent>
           <HeaderTexts>
-            <p>Collections</p>
-            <h1>{slug}</h1>
+            <StyledCollectionText>Collection</StyledCollectionText>
+            <StyledCollectionTitle>{slug}</StyledCollectionTitle>
           </HeaderTexts>
           <SongsInCollectionModal
             allProjects={allProjects}
@@ -50,11 +51,9 @@ export default function Project({ slug, collections, projects, allProjects }) {
             </StyledUlList>
           </>
         ) : (
-          <NoProjectsMainWrapper>
-            <NoProjectsHeadline>
-              Oh no, no tracks here. Choose some for your collection!
-            </NoProjectsHeadline>
-          </NoProjectsMainWrapper>
+          <NoProjects
+            heading={'Oh no, no tracks here. Choose some for your collection!'}
+          />
         )}
       </MainContent>
     </MainWrapper>
@@ -89,16 +88,15 @@ const HedlineItem = styled.p`
   color: ${(props) => props.theme.black50};
   font-size: 12px;
 `;
-const NoProjectsMainWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 70%;
+const StyledCollectionText = styled.p`
+  margin: 0;
+  padding: 0;
+  color: ${(props) => props.theme.black200};
+  font-size: 14px;
 `;
-const NoProjectsHeadline = styled.h2`
-  color: ${(props) => props.theme.purple500};
-  font-weight: 400;
-  width: 400px;
+const StyledCollectionTitle = styled.h1`
+  margin: 0 0 21.44px 0;
+  padding: 10px 0 0 0;
 `;
 
 export async function getServerSideProps(ctx) {

@@ -76,7 +76,6 @@ export default function Home() {
               fillInner={'#B4ABDC'}
             />
           </PurpuleIconWrapper>
-
           <Image
             src={recorderImage}
             height={'847px'}

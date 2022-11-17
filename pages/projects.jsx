@@ -15,6 +15,7 @@ import ProjectCard from '../components/ProjectCard/ProjectCard';
 import LeftSideNavigation from '../components/LeftSideNavigation/LeftSideNavigation';
 import TopBar from '../components/TopBar/TopBar';
 import LatestProjectCard from '../components/LatestProjectsCard/LatestProjectCard';
+import NoProjects from '../components/NoProjects/NoProjects';
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
@@ -136,12 +137,11 @@ const Projects = ({ projects, collections, latestProjects }) => {
               </StyledUlList>{' '}
             </>
           ) : (
-            <NoProjectsMainWrapper>
-              <NoProjectsHeadline>
-                Oh no, no tracks here. Just press the create recording button to
-                get started.
-              </NoProjectsHeadline>
-            </NoProjectsMainWrapper>
+            <NoProjects
+              heading={
+                'Oh no, no tracks here. Just press the create recording button to get started.'
+              }
+            />
           )}
         </MainContent>
       </MainWrapper>

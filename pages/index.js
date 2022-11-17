@@ -454,10 +454,30 @@ const RecorderSection = styled.section`
   align-items: center;
   padding-bottom: 188px;
   padding-top: 188px;
+
+  @media screen and (max-width: 600px) {
+    grid-template-columns: 1fr;
+
+    h3 {
+      text-align: center;
+    }
+    p {
+      text-align: center;
+    }
+  }
 `;
 const TextWrapper = styled.div`
   width: 50%;
   margin-left: 148px;
+  @media screen and (max-width: 600px) {
+    margin-left: 0px;
+    margin: 24px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
 `;
 
 const StyledDraftDiv = styled.div`

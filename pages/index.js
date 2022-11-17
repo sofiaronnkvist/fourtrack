@@ -441,6 +441,24 @@ const SecondOrangeIconWrapper = styled.div`
     top: 81%;
   }
 `;
+
+const SecondBlueIconWrapper = styled.div`
+  position: absolute;
+  width: 164px;
+  height: 164px;
+  transform: rotate(17deg);
+  z-index: 999;
+  top: -10%;
+  right: 8%;
+`;
+const SecondOrangeIconWrapper = styled.div`
+  position: absolute;
+  width: 403px;
+  height: 403px;
+  z-index: 0;
+  top: 30%;
+  left: -210px;
+`;
 const RecorderSection = styled.section`
   position: relative;
   min-height: 450px;

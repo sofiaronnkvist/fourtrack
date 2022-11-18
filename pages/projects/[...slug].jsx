@@ -77,7 +77,6 @@ export default function Project({ ...res }) {
   const record = (recId) => {
     !isRecording && recId ? setIsRecording(true) : setIsRecording(false);
     if (recId == 1) {
-      console.log('recId 1');
       waveRef2.current ? waveRef2.current.play() : null;
       waveRef3.current ? waveRef3.current.play() : null;
       waveRef4.current ? waveRef4.current.play() : null;
@@ -87,7 +86,6 @@ export default function Project({ ...res }) {
       }, 60 * 1000);
       return;
     } else if (recId == 2) {
-      console.log('recId 2');
       waveRef1.current ? waveRef1.current.play() : null;
       waveRef3.current ? waveRef3.current.play() : null;
       waveRef4.current ? waveRef4.current.play() : null;
@@ -97,7 +95,6 @@ export default function Project({ ...res }) {
       }, 60 * 1000);
       return;
     } else if (recId == 3) {
-      console.log('recId 3');
       waveRef1.current ? waveRef1.current.play() : null;
       waveRef2.current ? waveRef2.current.play() : null;
       waveRef4.current ? waveRef4.current.play() : null;
@@ -107,7 +104,6 @@ export default function Project({ ...res }) {
       }, 60 * 1000);
       return;
     } else if (recId == 4) {
-      console.log('recId 4');
       waveRef1.current ? waveRef1.current.play() : null;
       waveRef2.current ? waveRef2.current.play() : null;
       waveRef3.current ? waveRef3.current.play() : null;
@@ -116,6 +112,8 @@ export default function Project({ ...res }) {
         stop(4);
       }, 60 * 1000);
       return;
+    } else if (!recId) {
+      alert('Ops, you have to choose one of the tracks before you can record.');
     }
   };
 
@@ -385,9 +383,8 @@ const RecIndicator = styled.div`
   width: 40px;
   margin-left: 30px;
   border-radius: 100%;
-  background-color: #F57659;
+  background-color: #f57659;
   animation: ${RecordingAnimation} 5s ease-in-out infinite;
-
 `;
 const RecPlaceholder = styled.div`
   height: 40px;

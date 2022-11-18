@@ -23,6 +23,7 @@ import {
   OrangeAnimation,
   BlueAnimation,
   YellowAnimation,
+  PurpleAnimation,
 } from '../styles/animations';
 
 export default function Home() {
@@ -432,8 +433,9 @@ const PurpuleIconWrapper = styled.div`
   width: 447px;
   height: 447px;
   z-index: 0;
-  top: 75%;
+  top: 60%;
   left: 100px;
+  animation: ${PurpleAnimation} 8s ease-in-out infinite;
 
   @media screen and (max-width: 1400px) {
     left: -3%;

@@ -34,30 +34,30 @@ export const BlueAnimation = keyframes`
 export const YellowAnimation = keyframes`
   0% {
     bottom: 16%;
-    transform: rotate(0deg);
   }
 
   50% {
     bottom: 21%;
-    transform: rotate(90deg);
   }
 
   100% {
     bottom: 16%;
-    transform: rotate(0deg);
   }
 `;
 
 export const PurpleAnimation = keyframes`
-0% {
-
+ 0% {
+ top: 60%;
+ transform: rotate(0deg);
 }
 
 50% {
-
+ top: 65%;
+ transform: rotate(40deg);
 }
 
 100%{
-
+ top: 60%;
+ transform: rotate(0deg);
 }
 `;

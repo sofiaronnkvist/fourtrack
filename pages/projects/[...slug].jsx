@@ -14,12 +14,14 @@ import { FaPlay, FaStop } from 'react-icons/fa';
 import { BsRecordFill } from 'react-icons/bs';
 import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import InfoModal from '../../components/Modals/InfoModal/InfoModal';
+import { RecordingAnimation } from '../../styles/animations';
 
 export default function Project({ ...res }) {
   const [trackArray, setTrackArray] = useState([]);
   const [playId, setPlayId] = useState();
   const [childTrack, setChildTrack] = useState(1);
   const router = useRouter();
+  const [isRecording, setIsRecording] = useState(false);
 
   let ref1 = useRef(null);
   let ref2 = useRef(null);
@@ -29,7 +31,6 @@ export default function Project({ ...res }) {
   let waveRef2 = useRef(null);
   let waveRef3 = useRef(null);
   let waveRef4 = useRef(null);
-
   useEffect(() => {
     // Waiting for index.js to send file to FB
     setTimeout(function () {
@@ -74,6 +75,7 @@ export default function Project({ ...res }) {
   };
 
   const record = (recId) => {
+    !isRecording && recId ? setIsRecording(true) : setIsRecording(false);
     if (recId == 1) {
       console.log('recId 1');
       waveRef2.current ? waveRef2.current.play() : null;
@@ -118,6 +120,7 @@ export default function Project({ ...res }) {
   };
 
   const stop = (recId) => {
+    setIsRecording(false);
     if (recId == 1) {
       ref1.current ? ref1.current.stop1() : null;
       waveRef2.current ? waveRef2.current.pause() : null;
@@ -179,6 +182,7 @@ export default function Project({ ...res }) {
           />
         </ModalsWrapper>
       </StyledTopBar>
+      {isRecording ? <RecIndicator /> : <RecPlaceholder />}
       <Form>
         <Label htmlFor=''>
           <InputWrapper>
@@ -376,6 +380,20 @@ export default function Project({ ...res }) {
     </div>
   );
 }
+const RecIndicator = styled.div`
+  height: 40px;
+  width: 40px;
+  margin-left: 30px;
+  border-radius: 100%;
+  background-color: #F57659;
+  animation: ${RecordingAnimation} 5s ease-in-out infinite;
+
+`;
+const RecPlaceholder = styled.div`
+  height: 40px;
+  width: 40px;
+  margin-left: 30px;
+`;
 const StyledTopBar = styled.div`
   display: flex;
   justify-content: space-between;

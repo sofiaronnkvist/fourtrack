@@ -19,15 +19,15 @@ export const OrangeAnimation = keyframes`
 
 export const BlueAnimation = keyframes`
   0% {
-    bottom: 45%;
-  }
-
-  50% {
     bottom: 50%;
   }
 
-  100% {
+  50% {
     bottom: 45%;
+  }
+
+  100% {
+    bottom: 50%;
   }
 `;
 

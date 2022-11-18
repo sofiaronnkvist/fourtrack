@@ -3,10 +3,7 @@ import Link from 'next/link';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../Modals/Modal/Modal';
 import Logo from '../../public/logo.svg';
-
 import styled from 'styled-components';
-import { useState } from 'react';
-import { useEffect } from 'react';
 
 export default function Navbar() {
   const { user } = useAuth();
@@ -28,8 +25,6 @@ export default function Navbar() {
         <div>
           <Link href='/projects'>
             <Logo alt='Logo' />
-
-            {/* <Image src={logo} alt='Logo' /> */}
           </Link>
         </div>
       )}
@@ -48,6 +43,7 @@ const NotLogedInWrapper = styled.div`
   a {
     font-size: 18px;
     color: ${(props) => props.theme.purple500};
+    cursor: not-allowed;
 
     @media screen and (max-width: 600px) {
       font-size: 16px;

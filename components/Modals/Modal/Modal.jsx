@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../../context/AuthContext';
 import { FcGoogle } from 'react-icons/fc';
-import WireImage from '../../../public/wireAndMic.svg';
+import WireImage from '../../../public/WireAndMic';
 import Image from 'next/image';
 
 const dialogContent = DialogPrimitive.Content;
@@ -97,7 +97,7 @@ const StyledMobileTitle = styled.h1`
   color: black;
   font-size: 20px;
   margin: 0;
-  padding: 40px;
+  padding: 0px 40px;
   text-align: center;
   font-weight: 400;
 `;
@@ -282,8 +282,7 @@ export default function Modal(props) {
               Woops you tried to log in on a mobile device, Fourtrack only works
               on desktop.
             </StyledMobileTitle>
-
-            <Image src={WireImage} height={180} width={180} />
+            <WireImage />
           </>
         ) : (
           <>

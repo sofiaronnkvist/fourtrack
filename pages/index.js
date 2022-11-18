@@ -352,6 +352,7 @@ const TitleCTA = styled.div`
     color: ${(props) => props.theme.purple500};
     font-size: 18px;
     margin-left: 15px;
+    cursor: not-allowed;
   }
   @media screen and (max-width: 720px) {
     margin-top: 80px;
@@ -795,6 +796,7 @@ const FooterLinkContainer = styled.div`
   }
   a {
     margin: 5px 30px;
+    cursor: not-allowed;
 
     @media screen and (max-width: 720px) {
       margin: 5px 10px;

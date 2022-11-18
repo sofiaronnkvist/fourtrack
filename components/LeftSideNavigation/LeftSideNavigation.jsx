@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { useAuth } from '../../context/AuthContext';
 import styled from 'styled-components';
-import AllRecIcon from '../../public/AllRecIcon.svg';
 import { AiOutlineStar } from 'react-icons/ai';
 import { BsPerson } from 'react-icons/bs';
 import { MdLogout } from 'react-icons/md';

@@ -33,193 +33,214 @@ export default function Home() {
     user ? router.push('/projects') : null;
   }, []);
   return (
-    <div>
-      {/* <Head>
-        <title>Fourtrack</title>
-        <meta name='Fourtrack' content='A better way for recording music' />
-        <link rel='icon' href='/favicon.ico' />
-      </Head> */}
-      <Navbar />
-      <StyledMain>
-        <HeroSection>
-          <StyledH1>
-            A better way for <br /> recording music
-          </StyledH1>
-          <TitleCTA>
-            <Modal background whiteText buttonTitle='Get started' />
-            <Wrapper>
-              <AiOutlineArrowRight color='#6D4DEB' size='25px' />
-              <Link href='/'>How does it work?</Link>
-            </Wrapper>
-          </TitleCTA>
-          <OrangeIconWrapper>
-            <SquareIcon height={'100%'} width={'100%'} fillInner={'#EC8300'} />
-          </OrangeIconWrapper>
-          <YellowIconWrapper>
-            <BigRoundIcon
-              height={'100%'}
-              width={'100%'}
-              fillInner={'#EBBA00'}
-            />
-          </YellowIconWrapper>
-          <BlueIconWrapper>
-            <SmallRoundIcon
-              height={'100%'}
-              width={'100%'}
-              fillInner={'#69B6D3'}
-            />
-          </BlueIconWrapper>
-        </HeroSection>
-        <CaroselSection>
-          <PurpuleIconWrapper>
-            <BigRoundIcon
-              height={'100%'}
-              width={'100%'}
-              fillInner={'#B4ABDC'}
-            />
-          </PurpuleIconWrapper>
-          <TestWrapper>
-            <Image
-              src={recorderImage}
-              layout={'fill'}
-              objectFit={'cover'}
-              objectPosition={'80% 90%'}
-              alt={'The Fourtrack dashboard'}
-            />
-          </TestWrapper>
-          <TestWrapperTwo>
-            <Image
-              src={projectsImage}
-              layout={'fill'}
-              objectFit={'cover'}
-              objectPosition={'0% 90%'}
-              alt={'The Fourtrack recorder'}
-            />
-          </TestWrapperTwo>
-        </CaroselSection>
-        <ToolSection purple>
-          <SecondBlueIconWrapper>
-            <SquareIcon height={'100%'} width={'100%'} fillInner={'#69B6D3'} />
-          </SecondBlueIconWrapper>
+    <OuterWrapper>
+      <div>
+        <Navbar />
+        <StyledMain>
+          <HeroSection>
+            <StyledH1>
+              A better way for <br /> recording music
+            </StyledH1>
+            <TitleCTA>
+              <Modal background whiteText buttonTitle='Get started' />
+              <Wrapper>
+                <AiOutlineArrowRight color='#6D4DEB' size='25px' />
+                <Link href='/'>How does it work?</Link>
+              </Wrapper>
+            </TitleCTA>
+            <OrangeIconWrapper>
+              <SquareIcon
+                height={'100%'}
+                width={'100%'}
+                fillInner={'#EC8300'}
+              />
+            </OrangeIconWrapper>
+            <YellowIconWrapper>
+              <BigRoundIcon
+                height={'100%'}
+                width={'100%'}
+                fillInner={'#EBBA00'}
+              />
+            </YellowIconWrapper>
+            <BlueIconWrapper>
+              <SmallRoundIcon
+                height={'100%'}
+                width={'100%'}
+                fillInner={'#69B6D3'}
+              />
+            </BlueIconWrapper>
+          </HeroSection>
+          <CaroselSection>
+            <PurpuleIconWrapper>
+              <BigRoundIcon
+                height={'100%'}
+                width={'100%'}
+                fillInner={'#B4ABDC'}
+              />
+            </PurpuleIconWrapper>
+            <TestWrapper>
+              <Image
+                src={recorderImage}
+                layout={'fill'}
+                objectFit={'cover'}
+                objectPosition={'80% 90%'}
+                alt={'The Fourtrack dashboard'}
+              />
+            </TestWrapper>
+            <TestWrapperTwo>
+              <Image
+                src={projectsImage}
+                layout={'fill'}
+                objectFit={'cover'}
+                objectPosition={'0% 90%'}
+                alt={'The Fourtrack recorder'}
+              />
+            </TestWrapperTwo>
+          </CaroselSection>
+          <ToolSection purple>
+            <SecondBlueIconWrapper>
+              <SquareIcon
+                height={'100%'}
+                width={'100%'}
+                fillInner={'#69B6D3'}
+              />
+            </SecondBlueIconWrapper>
 
-          <StyledH2>A new tool to capture your musical moments</StyledH2>
-          <SecondOrangeIconWrapper>
-            <BigRoundIcon
-              height={'100%'}
-              width={'100%'}
-              fillInner={'#EC8300'}
-            />
-          </SecondOrangeIconWrapper>
-        </ToolSection>
-        <RecorderSection>
-          <TextWrapper>
-            <StyledH3>But there is only four tracks?</StyledH3>
-            <StyledP>
-              Yes, there is &#34;only&#34; four tracks, and that&#39;s enough to
-              capture your idea. This is not a production tool but an ideation
-              tool. Think of it like a sketch of you future hit.
+            <StyledH2>A new tool to capture your musical moments</StyledH2>
+            <SecondOrangeIconWrapper>
+              <BigRoundIcon
+                height={'100%'}
+                width={'100%'}
+                fillInner={'#EC8300'}
+              />
+            </SecondOrangeIconWrapper>
+          </ToolSection>
+          <RecorderSection>
+            <TextWrapper>
+              <StyledH3>But there is only four tracks?</StyledH3>
+              <StyledP>
+                Yes, there is &#34;only&#34; four tracks, and that&#39;s enough
+                to capture your idea. This is not a production tool but an
+                ideation tool. Think of it like a sketch of you future hit.
+              </StyledP>
+            </TextWrapper>
+            <StyledDraftDiv>
+              <Image
+                src={recorderUnit}
+                alt={'The recorders four tracks in different colors.'}
+                height={'100%'}
+                width={'100%'}
+                layout={'fill'}
+                objectFit={'cover'}
+                objectPosition={'0% 80%'}
+              />
+            </StyledDraftDiv>
+            <ThirdOrangeIconWrapper>
+              <BigRoundIcon
+                height={'100%'}
+                width={'100%'}
+                fillInner={'#EC8300'}
+              />
+            </ThirdOrangeIconWrapper>
+            <SecondPurpleIconWrapper>
+              <SquareIcon
+                height={'100%'}
+                width={'100%'}
+                fillInner={'#B4ABDC'}
+              />
+            </SecondPurpleIconWrapper>
+          </RecorderSection>
+          <ControlsSection purple>
+            <StyledH4>No more headaching controls</StyledH4>
+            <StyledP center white>
+              Creativity should not be limited by complicated controls.
+              That&#39;s why we have made a simple to use recording studio with
+              a lot of great presets so you don&#39;t get stuck in
+              soundprocessing.
             </StyledP>
-          </TextWrapper>
-          <StyledDraftDiv>
-            <Image
-              src={recorderUnit}
-              alt={'The recorders four tracks in different colors.'}
-              height={'100%'}
-              width={'100%'}
-              layout={'fill'}
-              objectFit={'cover'}
-              objectPosition={'0% 80%'}
-            />
-          </StyledDraftDiv>
-          <ThirdOrangeIconWrapper>
-            <BigRoundIcon
-              height={'100%'}
-              width={'100%'}
-              fillInner={'#EC8300'}
-            />
-          </ThirdOrangeIconWrapper>
-          <SecondPurpleIconWrapper>
-            <SquareIcon height={'100%'} width={'100%'} fillInner={'#B4ABDC'} />
-          </SecondPurpleIconWrapper>
-        </RecorderSection>
-        <ControlsSection purple>
-          <StyledH4>No more headaching controls</StyledH4>
-          <StyledP center white>
-            Creativity should not be limited by complicated controls. That&#39;s
-            why we have made a simple to use recording studio with a lot of
-            great presets so you don&#39;t get stuck in soundprocessing.
-          </StyledP>
-          <TapeRecorderPictureWrapper>
-            <Image
-              src={tapePicture}
-              alt='Old school controls'
-              height={'100%'}
-              width={'100%'}
-              layout={'fill'}
-              objectFit={'cover'}
-            />
-          </TapeRecorderPictureWrapper>
-          <SecondTapeRecorderPictureWrapper>
-            <Image
-              src={tapePicture}
-              alt='Old school controls'
-              height={'100%'}
-              width={'100%'}
-              layout={'fill'}
-              objectFit={'cover'}
-            />
-          </SecondTapeRecorderPictureWrapper>
-          <ThirdBlueIconWrapper>
-            <BigRoundIcon
-              height={'100%'}
-              width={'100%'}
-              fillInner={'#69B6D3'}
-            />
-          </ThirdBlueIconWrapper>
-        </ControlsSection>
-        <CollabSection>
-          <ThirdYellowIconWrapper>
-            <SquareIcon height={'100%'} width={'100%'} fillInner={'#EBBA00'} />
-          </ThirdYellowIconWrapper>
-          <PeoplePictureWrapper>
-            <Image
-              src={peoplePicture}
-              alt='People in bubbles'
-              height={'100%'}
-              width={'100%'}
-              layout={'fill'}
-              objectFit={'cover'}
-            />
-          </PeoplePictureWrapper>
+            <TapeRecorderPictureWrapper>
+              <Image
+                src={tapePicture}
+                alt='Old school controls'
+                height={'100%'}
+                width={'100%'}
+                layout={'fill'}
+                objectFit={'cover'}
+              />
+            </TapeRecorderPictureWrapper>
+            <SecondTapeRecorderPictureWrapper>
+              <Image
+                src={tapePicture}
+                alt='Old school controls'
+                height={'100%'}
+                width={'100%'}
+                layout={'fill'}
+                objectFit={'cover'}
+              />
+            </SecondTapeRecorderPictureWrapper>
+            <ThirdBlueIconWrapper>
+              <BigRoundIcon
+                height={'100%'}
+                width={'100%'}
+                fillInner={'#69B6D3'}
+              />
+            </ThirdBlueIconWrapper>
+          </ControlsSection>
+          <CollabSection>
+            <ThirdYellowIconWrapper>
+              <SquareIcon
+                height={'100%'}
+                width={'100%'}
+                fillInner={'#EBBA00'}
+              />
+            </ThirdYellowIconWrapper>
+            <PeoplePictureWrapper>
+              <Image
+                src={peoplePicture}
+                alt='People in bubbles'
+                height={'100%'}
+                width={'100%'}
+                layout={'fill'}
+                objectFit={'cover'}
+              />
+            </PeoplePictureWrapper>
 
-          <TextContainer>
-            <StyledH3>Collab with everyone</StyledH3>
-            <StyledP>
-              Share your ideas with everyone to take your song to the limit.
-            </StyledP>
-          </TextContainer>
-        </CollabSection>
-        <SignUpSection purple>
-          <StyledH3 white>Try Fourtrack, it&#39;s free</StyledH3>
-        </SignUpSection>
-      </StyledMain>
+            <TextContainer>
+              <StyledH3>Collab with everyone</StyledH3>
+              <StyledP>
+                Share your ideas with everyone to take your song to the limit.
+              </StyledP>
+            </TextContainer>
+          </CollabSection>
+          <SignUpSection purple>
+            <StyledH3 white>Try Fourtrack, it&#39;s free</StyledH3>
+          </SignUpSection>
+        </StyledMain>
 
-      <StyledFooter>
-        <Logo />
-        <FooterLinkContainer>
-          <Link href='/'>
-            <a>About</a>
-          </Link>
-          <Link href='/'>Feedback</Link>
-          <Link href='/'>Terms and conditions</Link>
-          <Link href='/'>How does it work?</Link>
-        </FooterLinkContainer>
-      </StyledFooter>
-    </div>
+        <StyledFooter>
+          <Logo />
+          <FooterLinkContainer>
+            <Link href='/'>
+              <a>About</a>
+            </Link>
+            <Link href='/'>Feedback</Link>
+            <Link href='/'>Terms and conditions</Link>
+            <Link href='/'>How does it work?</Link>
+          </FooterLinkContainer>
+        </StyledFooter>
+      </div>
+    </OuterWrapper>
   );
 }
-
+const OuterWrapper = styled.div`
+  width: 100vw;
+  overflow-x: hidden;
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: center;
+`;
 const StyledMain = styled.main`
+  max-width: 1440px;
   min-height: 713px;
   flex: 1;
   display: flex;
@@ -296,24 +317,6 @@ const BlueIconWrapper = styled.div`
     svg {
       transform: translateX(0px);
     }
-  }
-`;
-const PurpuleIconWrapper = styled.div`
-  position: absolute;
-  width: 447px;
-  height: 447px;
-  z-index: 0;
-  bottom: -45%;
-  left: 4%;
-
-  @media screen and (max-width: 720px) {
-    left: -13%;
-  }
-  @media screen and (max-width: 500px) {
-    width: 225px;
-    height: 225px;
-    bottom: -24%;
-    right: -3%;
   }
 `;
 
@@ -423,6 +426,32 @@ const CaroselSection = styled.section`
   display: flex;
   justify-content: space-between;
   padding-top: 32px;
+`;
+const PurpuleIconWrapper = styled.div`
+  position: absolute;
+  width: 447px;
+  height: 447px;
+  z-index: 0;
+  top: 75%;
+  left: 100px;
+
+  @media screen and (max-width: 1400px) {
+    left: -3%;
+  }
+
+  @media screen and (max-width: 900px) {
+    left: -23%;
+  }
+
+  @media screen and (max-width: 720px) {
+    left: -13%;
+  }
+  @media screen and (max-width: 500px) {
+    width: 225px;
+    height: 225px;
+    bottom: -24%;
+    right: -3%;
+  }
 `;
 
 const TestWrapper = styled.div`
@@ -751,17 +780,25 @@ const StyledFooter = styled.footer`
     margin: 0 30px;
     color: ${(props) => props.theme.purple500};
   }
-  @media screen and (max-width: 500px) {
+
+  @media screen and (max-width: 720px) {
     flex-direction: column;
   }
 `;
 const FooterLinkContainer = styled.div`
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 720px) {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
   a {
     margin: 5px 30px;
+
+    @media screen and (max-width: 720px) {
+      margin: 5px 10px;
+    }
+  }
+  @media screen and (max-width: 720px) {
+    margin-top: 20px;
   }
 `;

@@ -76,7 +76,11 @@ export default function Project({ ...res }) {
 
   const record = (recId) => {
     !isRecording && recId ? setIsRecording(true) : setIsRecording(false);
-    if (recId == 1) {
+    if (!recId) {
+      alert(
+        'Oops, you have to choose one of the tracks before you can record.'
+      );
+    } else if (recId == 1) {
       waveRef2.current ? waveRef2.current.play() : null;
       waveRef3.current ? waveRef3.current.play() : null;
       waveRef4.current ? waveRef4.current.play() : null;
@@ -113,7 +117,9 @@ export default function Project({ ...res }) {
       }, 60 * 1000);
       return;
     } else if (!recId) {
-      alert('Oops, you have to choose one of the tracks before you can record.');
+      alert(
+        'Oops, you have to choose one of the tracks before you can record.'
+      );
     }
   };
 
@@ -381,15 +387,15 @@ export default function Project({ ...res }) {
 const RecIndicator = styled.div`
   height: 40px;
   width: 40px;
-  margin-left: 30px;
   border-radius: 100%;
   background-color: #f57659;
+  margin-left: 155px;
   animation: ${RecordingAnimation} 5s ease-in-out infinite;
 `;
 const RecPlaceholder = styled.div`
   height: 40px;
   width: 40px;
-  margin-left: 30px;
+  margin: 0 auto;
 `;
 const StyledTopBar = styled.div`
   display: flex;

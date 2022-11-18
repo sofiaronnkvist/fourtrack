@@ -113,7 +113,7 @@ export default function Project({ ...res }) {
       }, 60 * 1000);
       return;
     } else if (!recId) {
-      alert('Ops, you have to choose one of the tracks before you can record.');
+      alert('Oops, you have to choose one of the tracks before you can record.');
     }
   };
 

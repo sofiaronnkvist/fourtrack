@@ -18,6 +18,7 @@ import recorderImage from '../public/recorder.webp';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import recorderUnit from '../public/recorderUnit.webp';
 import peoplePicture from '../public/People.webp';
+import tapePicture from '../public/tape.webp';
 
 export default function Home() {
   const { user } = useAuth();
@@ -118,6 +119,11 @@ export default function Home() {
             <Image
               src={recorderUnit}
               alt={'The recorders four tracks in different colors.'}
+              height={'100%'}
+              width={'100%'}
+              layout={'fill'}
+              objectFit={'cover'}
+              objectPosition={'0% 80%'}
             />
           </StyledDraftDiv>
           <ThirdOrangeIconWrapper>
@@ -138,7 +144,26 @@ export default function Home() {
             why we have made a simple to use recording studio with a lot of
             great presets so you don&#39;t get stuck in soundprocessing.
           </StyledP>
-          <ImagePlaceholder></ImagePlaceholder>
+          <TapeRecorderPictureWrapper>
+            <Image
+              src={tapePicture}
+              alt='Old school controls'
+              height={'100%'}
+              width={'100%'}
+              layout={'fill'}
+              objectFit={'cover'}
+            />
+          </TapeRecorderPictureWrapper>
+          <SecondTapeRecorderPictureWrapper>
+            <Image
+              src={tapePicture}
+              alt='Old school controls'
+              height={'100%'}
+              width={'100%'}
+              layout={'fill'}
+              objectFit={'cover'}
+            />
+          </SecondTapeRecorderPictureWrapper>
           <ThirdBlueIconWrapper>
             <BigRoundIcon
               height={'100%'}
@@ -176,14 +201,14 @@ export default function Home() {
 
       <StyledFooter>
         <Logo />
-        <div>
+        <FooterLinkContainer>
           <Link href='/'>
             <a>About</a>
           </Link>
           <Link href='/'>Feedback</Link>
           <Link href='/'>Terms and conditions</Link>
           <Link href='/'>How does it work?</Link>
-        </div>
+        </FooterLinkContainer>
       </StyledFooter>
     </div>
   );
@@ -209,7 +234,7 @@ const OrangeIconWrapper = styled.div`
 
   @media screen and (max-width: 500px) {
     left: -10%;
-    top: 14%;
+    top: 11%;
   }
 `;
 const YellowIconWrapper = styled.div`
@@ -219,15 +244,23 @@ const YellowIconWrapper = styled.div`
   z-index: 0;
   bottom: 16%;
   right: 10%;
+  overflow: hidden;
 
   @media screen and (max-width: 1120px) {
     bottom: 21%;
-    right: -14%;
+    right: 0%;
+    svg {
+      transform: translateX(100px);
+    }
   }
   @media screen and (max-width: 500px) {
     width: 149px;
     height: 149px;
-    right: -8%;
+    bottom: 35%;
+    right: 0%;
+    svg {
+      transform: translateX(40px);
+    }
   }
 `;
 const BlueIconWrapper = styled.div`
@@ -237,16 +270,24 @@ const BlueIconWrapper = styled.div`
   z-index: 0;
   bottom: 45%;
   right: 10%;
+  overflow: hidden;
+
 
   @media screen and (max-width: 1120px) {
-    bottom: 53%;
-    right: -8%;
+    bottom: 48%;
+    right: 0%;
+    svg {
+      transform: translateX(50px);
+    }
   }
   @media screen and (max-width: 500px) {
     width: 62px;
     height: 62px;
-    bottom: 38%;
-    right: -3%;
+    bottom: 49%;
+    right: 0%;
+    svg {
+      transform: translateX(0px);
+    }
   }
 `;
 const PurpuleIconWrapper = styled.div`
@@ -273,6 +314,7 @@ const HeroSection = styled.section`
   width: 100%;
   padding: 4rem 0;
   flex: 1;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -340,6 +382,10 @@ const StyledH3 = styled.h3`
   font-size: 43px;
   font-weight: 500;
   color: ${(props) => (props.white ? 'white' : 'black')};
+
+  @media screen and (max-width: 500px) {
+    font-size: 24px;
+  }
 `;
 const StyledH4 = styled.h4`
   margin: 0;
@@ -348,14 +394,20 @@ const StyledH4 = styled.h4`
   font-weight: 500;
   text-align: center;
   color: white;
+  @media screen and (max-width: 500px) {
+    font-size: 30px;
+  }
 `;
 const StyledP = styled.p`
   font-size: 20px;
   font-weight: 500;
-  color: ${(props) => (props.white ? 'white' : 'black')};
+  color: ${(props) => (props.white ? 'white' : '#697177')};
   text-align: ${(props) => (props.center ? 'center' : '')};
   text-align: ${(props) => (props.center ? 'center' : '')};
   max-width: 700px;
+  @media screen and (max-width: 500px) {
+    font-size: 18px;
+  }
 `;
 const CaroselSection = styled.section`
   width: 100%;
@@ -469,20 +521,35 @@ const RecorderSection = styled.section`
 const TextWrapper = styled.div`
   width: 50%;
   margin-left: 148px;
+
+  @media screen and (max-width: 900px) {
+    margin-left: 74px;
+    width: 70%;
+  }
+
   @media screen and (max-width: 600px) {
-    margin-left: 0px;
     margin: 24px 0px;
+    padding: 0px 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 100vw;
   }
 `;
 
 const StyledDraftDiv = styled.div`
-  min-height: 450px;
+  position: relative;
+  height: 450px;
   width: 100%;
+  @media screen and (max-width: 900px) {
+    transform: translateX(50px);
+  }
+  @media screen and (max-width: 600px) {
+    width: 845px;
+    height: 384px;
+    transform: translateX(30px);
+  }
 `;
 
 const ThirdOrangeIconWrapper = styled.div`
@@ -492,7 +559,7 @@ const ThirdOrangeIconWrapper = styled.div`
   z-index: 1;
   bottom: -5%;
   right: 10%;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 1200px) {
     bottom: -5%;
     right: -8%;
   }
@@ -504,6 +571,12 @@ const SecondPurpleIconWrapper = styled.div`
   z-index: 1;
   bottom: -25%;
   left: -1%;
+  @media screen and (max-width: 1200px) {
+    width: 178px;
+    height: 178px;
+    bottom: -17%;
+    left: -3%;
+  }
   @media screen and (max-width: 600px) {
     width: 178px;
     height: 178px;
@@ -521,14 +594,39 @@ const ControlsSection = styled.section`
   position: relative;
   background-color: ${(props) =>
     props.purple ? `${props.theme.purple500}` : 'none'};
-  padding-bottom: 188px;
-  padding-top: 188px;
+  padding: 188px 24px;
 `;
-const ImagePlaceholder = styled.div`
+const TapeRecorderPictureWrapper = styled.div`
+  position: relative;
   height: 284px;
   width: 1072px;
   margin-top: 80px;
-  background-color: grey;
+
+  @media screen and (max-width: 1140px) {
+    width: 1002px;
+    height: 232px;
+    transform: translateX(250px);
+  }
+  @media screen and (max-width: 600px) {
+    width: 943px;
+    height: 218px;
+    transform: translateX(320px);
+  }
+`;
+const SecondTapeRecorderPictureWrapper = styled.div`
+  display: none;
+  position: relative;
+  margin-top: 21px;
+
+  @media screen and (max-width: 1140px) {
+    display: block;
+    width: 1002px;
+    height: 232px;
+    transform: translateX(-250px);
+  }
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
 `;
 const CollabSection = styled.section`
   position: relative;
@@ -644,5 +742,18 @@ const StyledFooter = styled.footer`
   a {
     margin: 0 30px;
     color: ${(props) => props.theme.purple500};
+  }
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+  }
+`;
+const FooterLinkContainer = styled.div`
+  @media screen and (max-width: 500px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  a {
+    margin: 5px 30px;
   }
 `;

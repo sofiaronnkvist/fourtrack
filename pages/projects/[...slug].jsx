@@ -379,7 +379,7 @@ export default function Project({ ...res }) {
 const StyledTopBar = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 100vw;
+  width: 100%;
   padding: 26px;
 `;
 

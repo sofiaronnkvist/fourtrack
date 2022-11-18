@@ -5,7 +5,7 @@ import Link from 'next/link';
 import React, { useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import Modal from '../components/Modals/Modal/Modal';
 import Navbar from '../components/Navbar/navbar';
 //Images and svgs
@@ -19,6 +19,12 @@ import { AiOutlineArrowRight } from 'react-icons/ai';
 import recorderUnit from '../public/recorderUnit.webp';
 import peoplePicture from '../public/People.webp';
 import tapePicture from '../public/tape.webp';
+import {
+  OrangeAnimation,
+  BlueAnimation,
+  YellowAnimation,
+  PurpleAnimation,
+} from '../styles/animations';
 
 export default function Home() {
   const { user } = useAuth();
@@ -245,6 +251,7 @@ const StyledMain = styled.main`
   overflow-x: hidden;
   background-color: ${(props) => props.theme.grey100};
 `;
+
 const OrangeIconWrapper = styled.div`
   position: absolute;
   width: 155px;
@@ -252,6 +259,7 @@ const OrangeIconWrapper = styled.div`
   z-index: 0;
   top: 10%;
   left: 13%;
+  animation: ${OrangeAnimation} 7s ease-in-out infinite;
 
   @media screen and (max-width: 500px) {
     left: -10%;
@@ -266,6 +274,7 @@ const YellowIconWrapper = styled.div`
   bottom: 16%;
   right: 10%;
   overflow: hidden;
+  animation: ${YellowAnimation} 10s ease-in-out infinite;
 
   @media screen and (max-width: 1120px) {
     bottom: 21%;
@@ -292,6 +301,7 @@ const BlueIconWrapper = styled.div`
   bottom: 45%;
   right: 10%;
   overflow: hidden;
+  animation: ${BlueAnimation} 10s ease-in-out infinite;
 
   @media screen and (max-width: 1120px) {
     bottom: 48%;
@@ -423,8 +433,9 @@ const PurpuleIconWrapper = styled.div`
   width: 447px;
   height: 447px;
   z-index: 0;
-  top: 75%;
+  top: 60%;
   left: 100px;
+  animation: ${PurpleAnimation} 8s ease-in-out infinite;
 
   @media screen and (max-width: 1400px) {
     left: -3%;

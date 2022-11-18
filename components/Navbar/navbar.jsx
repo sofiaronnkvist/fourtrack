@@ -1,9 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../Modals/Modal/Modal';
-import logo from '../../public/logo.svg';
 import Logo from '../../public/logo.svg';
 
 import styled from 'styled-components';
@@ -70,3 +68,4 @@ const NotLogedInWrapper = styled.div`
     justify-content: space-around;
   }
 `;
+

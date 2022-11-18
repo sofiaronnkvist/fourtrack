@@ -48,16 +48,17 @@ const CloseButton = styled.button`
 const StyledTitle = styled.h1`
   color: black;
   font-size: 20;
+  margin: 0px;
 `;
 
 const DialogDescriptionContainer = styled.div`
-  padding: 20px;
+  padding: 24px;
 `;
 
 const StyledDialogDescription = styled(DialogDescription)`
   font-size: 16px;
   color: ${(props) => props.theme.black900};
-  line-height: 25px;
+  line-height: 20px;
 `;
 
 function Content({ children, ...props }) {
@@ -93,9 +94,9 @@ export default function ProjectModal() {
         <DialogDescriptionContainer>
           <StyledDialogDescription>
             To use the studio you should use headphones. Then choose the output
-            sound to go in those, and the input from your speakers or whatever
+            sound on your computer to go in those and the input from your speakers or whatever
             you&#39;re using. <br />
-            <br /> To record on a track, press it&#39;s number. Then press
+            <br /> To record on a track, press it&#39;s number, then
             record, do your thing, and hit stop when you&#39;re done. Do this
             for as many tracks as you want, and then share it with your friends
             if you want to. <br />
@@ -103,10 +104,10 @@ export default function ProjectModal() {
             in your headphones while you record the next and so on. <br />
             <br />
             To play only one track, press the number and then hit play. To play
-            all tracks you need to first deselect every track&#39;s number.
+            all tracks deselect all track&#39;s.
             <br />
-            <br /> You can drag the marker to where you want a specific track to
-            start from, which will be saved. The volumes for each track although
+            <br /> You can drag the marker to where you want the track to
+            start from. The volumes for each track although
             is just for you to play around with, and will not be saved.
           </StyledDialogDescription>
         </DialogDescriptionContainer>

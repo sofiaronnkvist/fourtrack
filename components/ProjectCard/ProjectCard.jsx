@@ -159,7 +159,7 @@ const ProjectOuterWrapper = styled.div`
 
 const ProjectWrapper = styled.div`
   height: 72px;
-  width: 100%;
+  width: 1172px;
   margin-bottom: 8px;
   display: flex;
   align-items: center;

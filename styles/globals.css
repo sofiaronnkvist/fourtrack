@@ -5,6 +5,7 @@ body {
   margin: 0;
   font-family: 'Inter', sans-serif;
   width: 100vw;
+  overflow-x: hidden;
 }
 
 a {

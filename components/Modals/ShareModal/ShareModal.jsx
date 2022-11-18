@@ -25,13 +25,14 @@ const StyledContent = styled(dialogContent)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 6;
+  z-index: 7;
 `;
 
 const StyledOverlay = styled(dialogOverlay)`
   backdrop-filter: blur(10px);
   position: fixed;
   inset: 0;
+  z-index: 6;
 `;
 
 const StyledTitle = styled.h1`
@@ -74,8 +75,7 @@ const StyledTriggerTitle = styled.p`
   margin: 0px;
   margin-left: 5px;
   :hover {
-    text-decoration: ${(props) =>
-      props.whiteText ? 'none' : 'underline'};
+    text-decoration: ${(props) => (props.whiteText ? 'none' : 'underline')};
   }
 `;
 

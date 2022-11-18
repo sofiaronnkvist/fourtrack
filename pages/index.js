@@ -326,7 +326,7 @@ const HeroSection = styled.section`
   width: 100%;
   padding: 4rem 0;
   flex: 1;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -423,7 +423,7 @@ const StyledP = styled.p`
   }
 `;
 const CaroselSection = styled.section`
-  width: 100%;
+  width: 100vw;
   z-index: 3;
   display: flex;
   justify-content: space-between;
@@ -491,7 +491,7 @@ const ToolSection = styled.section`
   min-height: 450px;
   background-color: ${(props) =>
     props.purple ? `${props.theme.purple500}` : 'none'};
-  width: 100%;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -540,7 +540,7 @@ const SecondOrangeIconWrapper = styled.div`
 const RecorderSection = styled.section`
   position: relative;
   min-height: 450px;
-  width: 100%;
+  width: 100vw;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
@@ -629,7 +629,7 @@ const ControlsSection = styled.section`
   flex-direction: column;
   align-items: center;
   min-height: 450px;
-  width: 100%;
+  width: 100vw;
   z-index: 0;
   position: relative;
   background-color: ${(props) =>

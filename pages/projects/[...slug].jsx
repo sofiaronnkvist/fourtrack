@@ -395,7 +395,7 @@ const RecIndicator = styled.div`
 const RecPlaceholder = styled.div`
   height: 40px;
   width: 40px;
-  margin: 0 auto;
+  margin-left: 155px;
 `;
 const StyledTopBar = styled.div`
   display: flex;

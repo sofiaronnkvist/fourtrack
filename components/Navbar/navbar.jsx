@@ -1,9 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../Modals/Modal/Modal';
-import logo from '../../public/logo.svg';
 import Logo from '../../public/logo.svg';
 
 import styled from 'styled-components';
@@ -33,35 +31,25 @@ export default function Navbar() {
 
   return (
     <NavWrapper>
-      {!user ? (
-        <NotLogedInWrapper>
-          {userOnMobile ? (
-            <>
+      <NotLogedInWrapper>
+        {userOnMobile ? (
+          <>
+            <Modal buttonTitle='Sign in' />
+            <Modal background whiteText buttonTitle='Get started' />
+          </>
+        ) : (
+          <>
+            <Logo alt='Logo' />
+            <div>
+              <StyledLink border href='/'>
+                How does it work?
+              </StyledLink>
               <Modal buttonTitle='Sign in' />
               <Modal background whiteText buttonTitle='Get started' />
-            </>
-          ) : (
-            <>
-              <Logo alt='Logo' />
-              <div>
-                <Link border href='/'>
-                  How does it work?
-                </Link>
-                <Modal buttonTitle='Sign in' />
-                <Modal background whiteText buttonTitle='Get started' />
-              </div>
-            </>
-          )}
-        </NotLogedInWrapper>
-      ) : (
-        <div>
-          <Link href='/projects'>
-            <Logo alt='Logo' />
-
-            {/* <Image src={logo} alt='Logo' /> */}
-          </Link>
-        </div>
-      )}
+            </div>
+          </>
+        )}
+      </NotLogedInWrapper>
     </NavWrapper>
   );
 }
@@ -81,5 +69,10 @@ const NotLogedInWrapper = styled.div`
     @media screen and (max-width: 500px) {
       font-size: 16px;
     }
+  }
+`;
+const StyledLink = styled(Link)`
+  :hover {
+    font-size: 20px;
   }
 `;

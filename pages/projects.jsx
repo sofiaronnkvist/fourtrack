@@ -151,6 +151,7 @@ const Projects = ({ projects, collections, latestProjects }) => {
 const MainWrapper = styled.div`
   display: grid;
   grid-template-columns: 237px auto;
+  max-width: 1440px;
 `;
 const MainContent = styled.div``;
 

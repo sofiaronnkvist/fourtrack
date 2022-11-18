@@ -201,14 +201,14 @@ export default function Home() {
 
       <StyledFooter>
         <Logo />
-        <div>
+        <FooterLinkContainer>
           <Link href='/'>
             <a>About</a>
           </Link>
           <Link href='/'>Feedback</Link>
           <Link href='/'>Terms and conditions</Link>
           <Link href='/'>How does it work?</Link>
-        </div>
+        </FooterLinkContainer>
       </StyledFooter>
     </div>
   );
@@ -234,7 +234,7 @@ const OrangeIconWrapper = styled.div`
 
   @media screen and (max-width: 500px) {
     left: -10%;
-    top: 14%;
+    top: 11%;
   }
 `;
 const YellowIconWrapper = styled.div`
@@ -244,15 +244,23 @@ const YellowIconWrapper = styled.div`
   z-index: 0;
   bottom: 16%;
   right: 10%;
+  overflow: hidden;
 
   @media screen and (max-width: 1120px) {
     bottom: 21%;
-    right: -14%;
+    right: 0%;
+    svg {
+      transform: translateX(100px);
+    }
   }
   @media screen and (max-width: 500px) {
     width: 149px;
     height: 149px;
-    right: -8%;
+    bottom: 35%;
+    right: 0%;
+    svg {
+      transform: translateX(40px);
+    }
   }
 `;
 const BlueIconWrapper = styled.div`
@@ -262,16 +270,24 @@ const BlueIconWrapper = styled.div`
   z-index: 0;
   bottom: 45%;
   right: 10%;
+  overflow: hidden;
+
 
   @media screen and (max-width: 1120px) {
-    bottom: 53%;
-    right: -8%;
+    bottom: 48%;
+    right: 0%;
+    svg {
+      transform: translateX(50px);
+    }
   }
   @media screen and (max-width: 500px) {
     width: 62px;
     height: 62px;
-    bottom: 38%;
-    right: -3%;
+    bottom: 49%;
+    right: 0%;
+    svg {
+      transform: translateX(0px);
+    }
   }
 `;
 const PurpuleIconWrapper = styled.div`
@@ -298,6 +314,7 @@ const HeroSection = styled.section`
   width: 100%;
   padding: 4rem 0;
   flex: 1;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -365,6 +382,10 @@ const StyledH3 = styled.h3`
   font-size: 43px;
   font-weight: 500;
   color: ${(props) => (props.white ? 'white' : 'black')};
+
+  @media screen and (max-width: 500px) {
+    font-size: 24px;
+  }
 `;
 const StyledH4 = styled.h4`
   margin: 0;
@@ -380,7 +401,7 @@ const StyledH4 = styled.h4`
 const StyledP = styled.p`
   font-size: 20px;
   font-weight: 500;
-  color: ${(props) => (props.white ? 'white' : 'black')};
+  color: ${(props) => (props.white ? 'white' : '#697177')};
   text-align: ${(props) => (props.center ? 'center' : '')};
   text-align: ${(props) => (props.center ? 'center' : '')};
   max-width: 700px;
@@ -507,13 +528,13 @@ const TextWrapper = styled.div`
   }
 
   @media screen and (max-width: 600px) {
-    margin-left: 0px;
     margin: 24px 0px;
+    padding: 0px 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 100vw;
   }
 `;
 
@@ -555,7 +576,6 @@ const SecondPurpleIconWrapper = styled.div`
     height: 178px;
     bottom: -17%;
     left: -3%;
-
   }
   @media screen and (max-width: 600px) {
     width: 178px;
@@ -722,5 +742,18 @@ const StyledFooter = styled.footer`
   a {
     margin: 0 30px;
     color: ${(props) => props.theme.purple500};
+  }
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+  }
+`;
+const FooterLinkContainer = styled.div`
+  @media screen and (max-width: 500px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  a {
+    margin: 5px 30px;
   }
 `;

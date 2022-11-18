@@ -29,6 +29,7 @@ export default function Navbar() {
   };
 
   WidthOfWindow();
+  console.log(userOnMobile);
 
   return (
     <NavWrapper>

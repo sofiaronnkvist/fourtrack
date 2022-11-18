@@ -12,46 +12,19 @@ import { useEffect } from 'react';
 
 export default function Navbar() {
   const { user } = useAuth();
-  const [userOnMobile, setUserOnMobile] = useState(0);
-
-  const WidthOfWindow = (checkWidth) => {
-    const [width, setWidth] = useState(0);
-    const handleWindowSizeChange = () => {
-      setWidth(window.innerWidth);
-      setUserOnMobile(window.innerWidth < 580 ? true : false);
-    };
-    useEffect(() => {
-      window.addEventListener('resize', handleWindowSizeChange);
-      return () => {
-        window.removeEventListener('resize', handleWindowSizeChange);
-      };
-    }, []);
-  };
-
-  WidthOfWindow();
-  console.log(userOnMobile);
 
   return (
     <NavWrapper>
       {!user ? (
         <NotLogedInWrapper>
-          {userOnMobile ? (
-            <>
-              <Modal buttonTitle='Sign in' />
-              <Modal background whiteText buttonTitle='Get started' />
-            </>
-          ) : (
-            <>
-              <Logo alt='Logo' />
-              <div>
-                <Link border href='/'>
-                  How does it work?
-                </Link>
-                <Modal buttonTitle='Sign in' />
-                <Modal background whiteText buttonTitle='Get started' />
-              </div>
-            </>
-          )}
+          <Logo alt='Logo' />
+          <div>
+            <Link border href='/'>
+              How does it work?
+            </Link>
+            <Modal buttonTitle='Sign in' />
+            <Modal background whiteText buttonTitle='Get started' />
+          </div>
         </NotLogedInWrapper>
       ) : (
         <div>
@@ -78,8 +51,22 @@ const NotLogedInWrapper = styled.div`
     font-size: 18px;
     color: ${(props) => props.theme.purple500};
 
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: 600px) {
       font-size: 16px;
+      display: none;
     }
+  }
+  button {
+    @media screen and (max-width: 600px) {
+      margin: 0px 0px;
+    }
+  }
+  svg {
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    justify-content: space-around;
   }
 `;

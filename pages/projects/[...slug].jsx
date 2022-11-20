@@ -116,11 +116,7 @@ export default function Project({ ...res }) {
         stop(4);
       }, 60 * 1000);
       return;
-    } else if (!recId) {
-      alert(
-        'Oops, you have to choose one of the tracks before you can record.'
-      );
-    }
+    } 
   };
 
   const stop = (recId) => {

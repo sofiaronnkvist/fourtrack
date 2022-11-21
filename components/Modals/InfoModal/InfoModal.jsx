@@ -18,7 +18,7 @@ const StyledContent = styled(dialogContent)`
   transform: translate(-50%, -50%);
   width: 90vw;
   max-width: 440px;
-  max-height: 85vh;
+  max-height: 90vh;
   padding: 25;
   border-radius: 7px;
   display: flex;

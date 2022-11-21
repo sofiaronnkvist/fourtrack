@@ -142,6 +142,7 @@ const Navigation = styled.nav`
   margin-top: 100px;
   justify-content: space-between;
   height: 80vh;
+  cursor: not-allowed;
 `;
 const LinkWrapper = styled.div`
   display: flex;

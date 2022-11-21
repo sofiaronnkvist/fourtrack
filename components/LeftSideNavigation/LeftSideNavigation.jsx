@@ -105,12 +105,12 @@ const LeftSideNavigation = ({ collections }) => {
         <BottomItems>
           <LinkWrapper>
             <Link href='/projects'>
-              <NavLink>Fourtrack</NavLink>
+              <NavLink style={{ cursor: 'not-allowed' }}>Fourtrack</NavLink>
             </Link>
           </LinkWrapper>
           <LinkWrapper>
             <Link href='/projects'>
-              <NavLink>Help</NavLink>
+              <NavLink style={{ cursor: 'not-allowed' }}>Help</NavLink>
             </Link>
           </LinkWrapper>
           <LinkWrapper>
@@ -142,6 +142,7 @@ const Navigation = styled.nav`
   margin-top: 100px;
   justify-content: space-between;
   height: 80vh;
+  cursor: not-allowed;
 `;
 const LinkWrapper = styled.div`
   display: flex;

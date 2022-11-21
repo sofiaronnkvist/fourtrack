@@ -129,8 +129,8 @@ export default function Home() {
               <Image
                 src={recorderUnit}
                 alt={'The recorders four tracks in different colors.'}
-                height={'100%'}
-                width={'100%'}
+                // height={'100%'}
+                // width={'100%'}
                 layout={'fill'}
                 objectFit={'cover'}
                 objectPosition={'0% 80%'}
@@ -163,8 +163,8 @@ export default function Home() {
               <Image
                 src={tapePicture}
                 alt='Old school controls'
-                height={'100%'}
-                width={'100%'}
+                // height={'100%'}
+                // width={'100%'}
                 layout={'fill'}
                 objectFit={'cover'}
               />
@@ -173,8 +173,8 @@ export default function Home() {
               <Image
                 src={tapePicture}
                 alt='Old school controls'
-                height={'100%'}
-                width={'100%'}
+                // height={'100%'}
+                // width={'100%'}
                 layout={'fill'}
                 objectFit={'cover'}
               />
@@ -199,8 +199,8 @@ export default function Home() {
               <Image
                 src={peoplePicture}
                 alt='People in bubbles'
-                height={'100%'}
-                width={'100%'}
+                // height={'100%'}
+                // width={'100%'}
                 layout={'fill'}
                 objectFit={'cover'}
               />

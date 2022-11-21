@@ -3,8 +3,6 @@ import { ThemeProvider } from 'styled-components';
 const theme = {
   //Colors
   purple500: '#6D4DEB',
-  // purple: '#6D4DEB',
-
   purple400: '#8A71EF',
   purple300: '#A794F3',
 

@@ -45,7 +45,6 @@ export default function ShareProject(props) {
       where('email', '==', searchText)
     );
     const querySnapshot = await getDocs(q);
-
     querySnapshot.forEach((doc) => {
       array.push(doc.data());
     });

@@ -2,11 +2,8 @@ import { useMyRecorder } from './../Recorder/index';
 import { forwardRef, useImperativeHandle } from 'react';
 
 const Recorder = (props, ref) => {
-  const { timer, track, saveRecordedAudio, startRecording } = useMyRecorder(
-    props.id,
-    props.projectid,
-    props.ownerid
-  );
+  const { timer, track, saveRecordedAudio, startRecording, recordingStatus } =
+    useMyRecorder(props.id, props.projectid, props.ownerid);
 
   useImperativeHandle(ref, () => ({
     start1() {
@@ -33,6 +30,7 @@ const Recorder = (props, ref) => {
     stop4() {
       saveRecordedAudio();
     },
+    recordingStatus,
   }));
 
   return (

@@ -70,7 +70,7 @@ export default function ShareProject(props) {
         ></input>
         <button type='submit'>Share</button>
       </StyledForm>
-      <p>{formMessage}</p>
+      <StyledMessage>{formMessage}</StyledMessage>
     </div>
   );
 }
@@ -105,4 +105,8 @@ const StyledForm = styled.form`
     color: white;
     border-radius: 4px;
   }
+`;
+const StyledMessage = styled.p`
+  font-size: 14px;
+  text-align: center;
 `;

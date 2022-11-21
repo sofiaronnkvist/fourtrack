@@ -227,6 +227,7 @@ export default function Modal(props) {
     e.preventDefault();
     try {
       await signup(data.email, data.password);
+      router.push('/projects');
     } catch (error) {
       setFormMessage('This email is already used for another account.');
       console.log(error);

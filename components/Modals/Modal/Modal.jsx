@@ -296,7 +296,7 @@ export default function Modal(props) {
                 handleGoogleSignIn();
               }}
             >
-              <FcGoogle size='22px' />
+              <FcGoogle size='22px' style={{ paddingRight: '5px' }} />
               Continue with Google
             </GoogleButton>
             <Divider>or</Divider>

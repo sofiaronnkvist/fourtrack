@@ -25,6 +25,7 @@ import {
   YellowAnimation,
   PurpleAnimation,
 } from '../styles/animations';
+import SignUp from '../components/SingUp/SignUp';
 
 export default function Home() {
   const { user } = useAuth();
@@ -118,11 +119,11 @@ export default function Home() {
           </ToolSection>
           <RecorderSection>
             <TextWrapper>
-              <StyledH3>But there is only four tracks?</StyledH3>
+              <StyledH3>But there are only four tracks?</StyledH3>
               <StyledP>
-                Yes, there is &#34;only&#34; four tracks, and that&#39;s enough
+                Yes, there are &#34;only&#34; four tracks, and that&#39;s enough
                 to capture your idea. This is not a production tool but an
-                ideation tool. Think of it like a sketch of you future hit.
+                ideation tool. Think of it as a sketch of you future hit.
               </StyledP>
             </TextWrapper>
             <StyledDraftDiv>
@@ -209,12 +210,14 @@ export default function Home() {
             <TextContainer>
               <StyledH3>Collab with anyone</StyledH3>
               <StyledP>
-                Share your ideas with anyone to take your song to the next limit.
+                Share your ideas with anyone to take your song to the next
+                limit.
               </StyledP>
             </TextContainer>
           </CollabSection>
           <SignUpSection purple>
             <StyledH3 white>Try Fourtrack, it&#39;s free</StyledH3>
+            <SignUp />
           </SignUpSection>
         </StyledMain>
 
@@ -764,6 +767,7 @@ const SignUpSection = styled.section`
   z-index: 9;
   flex-direction: column;
   align-items: center;
+  gap: 70px;
   min-height: 900px;
   width: 100%;
   background-color: ${(props) =>

@@ -1,20 +1,23 @@
 import styled from 'styled-components';
 import { FcGoogle } from 'react-icons/fc';
 import React, { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
+import { useRouter } from 'next/router';
 
 const StyledWrapper = styled.div`
-  width: 28vw;
-  height: 65vh;
+  width: 410px;
+  height: max-content;
   background-color: white;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
   padding: 50px;
   box-shadow: ${(props) => props.theme.lgShadow};
+  z-index: 2;
 `;
 
 const GoogleButton = styled.button`
-  width: 330px;
+  width: 100%;
   height: 48px;
   color: ${(props) => props.theme.purple500};
   background-color: transparent;
@@ -26,6 +29,7 @@ const GoogleButton = styled.button`
   align-items: center;
   margin-top: 24px;
   padding: 15px;
+  cursor: pointer;
 `;
 
 const StyledTitle = styled.h1`
@@ -38,8 +42,6 @@ const StyledTitle = styled.h1`
 const Divider = styled.p`
   color: black;
   font-size: 16px;
-  margin-top: 10px;
-  margin-bottom: 10px;
   align-self: center;
 `;
 
@@ -50,7 +52,7 @@ const StyledForm = styled.form`
   align-items: center;
 
   input {
-    width: 330px;
+    width: 100%;
     height: 48px;
     font-size: 16px;
     padding: 5px;
@@ -67,7 +69,7 @@ const StyledForm = styled.form`
     border: 2px solid ${(props) => props.theme.purple500};
   }
   button {
-    width: 330px;
+    width: 100%;
     height: 48px;
     font-size: 16px;
     padding: 5px;
@@ -76,6 +78,7 @@ const StyledForm = styled.form`
     color: white;
     border-radius: 4px;
     border: none;
+    cursor: pointer;
   }
 `;
 
@@ -86,11 +89,19 @@ const PrivacyText = styled.p`
   margin-bottom: 32px;
 `;
 
-export default function SignUp() {
+const StyledErrorMessage = styled.p`
+  color: ${(props) => props.theme.red800};
+  font-size: 14px;
+`;
+
+export default function SignUp(props) {
   const [data, setData] = useState({
     email: '',
     password: '',
   });
+  const { signUpWithGoogle, signup } = useAuth();
+  const [formMessage, setFormMessage] = useState('');
+  const router = useRouter();
 
   const handleGoogleSignIn = async () => {
     try {
@@ -123,6 +134,8 @@ export default function SignUp() {
         Continue with Google
       </GoogleButton>
       <Divider>or</Divider>
+      <StyledErrorMessage>{formMessage}</StyledErrorMessage>
+      <StyledErrorMessage>{props.errorMessage}</StyledErrorMessage>
       <StyledForm onSubmit={(e) => handleSignup(e)}>
         <input
           onChange={(e) =>

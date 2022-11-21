@@ -218,6 +218,20 @@ export default function Home() {
           <SignUpSection purple>
             <StyledH3 white>Try Fourtrack, it&#39;s free</StyledH3>
             <SignUp />
+            <FourthBlueIconWrapper>
+              <SquareIcon
+                height={'100%'}
+                width={'100%'}
+                fillInner={'#69B6D3'}
+              />
+            </FourthBlueIconWrapper>
+            <FourthOrangeIconWrapper>
+              <BigRoundIcon
+                height={'100%'}
+                width={'100%'}
+                fillInner={'#EC8300'}
+              />
+            </FourthOrangeIconWrapper>
           </SignUpSection>
         </StyledMain>
 
@@ -721,6 +735,22 @@ const ThirdBlueIconWrapper = styled.div`
     bottom: -60px;
   }
 `;
+const FourthBlueIconWrapper = styled.div`
+  position: absolute;
+  width: 164px;
+  height: 164px;
+  transform: rotate(125deg);
+  z-index: 3;
+  top: 38%;
+  left: 27%;
+
+  @media screen and (max-width: 1200px) {
+    left: 15%;
+  }
+  @media screen and (max-width: 850px) {
+    z-index: -1;
+  }
+`;
 const ThirdYellowIconWrapper = styled.div`
   position: absolute;
   width: 152px;
@@ -766,6 +796,7 @@ const SignUpSection = styled.section`
   display: flex;
   z-index: 9;
   flex-direction: column;
+  position: relative;
   align-items: center;
   gap: 70px;
   min-height: 900px;
@@ -774,6 +805,17 @@ const SignUpSection = styled.section`
     props.purple ? `${props.theme.purple500}` : 'none'};
   padding-bottom: 188px;
   padding-top: 188px;
+`;
+const FourthOrangeIconWrapper = styled.div`
+  position: absolute;
+  width: 168px;
+  height: 168px;
+  z-index: 1;
+  right: 25%;
+  top: 50%;
+  @media screen and (max-width: 1200px) {
+    right: 8%;
+  }
 `;
 const StyledFooter = styled.footer`
   margin: 54px;

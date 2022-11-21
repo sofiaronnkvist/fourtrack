@@ -105,12 +105,12 @@ const LeftSideNavigation = ({ collections }) => {
         <BottomItems>
           <LinkWrapper>
             <Link href='/projects'>
-              <NavLink>Fourtrack</NavLink>
+              <NavLink style={{ cursor: 'not-allowed' }}>Fourtrack</NavLink>
             </Link>
           </LinkWrapper>
           <LinkWrapper>
             <Link href='/projects'>
-              <NavLink>Help</NavLink>
+              <NavLink style={{ cursor: 'not-allowed' }}>Help</NavLink>
             </Link>
           </LinkWrapper>
           <LinkWrapper>

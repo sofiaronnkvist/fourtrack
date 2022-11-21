@@ -40,7 +40,7 @@ export default function Home() {
         <StyledMain>
           <HeroSection>
             <StyledH1>
-              A better way for <br /> recording music
+              A better way of <br /> recording music
             </StyledH1>
             <TitleCTA>
               <Modal background whiteText buttonTitle='Get started' />
@@ -207,9 +207,9 @@ export default function Home() {
             </PeoplePictureWrapper>
 
             <TextContainer>
-              <StyledH3>Collab with everyone</StyledH3>
+              <StyledH3>Collab with anyone</StyledH3>
               <StyledP>
-                Share your ideas with everyone to take your song to the limit.
+                Share your ideas with anyone to take your song to the next limit.
               </StyledP>
             </TextContainer>
           </CollabSection>

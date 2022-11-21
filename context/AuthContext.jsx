@@ -76,13 +76,8 @@ export const AuthContextProvider = ({ children }) => {
   const registerWithEmailAndPassword = async (auth, email, password) => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          router.push('/projects');
-        })
-        .catch((error) => {
-          console.log(error);
-        });
       const user = res.user;
+
       await addDoc(collection(firestore, 'users'), {
         uid: user.uid,
         authProvider: 'local',

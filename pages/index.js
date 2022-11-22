@@ -25,6 +25,7 @@ import {
   YellowAnimation,
   PurpleAnimation,
 } from '../styles/animations';
+import SignUp from '../components/SingUp/SignUp';
 
 export default function Home() {
   const { user } = useAuth();
@@ -40,7 +41,7 @@ export default function Home() {
         <StyledMain>
           <HeroSection>
             <StyledH1>
-              A better way for <br /> recording music
+              A better way of <br /> recording music
             </StyledH1>
             <TitleCTA>
               <Modal background whiteText buttonTitle='Get started' />
@@ -118,11 +119,11 @@ export default function Home() {
           </ToolSection>
           <RecorderSection>
             <TextWrapper>
-              <StyledH3>But there is only four tracks?</StyledH3>
+              <StyledH3>But there are only four tracks?</StyledH3>
               <StyledP>
-                Yes, there is &#34;only&#34; four tracks, and that&#39;s enough
+                Yes, there are &#34;only&#34; four tracks, and that&#39;s enough
                 to capture your idea. This is not a production tool but an
-                ideation tool. Think of it like a sketch of you future hit.
+                ideation tool. Think of it as a sketch of you future hit.
               </StyledP>
             </TextWrapper>
             <StyledDraftDiv>
@@ -207,14 +208,30 @@ export default function Home() {
             </PeoplePictureWrapper>
 
             <TextContainer>
-              <StyledH3>Collab with everyone</StyledH3>
+              <StyledH3>Collab with anyone</StyledH3>
               <StyledP>
-                Share your ideas with everyone to take your song to the limit.
+                Share your ideas with anyone to take your song to the next
+                limit.
               </StyledP>
             </TextContainer>
           </CollabSection>
           <SignUpSection purple>
             <StyledH3 white>Try Fourtrack, it&#39;s free</StyledH3>
+            <SignUp />
+            <FourthBlueIconWrapper>
+              <SquareIcon
+                height={'100%'}
+                width={'100%'}
+                fillInner={'#69B6D3'}
+              />
+            </FourthBlueIconWrapper>
+            <FourthOrangeIconWrapper>
+              <BigRoundIcon
+                height={'100%'}
+                width={'100%'}
+                fillInner={'#EC8300'}
+              />
+            </FourthOrangeIconWrapper>
           </SignUpSection>
         </StyledMain>
 
@@ -718,6 +735,22 @@ const ThirdBlueIconWrapper = styled.div`
     bottom: -60px;
   }
 `;
+const FourthBlueIconWrapper = styled.div`
+  position: absolute;
+  width: 164px;
+  height: 164px;
+  transform: rotate(125deg);
+  z-index: 3;
+  top: 38%;
+  left: 27%;
+
+  @media screen and (max-width: 1200px) {
+    left: 15%;
+  }
+  @media screen and (max-width: 850px) {
+    z-index: -1;
+  }
+`;
 const ThirdYellowIconWrapper = styled.div`
   position: absolute;
   width: 152px;
@@ -763,13 +796,26 @@ const SignUpSection = styled.section`
   display: flex;
   z-index: 9;
   flex-direction: column;
+  position: relative;
   align-items: center;
+  gap: 70px;
   min-height: 900px;
   width: 100%;
   background-color: ${(props) =>
     props.purple ? `${props.theme.purple500}` : 'none'};
   padding-bottom: 188px;
   padding-top: 188px;
+`;
+const FourthOrangeIconWrapper = styled.div`
+  position: absolute;
+  width: 168px;
+  height: 168px;
+  z-index: 1;
+  right: 25%;
+  top: 50%;
+  @media screen and (max-width: 1200px) {
+    right: 8%;
+  }
 `;
 const StyledFooter = styled.footer`
   margin: 54px;

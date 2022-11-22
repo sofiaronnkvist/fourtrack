@@ -111,7 +111,7 @@ const PrivacyText = styled.p`
 
 const LoginTexts = styled.button`
   color: ${(props) => props.theme.black600};
-  font-size: 16;
+  font-size: 16px;
   background-color: transparent;
   border: none;
 `;
@@ -126,6 +126,7 @@ const CreateAccountTexts = styled.button`
 const ForgotPassword = styled.p`
   color: ${(props) => props.theme.purple500};
   font-size: 12px;
+  cursor: not-allowed;
 `;
 
 const StyledErrorMessage = styled.p`
@@ -295,7 +296,7 @@ export default function Modal(props) {
                 handleGoogleSignIn();
               }}
             >
-              <FcGoogle size='22px' />
+              <FcGoogle size='22px' style={{ paddingRight: '5px' }} />
               Continue with Google
             </GoogleButton>
             <Divider>or</Divider>
@@ -331,7 +332,7 @@ export default function Modal(props) {
             {checkForm() ? (
               <>
                 <CreateAccountTexts onClick={changeForm}>
-                  Don’t have an account? Create one.
+                  Don&#39;t have an account? Create one
                 </CreateAccountTexts>
                 <ForgotPassword>I forgot my password</ForgotPassword>
               </>

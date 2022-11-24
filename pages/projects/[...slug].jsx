@@ -75,50 +75,50 @@ export default function Project({ ...res }) {
   };
 
   const record = (recId) => {
-    !isRecording && recId ? setIsRecording(true) : setIsRecording(false);
+    // !isRecording && recId ? setIsRecording(true) : setIsRecording(false);
     if (!recId) {
       alert(
         'Oops, you have to choose one of the tracks before you can record.'
-      );
-    } else if (recId == 1) {
-      waveRef2.current ? waveRef2.current.play() : null;
-      waveRef3.current ? waveRef3.current.play() : null;
-      waveRef4.current ? waveRef4.current.play() : null;
-      ref1.current.start1();
-      setTimeout(() => {
-        stop(1);
-      }, 60 * 1000);
-      return;
-    } else if (recId == 2) {
-      waveRef1.current ? waveRef1.current.play() : null;
-      waveRef3.current ? waveRef3.current.play() : null;
-      waveRef4.current ? waveRef4.current.play() : null;
-      ref2.current.start2();
-      setTimeout(() => {
-        stop(2);
-      }, 60 * 1000);
-      return;
-    } else if (recId == 3) {
-      waveRef1.current ? waveRef1.current.play() : null;
-      waveRef2.current ? waveRef2.current.play() : null;
-      waveRef4.current ? waveRef4.current.play() : null;
-      ref3.current.start3();
-      setTimeout(() => {
-        stop(3);
-      }, 60 * 1000);
-      return;
-    } else if (recId == 4) {
-      waveRef1.current ? waveRef1.current.play() : null;
-      waveRef2.current ? waveRef2.current.play() : null;
-      waveRef3.current ? waveRef3.current.play() : null;
-      ref4.current.start4();
-      setTimeout(() => {
-        stop(4);
-      }, 60 * 1000);
-      return;
-    } 
-  };
-
+        );
+      } else if (recId == 1) {
+        waveRef2.current ? waveRef2.current.play() : null;
+        waveRef3.current ? waveRef3.current.play() : null;
+        waveRef4.current ? waveRef4.current.play() : null;
+        ref1.current.start1();
+        setTimeout(() => {
+          stop(1);
+        }, 60 * 1000);
+        return;
+      } else if (recId == 2) {
+        waveRef1.current ? waveRef1.current.play() : null;
+        waveRef3.current ? waveRef3.current.play() : null;
+        waveRef4.current ? waveRef4.current.play() : null;
+        ref2.current.start2();
+        setTimeout(() => {
+          stop(2);
+        }, 60 * 1000);
+        return;
+      } else if (recId == 3) {
+        waveRef1.current ? waveRef1.current.play() : null;
+        waveRef2.current ? waveRef2.current.play() : null;
+        waveRef4.current ? waveRef4.current.play() : null;
+        ref3.current.start3();
+        setTimeout(() => {
+          stop(3);
+        }, 60 * 1000);
+        return;
+      } else if (recId == 4) {
+        waveRef1.current ? waveRef1.current.play() : null;
+        waveRef2.current ? waveRef2.current.play() : null;
+        waveRef3.current ? waveRef3.current.play() : null;
+        ref4.current.start4();
+        setTimeout(() => {
+          stop(4);
+        }, 60 * 1000);
+        return;
+      } 
+    };
+    
   const stop = (recId) => {
     setIsRecording(false);
     if (recId == 1) {

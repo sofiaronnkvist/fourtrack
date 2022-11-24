@@ -64,4 +64,3 @@ const NotLogedInWrapper = styled.div`
     justify-content: space-around;
   }
 `;
-

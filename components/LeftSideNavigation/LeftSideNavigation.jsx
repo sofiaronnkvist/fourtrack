@@ -141,8 +141,6 @@ const Navigation = styled.nav`
   padding: 16px;
   margin-top: 100px;
   justify-content: space-between;
-  height: 80vh;
-  cursor: not-allowed;
 `;
 const LinkWrapper = styled.div`
   display: flex;
@@ -154,6 +152,8 @@ const BottomItems = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  position: fixed;
+  bottom: 0;
 `;
 const TopItems = styled.div`
   display: flex;

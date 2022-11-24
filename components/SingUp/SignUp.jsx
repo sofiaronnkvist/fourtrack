@@ -92,6 +92,7 @@ const PrivacyText = styled.p`
 const StyledErrorMessage = styled.p`
   color: ${(props) => props.theme.red800};
   font-size: 14px;
+  margin: 0;
 `;
 
 export default function SignUp(props) {
